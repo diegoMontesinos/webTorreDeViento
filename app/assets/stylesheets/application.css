@@ -1,0 +1,88 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+/* EMPIEZA DEFINICION TIPOGRAFIAS - TORRE DE VIENTO */
+@font-face {
+	font-family: euphemia;
+	src: url("euphemia.ttf");
+}
+
+@font-face {
+	font-family: euphemia_ie;
+	src: url("euphemia.eot");
+}
+
+@font-face {
+	font-family: latha;
+	src: url("latha.ttf");
+}
+
+@font-face {
+	font-family: latha_ie;
+	src: url("latha.eot");
+}
+
+@font-face {
+	font-family: felixti;
+	src: url("felixti.ttf");
+}
+
+@font-face {
+	font-family: felixti_ie;
+	src: url("felixti.eot");
+}
+
+@font-face {
+	font-family: tahoma_;
+	src: url("tahoma.ttf");
+}
+
+@font-face {
+	font-family: tahoma_ie;
+	src: url("tahoma.eot");
+}
+
+@font-face {
+	font-family: calibri;
+	src: url("CALIBRI.TTF");
+}
+
+@font-face {
+	font-family: calibri_ie;
+	src: url("CALIBRI.eot");
+}
+
+/* TERMINA DEFINICION TIPOGRAFIAS - TORRE DE VIENTO */
+
+/* EMPIEZA CSS DEVISE */
+#access-form {
+	width: 25%;
+
+	margin-left: 34.9%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-left: 4%;
+
+	background-color: #DEDEDE;
+	border-width: 5px;
+	border-style: ridge;
+	font-family: latha, latha_ie;
+}
+
+.devise-links {
+	
+	font-family: calibri, calibri_ie;
+}
+
+/* TERMINA CSS DEVISE */
