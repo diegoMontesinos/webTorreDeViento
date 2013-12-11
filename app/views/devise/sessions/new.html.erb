@@ -2,38 +2,40 @@
 	<%= image_tag "01-LOGO.png", :style => "max-width: 20%; height: auto;" %>
 </div>
 
-<div style="margin-top: 7%; text-align: center;	font-family: euphemia, euphemia_ie; font-size: 1em;" >
+<div style="margin-top: 4%; text-align: center;	font-family: euphemia, euphemia_ie; font-size: 1em;" >
 	<h2>ACCESO AL ADMINISTRADOR</h2>
 </div>
 
 <div id="access-form" >
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 		<div>
-			<%= f.label :email, "E-mail: " %> 
-			<%= f.email_field :email, :autofocus => true %>
+			<%= f.label :email, "E-mail: " %>&nbsp;
+			<%= f.email_field :email, :autofocus => true, size: 30 %>
 		</div>
 
 		<div>
-			<%= f.label :password, "Password: " %> 
-			<%= f.password_field :password %>
+			<%= f.label :password, "Password: " %>
+			<%= f.password_field :password, size: 30 %>
 		</div>
 
 		<% if devise_mapping.rememberable? -%>
 			<div>
-				<%= f.check_box :remember_me %> <%= f.label :remember_me, "Mantenerme conectado" %>
+				<%= f.check_box :remember_me %> <%= f.label :remember_me, "Recuerdame", :style => "margin-left: -2%;" %>
 			</div>
 		<% end -%>
 
-		<div>
-			<%= f.submit "Acceder" %>
+		<div style="position: relative; left: 38%">
+			<%= f.button "Acceder", :class => "pure-button pure-input-1-2 pure-button-primary" %>
 		</div>
-
 	<% end %>
 
 	<div class="devise-links">
 		<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-			<br>
 			<%= link_to "¿Haz olvidado tu contraseña?", new_password_path(resource_name) %>
 		<% end -%>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(".new_user").removeClass("new_user").addClass("pure-form");
+</script>
