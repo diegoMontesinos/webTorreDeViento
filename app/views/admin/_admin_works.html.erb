@@ -1,0 +1,30 @@
+<script type="text/javascript">
+	$(function() {
+		$("#admin-works-accordion").accordion({
+			header: "div.admin-tab-title",
+			heightStyle: "fill",
+		});
+	});
+</script>
+
+
+	<div id="admin-works-content">
+		<div id="admin-works-accordion">
+			<div class="admin-tab-title"><i class="fa fa-plus fa-2"></i> AGREGAR UNA NUEVA OBRA</div>
+			<div>
+				<%= render template: new_work_path %>
+			</div>
+			
+			<div class="admin-tab-title"><i class="fa fa-list-alt fa-2"></i> OBRAS CARGADAS</div>
+			<div>
+			</div>
+		
+			<div class="admin-tab-title"><i class="fa fa-th fa-2"></i> CATALOGO DE OBRAS</div>
+			<div>
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+
+

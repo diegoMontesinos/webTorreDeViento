@@ -11,6 +11,8 @@
 	top: 0;
 	left: 0;
 
+	z-index: 2;
+
 	background-color: #D8D8D8;
 }
 
@@ -53,8 +55,14 @@
 }
 
 #wrapper-admin {
-	padding-left: 150px;
-	left: 0;
+	width: 100%;
+}
+
+#content-admin {
+	width: 83%;
+
+	margin-top: 60px;
+	margin-left: 17%;
 }
 // TERMINA CSS GENERAL ADMIN
 
@@ -67,7 +75,6 @@
 	top: 60px;
 	left: 17%;
 	bottom: 0;
-	z-index: 1;
 	background: #191818;
 	overflow-y: auto;
 	-webkit-overflow-scroll: touch;
@@ -109,3 +116,33 @@
 	margin: 0;
 }
 // TERMINA CSS MENU ADMIN
+
+
+// EMPIEZA CSS ADMIN WORKS
+
+#admin-works-content {
+	width: 100%;
+
+	position: relative;
+	display: block;
+}
+
+#admin-works-accordion .ui-accordion-header {  
+    background-color: #A2A1A1;
+
+    padding-left: 1%;
+
+    font-family: latha, latha_ie;
+	font-size: 1.05em;
+
+	cursor: pointer;
+}
+
+#admin-works-accordion .ui-accordion-content {
+	width: 100%;
+	min-height: 504px;
+
+	background-color: #f3f3f3;
+}
+
+// TERMINA CSS ADMIN WORKS

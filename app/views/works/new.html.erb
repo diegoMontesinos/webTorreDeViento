@@ -1,45 +1,50 @@
-
-<%= form_for :work, url: works_path, :html => {:id =>"form-new-work", :class => "pure-form pure-form-stacked", :style => "position: relative; "} do |f| %>
-	<div>
-		<%= f.label :type_work, "Tipo de Obra: " %>
-		<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima", "minima"], ["Minima con galeria", "minima_minima"]] %><br>
-	</div>
-
-	<div style="position:relative;">
+<div id="form-new-work-wrapper">
+	<%= form_for :work, url: works_path, :html => {:id =>"form-new-work", :class => "pure-form pure-form-stacked" } do |f| %>
 		<div>
-			<%= f.label :title, "Titulo: " %>
-			<%= f.text_field :title, :autofocus => true, size: 30 %>
+			<%= f.label :type_work, "Tipo de Obra: " %>
+			<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima", "minima"], ["Minima con galeria", "minima_minima"]] %><br>
 		</div>
 
-		<div>
-			<%= f.label :subtitle, "Subitulo: " %>
-			<%= f.text_field :subtitle, :autofocus => true, size: 30 %>
+		<div style="width: 45%; float: left; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>ESPAÑOL</strong></span>
+			<br>
+			<div>
+				<%= f.label :title, "Titulo: " %>
+				<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 98%;" %>
+			</div>
+
+			<div>
+				<%= f.label :subtitle, "Subitulo: " %>
+				<%= f.text_field :subtitle, :autofocus => true, size: 80, :style => "width: 98%;" %>
+			</div>	
+
+			<div>
+				<%= f.label :description, "Descripción: " %>
+				<%= f.text_field :description, :autofocus => true, size: 120, :style => "width: 98%;" %>
+			</div>
 		</div>
 
-		<div>
-			<%= f.label :description, "Descripción: " %>
-			<%= f.text_field :description, :autofocus => true, size: 30 %>
-		</div>
-	</div>
+		<div style="width: 45%; float: left; margin-left: 2.5%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>INGLÉS</strong></span>
+			<br>
+			<div>
+				<%= f.label :title_in_en, "Titulo: " %>
+				<%= f.text_field :title_in_en, :autofocus => true, size: 80, :style => "width: 98%;" %>
+			</div>
 
-	<div style="position:relative; float: left; margin-left: 2%;">
-		<div>
-			<%= f.label :title_in_en, "Titulo (Inglés): " %>
-			<%= f.text_field :title_in_en, :autofocus => true, size: 30 %>
-		</div>
+			<div>
+				<%= f.label :subtitle_in_en, "Subitulo: " %>
+				<%= f.text_field :subtitle_in_en, :autofocus => true, size: 80, :style => "width: 98%;" %>
+			</div>
 
-		<div>
-			<%= f.label :subtitle_in_en, "Subitulo (Inglés): " %>
-			<%= f.text_field :subtitle_in_en, :autofocus => true, size: 30 %>
+			<div>
+				<%= f.label :description, "Descripción: " %>
+				<%= f.text_field :description_in_en, :autofocus => true, size: 120, :style => "width: 98%;" %>
+			</div>
 		</div>
-
-		<div>
-			<%= f.label :description, "Descripción (Inglés): " %>
-			<%= f.text_field :description, :autofocus => true, size: 30 %>
+	
+		<div style="position: absolute; top: 380%;">
+			<%= f.button "Crear Obra", :class => "pure-button pure-button-primary" %>
 		</div>
-	</div>
-
-	<div>
-		<%= f.button "Crear Obra", :class => "pure-button pure-button-primary" %>
-	</div>
-<% end %>
+	<% end %>
+</div>

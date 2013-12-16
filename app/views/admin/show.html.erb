@@ -1,9 +1,13 @@
+<script type="text/javascript">
+	$("body").css("position", "relative");
+</script>
+
 <%= render "shared/banner_admin" %>
 
 <div id="wrapper-admin">
 	<%= render "shared/menu_admin" %>
 
-	<div id="ok">
-		<%= render template: new_work_path %>
+	<div id="content-admin">
+		<%= render "admin_works" %>
 	</div>
 </div>
