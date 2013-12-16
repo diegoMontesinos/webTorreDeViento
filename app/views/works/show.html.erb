@@ -1,0 +1,31 @@
+<script type="text/javascript">
+	$(function() {
+		$("html").css("width", "100%");
+		$("html").css("background", "#a3a3a3");
+
+		$("body").css("width", "100%");
+		$("body").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+		$("body").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+		$("body").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+		$("body").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+		$("body").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+	});
+</script>
+
+<div id="wrapper-tvp" >
+	<div id="container-tvp" style="width: 73.21%; margin-left: 13.4%; margin-top: 2%;">
+
+		<div id="banner-tvp" style="width: 100%; position: relative; ">
+		</div>
+
+		<div id="menu-tvp-navigator">
+			<%= render "shared/menu_tvp" %>
+		</div>
+
+		<% if @work.type_work == "full" %>
+		<% elsif @work.type_work == "mediana" %>
+		<% elsif @work.type_work == "minima" %>
+		<% elsif @work.type_work == "minima_minima" %>
+		<% end %>
+	</div>
+</div>

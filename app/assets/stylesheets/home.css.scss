@@ -1,3 +1,113 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	position: fixed;
+	margin: 0;
+}
+
+// EMPIEZA CSS BANNER TVP
+#wrapper-tvp {
+	width: 100%;
+	min-height: 100%;
+}
+
+#languages {
+	position: relative;
+	float: right;
+
+	color: rgb(21, 93, 145);
+	font-family: euphemia, euphemia_ie;
+	font-size: 0.8125em;
+}
+// TEMINA CSS BANNER TVP
+
+// EMPIEZA CSS MENU TVP
+#menu-tvp-navigator {
+	width: 100%;
+	height: 50px;
+
+	display: block;
+	background-color: #000000;
+}
+
+#menu-tvp {
+	width: 100%;
+	position: relative;
+
+	margin: 0;
+	padding: 0;
+
+	color: #FFFFFF;
+	list-style: none;
+	display: inline-table;
+}
+
+#menu-tvp > li {
+	height: 50px;
+
+	position: relative;
+	float: left;
+
+	font-family: latha, latha_ie;
+	font-size: 1.0625em;
+}
+
+#menu-tvp > li a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+#menu-tvp > li.dropdown-tvp:hover {
+	background: #242529;
+}
+
+#menu-tvp > li.dropdown-tvp:hover > .dropdown-menu-tvp {
+	display: block;
+}
+
+#menu-tvp li > ul.dropdown-menu-tvp {
+	position: absolute;
+
+	padding: 0;
+	margin: 0;
+	border-radius: 0px;
+
+	background: rgb(41, 43, 47);
+	opacity: 0.85;
+
+	font-family: euphemia, euphemia_ie;
+	font-size: 0.875em;
+}
+
+#menu-tvp li > ul.dropdown-menu-tvp {
+	float:  none;
+
+	padding: 0;
+	margin: 0;
+	border: 0px;
+}
+
+.dropdown-item-tvp {
+	max-width: 100%;
+	height: 25px;
+
+	position: relative;
+	overflow: hidden;
+
+	padding-left: 10px;
+	padding-top: 3px;
+
+	cursor: pointer;
+}
+
+.dropdown-item-tvp:hover {
+	background: rgb(189, 190, 191);
+	opacity: 0.85;
+	filter: alpha(opacity=75);
+
+	color: #000000;
+}
+
+// TERMINA CSS MENU TVP

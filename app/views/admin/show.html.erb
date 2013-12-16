@@ -1,38 +1,9 @@
 <%= render "shared/banner_admin" %>
 
 <div id="wrapper-admin">
-	<div id="menu-admin">
-		<div class="pure-menu pure-menu-open">
-			<ul>
-				<li class="menu-item-divided">
-					<a href="#">OBRAS</a>
-				</li>
+	<%= render "shared/menu_admin" %>
 
-				<li class="menu-item-divided">
-					<a href="#">COLABORADORES</a>
-				</li>
-
-				<li class="menu-item-divided">
-					<a href="#">NOSOTROS</a>
-				</li>
-
-				<li class="menu-item-divided">
-					<a href="#">PRENSA</a>
-				</li>
-
-				<li class="menu-item-divided">
-					<a href="#">EXTRAS</a>
-				</li>
-
-				<li class="menu-item-divided">
-					<a href="#">HOME</a>
-				</li>
-
-				<li class="menu-item-divided">
-					<a href="#">PERFIL ADMINISTRADOR</a>
-				</li>
-			</ul>
-		</div>
+	<div id="ok">
+		<%= render template: new_work_path %>
 	</div>
-
 </div>
