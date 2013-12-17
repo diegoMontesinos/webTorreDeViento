@@ -1,0 +1,52 @@
+/* EMPIEZA DEFINICION TIPOGRAFIAS - TORRE DE VIENTO */
+@font-face {
+	font-family: euphemia;
+	src: url("euphemia.ttf");
+}
+
+@font-face {
+	font-family: euphemia_ie;
+	src: url("euphemia.eot");
+}
+
+@font-face {
+	font-family: latha;
+	src: url("latha.ttf");
+}
+
+@font-face {
+	font-family: latha_ie;
+	src: url("latha.eot");
+}
+
+@font-face {
+	font-family: felixti;
+	src: url("felixti.ttf");
+}
+
+@font-face {
+	font-family: felixti_ie;
+	src: url("felixti.eot");
+}
+
+@font-face {
+	font-family: tahoma_;
+	src: url("tahoma.ttf");
+}
+
+@font-face {
+	font-family: tahoma_ie;
+	src: url("tahoma.eot");
+}
+
+@font-face {
+	font-family: calibri;
+	src: url("CALIBRI.TTF");
+}
+
+@font-face {
+	font-family: calibri_ie;
+	src: url("CALIBRI.eot");
+}
+
+/* TERMINA DEFINICION TIPOGRAFIAS - TORRE DE VIENTO */

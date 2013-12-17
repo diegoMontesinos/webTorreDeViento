@@ -1,3 +1,3 @@
 class Work < ActiveRecord::Base
-	has_translations :title, :subtitle, :description, :credits, :synopsis, :program, :notes
+	has_translations :titles_text, :credits, :synopsis, :program, :notes
 end

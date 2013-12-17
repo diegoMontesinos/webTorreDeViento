@@ -2,8 +2,10 @@
 	$(function() {
 		$("html").css("width", "100%");
 		$("html").css("background", "#a3a3a3");
+		//$("html").css("background", "#000000");
 
 		$("body").css("width", "100%");
+		//$("body").css("background", "#000000");
 		$("body").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
 		$("body").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
 		$("body").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
@@ -23,7 +25,6 @@
 			<%= render "shared/menu_tvp" %>
 		</div>
 
-		
 		<% if !@work.type_work.nil? %>
 			<%= render partial: ("works/show_" + @work.type_work), locals: {work: @work} %>
 		<% end %>

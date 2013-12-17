@@ -89,6 +89,10 @@ body {
 	background: #242529;
 }
 
+#menu-tvp > li.dropdown-tvp > .dropdown-menu-tvp {
+	display: none;
+}
+
 #menu-tvp > li.dropdown-tvp:hover > .dropdown-menu-tvp {
 	display: block;
 }
@@ -137,3 +141,18 @@ body {
 }
 
 // TERMINA CSS MENU TVP
+
+#work-info-title-content-full p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-full span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-full span span {
+	margin: 0;
+	padding: 0;
+}

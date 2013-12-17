@@ -1,7 +1,10 @@
 WebTorreDeViento::Application.routes.draw do
-  
-  devise_for :users
 
+  # Devise Auth
+  devise_for :users
+  
+  # Mount CKEditor
+  mount Ckeditor::Engine => '/ckeditor'
 
   # Rutas principales
   root 'home#index'
@@ -12,5 +15,5 @@ WebTorreDeViento::Application.routes.draw do
 
   # Obras (Works)
   resources :works
-  
+
 end

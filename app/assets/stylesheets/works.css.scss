@@ -11,7 +11,7 @@
 	position: relative;
 
 	margin-top: 1.5%;
-	margin-left: 5%;
+	margin-left: 2.5%;
 	
 	font-family: latha, latha_ie;
 	font-size: 1em;
@@ -63,6 +63,74 @@
 	height: auto;
 
 	margin-left: 6.5%;
+}
+
+.work-info-text-full {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-menu-navigator {
+	width: 100%;
+	height: 62px;
+
+	display: block;
+	background-color: #000000;
+}
+
+#work-info-menu {
+	width: 100%;
+	height: 62px;
+	position: relative;
+
+	margin: 0;
+	padding-top: 20px;
+	padding-left: 20px;
+
+	color: #FFFFFF;
+	list-style: none;
+	display: inline-table;
+}
+
+#work-info-menu:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+
+#work-info-menu > li {
+	width: 60px;
+	height: 20px;
+
+	position: relative;
+	float: left;
+
+	font-family: latha, latha_ie;
+	font-size: 11px;
+	text-align: center;
+
+	cursor: pointer;
+}
+
+#work-info-menu > li div {
+	position: relative;
+
+	top: 17%;
+}
+
+#work-info-menu > li:hover {
+	background: #FFFFFF;
+	color: #000000;
+}
+
+#work-info-menu > a {
+	position: relative;
+	float: right;
+
+	margin-right: 11px;
+
+	font-family: latha, latha_ie;
+	font-size: 12px;
 }
 
 // TERMINA CSS SHOW FULL

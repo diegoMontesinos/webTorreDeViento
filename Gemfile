@@ -55,3 +55,9 @@ gem 'rails-translate-models'
 
 # Icons
 gem "font-awesome-rails"
+
+# Add Images to models
+gem "paperclip"
+
+# CKEditor richtext
+gem "ckeditor"

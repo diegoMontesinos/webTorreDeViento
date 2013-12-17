@@ -1,3 +1,49 @@
+<script type="text/javascript">
+	function getNInfoTab(id) {
+		if(id.indexOf("credits") != -1) {
+			return 0;
+		}
+		if(id.indexOf("synopsis") != -1) {
+			return 1;
+		}
+		if(id.indexOf("notes") != -1) {
+			return 2;
+		}
+		if(id.indexOf("program") != -1) {
+			return 3;
+		}
+	}
+
+	function has_tab(a_checkbox) {
+		var n = getNInfoTab(a_checkbox.id);
+
+		if(a_checkbox.checked) {
+			$("#form-new-work-es-info-tabs").tabs("enable", n);
+			$("#form-new-work-en-info-tabs").tabs("enable", n);
+
+			if(a_checkbox.id.indexOf("_in_en") == -1) {
+				document.getElementById(a_checkbox.id + "_in_en").checked = true;
+			} else {
+				document.getElementById(a_checkbox.id.replace("_in_en", "")).checked = true;
+			}
+		} else {
+			$("#form-new-work-es-info-tabs").tabs("disable", n);
+			$("#form-new-work-en-info-tabs").tabs("disable", n);
+
+			if(a_checkbox.id.indexOf("_in_en") == -1) {
+				document.getElementById(a_checkbox.id + "_in_en").checked = false;
+			} else {
+				document.getElementById(a_checkbox.id.replace("_in_en", "")).checked = false;
+			}
+		}
+	}
+
+	$(function() {
+		$("#form-new-work-es-info-tabs").tabs();
+		$("#form-new-work-en-info-tabs").tabs();
+	});
+</script>
+
 <div id="form-new-work-wrapper">
 	<%= form_for :work, url: works_path, :html => {:id =>"form-new-work", :class => "pure-form pure-form-stacked" } do |f| %>
 		<div>
@@ -5,46 +51,108 @@
 			<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima", "minima"], ["Minima con galeria", "minima_minima"]] %><br>
 		</div>
 
-		<div style="width: 45%; float: left; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>ESPAÑOL</strong></span>
-			<br>
-			<div>
-				<%= f.label :title, "Titulo: " %>
-				<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 98%;" %>
-			</div>
+		<div style="position:relative; margin-top: -1.5%;">
+			<%= f.label :title, "Nombre de la Obra: " %>
+			<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;" %>
+		</div>
 
-			<div>
-				<%= f.label :subtitle, "Subitulo: " %>
-				<%= f.text_field :subtitle, :autofocus => true, size: 80, :style => "width: 98%;" %>
-			</div>	
-
-			<div>
-				<%= f.label :description, "Descripción: " %>
-				<%= f.text_field :description, :autofocus => true, size: 120, :style => "width: 98%;" %>
+		<div style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>TITULOS - ESPAÑOL</strong></span>
+			<div style="width: 100%; margin-top: 0.5%;">
+				<%= f.cktext_area :titles_text, :ckeditor => { :language => "es" } %>
 			</div>
 		</div>
 
-		<div style="width: 45%; float: left; margin-left: 2.5%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>INGLÉS</strong></span>
-			<br>
-			<div>
-				<%= f.label :title_in_en, "Titulo: " %>
-				<%= f.text_field :title_in_en, :autofocus => true, size: 80, :style => "width: 98%;" %>
-			</div>
-
-			<div>
-				<%= f.label :subtitle_in_en, "Subitulo: " %>
-				<%= f.text_field :subtitle_in_en, :autofocus => true, size: 80, :style => "width: 98%;" %>
-			</div>
-
-			<div>
-				<%= f.label :description, "Descripción: " %>
-				<%= f.text_field :description_in_en, :autofocus => true, size: 120, :style => "width: 98%;" %>
+		<div style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>TITULOS - INGLÉS</strong></span>
+			<div style="width: 100%; margin-top: 0.5%;">
+				<%= f.cktext_area :titles_text_in_en, :ckeditor => { :language => "es" } %>
 			</div>
 		</div>
+
+		<div id="form-new-work-es-info" style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>INFORMACION DE LA OBRA - ESPAÑOL</strong></span>
+			<div id="form-new-work-es-info-tabs" >
+				<ul>
+					<li>
+						<%= link_to "#credits", :style => "position: relative; float: left; font-family: latha, latha_ie; font-size: 0.8em;" do %>CREDITOS<% end %>
+						<%= f.check_box :has_credits, :checked => true, :style=>"position: relative; float: left;", :id => "has_credits", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#synopsis", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>SINOPSIS<% end %>
+						<%= f.check_box :has_synopsis, :checked => true, :style=>"position: relative; float: left;", :id => "has_synopsis", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#notes", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>NOTAS<% end %>
+						<%= f.check_box :has_notes, :checked => true, :style=>"position: relative; float: left;", :id => "has_notes", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#program", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>PROGRAMA<% end %>
+						<%= f.check_box :has_program, :checked => true, :style=>"position: relative; float: left;", :id => "has_program", :onclick => "has_tab(this)" %>
+					</li>
+				</ul>
+
+				<div id="credits" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :credits, :ckeditor => { :language => "es" } %>
+				</div>
+				
+				<div id="synopsis" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :synosis, :ckeditor => { :language => "es" } %>
+				</div>
+				
+				<div id="notes" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :notes, :ckeditor => { :language => "es" } %>
+				</div>
 	
-		<div style="position: absolute; top: 380%;">
-			<%= f.button "Crear Obra", :class => "pure-button pure-button-primary" %>
+				<div id="program" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :program, :ckeditor => { :language => "es" } %>
+				</div>
+			</div>
 		</div>
+
+		<div id="form-new-work-es-info" style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>INFORMACION DE LA OBRA - INGLÉS</strong></span>
+			<div id="form-new-work-en-info-tabs" >
+				<ul>
+					<li>
+						<%= link_to "#credits_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>CREDITOS<% end %>
+						<%= f.check_box :has_credits_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_credits_in_en", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#synopsis_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>SINOPSIS<% end %>
+						<%= f.check_box :has_synopsis_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_synopsis_in_en", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#notes_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>NOTAS<% end %>
+						<%= f.check_box :has_notes_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_notes_in_en", :onclick => "has_tab(this)" %>
+					</li>
+					<li>
+						<%= link_to "#program_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>PROGRAMA<% end %>
+						<%= f.check_box :has_program_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_program_in_en", :onclick => "has_tab(this)" %>
+					</li>
+				</ul>
+
+				<div id="credits_in_en" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :credits_in_en, :ckeditor => { :language => "es" } %>
+				</div>
+				
+				<div id="synopsis_in_en" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :synosis_in_en, :ckeditor => { :language => "es" } %>
+				</div>
+				
+				<div id="notes_in_en" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :notes_in_en, :ckeditor => { :language => "es" } %>
+				</div>
+	
+				<div id="program_in_en" style="padding: 0; margin: 0;">
+					<%= f.cktext_area :program_in_en, :ckeditor => { :language => "es" } %>
+				</div>
+			</div>
+		</div>
+
+		<div style="margin-top: 2%; margin-right: 3%; float: right;">
+			<%= f.button "CREAR OBRA", :class => "pure-button pure-button-primary" %>
+		</div>
+		<br><br><br><br>
 	<% end %>
 </div>
