@@ -1,7 +1,17 @@
-<div id="logo-banner-tvp" >
+<div id="logo-banner-tvp">
 	<%= image_tag "01-LOGO.png", :style => "width: 100%; height: auto;" %>
 </div>
 
 <div id="languages">
 	<%= link_to "Español", :locale=>"es" %>/<%= link_to "English", :locale=>"en" %>
 </div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#logo-banner-tvp").hover(function() {
+			$("#logo-banner-tvp img").attr('src', "/assets/02-LOGO.png");
+		}, function() {
+			$("#logo-banner-tvp img").attr('src', "/assets/01-LOGO.png");
+		});
+	});
+</script>

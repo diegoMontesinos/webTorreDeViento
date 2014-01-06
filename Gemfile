@@ -48,16 +48,22 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # Use Devise to auth
-gem 'devise'
+gem "devise"
 
 # Use 
-gem 'rails-translate-models'
+gem "rails-translate-models"
 
 # Icons
 gem "font-awesome-rails"
 
-# Add Images to models
-gem "paperclip"
-
 # CKEditor richtext
 gem "ckeditor"
+
+# Store files
+gem "carrierwave"
+
+# RMagick, interface for ImageMagick
+gem "rmagick"
+
+# Dropzone, files uploader
+gem "dropzonejs-rails"

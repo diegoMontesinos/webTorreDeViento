@@ -1,4 +1,22 @@
 <script type="text/javascript">
+
+	Dropzone.autoDiscover = false;
+
+	function emptyQueues() {
+		var emptyQueues = true;
+
+		$(".dropzone").each(function() {
+			var dropzoneObj = this.dropzone;
+
+			var test = (dropzoneObj.getUploadingFiles().length === 0 && dropzoneObj.getQueuedFiles().length === 0);
+			emptyQueues = emptyQueues && test;
+		});
+
+		return emptyQueues;
+	}
+
+	var imgFolderTabCount = 0;
+
 	function getNInfoTab(id) {
 		if(id.indexOf("credits") != -1) {
 			return 0;
@@ -18,8 +36,8 @@
 		var n = getNInfoTab(a_checkbox.id);
 
 		if(a_checkbox.checked) {
-			$("#form-new-work-es-info-tabs").tabs("enable", n);
-			$("#form-new-work-en-info-tabs").tabs("enable", n);
+			$("#form-work-es-info-tabs").tabs("enable", n);
+			$("#form-work-en-info-tabs").tabs("enable", n);
 
 			if(a_checkbox.id.indexOf("_in_en") == -1) {
 				document.getElementById(a_checkbox.id + "_in_en").checked = true;
@@ -27,8 +45,8 @@
 				document.getElementById(a_checkbox.id.replace("_in_en", "")).checked = true;
 			}
 		} else {
-			$("#form-new-work-es-info-tabs").tabs("disable", n);
-			$("#form-new-work-en-info-tabs").tabs("disable", n);
+			$("#form-work-es-info-tabs").tabs("disable", n);
+			$("#form-work-en-info-tabs").tabs("disable", n);
 
 			if(a_checkbox.id.indexOf("_in_en") == -1) {
 				document.getElementById(a_checkbox.id + "_in_en").checked = false;
@@ -38,121 +56,154 @@
 		}
 	}
 
+	function removeMultimediaFolders() {
+		$("#remove_file_folder_link").click();
+		$("#remove_GALERIA_ff_link").click();
+		$("#remove_DETRAS_DE_ff_link").click();
+		$("#remove_OTROS_ff_link").click();
+		$("#remove_DEFAULT_ff_link").click();
+	}
+
+	function setMultimediaFolders(type_work) {
+		removeMultimediaFolders()
+
+		if(type_work == "full") {
+			
+			$("#has-video-div").show();
+			$("#add_GALERIA_ff_link").click();
+			$("#add_DETRAS_DE_ff_link").click();
+			$("#add_OTROS_ff_link").click();
+			$("#add_DEFAULT_ff_link").click();
+
+		} else if(type_work == "mediana") {
+			
+			$("#has-video-div").hide();
+			$("#add_GALERIA_ff_link").click();
+			$("#add_OTROS_ff_link").click();
+			$("#add_DEFAULT_ff_link").click();
+
+		} else if(type_work == "minima") {
+			
+			$("#has-video-div").hide();
+			$("#add_GALERIA_ff_link").click();
+			$("#add_DEFAULT_ff_link").click();
+
+		} else {
+
+			$("#has-video-div").hide();
+			$("#add_DEFAULT_ff_link").click();
+		
+		}
+	}
+
+	function has_video(a_checkbox) {
+		var option = $("#work_type_work").find('option:selected');
+		var type_work = $(option).val();
+
+		if(type_work == "full") {
+			if(a_checkbox.checked) {
+				$("#remove_file_folder_link").click();
+			} else {
+				$("#add_file_folder_link").click();
+			}
+		}
+	}
+
 	$(function() {
-		$("#form-new-work-es-info-tabs").tabs();
-		$("#form-new-work-en-info-tabs").tabs();
+		$("#form-work-es-info-tabs").tabs();
+		$("#form-work-en-info-tabs").tabs();
+		$("#form-work-images-tabs").tabs();
+
+		$("#work_type_work").change(function() {
+			var option = $(this).find('option:selected');
+			setMultimediaFolders($(option).val());
+		});
+
+		// Cargamos full por default
+		$("#add_GALERIA_ff_link").click();
+		$("#add_DETRAS_DE_ff_link").click();
+		$("#add_OTROS_ff_link").click();
+		$("#add_DEFAULT_ff_link").click();
+
+		$("#submit_form").on("click", function(e) {
+			if(!emptyQueues()) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				$(".dropzone").each(function() {
+					var dropzoneObj = this.dropzone;
+					dropzoneObj.processQueue();
+				});
+			}
+		});
 	});
 </script>
 
-<div id="form-new-work-wrapper">
-	<%= form_for :work, url: works_path, :html => {:id =>"form-new-work", :class => "pure-form pure-form-stacked" } do |f| %>
+<div id="form-work-wrapper">
+	<%= form_for @work, html: { id: "form-work", :class => "pure-form pure-form-stacked" } do |f| %>
+
+		<!-- TIPO DE OBRA -->
 		<div>
 			<%= f.label :type_work, "Tipo de Obra: " %>
 			<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima", "minima"], ["Minima con galeria", "minima_minima"]] %><br>
 		</div>
 
+		<!-- NOMBRE DE LA OBRA -->
 		<div style="position:relative; margin-top: -1.5%;">
 			<%= f.label :title, "Nombre de la Obra: " %>
-			<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;" %>
+			<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
 		</div>
 
-		<div style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>TITULOS - ESPAÑOL</strong></span>
-			<div style="width: 100%; margin-top: 0.5%;">
-				<%= f.cktext_area :titles_text, :ckeditor => { :language => "es" } %>
+		<!-- TITULOS DE LA OBRA -->
+		<div>
+			<!-- Español -->
+			<div style="width: 400px; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px; float: left;">
+				<span><strong>TITULOS - ESPAÑOL</strong></span>
+				<div style="width: 100%; margin-top: 0.5%;">
+					<%= f.cktext_area :titles_text, :ckeditor => { :language => "es", :width => 364 } %>
+				</div>
 			</div>
-		</div>
 
-		<div style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>TITULOS - INGLÉS</strong></span>
-			<div style="width: 100%; margin-top: 0.5%;">
-				<%= f.cktext_area :titles_text_in_en, :ckeditor => { :language => "es" } %>
-			</div>
-		</div>
-
-		<div id="form-new-work-es-info" style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>INFORMACION DE LA OBRA - ESPAÑOL</strong></span>
-			<div id="form-new-work-es-info-tabs" >
-				<ul>
-					<li>
-						<%= link_to "#credits", :style => "position: relative; float: left; font-family: latha, latha_ie; font-size: 0.8em;" do %>CREDITOS<% end %>
-						<%= f.check_box :has_credits, :checked => true, :style=>"position: relative; float: left;", :id => "has_credits", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#synopsis", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>SINOPSIS<% end %>
-						<%= f.check_box :has_synopsis, :checked => true, :style=>"position: relative; float: left;", :id => "has_synopsis", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#notes", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>NOTAS<% end %>
-						<%= f.check_box :has_notes, :checked => true, :style=>"position: relative; float: left;", :id => "has_notes", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#program", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>PROGRAMA<% end %>
-						<%= f.check_box :has_program, :checked => true, :style=>"position: relative; float: left;", :id => "has_program", :onclick => "has_tab(this)" %>
-					</li>
-				</ul>
-
-				<div id="credits" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :credits, :ckeditor => { :language => "es" } %>
-				</div>
-				
-				<div id="synopsis" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :synosis, :ckeditor => { :language => "es" } %>
-				</div>
-				
-				<div id="notes" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :notes, :ckeditor => { :language => "es" } %>
-				</div>
-	
-				<div id="program" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :program, :ckeditor => { :language => "es" } %>
+			<!-- Inglés -->
+			<div style="width: 400px; margin-top: 2%; margin-left: 1%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px; float: left;">
+				<span><strong>TITULOS - INGLÉS</strong></span>
+				<div style="width: 100%; margin-top: 0.5%;">
+					<%= f.cktext_area :titles_text_in_en, :ckeditor => { :language => "es", :width => 364 } %>
 				</div>
 			</div>
 		</div>
 
-		<div id="form-new-work-es-info" style="width: 95%; margin-top: 2%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
-			<span><strong>INFORMACION DE LA OBRA - INGLÉS</strong></span>
-			<div id="form-new-work-en-info-tabs" >
-				<ul>
-					<li>
-						<%= link_to "#credits_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>CREDITOS<% end %>
-						<%= f.check_box :has_credits_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_credits_in_en", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#synopsis_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>SINOPSIS<% end %>
-						<%= f.check_box :has_synopsis_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_synopsis_in_en", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#notes_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>NOTAS<% end %>
-						<%= f.check_box :has_notes_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_notes_in_en", :onclick => "has_tab(this)" %>
-					</li>
-					<li>
-						<%= link_to "#program_in_en", :style => "font-family: latha, latha_ie; font-size: 0.8em;" do %>PROGRAMA<% end %>
-						<%= f.check_box :has_program_in_en, :checked => true, :style=>"position: relative; float: left;", :id => "has_program_in_en", :onclick => "has_tab(this)" %>
-					</li>
-				</ul>
+		<!-- CONTENIDO MULTIMEDIA -->
+		<div id="form-work-multimedia" style="position: relative; width: 95%; margin-top: 51%; outline: 1px solid #ddd; border-top: 1px solid #fff; padding: 10px;">
+			<span><strong>CONTENIDO MULTIMEDIA</strong></span>
+			
+			<div id="has-video-div" style="margin-top: 1%; font-family: latha, latha_ie; font-size: 0.89em;">
+				<%= f.check_box :has_video, :checked => true, :onclick => "has_video(this)" %> ¿Tiene video?
+			</div>
 
-				<div id="credits_in_en" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :credits_in_en, :ckeditor => { :language => "es" } %>
-				</div>
-				
-				<div id="synopsis_in_en" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :synosis_in_en, :ckeditor => { :language => "es" } %>
-				</div>
-				
-				<div id="notes_in_en" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :notes_in_en, :ckeditor => { :language => "es" } %>
-				</div>
-	
-				<div id="program_in_en" style="padding: 0; margin: 0;">
-					<%= f.cktext_area :program_in_en, :ckeditor => { :language => "es" } %>
-				</div>
+			<div id="form-work-images-tabs" style="margin-top: 1%;" >
+				<ul id="form-work-images-header"></ul>
+			</div>
+
+			<div style="display: none">
+				<%= link_to_add_fields "", f, :file_folders, "GALERIA" %>
+			</div>
+			<div style="display: none">
+				<%= link_to_add_fields "", f, :file_folders, "DETRAS DE" %>
+			</div>
+			<div style="display: none">
+				<%= link_to_add_fields "", f, :file_folders, "OTROS" %>
+			</div>
+			<div style="display: none">
+				<%= link_to_add_fields "", f, :file_folders, "DEFAULT" %>
+			</div>
+			<div style="display: none">
+				<%= link_to_add_fields "", f, :file_folders, "false" %>
 			</div>
 		</div>
 
 		<div style="margin-top: 2%; margin-right: 3%; float: right;">
-			<%= f.button "CREAR OBRA", :class => "pure-button pure-button-primary" %>
+			<%= f.submit "CREAR OBRA", id: "submit_form", :class => "pure-button pure-button-primary" %>
 		</div>
-		<br><br><br><br>
 	<% end %>
 </div>

@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-	position: fixed;
-	margin: 0;
-}
-
 #wrapper-tvp {
 	width: 100%;
 	height: 100%;
@@ -28,35 +23,23 @@ body {
 
 #logo-banner-tvp {
 	width: 25%;
-}
-
-#logo-banner-tvp img {
 	float: left;
 }
 
 #languages {
-	position: relative;
 	float: left;
 
-	margin-left: 65.7%;
+	padding-left: 65.4%;
 	margin-top: 5.8%;
 
 	color: rgb(21, 93, 145);
 	font-family: euphemia, euphemia_ie;
 	font-size: 0.8125em;
 }
+
 // TEMINA CSS BANNER TVP
 
 // EMPIEZA CSS MENU TVP
-#menu-tvp-navigator {
-	width: 100%;
-	height: 50px;
-	
-	position: relative;
-
-	margin-top: 2.4%;
-}
-
 #menu-tvp {
 	width: 100%;
 	height: 50px;
@@ -108,7 +91,7 @@ body {
 	opacity: 0.85;
 
 	font-family: euphemia, euphemia_ie;
-	font-size: 0.875em;
+	font-size: 0.68em;
 }
 
 #menu-tvp li > ul.dropdown-menu-tvp {
@@ -141,18 +124,3 @@ body {
 }
 
 // TERMINA CSS MENU TVP
-
-#work-info-title-content-full p {
-	margin: 0;
-	padding: 0;
-}
-
-#work-info-title-content-full span {
-	margin: 0;
-	padding: 0;
-}
-
-#work-info-title-content-full span span {
-	margin: 0;
-	padding: 0;
-}

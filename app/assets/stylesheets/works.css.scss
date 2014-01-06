@@ -3,11 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // EMPIEZA CSS FORMULARIO NEW WORK
-#form-new-work-wrapper {
+#form-work-wrapper {
 	width: 100%;
 }
 
-#form-new-work {
+#form-work {
 	position: relative;
 
 	margin-top: 1.5%;
@@ -20,16 +20,20 @@
 
 // COMIENZA CSS SHOW FULL
 #work-container-full {
+	position: relative;
+
 	width: 100%;
 	min-height: 550px;
-	background: #00FF00;
+	margin-top: -5px;
+
+	background: #000000;
 }
 
 #work-display-full {
 	width: 60%;
 	height: 400px;
 
-	position: relative;
+	float: left;
 
 	background-color: #FF0000;
 }
@@ -38,11 +42,7 @@
 	width: 40%;
 	min-height: 400px;
 
-	margin-top: -40%;
-	padding: 0;
-	float: right;
-
-	text-align: justify;
+	float: left;
 
 	background: #000000;
 }
@@ -58,6 +58,7 @@
 	color: #FFFFFF;
 }
 
+
 #work-info-title-content-full {
 	width: 85%;
 	height: auto;
@@ -65,9 +66,39 @@
 	margin-left: 6.5%;
 }
 
+#work-info-title-content-full p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-full span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-full span span {
+	margin: 0;
+	padding: 0;
+}
+
 .work-info-text-full {
 	background: #000000;
 	color: #FFFFFF;
+}
+
+#work-info-text-content-full p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-full span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-full span span {
+	margin: 0;
+	padding: 0;
 }
 
 #work-info-menu-navigator {
@@ -133,4 +164,319 @@
 	font-size: 12px;
 }
 
+#work-menu-full {
+	width: 100%;
+	height: 150px;
+
+	background-color: #FFFFFF;
+}
+
+.work-menu-full-item-left {
+	width: 25%;
+
+	float: left;
+	padding-right: 1px;
+}
+
+.work-menu-full-item {
+	width: 25%;
+
+	float: left;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+.work-menu-full-item-right {
+	width: 25%;
+
+	float: left;
+	padding-left: 1px;
+}
+
+.work-menu-full-link {
+	width: 40px;
+	height: 13px;
+
+	float: bottom;
+	position: relative;
+	bottom: 25px;
+	left: 193px;
+
+	margin: 0;
+	padding: 0;
+
+	background-color: #000000;
+	color: #FFFFFF;
+	overflow: hidden;
+
+	font-family: euphemia, euphemia_ie;
+	font-size: 10px;
+	text-align: center;
+
+	cursor: pointer;
+}
+
 // TERMINA CSS SHOW FULL
+
+// EMPIEZA CSS SHOW MEDIANA
+
+#work-container-mediana {
+	position: relative;
+
+	width: 100%;
+	min-height: 550px;
+
+	background: #000000;
+}
+
+#work-display-mediana {
+	width: 60%;
+	height: 400px;
+
+	position: relative;
+
+	background-color: #FF0000;
+}
+
+#work-info-mediana {
+	width: 40%;
+	min-height: 556px;
+
+	margin-top: -41%;
+	padding: 0;
+	float: right;
+
+	background: #000000;
+}
+
+#work-info-title-mediana {
+	width: 100%;
+	height: 74px;
+
+	float: right;
+	margin-top: 2.5%;
+
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-title-content-mediana {
+	width: 85%;
+	height: auto;
+
+	margin-left: 6.5%;
+}
+
+#work-info-title-content-mediana p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-mediana span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-mediana span span {
+	margin: 0;
+	padding: 0;
+}
+
+.work-info-text-mediana {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-text-content-mediana p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-mediana span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-mediana span span {
+	margin: 0;
+	padding: 0;
+}
+
+
+// TERMINA CSS SHOW MEDIANA
+
+// EMPIEZA CSS SHOW MINIMA
+
+#work-container-minima {
+	position: relative;
+
+	width: 100%;
+	min-height: 550px;
+
+	background: #000000;
+}
+
+#work-display-minima {
+	width: 60%;
+	min-height: 475px;
+
+	padding: 0;
+	margin: 0;
+
+	position: relative;
+
+	background: #FFFFFF;
+}
+
+#work-info-minima {
+	width: 40%;
+	min-height: 475px;
+
+	margin-top: -48%;
+	padding: 0;
+	float: right;
+
+	background: #000000;
+}
+
+#work-info-title-minima {
+	width: 100%;
+	height: 74px;
+
+	float: right;
+	margin-top: 2.5%;
+
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-title-content-minima {
+	width: 85%;
+	height: auto;
+
+	margin-left: 6.5%;
+}
+
+#work-info-title-content-minima p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-minima span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-minima span span {
+	margin: 0;
+	padding: 0;
+}
+
+.work-info-text-minima {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-text-content-minima p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-minima span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-minima span span {
+	margin: 0;
+	padding: 0;
+}
+
+// TERMINA CSS SHOW MINIMA
+
+// EMPIEZA CSS SHOW MINIMA MINIMA
+
+#work-container-minima-minima {
+	width: 100%;
+	min-height: 550px;
+	background: #000000;
+}
+
+#work-display-minima-minima {
+	width: 60%;
+	min-height: 550px;
+
+	padding: 0;
+	margin: 0;
+
+	position: relative;
+
+	background: #FFFFFF;
+}
+
+#work-info-minima-minima {
+	width: 40%;
+	min-height: 550px;
+
+	margin-top: -56%;
+	padding: 0;
+	float: right;
+
+	background: #000000;
+}
+
+#work-info-title-minima-minima {
+	width: 100%;
+	height: 74px;
+
+	float: right;
+	margin-top: 2.5%;
+
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-title-content-minima-minima {
+	width: 85%;
+	height: auto;
+
+	margin-left: 6.5%;
+}
+
+#work-info-title-content-minima-minima p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-minima-minima span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-title-content-minima-minima span span {
+	margin: 0;
+	padding: 0;
+}
+
+.work-info-text-minima-minima {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#work-info-text-content-minima-minima p {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-minima-minima span {
+	margin: 0;
+	padding: 0;
+}
+
+#work-info-text-content-minima-minima span span {
+	margin: 0;
+	padding: 0;
+}
+
+
+// TERMINA CSS SHOW MINIMA MINIMA

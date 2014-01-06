@@ -1,0 +1,95 @@
+<div class="fields">
+	<% if ff_name == "false" %>
+
+		<li>
+			<%= link_to "#image-folder-tab-", :id => "image-folder-tab-header-", :style => "font-family: latha, latha_ie; font-size: 1em;" do %>
+				<%= f.text_field :name_folder, :required => true %>
+			<% end %>
+		</li>
+	
+	<% else %>
+	
+		<li style="margin-top: 1.2%;">
+			<%= link_to "#image-folder-tab-", :id => "image-folder-tab-header-", :style => "font-family: latha, latha_ie; font-size: 1em;" do %>
+				<%= f.hidden_field :name_folder, :value => ff_name %>
+				<%= ff_name %>
+			<% end %>
+		</li>
+	
+	<% end %>
+
+	<div id="image-folder-tab-" class="dropzone" style="margin-top: 1%;">
+		<%= f.hidden_field :ids_photos, :value => :submitted %>
+	</div>
+
+	<div style="display: none">
+		<%= link_to_remove_fields "remove", f, ff_name %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("#image-folder-tab-header-").attr("id", "image-folder-tab-header-" + imgFolderTabCount);
+	$("#image-folder-tab-header-" + imgFolderTabCount).attr("href", "#image-folder-tab-" + imgFolderTabCount);
+	$("#image-folder-tab-").attr("id", "image-folder-tab-" + imgFolderTabCount);
+
+	$(".fields").each(function() {
+		$(this).children().appendTo("#form-work-images-header");
+		$(this).remove();
+	});
+
+	$("#image-folder-tab-" + imgFolderTabCount).appendTo("#form-work-images-tabs");
+
+	// Creamos el dropzone
+	var dropzoneDiv = $("#image-folder-tab-" + imgFolderTabCount)[0];
+
+	$(dropzoneDiv).dropzone({
+		url: "<%= photos_path %>",
+		paramName: "image",
+		autoProcessQueue: false,
+		parallelUploads: 500,
+		dictDefaultMessage: "Arrastra las imágenes aquí o has click para agregar...",
+
+		init: function() {
+
+			var dropzoneObj = this;
+
+			this.on("addedfile", function(file) {
+				var removeButton = Dropzone.createElement("<button>Eliminar</button>");
+
+				var _this = this;
+
+				removeButton.addEventListener("click", function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+
+					_this.removeFile(file);
+				});
+
+				file.previewElement.appendChild(removeButton);
+			});
+
+			this.on("sending", function(file, xhr) {
+				$.rails.CSRFProtection(xhr);
+			});
+
+			this.on("success", function(file, response) {
+				/*console.log("ADDING: " + file.xhr.response + " to");
+				console.log(dropzoneObj.element);
+				console.log($(dropzoneDiv).find("input").attr("id"));
+				console.log("-------------------------------------------------")*/
+
+				var ids = $(dropzoneObj.element).find("input").attr("value");
+				$(dropzoneObj.element).find("input").attr("value", ids + file.xhr.response + ", ");
+			});
+
+			this.on("complete", function (file) {
+				if (emptyQueues()) {
+					$("#form-work").trigger("submit");
+				}
+			});
+		}
+	});
+
+	imgFolderTabCount++;
+	$("#form-work-images-tabs").tabs("refresh");
+</script>

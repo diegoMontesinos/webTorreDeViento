@@ -1,27 +1,39 @@
 <script type="text/javascript">
-	$(function() {
-		$("html").css("width", "100%");
-		$("html").css("background", "#a3a3a3");
-		//$("html").css("background", "#000000");
+	function correctLineHeight(id_elem) {
+		$("#" + id_elem).find("p").each(function() {
+			var maxFontSize = 0;
 
-		$("body").css("width", "100%");
-		//$("body").css("background", "#000000");
-		$("body").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-		$("body").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-		$("body").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-		$("body").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-		$("body").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+
+	$(function() {
+		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
 	});
 </script>
 
-<div id="wrapper-tvp" >
+<div id="#wrapper-tvp" >
 	<div id="container-tvp" >
-
 		<div id="banner-tvp" >
 			<%= render "shared/banner_tvp" %>
 		</div>
 
-		<div id="menu-tvp-navigator" >
+		<div style="margin-top: 25px;">
 			<%= render "shared/menu_tvp" %>
 		</div>
 

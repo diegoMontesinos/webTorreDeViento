@@ -13,6 +13,10 @@ WebTorreDeViento::Application.routes.draw do
   # Administrador
   get '/admin' => 'admin#show'
 
+  # Photos
+  # Creando las fotos
+  post "/photos" => "photos#create", as: "photos"
+
   # Obras (Works)
   resources :works
 
