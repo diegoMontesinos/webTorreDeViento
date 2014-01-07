@@ -34,8 +34,6 @@
 	height: 400px;
 
 	float: left;
-
-	background-color: #FF0000;
 }
 
 #work-info-full {
@@ -215,6 +213,93 @@
 
 	cursor: pointer;
 }
+
+/* --------------------GALERIA--------------------------- */
+#work-display-full-gallery {
+	width: 600px;
+	height: 400px;
+
+	background: #000000;
+}
+
+.work-gallery-img {
+	width: 600px;
+	height: 400px;
+
+	position: relative;
+}
+
+.work-gallery-img img {
+	width: 100%;
+	height: 100%;
+
+	display: block;
+	float: left;
+
+	background: #000000;
+}
+
+div.prev, div.next {
+	display: block;
+	position: absolute;
+	z-index: 2;
+	cursor: pointer;
+}
+
+div.prev {
+	top: 152px;
+	width: 25px;
+	height: 60px;
+
+	left: 8px;
+}
+
+div.next {
+	top: 153px;
+	width: 25px;
+	height: 60px;
+
+	right: 407px;
+}
+
+.clearfix {
+	float: none;
+	clear: both;
+}
+
+/* ----------------------------------------------- */
+
+#work-full-sections {
+	width: 100%;
+	height: 150px;
+
+	background-color: #FFFFFF;
+}
+
+.work-full-sections-item-left {
+	width: 25%;
+
+	float: left;
+	padding-right: 1px;
+}
+
+.work-full-sections-item {
+	width: 25%;
+
+	float: left;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+.work-full-sections-item-right {
+	width: 25%;
+
+	float: left;
+	padding-left: 1px;
+}
+
+
+/* ----------------------------------------------- */
 
 // TERMINA CSS SHOW FULL
 

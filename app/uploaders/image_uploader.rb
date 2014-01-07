@@ -13,17 +13,13 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  version :display do
+    process :resize_to_fit => [600, 400]
+  end
 
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :scale => [50, 50]
-  # end
+  version :display_folder do
+    process :resize_to_fit => [248, 150]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

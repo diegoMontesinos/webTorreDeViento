@@ -40,7 +40,7 @@ class WorksController < ApplicationController
 
 			filefolder_params.each do |key, value|
 				name_filefolder = filefolder_params[key.to_s][:name_folder]
-				currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id)
+				currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id).first
 
 				ids_photos = filefolder_params[key.to_s][:ids_photos]
 				ids_photos.gsub! 'submitted', ''
@@ -49,13 +49,44 @@ class WorksController < ApplicationController
 
 				ids_photos_parse.each do |id_photo|
 					currPhoto = Photo.find(id_photo.to_i)
-					currPhoto.file_folder = currFolder.first
+					currPhoto.file_folder = currFolder
 					currPhoto.save
+
+					if currFolder.display.nil?
+						currFolder.display = id_photo
+						currFolder.save
+					end
+
+					if @work.type_work == "minima_minima"
+						if name_filefolder == "DEFAULT" and @work.display.nil?
+							@work.display = id_photo
+							@work.save
+						end
+					else
+						if name_filefolder == "GALERIA" and @work.display.nil?
+							@work.display = id_photo
+							@work.save
+						end
+					end
 				end
 			end
 		end
 		
 		redirect_to @work
+	end
+
+	def image_folder
+		permitted_params = params.permit(:id, :folder)
+
+		@work = Work.find(permitted_params[:id])
+		image_folder = @work.file_folders.find_by_name_folder(permitted_params[:folder].to_s)
+		photos = image_folder.photos.map { |p| p.image.url(:display) }
+
+		respond_to do |format|
+			format.json {
+				render json: photos
+			}
+		end
 	end
 
 	private

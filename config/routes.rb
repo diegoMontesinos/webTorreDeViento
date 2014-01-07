@@ -17,6 +17,8 @@ WebTorreDeViento::Application.routes.draw do
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"
 
+  get "/work/image_folder/:id" => "works#image_folder", as: "image_folder"
+
   # Obras (Works)
   resources :works
 
