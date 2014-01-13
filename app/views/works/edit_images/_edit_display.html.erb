@@ -1,0 +1,29 @@
+<div id="work-display-form-container" >
+
+	<!-- FORMULARIO -->
+	<%= form_tag({controller: "works", action: "edit_display"}, method: "post", id: "work-display-form") do %>
+
+		<div id="display-options">
+
+			<!-- IMAGENES-OPCIONES DISPLAY -->
+			<% work.file_folders.each do |file_folder| %>
+				<% file_folder.photos.each do |photo| %>
+					<div class="img-display-option">
+						<% if work.display.to_s == photo.id.to_s %>
+							<%= radio_button_tag :display, photo.id, true, :class => "radio-button-display-option" %>
+						<% else %>
+							<%= radio_button_tag :display, photo.id, false, :class => "radio-button-display-option" %>
+						<% end %>
+
+						<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 100%;" %>
+					</div>
+				<% end %>
+			<% end %>
+
+		</div>
+
+		<div style="margin-top: 10px; margin-right: 50px; float: right;">
+			<%= submit_tag "GUARDAR", :class => "pure-button pure-button-primary" %>
+		</div>
+	<% end %>
+</div>

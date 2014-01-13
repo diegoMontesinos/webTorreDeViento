@@ -1,0 +1,135 @@
+<script type="text/javascript">
+
+	function putTextInfo(id_elem) {
+		var credits_htmlstr = "<%= j work.credits.html_safe if !work.credits.nil? %>";
+		var synopsis_htmlstr = "<%= j work.synopsis.html_safe if !work.synopsis.nil? %>";
+		var notes_htmlstr = "<%= j work.notes.html_safe if !work.notes.nil? %>";
+		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
+
+		if(id_elem == "credits") {
+			$("#work-info-text-content-minima").html(credits_htmlstr);
+		} else if(id_elem == "synopsis") {
+			$("#work-info-text-content-minima").html(synopsis_htmlstr);
+		} else if(id_elem == "notes") {
+			$("#work-info-text-content-minima").html(notes_htmlstr);
+		} else if(id_elem == "program") {
+			$("#work-info-text-content-minima").html(program_htmlstr);
+		}
+
+		if(($(".work-info-text-minima").data("jsp"))) {
+			$(".work-info-text-minima").data("jsp").destroy();
+  		}
+
+  		$(".work-info-text-minima").bind("jsp-initialised", function(event, isScrollable) {
+  			// Se redimensiona el area scrollable
+			$(".jspContainer").css("width", "91%");
+			$(".jspContainer").css("margin-right", "2.75%");
+			$(".jspContainer").css("margin-left", "6.25%");
+		}).jScrollPane({hideFocus: true });
+
+		correctLineHeight("work-info-text-content-minima");
+  	}
+
+  	function showMe(url_image) {
+
+  		// Elimina el contenido que haya en obra-display
+		$("#work-display-minima").empty();
+
+		// Genera la cadena html de la imagen
+		var html_image = "<img src='" + url_image + "' style='width: 100%; max-height: 400px; padding-top: 75px;'>";
+
+		// Se le pega al display
+		$("#work-display-minima").html(html_image);		
+  	}
+
+	$(function() {
+		correctLineHeight("work-info-title-minima");
+
+		putTextInfo("credits");
+
+		// Inicia el carousel de la galeria
+		$("#work-minima-galeria").carouFredSel({
+			
+			items: {
+				visible: 4
+			},
+			scroll: {
+				fx: "none"
+			},
+			auto: false,
+			prev: "#minima-gallery-prev",
+			next: "#minima-gallery-next"
+		});
+
+		// Poniendole efecto al prev y al next
+		$("#work-minima-galeria-container").hover(function() {
+			$("#minima-gallery-prev").animate({opacity: 0.8}, 100);
+			$("#minima-gallery-next").animate({opacity: 0.8}, 100);
+		}, function() {
+			$("#minima-gallery-prev").animate({opacity: 0.1}, 100);
+			$("#minima-gallery-next").animate({opacity: 0.1}, 100);
+		});
+	});
+</script>
+
+<div id="work-container-minima">
+
+	<!-- DISPLAY DE LA OBRA -->
+	<div id="work-display-minima">
+		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; max-height: 400px; padding-top: 75px;" %>
+	</div>
+
+	<!-- INFORMACION GENERAL DE LA OBRA -->
+	<div id="work-info-minima">
+
+		<!-- TITULOS DE LA OBRA -->
+		<div id="work-info-title-minima" >
+			<div id="work-info-title-content-minima">
+				<%= work.titles_text.html_safe %>
+			</div>
+		</div>
+
+		<!-- INFORMACION-TEXTO DE LA OBRA -->
+		<div class="work-info-text-minima" style="width: 100%; height: 330px; float: right; margin-top: -4px;">
+			<div id="work-info-text-content-minima" style="width: 89.05%; height: auto;"></div>
+		</div>
+
+		<div id="work-info-menu-navigator">
+			<ul id="work-info-menu">
+				<% if !work.credits.nil? %>
+					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
+				<% end  %>
+				<% if !work.synopsis.nil? %>
+					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
+				<% end  %>
+				<% if !work.notes.nil? %>
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
+				<% end  %>
+				<% if !work.program.nil? %>
+					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
+				<% end  %>
+			</ul>
+		</div>
+	</div>
+
+	<!-- GALERIA -->
+	<div id="work-minima-galeria-container">
+		<div style="width: 60%; height: 72px; position: relative; float: left; margin-top: 3px; background: #000000;"></div>
+
+		<div id="work-minima-galeria">
+			<% folder_galeria = work.file_folders.find_by_name_folder("GALERIA") %>
+			<% photos_galeria = folder_galeria.photos %>
+			<% photos_galeria.each do |photo| %>
+
+				<div class="work-minima-galeria-item"
+				     onclick="showMe('<%= photo.image.url(:display) %>');" >
+					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 72px;" %>
+				</div>
+			<% end %>
+		</div>
+
+		<div class="clearfix"></div>
+		<div class="prev" id="minima-gallery-prev"><%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %></div>
+		<div class="next" id="minima-gallery-next"><%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %></div>
+	</div>
+</div>

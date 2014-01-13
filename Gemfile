@@ -62,8 +62,17 @@ gem "ckeditor"
 # Store files
 gem "carrierwave"
 
-# RMagick, interface for ImageMagick
+# Videos manipulation
+gem "carrierwave-video"
+
+# Image manipulation
 gem "rmagick"
 
 # Dropzone, files uploader
 gem "dropzonejs-rails"
+
+# JCrop, crop images
+gem "jcrop-rails-v2"
+
+# Video Player
+gem "jplayer-rails"

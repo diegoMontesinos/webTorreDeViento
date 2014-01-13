@@ -1,0 +1,74 @@
+<div id="grid-edit-images-container">
+
+	<!-- GRID -->
+	<div id="grid-edit-images-content">
+
+		<div id="work-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-edit-images-info"></div>
+		<div id="work-edit-images-galeria"><%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-edit-images-video"></div>
+		<div id="work-edit-images-detrasde"></div>
+		<div id="work-edit-images-otros"></div>
+
+	</div>
+
+	<!-- DIALOG WINDOW -->
+	<div id="work-edit-images-dialog" title="" style="display: none;"></div>
+
+</div>
+
+<script type="text/javascript">
+
+	$(function() {
+
+		// Se inicia el dialog
+		$("#work-edit-images-dialog").dialog({
+			width: 1000,
+			height: 650,
+			
+			autoOpen: false,
+			
+			show: "scale",
+			hide: "scale",
+
+			resizable: true,
+			dialogClass: "no-close",
+
+			modal: "true"
+		});
+
+		// Click en display
+		$("#work-edit-images-display").click(function() {
+			// Vacia el contenido de la ventana de dialogo
+			$("#work-edit-images-dialog").empty();
+
+			// Le cambiamos el titulo
+			$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
+
+			// Se le agrega el contenido
+			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work }) %>"; 
+			$("#work-edit-images-dialog").append(display_html);
+
+			// Se abre la ventana de dialogo
+			$("#work-edit-images-dialog").dialog("open");
+		});
+
+		// Click en galeria
+		$("#work-edit-images-galeria").click(function() {
+			// Vacia el contenido de la ventana de dialogo
+			$("#work-edit-images-dialog").empty();
+
+			// Le cambiamos el titulo
+			$("#work-edit-images-dialog").dialog("option", "title", "Galeria");
+
+			// Se le agrega el contenido
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA') }) %>";
+			$("#work-edit-images-dialog").append(gal_html);
+
+			// Se abre la ventana de dialogo
+			$("#work-edit-images-dialog").dialog("open");
+		});
+
+	});
+
+</script>

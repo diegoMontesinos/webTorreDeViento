@@ -1,0 +1,57 @@
+<div id="work-folder-form-container" >
+
+	<!-- FORMULARIO -->
+	<%= form_tag({controller: "works", action: "edit_folder"}, method: "post", id: "work-folder-form") do %>
+
+		<div id="folder-options">
+
+			<!-- IMAGENES-OPCIONES FOLDER -->
+			<% file_folder.photos.each do |photo| %>
+				<div class="img-folder-option" urlPhoto="<%= photo.image.url(:display) %>" onclick="showImg(this);" >
+					<% if file_folder.display.to_s == photo.id.to_s %>
+						<%= radio_button_tag :display, photo.id, true, :class => "radio-button-folder-option" %>
+					<% else %>
+						<%= radio_button_tag :display, photo.id, false, :class => "radio-button-folder-option" %>
+					<% end %>
+					
+					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 100%;" %>
+				</div>
+			<% end %>
+
+		</div>
+
+		<div id="work-folder-form-crop" ></div>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+	function showImg(div) {
+
+		// Quita el check de donde esta
+		$(".radio-button-folder-option:checked").prop("checked", false);
+
+		// Pone el check en el que se hizo click
+		$(div).find(".radio-button-folder-option").prop("checked", true);
+
+		// Ponemos el checkeado (que acabamos de cambiar)
+		putChecked();
+	}
+
+	// Pone como imagen para hacer el crop el que tenga el checked
+	function putChecked() {
+		// Selecciona el default y lo pone en la pantalla del crop
+		var url_img = $(".radio-button-folder-option:checked").parent().attr("urlPhoto");
+
+		var img_html = "<img id='cropbox' src='"+ url_img +"' style='width: 100%; height: 100%;'>";
+		$("#work-folder-form-crop").empty();
+		$("#work-folder-form-crop").append(img_html);
+
+		// Se inicia JCrop
+		$("#cropbox").Jcrop();
+	}
+
+	$(function() {
+		putChecked();
+	});
+</script>

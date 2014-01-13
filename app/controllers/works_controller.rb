@@ -1,4 +1,6 @@
 class WorksController < ApplicationController
+
+	# GET
 	def show
 		@work = Work.find(params[:id])
 	end
@@ -10,33 +12,41 @@ class WorksController < ApplicationController
 
 	# POST
 	def create
-		permitted_params = params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_en, :credits, :credits_in_en,
-			                             :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, file_folders_attributes: [:name_folder, :ids_photos])
+		permitted_params = work_params # Parametros filtrados (permitidos)
 
-		@work = Work.new(post_params)
-		
-		if params[:work][:has_credits] == 0 and params[:work][:has_credits_in_en] == 0 
-			@work.credits = nil
-			@work.credits_in_en = nil
+		# Setea a nil la informacion (esp y en) si se indico que no hay
+		if params[:work][:has_credits].to_i == 0 and params[:work][:has_credits_in_en].to_i == 0
+			permitted_params[:credits] = nil
+			permitted_params[:credits_in_en] = nil
 		end
 
-		if params[:work][:has_synopsis] == 0 and params[:work][:has_synopsis_in_en] == 0 
-			@work.synopsis = nil
-			@work.synopsis_in_en = nil
+		if params[:work][:has_synopsis].to_i == 0 and params[:work][:has_synopsis_in_en].to_i == 0 
+			permitted_params[:synopsis] = nil
+			permitted_params[:synopsis_in_en] = nil
 		end
 
-		if params[:work][:has_notes] == 0 and params[:work][:has_notes_in_en] == 0 
-			@work.notes = nil
-			@work.notes_in_en = nil
+		if params[:work][:has_notes].to_i == 0 and params[:work][:has_notes_in_en].to_i == 0 
+			permitted_params[:notes] = nil
+			permitted_params[:notes_in_en] = nil
 		end
 
-		if params[:work][:has_program] == 0 and params[:work][:has_program_in_en] == 0 
-			@work.program = nil
-			@work.program_in_en = nil
+		if params[:work][:has_program].to_i == 0 and params[:work][:has_program_in_en].to_i == 0 
+			permitted_params[:program] = nil
+			permitted_params[:program_in_en] = nil
 		end
 
+		# Setea a nil el video si se indico que no hay
+		if params[:work][:has_video].to_i == 0
+			permitted_params[:video] = nil
+			permitted_params[:videothumb] = nil
+		end
+
+		@work = Work.new(permitted_params)
+
+		# Si la obra se salvo bien
 		if @work.save
-			filefolder_params = permitted_params[:file_folders_attributes]
+			# Se agregan las fotos que fueron subidas
+			filefolder_params = params[:work][:file_folders_attributes]
 
 			filefolder_params.each do |key, value|
 				name_filefolder = filefolder_params[key.to_s][:name_folder]
@@ -71,8 +81,8 @@ class WorksController < ApplicationController
 				end
 			end
 		end
-		
-		redirect_to @work
+
+		redirect_to edit_images_path(@work.id)
 	end
 
 	def image_folder
@@ -89,9 +99,28 @@ class WorksController < ApplicationController
 		end
 	end
 
+	def edit_images
+		@work = Work.find(params[:id])
+	end
+
+	# POST
+	def edit_display
+		@work = Work.find(params[:id])
+
+		@work.update_attribute(:display, params[:display].to_i)
+		@work.save
+
+		redirect_to @work
+	end
+
+	# POST
+	def edit_folder
+		
+	end
+
 	private
-		def post_params
+		def work_params
 			params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_en, :credits, :credits_in_en,
-			                             :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, file_folders_attributes: [:name_folder])
+										 :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder])
 		end
 end

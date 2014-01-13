@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+
+	# POST
 	def create
 		@photo = Photo.new(photo_params)
 		@photo.save

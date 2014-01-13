@@ -38,7 +38,7 @@
 		</div>
 
 		<% if !@work.type_work.nil? %>
-			<%= render partial: ("works/show_" + @work.type_work), locals: {work: @work} %>
+			<%= render partial: ("works/show/show_" + @work.type_work), locals: {work: @work} %>
 		<% end %>
 	</div>
 </div>

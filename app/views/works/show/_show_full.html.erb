@@ -1,0 +1,185 @@
+<script type="text/javascript">
+
+	function putTextInfo(id_elem) {
+		var credits_htmlstr = "<%= j work.credits.html_safe if !work.credits.nil? %>";
+		var synopsis_htmlstr = "<%= j work.synopsis.html_safe if !work.synopsis.nil? %>";
+		var notes_htmlstr = "<%= j work.notes.html_safe if !work.notes.nil? %>";
+		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
+
+		if(id_elem == "credits") {
+			$("#work-info-text-content-full").html(credits_htmlstr);
+		} else if(id_elem == "synopsis") {
+			$("#work-info-text-content-full").html(synopsis_htmlstr);
+		} else if(id_elem == "notes") {
+			$("#work-info-text-content-full").html(notes_htmlstr);
+		} else if(id_elem == "program") {
+			$("#work-info-text-content-full").html(program_htmlstr);
+		}
+
+		if(($(".work-info-text-full").data("jsp"))) {
+			$(".work-info-text-full").data("jsp").destroy();
+  		}
+
+  		$(".work-info-text-full").bind("jsp-initialised", function(event, isScrollable) {
+  			// Se redimensiona el area scrollable
+			$(".jspContainer").css("width", "91%");
+			$(".jspContainer").css("margin-right", "2.75%");
+			$(".jspContainer").css("margin-left", "6.25%");
+		}).jScrollPane({hideFocus: true });
+
+		correctLineHeight("work-info-text-content-full");
+  	}
+
+  	function showFolder(folder) {
+  		var folder_param = "/?folder=" + folder;
+
+		$.ajax({
+			type: "GET",
+			url: "<%= image_folder_path(work.id) %>" + folder_param,
+			dataType: "json",
+			success: function(data) {
+
+				// Elimina el contenido que haya en obra-display
+				$("#work-display-full").empty();
+
+				// Se crea el que sera el contenedor de la galeria
+				$("#work-display-full").append("<div id='work-display-full-gallery'></div>");
+
+				// Llenamos con las imagenes de la galeria
+				for (var i = 0; i < data.length; i++) {
+					$("#work-display-full-gallery").append("<div class='work-gallery-img'><img src='" + data[i] + "' style='width: 100%; height: auto;'></div>");
+				}
+
+				var prev_gallery_html = "<%= j (image_tag 'prev_gallery.png', :style => 'width: 100%; height: 100%').html_safe %>";
+				var next_gallery_html = "<%= j (image_tag 'next_gallery.png', :style => 'width: 100%; height: 100%').html_safe %>";
+
+				// Se agregan las flechitas
+				$("#work-display-full").append("<div class='clearfix'></div>" +
+									    "<div class='prev' id='gallery-prev'>" + prev_gallery_html + "</div>" +
+									    "<div class='next' id='gallery-next'>" + next_gallery_html + "</div>");
+
+				// Inicia el carousel de la galeria
+				$("#work-display-full-gallery").carouFredSel({
+					center: true,
+					items: {
+						visible: 1
+					},
+					scroll: {
+						fx: "none"
+					},
+					auto: false,
+					prev: "#gallery-prev",
+					next: "#gallery-next"
+				});
+
+				// Poniendole efecto al prev y al next
+				$("#work-display-full").hover(function() {
+					$("#gallery-prev").animate({opacity: 0.6}, 100);
+					$("#gallery-next").animate({opacity: 0.6}, 100);
+				}, function() {
+					$("#gallery-prev").animate({opacity: 0.02}, 100);
+					$("#gallery-next").animate({opacity: 0.02}, 100);
+				});
+			}
+		});
+	}
+
+	$(function() {
+		correctLineHeight("work-info-title-full");
+
+		putTextInfo("credits");
+	});
+</script>
+
+<div id="work-container-full">
+
+	<!-- DISPLAY DE LA OBRA -->
+	<div id="work-display-full">
+		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: auto; " %>
+	</div>
+
+	<!-- INFORMACION GENERAL DE LA OBRA -->
+	<div id="work-info-full">
+
+		<!-- TITULOS DE LA OBRA -->
+		<div id="work-info-title-full" >
+			<div id="work-info-title-content-full">
+				<span style="width: 100%"><%= work.titles_text.html_safe %></span>
+			</div>
+		</div>
+
+		<!-- INFORMACION-TEXTO DE LA OBRA -->
+		<div class="work-info-text-full" style="width: 100%; height: 252px; float: right; margin-top: 0px;">
+			<div id="work-info-text-content-full" style="width: 89.05%; height: auto;"></div>
+		</div>
+
+		<!-- MENU PARA LA INFORMACION DE LA OBRA -->
+		<div id="work-info-menu-navigator">
+			<ul id="work-info-menu">
+				<% if !work.credits.nil? %>
+					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
+				<% end  %>
+				<% if !work.synopsis.nil? %>
+					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
+				<% end  %>
+				<% if !work.notes.nil? %>
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
+				<% end  %>
+				<% if !work.program.nil? %>
+					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
+				<% end  %>
+			</ul>
+		</div>
+	</div>
+
+	<!-- SECCIONES DE LA OBRA -->
+	<div id="work-full-sections">
+
+		<!-- GALERIA -->
+		<div class="work-full-sections-item-left" onclick="showFolder('GALERIA')" >
+			<% folder_galeria = @work.file_folders.find_by_name_folder("GALERIA") %>
+			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+
+			<span class="work-full-sections-link">GALERIA</span>
+		</div>
+
+		<!-- VIDEO O SUSTITUTO -->
+		<% if @work.video.present? %>
+
+			<div class="work-full-sections-item" onclick="showFolder('<%= folder_subtitute.name_folder %>');">
+					<%= image_tag .image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+
+					<span class="work-full-sections-link"> <%= folder_subtitute.name_folder %> </span>
+				</div>
+
+		<% else %>
+			<% folder_subtitute = @work.substitute_video_folder %>
+			<% if !folder_subtitute.nil? %>
+
+				<div class="work-full-sections-item" onclick="showFolder('<%= folder_subtitute.name_folder %>');">
+					<%= image_tag Photo.find(folder_subtitute.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+
+					<span class="work-full-sections-link"> <%= folder_subtitute.name_folder %> </span>
+				</div>
+
+			<% end %>
+		<% end %>
+
+		<!-- DETRAS DE -->
+		<div class="work-full-sections-item" onclick="showFolder('DETRAS DE');">
+			<% folder_detrasde = @work.file_folders.find_by_name_folder("DETRAS DE") %>
+			<%= image_tag Photo.find(folder_detrasde.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+
+			<span class="work-full-sections-link"> DETRAS DE </span>
+		</div>
+
+		<!-- OTROS -->
+		<div class="work-full-sections-item-right" onclick="showFolder('OTROS');">
+			<% folder_otros = @work.file_folders.find_by_name_folder("OTROS") %>
+			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+
+			<span class="work-full-sections-link"> OTROS </span>
+		</div>
+
+	</div>
+</div>

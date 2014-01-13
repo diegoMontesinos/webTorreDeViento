@@ -10,6 +10,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: 2;
 
 	background-color: #D8D8D8;
 }
@@ -73,71 +74,86 @@
 	top: 40px;
 	left: 0;
 	bottom: 0;
+	z-index: 2;
 
 	background: #191818;
-
-	overflow-y: auto;
-	-webkit-overflow-scroll: touch;
-
-	font-family: latha, latha_ie;
-	font-size: 0.95em;
 }
 
-#menu-admin a {
-	color: #999;
-	border: none;
-	padding: 0.6em 0 0.6em 0.6em;
-}
+#menu-admin-content {
+	width: 100%;
 
-#menu-admin .pure-menu, #menu-admin .pure-menu ul {
-	border: none;
-	background: transparent;
-}
-
-#menu-admin .pure-menu ul, #menu-admin .pure-menu .menu-item-divided {
-	border-top: 1px solid #333;
-}
-
-#menu-admin .pure-menu li a:hover, #menu-admin .pure-menu li a:focus {
-	background: #333;
-}
-
-#menu-admin .pure-menu-selected, #menu-admin .pure-menu-heading {
-	background: #1f8dd6;
-}
-
-#menu-admin .pure-menu-selected a {
-	color: #fff;
-}
-
-#menu-admin .pure-menu-heading {
-	font-size: 110%;
-	color: #fff;
 	margin: 0;
+	padding: 0;
+
+	list-style: none;
+	display: inline-table;
 }
-// TERMINA CSS MENU ADMIN
 
+.dropdown-admin {
+	width: 100%;
+	height: 45px;
 
-// EMPIEZA CSS ADMIN JQUERY UI
+	position: relative;
+	float: left;
 
-// ACCORDIONS
-#admin-works-accordion .ui-accordion-header {  
-    background-color: #A2A1A1;
+	color: #D3D3D3;
+	font-family: latha, latha_ie;
+	font-size: 1.05em;
+}
 
-    padding-left: 1%;
+.dropdown-admin:hover {
+	background: #242529;
+}
 
-    font-family: latha, latha_ie;
-	font-size: 0.88em;
+.dropdown-admin-txt {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.dropdown-menu-admin {
+	width: 15%;
+
+	position: fixed;
+
+	padding: 0;
+	display: none;
+
+	background: rgb(41, 43, 47);
+
+	font-family: euphemia, euphemia_ie;
+	font-size: 0.75em;
+	color: #FFFFFF;
+}
+
+#menu-admin-content > li.dropdown-admin:hover > .dropdown-menu-admin {
+	display: block;
+}
+
+.dropdown-item-admin {
+	max-width: 100%;
+	height: 25px;
+
+	position: relative;
+	overflow: hidden;
+
+	padding-left: 10px;
+	padding-top: 3px;
 
 	cursor: pointer;
 }
 
-#admin-works-accordion .ui-accordion-content {
-	width: 100%;
-	max-height: 545px;
+.dropdown-item-admin:hover {
+	background: rgb(189, 190, 191);
+	opacity: 0.85;
+	filter: alpha(opacity=75);
 
-	background-color: #f3f3f3;
+	color: #000000;
 }
+
+// TERMINA CSS MENU ADMIN
+
+
+// EMPIEZA CSS ADMIN JQUERY UI
 
 // TABS
 .ui-helper-reset {

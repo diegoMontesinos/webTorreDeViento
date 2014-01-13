@@ -17,12 +17,6 @@ module ApplicationHelper
 			render("shared/" + association.to_s.singularize + "_fields", :f => builder,  :ff_name => file_folder_name)
 		end
 
-		file_folder_name.gsub! ' ', '_'
-
-		if file_folder_name == "false"
-			link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :id => "add_file_folder_link")
-		else
-			link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :id => "add_" + file_folder_name + "_ff_link")
-		end
+		link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :id => "add_file_folder_link")
 	end
 end

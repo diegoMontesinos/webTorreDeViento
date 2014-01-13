@@ -16,11 +16,25 @@
 //= require jquery.ui.all
 //= require ckeditor/init
 //= require dropzone
+//= require jquery.Jcrop
+//= require "jquery.jplayer"
 //= require_tree .
 
 function remove_fields(link) {
-	$(link).prev("input[type=hidden]").value = "1";
-	$(link).parent().parent().hide();
+
+	$(link).parent().find("input").attr("value", "true");
+	var li_tag = $(link).parent().prev("li");
+	var script_tag = $(link).parent().next("script");
+	var parent_tag = $(link).parent();
+	var panelId = li_tag.attr("aria-controls")
+
+	li_tag.remove();
+	$("#" + panelId).remove();
+	script_tag.remove();
+	parent_tag.remove();
+
+	$("#form-work-images-tabs").tabs("refresh");
+	
 }
 
 function add_fields(link, association, content) {

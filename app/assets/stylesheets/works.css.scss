@@ -18,6 +18,210 @@
 }
 // TERMINA CSS FORMULARIO NEW WORK
 
+// COMIENZA CSS EDIT IMAGES FULL
+
+	#grid-edit-images-container {
+		width: 100%;
+		height: 750px;
+
+		margin-left: 17%;
+		margin-top: 1%;
+	}
+
+	#grid-edit-images-content {
+		position: relative;
+
+		margin-top: 3%;
+		margin-left: 3%;
+	}
+
+	#work-edit-images-display {
+		width: 600px;
+		height: 400px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		cursor: pointer;
+	}
+
+	#work-edit-images-display:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
+	}
+
+	#work-edit-images-info {
+		width: 400px;
+		height: 400px;
+
+		position: absolute;
+		top: 0;
+		left: 600px;
+
+		background-color: #000000;
+	}
+
+	#work-edit-images-galeria {
+		width: 249px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 0px;
+
+		cursor: pointer;
+	}
+
+	#work-edit-images-galeria:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
+	}
+
+	#work-edit-images-video {
+		width: 248px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 251px;
+
+		background-color: #000000;
+	}
+
+	#work-edit-images-detrasde {
+		width: 248px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 501px;
+
+		background-color: #F37AF0;
+	}
+
+	#work-edit-images-otros {
+		width: 249px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 751px;
+
+		background-color: #006800;
+	}
+
+	.no-close .ui-dialog-titlebar-close {
+		display: none;
+	}
+
+// TERMINA CSS EDIT IMAGES FULL
+
+// COMIENZA CSS EDIT DISPLAY
+
+#work-display-form-container {
+	width: 1000px;
+	height: 500px;
+}
+
+#display-options {
+	width: 92%;
+	height: 420px;
+
+	margin-left: 20px;
+	padding: 5px;
+
+	overflow: scroll;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.img-display-option {
+	width: 124px;
+	height: 75px;
+
+	position: relative;
+
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.radio-button-display-option {
+	position: absolute;
+}
+
+// TERMINA CSS EDIT DISPLAY
+
+#work-folder-form-container {
+	width: 1000px;
+	height: 500px;
+}
+
+#folder-options {
+	width: 41%;
+	height: 450px;
+
+	margin-left: -7px;
+	padding: 5px;
+	float: left;
+
+	overflow: scroll;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.img-folder-option {
+	width: 124px;
+	height: 75px;
+
+	position: relative;
+
+	display: inline-block;
+	margin-bottom: 20px;
+
+	cursor: pointer;
+}
+
+.img-folder-option:hover {
+	border: 1px solid #4195fc;
+
+	-webkit-box-shadow: 0px 0px 4px #4195fc;
+	   -moz-box-shadow: 0px 0px 4px #4195fc;
+			box-shadow: 0px 0px 4px #4195fc;
+}
+
+#work-folder-form-crop {
+	width: 450px;
+	height: 300px;
+
+	position: relative;
+	float: left;
+	margin-left: 5%;
+
+	background: #000000;
+}
+
+.radio-button-folder-option {
+	position: absolute;
+	display: none;
+}
+
+// COMIENZA CSS EDIT DISPLAY FOLDER
+
+// TERMINA CSS EDIT DISPLAY FOLDER
+
 // COMIENZA CSS SHOW FULL
 #work-container-full {
 	position: relative;
@@ -270,34 +474,64 @@ div.next {
 /* ----------------------------------------------- */
 
 #work-full-sections {
+	position: relative;
+
 	width: 100%;
 	height: 150px;
+	float: left;
 
-	background-color: #FFFFFF;
+	background: #FFFFFF;
 }
 
 .work-full-sections-item-left {
-	width: 25%;
+	width: 24.9%;
+	height: 150px;
 
 	float: left;
-	padding-right: 1px;
+	margin-right: 1px;
 }
 
 .work-full-sections-item {
-	width: 25%;
+	width: 24.8%;
+	height: 150px;
 
 	float: left;
-	padding-left: 1px;
-	padding-right: 1px;
+	margin-left: 1px;
+	margin-right: 1px;
 }
 
 .work-full-sections-item-right {
-	width: 25%;
+	width: 24.9%;
+	height: 150px;
 
 	float: left;
-	padding-left: 1px;
+	margin-left: 1px;
 }
 
+.work-full-sections-link {
+	height: 13px;
+
+	position: relative;
+	float: right;
+	
+	right: 10.04%;
+	top: -16.666%;
+
+	margin: 0;
+	padding-bottom: 3px;
+	padding-left: 2px;
+	padding-right: 2px;
+
+	background: #000000;
+	color: #FFFFFF;
+	overflow: hidden;
+
+	font-family: euphemia, euphemia_ie;
+	font-size: 10px;
+	text-align: center;
+
+	cursor: pointer;
+}
 
 /* ----------------------------------------------- */
 
@@ -310,6 +544,7 @@ div.next {
 
 	width: 100%;
 	min-height: 550px;
+	margin-top: -5px;
 
 	background: #000000;
 }
@@ -318,18 +553,16 @@ div.next {
 	width: 60%;
 	height: 400px;
 
-	position: relative;
-
-	background-color: #FF0000;
+	float: left;
 }
 
 #work-info-mediana {
 	width: 40%;
-	min-height: 556px;
+	min-height: 550px;
 
-	margin-top: -41%;
-	padding: 0;
 	float: right;
+	padding: 0;
+	margin-top: -550px;
 
 	background: #000000;
 }
@@ -387,6 +620,59 @@ div.next {
 	padding: 0;
 }
 
+/* ----------------------------------------------- */
+
+#work-mediana-sections {
+	width: 60%;
+	height: 150px;
+	padding-top: 400px;
+
+	background: #FFFFFF;
+}
+
+.work-mediana-sections-item-left {
+	width: 49.83%;
+	height: 150px;
+
+	float: left;
+	margin-right: 1px;
+}
+
+.work-mediana-sections-item-right {
+	width: 49.83%;
+	height: 150px;
+
+	float: left;
+	margin-left: 1px;
+}
+
+.work-mediana-sections-link {
+	height: 13px;
+
+	position: relative;
+	float: right;
+	
+	right: 10.04%;
+	top: -23.2%;
+
+	margin: 0;
+	padding-bottom: 3px;
+	padding-left: 2px;
+	padding-right: 2px;
+
+	background: #000000;
+	color: #FFFFFF;
+	overflow: hidden;
+
+	font-family: euphemia, euphemia_ie;
+	font-size: 10px;
+	text-align: center;
+
+	cursor: pointer;
+}
+
+
+/* ----------------------------------------------- */
 
 // TERMINA CSS SHOW MEDIANA
 
@@ -397,29 +683,32 @@ div.next {
 
 	width: 100%;
 	min-height: 550px;
+	margin-top: -5px;
 
 	background: #000000;
 }
 
 #work-display-minima {
 	width: 60%;
+	max-height: 475px;
 	min-height: 475px;
 
-	padding: 0;
-	margin: 0;
-
 	position: relative;
+	float: left;
 
-	background: #FFFFFF;
+	background: #000000;
 }
 
 #work-info-minima {
 	width: 40%;
 	min-height: 475px;
+	max-height: 475px;
 
-	margin-top: -48%;
 	padding: 0;
-	float: right;
+	margin: 0;
+
+	position: relative;
+	float: left;
 
 	background: #000000;
 }
@@ -477,35 +766,79 @@ div.next {
 	padding: 0;
 }
 
+#work-minima-galeria-container {
+	width: 100%;
+	height: 75px;
+
+	float: left;
+
+	background: #FFFFFF;
+}
+
+#work-minima-galeria {
+	width: 40%;
+	height: 72px;
+
+	position: relative;
+	float: left;
+	margin-top: 3px;
+
+	background: #FFFFFF;
+}
+
+.work-minima-galeria-item {
+	width: 98px;
+	height: 72px;
+
+	float: left;
+	margin-left: 1px;
+	margin-right: 1px;
+}
+
+#minima-gallery-prev {
+	top: 495px;
+	left: 60.4%;
+
+	width: 17px;
+	height: 35px;
+}
+
+#minima-gallery-next {
+	top: 495px;
+	right: 0px;
+
+	width: 17px;
+	height: 35px;
+}
+
 // TERMINA CSS SHOW MINIMA
 
 // EMPIEZA CSS SHOW MINIMA MINIMA
 
 #work-container-minima-minima {
+	position: relative;
+
 	width: 100%;
-	min-height: 550px;
+	height: 550px;
+	margin-top: -5px;
+
 	background: #000000;
 }
 
 #work-display-minima-minima {
 	width: 60%;
-	min-height: 550px;
-
-	padding: 0;
-	margin: 0;
-
-	position: relative;
+	height: 550px;
+	float: left;
 
 	background: #FFFFFF;
 }
 
 #work-info-minima-minima {
 	width: 40%;
-	min-height: 550px;
+	height: 550px;
 
-	margin-top: -56%;
 	padding: 0;
-	float: right;
+	float: left;
 
 	background: #000000;
 }
