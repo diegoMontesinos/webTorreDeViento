@@ -109,12 +109,33 @@ class WorksController < ApplicationController
 
 		@work.update_attribute(:display, params[:display].to_i)
 		@work.save
+		image_str = Photo.find(params[:display].to_i).image.url(:display)
 
-		redirect_to @work
+		respond_to do |format|
+			format.json {
+				render json: image_str.to_json
+			}
+		end
 	end
 
 	# POST
 	def edit_folder
+		@file_folder = FileFolder.find(params[:id_folder])
+		@file_folder.update_attribute(:display, params[:display].to_i)
+		@file_folder.crop_x = params[:crop_x]
+		@file_folder.crop_y = params[:crop_y]
+		@file_folder.crop_w = params[:crop_w]
+		@file_folder.crop_h = params[:crop_h]
+
+		@file_folder.save
+
+		image_str = Photo.find(params[:display].to_i).image.url(:display_folder)
+
+		respond_to do |format|
+			format.json {
+				render json: image_str.to_json
+			}
+		end
 		
 	end
 

@@ -21,18 +21,12 @@
 // COMIENZA CSS EDIT IMAGES FULL
 
 	#grid-edit-images-container {
-		width: 100%;
-		height: 750px;
-
-		margin-left: 17%;
+		margin-left: 5%;
 		margin-top: 1%;
 	}
 
 	#grid-edit-images-content {
 		position: relative;
-
-		margin-top: 3%;
-		margin-left: 3%;
 	}
 
 	#work-edit-images-display {
@@ -78,7 +72,7 @@
 		filter:alpha(opacity=90);
 	}
 
-	#work-edit-images-video {
+	#work-edit-images-video, #work-edit-images-sustitutovideo {
 		width: 248px;
 		height: 150px;
 
@@ -86,7 +80,12 @@
 		top: 400px;
 		left: 251px;
 
-		background-color: #000000;
+		cursor: pointer;
+	}
+
+	#work-edit-images-video:hover, #work-edit-images-sustitutovideo:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
 	}
 
 	#work-edit-images-detrasde {
@@ -97,7 +96,12 @@
 		top: 400px;
 		left: 501px;
 
-		background-color: #F37AF0;
+		cursor: pointer;
+	}
+
+	#work-edit-images-detrasde:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
 	}
 
 	#work-edit-images-otros {
@@ -108,7 +112,12 @@
 		top: 400px;
 		left: 751px;
 
-		background-color: #006800;
+		cursor: pointer;
+	}
+
+	#work-edit-images-otros:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
 	}
 
 	.no-close .ui-dialog-titlebar-close {
@@ -119,16 +128,11 @@
 
 // COMIENZA CSS EDIT DISPLAY
 
-#work-display-form-container {
-	width: 1000px;
-	height: 500px;
-}
-
 #display-options {
 	width: 92%;
 	height: 420px;
 
-	margin-left: 20px;
+	margin-left: 3.5%;
 	padding: 5px;
 
 	overflow: scroll;
@@ -158,18 +162,14 @@
 
 // TERMINA CSS EDIT DISPLAY
 
-#work-folder-form-container {
-	width: 1000px;
-	height: 500px;
-}
-
 #folder-options {
 	width: 41%;
 	height: 450px;
 
-	margin-left: -7px;
 	padding: 5px;
 	float: left;
+	margin-left: 0.5%;
+	margin-top: 0.5%;
 
 	overflow: scroll;
 
@@ -206,16 +206,26 @@
 	width: 450px;
 	height: 300px;
 
-	position: relative;
+	overflow: hidden;
+
 	float: left;
 	margin-left: 5%;
-
-	background: #000000;
 }
 
 .radio-button-folder-option {
 	position: absolute;
 	display: none;
+}
+
+#folder-form-preview-container {
+	width: 28%;
+	height: 170px;
+
+	margin-left: 5%;
+	margin-top: 7px;
+
+	position: relative;
+	float: left;
 }
 
 // COMIENZA CSS EDIT DISPLAY FOLDER
@@ -422,8 +432,6 @@
 #work-display-full-gallery {
 	width: 600px;
 	height: 400px;
-
-	background: #000000;
 }
 
 .work-gallery-img {

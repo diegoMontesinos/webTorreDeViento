@@ -1,7 +1,8 @@
 <div id="work-folder-form-container" >
 
 	<!-- FORMULARIO -->
-	<%= form_tag({controller: "works", action: "edit_folder"}, method: "post", id: "work-folder-form") do %>
+	<%= form_tag({controller: "works", action: "edit_folder"}, remote: true, method: "post", id: "work-folder-form") do %>
+		<%= hidden_field_tag :id_folder, file_folder.id %>
 
 		<div id="folder-options">
 
@@ -14,14 +15,33 @@
 						<%= radio_button_tag :display, photo.id, false, :class => "radio-button-folder-option" %>
 					<% end %>
 					
-					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 100%;" %>
+					<%= image_tag photo.image.url(:display), :style => "width: 100%; height: 100%;" %>
 				</div>
 			<% end %>
-
 		</div>
 
-		<div id="work-folder-form-crop" ></div>
+		<div id="work-folder-form-crop"></div>
+
+		<div id="folder-form-preview-container">
+			<div style="margin-left: 31%;"><strong>PREVIEW</strong></div>
+
+			<div id="preview-container" style="width: 248px; height: 150px; overflow: hidden;">
+			</div>
+		</div>
+
+		<% %w[x y w h].each do |attribute| %>
+			<%= hidden_field_tag "crop_#{attribute}" %>
+		<% end %>
+
+		<div style="float: left; margin-top: 7%; margin-left: 4%;">
+			<%= submit_tag "OK", id: "submit_form", :class => "pure-button pure-button-primary", :style => "width: 125%; height: 40px;"  %>
+		</div>
 	<% end %>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 </div>
 
 <script type="text/javascript">
@@ -38,20 +58,62 @@
 		putChecked();
 	}
 
+	function update(coords) {
+		$("#crop_x").val(coords.x / 0.75);
+		$("#crop_y").val(coords.y / 0.75);
+		$("#crop_w").val(coords.w / 0.75);
+		$("#crop_h").val(coords.h / 0.75);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview (coords) {
+		$('#preview').css({
+			width: Math.round(248 / coords.w * $('#cropbox').width()) + 'px',
+			height: Math.round(150 / coords.h * $('#cropbox').height()) + 'px',
+			marginLeft: '-' + Math.round(248 / coords.w * coords.x) + 'px',
+			marginTop: '-' + Math.round(150 / coords.h * coords.y) + 'px'
+		});
+	}
+
 	// Pone como imagen para hacer el crop el que tenga el checked
 	function putChecked() {
 		// Selecciona el default y lo pone en la pantalla del crop
 		var url_img = $(".radio-button-folder-option:checked").parent().attr("urlPhoto");
 
-		var img_html = "<img id='cropbox' src='"+ url_img +"' style='width: 100%; height: 100%;'>";
+		var img_html = "<img id='cropbox' src='"+ url_img +"' style='max-width: 450px; max-height: 300px;'>";
 		$("#work-folder-form-crop").empty();
 		$("#work-folder-form-crop").append(img_html);
 
+		var img_preview_html = "<img id='preview' src='"+ url_img +"' style='max-width: 450px; max-height: 300px;'>";
+		$("#preview-container").empty();
+		$("#preview-container").append(img_preview_html);
+
 		// Se inicia JCrop
-		$("#cropbox").Jcrop();
+		$("#cropbox").Jcrop({
+			aspectRatio: 1.65333333,
+			setSelect: [0, 0, 248, 150],
+	  		bgOpacity:   0.2,
+	  		onSelect: update,
+	  		onChange: update
+		});
+
+		$("#work-folder-form-crop").css("width", "450px");
+		$("#work-folder-form-crop").css("height", "300px");
 	}
 
 	$(function() {
 		putChecked();
+
+		// Cuando el formulario del display se al server
+		$("#work-folder-form").bind("ajax:success", function(evt, data, status, xhr) {
+
+			// Se cierra la ventana de dialogo
+			$("#work-edit-images-dialog").dialog("close");
+
+			// Se coloca la imagen de display
+			$("#<%= id_div %>").empty();
+			$("#<%= id_div %>").append("<img src=" + xhr.responseText + " style='width: 248px; height: 150px;'>");
+		});
 	});
 </script>

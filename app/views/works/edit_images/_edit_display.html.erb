@@ -1,7 +1,7 @@
 <div id="work-display-form-container" >
 
 	<!-- FORMULARIO -->
-	<%= form_tag({controller: "works", action: "edit_display"}, method: "post", id: "work-display-form") do %>
+	<%= form_tag({controller: "works", action: "edit_display"}, remote: true, method: "post", id: "work-display-form") do %>
 
 		<div id="display-options">
 
@@ -15,7 +15,7 @@
 							<%= radio_button_tag :display, photo.id, false, :class => "radio-button-display-option" %>
 						<% end %>
 
-						<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 100%;" %>
+						<%= image_tag photo.image.url(:display), :style => "width: 100%; height: 100%;" %>
 					</div>
 				<% end %>
 			<% end %>
@@ -23,7 +23,23 @@
 		</div>
 
 		<div style="margin-top: 10px; margin-right: 50px; float: right;">
-			<%= submit_tag "GUARDAR", :class => "pure-button pure-button-primary" %>
+			<%= submit_tag "OK", :class => "pure-button pure-button-primary" %>
 		</div>
+		<br>
+		<br>
+		<br>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+	// Cuando el formulario del display se al server
+	$("#work-display-form").bind("ajax:success", function(evt, data, status, xhr) {
+
+		// Se cierra la ventana de dialogo
+		$("#work-edit-images-dialog").dialog("close");
+
+		// Se coloca la imagen de display
+		$("#work-edit-images-display").empty();
+		$("#work-edit-images-display").append("<img src=" + xhr.responseText + " style='width: 100%; height: 100%;'>");
+	});
+</script>

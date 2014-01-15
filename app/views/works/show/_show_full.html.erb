@@ -136,21 +136,15 @@
 	<div id="work-full-sections">
 
 		<!-- GALERIA -->
-		<div class="work-full-sections-item-left" onclick="showFolder('GALERIA')" >
+		<div class="work-full-sections-item-left" style="width: 248px; height: 150px;" onclick="showFolder('GALERIA')" >
 			<% folder_galeria = @work.file_folders.find_by_name_folder("GALERIA") %>
-			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "max-width: 248px; max-height: 150px;" %>
 
 			<span class="work-full-sections-link">GALERIA</span>
 		</div>
 
 		<!-- VIDEO O SUSTITUTO -->
 		<% if @work.video.present? %>
-
-			<div class="work-full-sections-item" onclick="showFolder('<%= folder_subtitute.name_folder %>');">
-					<%= image_tag .image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
-
-					<span class="work-full-sections-link"> <%= folder_subtitute.name_folder %> </span>
-				</div>
 
 		<% else %>
 			<% folder_subtitute = @work.substitute_video_folder %>
