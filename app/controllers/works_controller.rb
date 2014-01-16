@@ -101,6 +101,16 @@ class WorksController < ApplicationController
 
 	def edit_images
 		@work = Work.find(params[:id])
+
+		if @work.type_work == "full"
+	 		render partial: "works/edit_images/edit_images_full"
+		elsif @work.type_work == "mediana"
+	 		render partial: "works/edit_images/edit_images_mediana"
+		elsif @work.type_work == "minima"
+	 		render partial: "works/edit_images/edit_images_minima"
+		else
+	 		render partial: "works/edit_images/edit_images_minima_minima"
+		end
 	end
 
 	# POST

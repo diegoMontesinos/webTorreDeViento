@@ -1,1 +1,59 @@
-HOLA AMIGOS MINIMA MINIMA!
+<div id="grid-edit-images-container" style="float: left;" >
+
+	<!-- GRID -->
+	<div id="grid-edit-images-content">
+
+		<div id="work-minima-minima-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-minima-minima-edit-images-info"></div>
+
+	</div>
+
+	<!-- DIALOG WINDOW -->
+	<div id="work-edit-images-dialog" title="" style="display: none; z-index: 3;"></div>
+
+</div>
+
+<%= link_to work_path(@work.id) do %>
+	<div class="pure-button pure-button-primary" style="float: right; font-family: latha, latha_ie; font-size: 1em; margin-top: 49%; margin-right: 11%;">
+		IR A OBRA
+	</div>
+	<br>
+<% end %>
+
+<script type="text/javascript">
+
+	$(function() {
+
+		// Se inicia el dialog
+		$("#work-edit-images-dialog").dialog({
+			width: 1000,
+			
+			autoOpen: false,
+			
+			show: "scale",
+			hide: "scale",
+
+			dialogClass: "no-close",
+
+			modal: "true"
+		});
+
+		// Click en display
+		$("#work-minima-minima-edit-images-display").click(function() {
+
+			// Vacia el contenido de la ventana de dialogo
+			$("#work-edit-images-dialog").empty();
+
+			// Le cambiamos el titulo
+			$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
+
+			// Se le agrega el contenido
+			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-minima-minima-edit-images-display' }) %>"; 
+			$("#work-edit-images-dialog").append(display_html);
+
+			$("#work-edit-images-dialog").dialog("open");
+		});
+		
+	});
+
+</script>

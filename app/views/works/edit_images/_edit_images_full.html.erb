@@ -3,18 +3,18 @@
 	<!-- GRID -->
 	<div id="grid-edit-images-content">
 
-		<div id="work-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
-		<div id="work-edit-images-info"></div>
-		<div id="work-edit-images-galeria"><%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-info"></div>
+		<div id="work-full-edit-images-galeria"><%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %></div>
 
 		<% if @work.video.present? %>
-			<div id="work-edit-images-video"></div>
+			<div id="work-full-edit-images-video"></div>
 		<% else %>
-			<div id="work-edit-images-sustitutovideo"><%= image_tag "elegir-portada-sustitutovideo.png", :style => "width: 100%; height: 100%;" %></div>
+			<div id="work-full-edit-images-sustitutovideo"><%= image_tag "elegir-portada-sustitutovideo.png", :style => "width: 100%; height: 100%;" %></div>
 		<% end %>
 
-		<div id="work-edit-images-detrasde"><%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %></div>
-		<div id="work-edit-images-otros"><%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-detrasde"><%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-otros"><%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %></div>
 	</div>
 
 	<!-- DIALOG WINDOW -->
@@ -48,7 +48,7 @@
 		});
 
 		// Click en display
-		$("#work-edit-images-display").click(function() {
+		$("#work-full-edit-images-display").click(function() {
 
 			// Vacia el contenido de la ventana de dialogo
 			$("#work-edit-images-dialog").empty();
@@ -57,14 +57,14 @@
 			$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
 
 			// Se le agrega el contenido
-			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work }) %>"; 
+			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-full-edit-images-display' }) %>"; 
 			$("#work-edit-images-dialog").append(display_html);
 
 			$("#work-edit-images-dialog").dialog("open");
 		});
 
 		// Click en galeria
-		$("#work-edit-images-galeria").click(function() {
+		$("#work-full-edit-images-galeria").click(function() {
 			// Vacia el contenido de la ventana de dialogo
 			$("#work-edit-images-dialog").empty();
 
@@ -72,7 +72,7 @@
 			$("#work-edit-images-dialog").dialog("option", "title", "GALERIA");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA'), id_div: 'work-edit-images-galeria' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo
@@ -80,15 +80,15 @@
 		});
 
 		// Click en galeria
-		$("#work-edit-images-sustitutovideo").click(function() {
+		$("#work-full-edit-images-sustitutovideo").click(function() {
 			// Vacia el contenido de la ventana de dialogo
 			$("#work-edit-images-dialog").empty();
 
 			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "GALERIA");
+			$("#work-edit-images-dialog").dialog("option", "title", "SUSTITUTO VIDEO");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.substitute_video_folder, id_div: 'work-edit-images-sustitutovideo' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.substitute_video_folder, id_div: 'work-full-edit-images-sustitutovideo' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo
@@ -96,7 +96,7 @@
 		});
 
 		// Click en detras de
-		$("#work-edit-images-detrasde").click(function() {
+		$("#work-full-edit-images-detrasde").click(function() {
 			// Vacia el contenido de la ventana de dialogo
 			$("#work-edit-images-dialog").empty();
 
@@ -104,7 +104,7 @@
 			$("#work-edit-images-dialog").dialog("option", "title", "DETRAS DE");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('DETRAS DE'), id_div: 'work-edit-images-detrasde' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo
@@ -112,15 +112,15 @@
 		});
 
 		// Click en detras de
-		$("#work-edit-images-otros").click(function() {
+		$("#work-full-edit-images-otros").click(function() {
 			// Vacia el contenido de la ventana de dialogo
 			$("#work-edit-images-dialog").empty();
 
 			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "DETRAS DE");
+			$("#work-edit-images-dialog").dialog("option", "title", "OTROS");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('OTROS'), id_div: 'work-edit-images-otros' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo

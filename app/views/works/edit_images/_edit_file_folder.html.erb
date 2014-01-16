@@ -7,6 +7,7 @@
 		<div id="folder-options">
 
 			<!-- IMAGENES-OPCIONES FOLDER -->
+			
 			<% file_folder.photos.each do |photo| %>
 				<div class="img-folder-option" urlPhoto="<%= photo.image.url(:display) %>" onclick="showImg(this);" >
 					<% if file_folder.display.to_s == photo.id.to_s %>

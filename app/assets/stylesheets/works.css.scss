@@ -29,7 +29,7 @@
 		position: relative;
 	}
 
-	#work-edit-images-display {
+	#work-full-edit-images-display {
 		width: 600px;
 		height: 400px;
 
@@ -40,12 +40,7 @@
 		cursor: pointer;
 	}
 
-	#work-edit-images-display:hover {
-		opacity:0.9;
-		filter:alpha(opacity=90);
-	}
-
-	#work-edit-images-info {
+	#work-full-edit-images-info {
 		width: 400px;
 		height: 400px;
 
@@ -56,7 +51,7 @@
 		background-color: #000000;
 	}
 
-	#work-edit-images-galeria {
+	#work-full-edit-images-galeria {
 		width: 249px;
 		height: 150px;
 
@@ -67,12 +62,7 @@
 		cursor: pointer;
 	}
 
-	#work-edit-images-galeria:hover {
-		opacity:0.9;
-		filter:alpha(opacity=90);
-	}
-
-	#work-edit-images-video, #work-edit-images-sustitutovideo {
+	#work-full-edit-images-video, #work-full-edit-images-sustitutovideo {
 		width: 248px;
 		height: 150px;
 
@@ -83,12 +73,7 @@
 		cursor: pointer;
 	}
 
-	#work-edit-images-video:hover, #work-edit-images-sustitutovideo:hover {
-		opacity:0.9;
-		filter:alpha(opacity=90);
-	}
-
-	#work-edit-images-detrasde {
+	#work-full-edit-images-detrasde {
 		width: 248px;
 		height: 150px;
 
@@ -99,12 +84,7 @@
 		cursor: pointer;
 	}
 
-	#work-edit-images-detrasde:hover {
-		opacity:0.9;
-		filter:alpha(opacity=90);
-	}
-
-	#work-edit-images-otros {
+	#work-full-edit-images-otros {
 		width: 249px;
 		height: 150px;
 
@@ -115,7 +95,12 @@
 		cursor: pointer;
 	}
 
-	#work-edit-images-otros:hover {
+	#work-full-edit-images-display:hover,
+	#work-full-edit-images-galeria:hover,
+	#work-full-edit-images-video:hover,
+	#work-full-edit-images-sustitutovideo:hover,
+	#work-full-edit-images-detrasde:hover,
+	#work-full-edit-images-otros:hover {
 		opacity:0.9;
 		filter:alpha(opacity=90);
 	}
@@ -125,6 +110,137 @@
 	}
 
 // TERMINA CSS EDIT IMAGES FULL
+
+// COMIENZA CSS EDIT IMAGES MEDIANA
+
+	#work-mediana-edit-images-display {
+		width: 600px;
+		height: 400px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		cursor: pointer;
+	}
+
+	#work-mediana-edit-images-info {
+		width: 400px;
+		height: 550px;
+
+		position: absolute;
+		top: 0;
+		left: 600px;
+
+		background-color: #000000;
+	}
+
+	#work-mediana-edit-images-galeria {
+		width: 299px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 0px;
+
+		cursor: pointer;
+	}
+
+	#work-mediana-edit-images-otros {
+		width: 299px;
+		height: 150px;
+
+		position: absolute;
+		top: 400px;
+		left: 301px;
+
+		cursor: pointer;
+	}
+
+	#work-mediana-edit-images-display:hover,
+	#work-mediana-edit-images-galeria:hover,
+	#work-mediana-edit-images-otros:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
+	}
+
+// TERMINA CSS EDIT IMAGES MEDIANA
+
+// COMIENZA CSS EDIT IMAGES MINIMA
+
+	#work-minima-edit-images-display {
+		width: 600px;
+		height: 475px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding-top: 75px;
+
+		cursor: pointer;
+		background: #000000;
+	}
+
+	#work-minima-edit-images-info {
+		width: 400px;
+		height: 475px;
+
+		position: absolute;
+		top: 0;
+		left: 600px;
+
+		background-color: #000000;
+	}
+
+	#work-minima-edit-images-galeria {
+		width: 1000px;
+		height: 75px;
+
+		position: absolute;
+		top: 475px;
+		left: 0px;
+
+		background-color: #000000;
+	}
+
+	#work-minima-edit-images-display:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
+	}
+
+// TERMINA CSS EDIT IMAGES MINIMA
+
+// COMIENZA CSS EDIT IMAGES MINIMA
+
+	#work-minima-minima-edit-images-display {
+		width: 600px;
+		height: 550px;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		cursor: pointer;
+		background: #000000;
+	}
+
+	#work-minima-minima-edit-images-info {
+		width: 400px;
+		height: 550px;
+
+		position: absolute;
+		top: 0;
+		left: 600px;
+
+		background-color: #000000;
+	}
+
+	#work-minima-minima-edit-images-display:hover {
+		opacity:0.9;
+		filter:alpha(opacity=90);
+	}
+
+// TERMINA CSS EDIT IMAGES MINIMA
 
 // COMIENZA CSS EDIT DISPLAY
 
@@ -227,8 +343,6 @@
 	position: relative;
 	float: left;
 }
-
-// COMIENZA CSS EDIT DISPLAY FOLDER
 
 // TERMINA CSS EDIT DISPLAY FOLDER
 
