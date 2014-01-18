@@ -29,12 +29,22 @@
 #languages {
 	float: left;
 
-	padding-left: 65.4%;
+	padding-left: 64.3%;
 	margin-top: 5.8%;
 
-	color: rgb(21, 93, 145);
+	color: #629AC1;
 	font-family: euphemia, euphemia_ie;
 	font-size: 0.8125em;
+}
+
+#languages a {
+	color: #629AC1;
+	text-decoration: none;
+}
+
+#languages a:hover {
+	color: #629AC1;
+	text-decoration: underline;
 }
 
 // TEMINA CSS BANNER TVP
