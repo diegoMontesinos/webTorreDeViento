@@ -1,7 +1,7 @@
 <div id="work-display-form-container" >
 
 	<!-- FORMULARIO -->
-	<%= form_tag({controller: "works", action: "edit_display"}, remote: true, method: "post", id: "work-display-form") do %>
+	<%= form_tag(edit_display_path(work.id), remote: true, method: "post", id: "work-display-form") do %>
 
 		<div id="display-options">
 

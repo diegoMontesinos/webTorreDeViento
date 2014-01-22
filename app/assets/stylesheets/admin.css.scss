@@ -116,7 +116,7 @@
 	position: fixed;
 
 	padding: 0;
-	/*display: none;*/
+	display: none;
 
 	background: rgb(41, 43, 47);
 
@@ -152,6 +152,63 @@
 
 // TERMINA CSS MENU ADMIN
 
+
+// EMPIEZA CSS WORKS
+
+#admin-works-list-container {
+	width: 36%;
+	height: 570px;
+	float: left;
+}
+
+#admin-works-list {
+	list-style: none;
+	height: 480px;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	margin-top: 5px;
+}
+
+#admin-works-list li {
+	width: 100%;
+}
+
+#admin-works-selection {
+	float: left;
+}
+
+#admin-works-selection-display {
+	width: 600px;
+	height: 400px;
+
+	margin-left: 9%;
+	margin-top: 13px;
+
+	background: #000000;
+}
+
+#admin-works-selection-title {
+	margin-top: 10px;
+	margin-left: 28%;
+
+	color: #000000;
+	font-family: felixti, felixti_ie;
+	font-size: 1.1em;
+}
+
+#admin-works-selection-buttons {
+	width: 90%;
+
+	margin-left: 21%;
+
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+}
+
+
+// TERMINA CSS WORKS
 
 // EMPIEZA CSS ADMIN JQUERY UI
 
@@ -263,6 +320,11 @@
 	background: #ffffff;
 	font-weight: normal/*{fwDefault}*/;
 	color: #212121/*{fcActive}*/;
+}
+
+.ui-state-default-selec {
+	background: #065ECE;
+	color: #000000;
 }
 
 // TERMINA CSS ADMIN JQUERY UI

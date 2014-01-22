@@ -346,6 +346,29 @@
 
 // TERMINA CSS EDIT DISPLAY FOLDER
 
+// COMIENZA CSS EDIT VIDEOTHUMB
+
+#work-videothumb-form-crop {
+	overflow: hidden;
+
+	float: left;
+	margin-left: 4%;
+	margin-top: 15px;
+}
+
+#videothumb-form-preview-container {
+	width: 28%;
+	height: 170px;
+
+	margin-left: 5%;
+	margin-top: 75px;
+
+	position: relative;
+	float: left;
+}
+
+// TERMINA CSS EDIT VIDEOTHUMB
+
 // COMIENZA CSS SHOW FULL
 #work-container-full {
 	position: relative;
@@ -484,7 +507,7 @@
 	position: relative;
 	float: right;
 
-	margin-right: 11px;
+	margin-right: 30px;
 
 	font-family: latha, latha_ie;
 	font-size: 12px;

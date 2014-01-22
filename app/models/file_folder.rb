@@ -1,7 +1,7 @@
 class FileFolder < ActiveRecord::Base
 	belongs_to :holdable, polymorphic: true
 
-	has_many :photos
+	has_many :photos, dependent: :destroy
 
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 	after_update :crop_display

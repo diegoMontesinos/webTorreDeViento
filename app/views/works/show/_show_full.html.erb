@@ -84,6 +84,14 @@
 		});
 	}
 
+	function putVideo(video_url) {
+		// Elimina el contenido que haya en obra-display
+		$("#work-display-full").empty();
+
+		// Se crea el que sera el contenedor del video
+		$("#work-display-full").append("<video width='600' height='400' controls ><source src='" + video_url + "' type='video/mp4'></video>");
+	}
+
 	$(function() {
 		correctLineHeight("work-info-title-full");
 
@@ -128,6 +136,9 @@
 				<% if !work.program.nil? %>
 					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
 				<% end  %>
+
+				<%= link_to work_path(@work.next) do %><%= image_tag "next.png", :alt => "Siguiente", :style => "width: 10px; height: 20px;" %><% end %>
+				<%= link_to work_path(@work.previous) do %><%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %><% end %>
 			</ul>
 		</div>
 	</div>
@@ -145,7 +156,11 @@
 
 		<!-- VIDEO O SUSTITUTO -->
 		<% if @work.video.present? %>
+			<div class="work-full-sections-item" onclick="putVideo('<%= @work.video.url %>');" >
+				<%= image_tag @work.videothumb.url(:display_folder), :style => "width: 100%; height: 150px;" %>
 
+				<span class="work-full-sections-link">VIDEO</span>
+			</div>
 		<% else %>
 			<% folder_subtitute = @work.substitute_video_folder %>
 			<% if !folder_subtitute.nil? %>

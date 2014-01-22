@@ -19,11 +19,6 @@
 	}
 
 	$(function() {
-		/*$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");*/
 		$("html").css("background", "#000000");
 		$("body").css("background", "#000000");
 	});
@@ -42,5 +37,19 @@
 		<% if !@work.type_work.nil? %>
 			<%= render partial: ("works/show/show_" + @work.type_work), locals: {work: @work} %>
 		<% end %>
+
+		<div id="legals-tvp">
+			<%= image_tag "01-LEGALESTXT-BCO.png", :style => "width: 100%; cursor: pointer;" %>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				$("#legals-tvp").hover(function() {
+					$("#legals-tvp img").attr('src', "/assets/02-LEGALESTXT-BCO.png");
+				}, function() {
+					$("#legals-tvp img").attr('src', "/assets/01-LEGALESTXT-BCO.png");
+				});
+			});
+		</script>
 	</div>
 </div>

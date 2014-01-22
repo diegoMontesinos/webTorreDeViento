@@ -1,0 +1,148 @@
+<div id="admin-works-content">
+
+	<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		
+		<div id="admin-works-list-container">
+			
+			<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+				<strong>SELECCIONE PARA EDITAR O ARRASTRE PARA<br>MODIFICAR EL ORDEN DE LAS OBRAS:</strong>
+			</div>
+
+			<ul id="admin-works-list" >
+				<% @works.each do |work| %>
+					<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this)" id-work="<%= work.id %>" title-work="<%= work.title %>" display-url="<%= Photo.find(work.display).image.url(:display) %>" style="font-family: latha, latha_ie;" ><%= work.title %>
+						<div id="destroy-work-<%= work.id.to_s %>" style="display: none;" ><%= link_to work_path(work), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %></div>
+						<script type="text/javascript">
+							$("#destroy-work-<%= work.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
+								// Se hace lo mismo como si dieramos click al works-menu
+								$("#works-menu-item").click();
+							});
+						</script>
+					</li>
+				<% end %>
+			</ul>
+
+			<div style="margin-left: 46%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
+				<%= button_tag(type: "button", id: "admin-works-store-order", class: "pure-button pure-button-primary") do %>
+					<strong>GUARDAR ORDEN</strong> <i class="fa fa-list"></i>
+				<% end %>
+			</div>
+		</div>
+
+		<div id="admin-works-selection" >
+			<div id="admin-works-selection-display"></div>
+			<div id="admin-works-selection-title"></div>
+			<div id="admin-works-selection-buttons">
+				<%= button_tag(type: "button", id: "admin-edit-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px;") do %>
+					<strong>EDITAR OBRA</strong> <i class="fa fa-file-text-o"></i>
+				<% end %>
+
+				<%= button_tag(type: "button", id: "admin-edit-images-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%;") do %>
+					<strong>EDITAR IMÁGENES</strong> <i class="fa fa-picture-o"></i>
+				<% end %>
+
+				<%= button_tag(type: "button", id: "admin-delete-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20);") do %>
+					<strong>ELIMINAR OBRA</strong> <i class="fa fa-times"></i>
+				<% end %>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function selectWork(li_elem) {
+
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+
+		// Informacion
+		$("#admin-works-selection-display").empty();
+		$("#admin-works-selection-display").append("<img src='" + $(li_elem).attr("display-url") + "' style='width: 100%; height: 100%;' >");
+
+		$("#admin-works-selection-title").empty();
+		$("#admin-works-selection-title").append("<center><strong>" + $(li_elem).attr("title-work") + "</strong></center>");
+	}
+
+	$(function() {
+		$("#admin-works-list").sortable();
+		$("#admin-works-list").disableSelection();
+
+		// Se asocian acciones a los botones
+		$("#admin-edit-work-button").click(function() {
+			var work_param = "/?id=" + $(".ui-state-default-selec").attr("id-work");
+			console.log(work_param);
+
+			$("#content-admin").empty();
+
+			$.ajax({
+				type: "GET",
+				url: "<%= admin_edit_work_path %>" + work_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").append(data);
+				}
+			});
+		});
+
+		// Edit images
+		$("#admin-edit-images-button").click(function() {
+			var work_param = "/?id=" + $(".ui-state-default-selec").attr("id-work");
+
+			$("#content-admin").empty();
+
+			$.ajax({
+				type: "GET",
+				url: "<%= edit_images_path %>" + work_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").append(data);
+				}
+			});
+		});
+
+		// Eliminar
+		$("#admin-delete-work-button").click(function() {
+			var id_destroy_link = "destroy-work-" + $(".ui-state-default-selec").attr("id-work");
+			$("#" + id_destroy_link).find("a").click();
+		});
+
+		// Guardar el orden
+		$("#admin-works-store-order").click(function() {
+			var works_li = $(".ui-state-default");
+			var order_str = "";
+
+			for(var i = 0; i < works_li.length; i++) {
+				order_str += $(works_li[i]).attr("id-work") + ",";
+			}
+
+			var order_param = "/?order=" + order_str;
+
+			$.ajax({
+				type: "POST",
+				url: "<%= works_store_order_path %>" + order_param,
+				dataType: "json",
+				success: function(data) {
+					alert("EL ORDEN FUE GUARDADO EXITOSAMENTE");
+				}
+			});
+
+		});
+
+		if(parseInt("<%= Work.count %>") == 0) {
+			 $("#admin-edit-work-button").attr("disabled", "disabled");
+			 $("#admin-edit-images-button").attr("disabled", "disabled");
+			 $("#admin-delete-work-button").attr("disabled", "disabled");
+			 $("#admin-works-store-order").attr("disabled", "disabled");
+		} else {
+			// Se selecciona el primero
+			$(".ui-state-default").first().click();
+		}
+	});
+
+</script>

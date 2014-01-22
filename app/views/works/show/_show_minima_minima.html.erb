@@ -73,6 +73,9 @@
 				<% if !work.program.nil? %>
 					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
 				<% end  %>
+
+				<%= link_to work_path(@work.next) do %><%= image_tag "next.png", :alt => "Siguiente", :style => "width: 10px; height: 20px;" %><% end %>
+				<%= link_to work_path(@work.previous) do %><%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %><% end %>
 			</ul>
 		</div>
 	</div>

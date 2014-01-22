@@ -4,9 +4,9 @@
 		<!-- OBRAS -->
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">OBRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 189px; top: 40px;">
-				<li class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Agregar una nueva obra</div></li>
-				<li class="dropdown-item-admin"><div><i class="fa fa-list"></i> Obras cargadas</div></li>
-				<li class="dropdown-item-admin"><div><i class="fa fa-th"></i>  Rodillo de Obras</div></li>
+				<li id="new-work-menu-item" class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Agregar una nueva obra</div></li>
+				<li id="works-menu-item" class="dropdown-item-admin"><div><i class="fa fa-list"></i> Obras cargadas</div></li>
+				<li id="works-catalog-menu-item" class="dropdown-item-admin"><div><i class="fa fa-th"></i> Rodillo de Obras</div></li>
 			</ul>
 		</li>
 
@@ -25,4 +25,52 @@
 	</ul>
 </div>
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+
+	// NUEVA OBRA
+	$("#new-work-menu-item").click(function() {
+		$("#content-admin").empty();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_new_work_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
+
+	// OBRAS CARGADAS
+	$("#works-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_works_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+
+	});
+
+	// RODILLAS DE OBRAS
+	$("#works-catalog-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_works_catalog_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+
+	});
+
+</script>

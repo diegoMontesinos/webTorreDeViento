@@ -1,5 +1,8 @@
 class WorksController < ApplicationController
 
+	skip_before_filter :verify_authenticity_token, :only => [:create]
+	before_filter :authenticate_user!, :only => [ :edit_images, :edit_display, :edit_folder, :edit_videothumb, :new, :create, :destroy ]
+	
 	# GET
 	def show
 		@work = Work.find(params[:id])
@@ -45,6 +48,26 @@ class WorksController < ApplicationController
 
 		# Si la obra se salvo bien
 		if @work.save
+
+			if Work.count == 1
+				@work.next = @work.id
+				@work.previous = @work.id
+			else
+				works_inorder = Work.works_inorder
+
+				# Editando el ultimo
+				works_inorder.last.next = @work.id
+				@work.previous = works_inorder.last.id
+				works_inorder.last.save
+
+				# Editando el primero
+				works_inorder.first.previous = @work.id
+				@work.next = works_inorder.first.id
+				works_inorder.first.save
+			end
+			
+			@work.save
+
 			# Se agregan las fotos que fueron subidas
 			filefolder_params = params[:work][:file_folders_attributes]
 
@@ -82,7 +105,20 @@ class WorksController < ApplicationController
 			end
 		end
 
-		redirect_to edit_images_path(@work.id)
+		redirect_to edit_images_path + "/?id=" + @work.id.to_s
+	end
+
+	# DELETE
+	def destroy
+		@work = Work.find(params[:id])
+		id_work = @work.id
+		@work.destroy
+
+		respond_to do |format|
+			format.json {
+				render json: id_work.to_json
+			}
+		end
 	end
 
 	def image_folder
@@ -146,7 +182,56 @@ class WorksController < ApplicationController
 				render json: image_str.to_json
 			}
 		end
-		
+	end
+
+	# POST
+	def edit_videothumb
+		@work = Work.find(params[:id])
+		@work.crop_x = params[:crop_x]
+		@work.crop_y = params[:crop_y]
+		@work.crop_w = params[:crop_w]
+		@work.crop_h = params[:crop_h]
+
+		@work.save
+
+		image_str = @work.videothumb.url(:display_folder)
+
+		respond_to do |format|
+			format.json {
+				render json: image_str.to_json
+			}
+		end
+	end
+
+	# POST
+	def store_order
+
+		ordered_ids = params[:order].split(',')
+		index = 0
+
+		while (index < ordered_ids.length) do
+			curr_work = Work.find(ordered_ids[index].to_i)
+
+			if index == 0
+				curr_work.next = ordered_ids[(index + 1) % ordered_ids.length].to_i
+				curr_work.previous = ordered_ids.last.to_i
+			elsif index == (ordered_ids.length - 1)
+				curr_work.next = ordered_ids.first.to_i
+				curr_work.previous = ordered_ids[(index - 1) % ordered_ids.length].to_i
+			else
+				curr_work.next = ordered_ids[(index + 1) % ordered_ids.length].to_i
+				curr_work.previous = ordered_ids[(index - 1) % ordered_ids.length].to_i
+			end
+
+			curr_work.save
+			index += 1
+		end
+
+		respond_to do |format|
+			format.json {
+				render json: params[:order].to_json
+			}
+		end
 	end
 
 	private

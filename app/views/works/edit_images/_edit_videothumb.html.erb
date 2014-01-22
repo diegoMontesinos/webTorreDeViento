@@ -1,0 +1,78 @@
+<div id="work-videothumb-form-container" >
+
+	<!-- FORMULARIO -->
+	<%= form_tag(edit_videothumb_path(work.id), remote: true, method: "post", id: "work-videothumb-form") do %>
+
+		<div id="work-videothumb-form-crop" >
+			<%= image_tag work.videothumb.url(:display), :id => "cropbox", :style => "width: 100%; height: 100%;" %>
+		</div>
+
+		<div id="videothumb-form-preview-container">
+			<div style="margin-left: 31%;"><strong>PREVIEW</strong></div>
+			<div id="preview-container" style="width: 248px; height: 150px; overflow: hidden;">
+				<%= image_tag work.videothumb.url(:display), :id => "preview", :style => "width: 100%; height: 100%;" %>
+			</div>
+		</div>
+
+		<% %w[x y w h].each do |attribute| %>
+			<%= hidden_field_tag "crop_#{attribute}" %>
+		<% end %>
+
+		<div style="float: left; margin-top: 50px; margin-left: 12%;">
+			<%= submit_tag "OK", id: "submit_form", :class => "pure-button pure-button-primary", :style => "width: 257%; height: 40px;"  %>
+		</div>
+	<% end %>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
+
+<script type="text/javascript">
+
+	function update(coords) {
+		$("#crop_x").val(coords.x / 0.75);
+		$("#crop_y").val(coords.y / 0.75);
+		$("#crop_w").val(coords.w / 0.75);
+		$("#crop_h").val(coords.h / 0.75);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview(coords) {
+		$('#preview').css({
+			width: Math.round(248 / coords.w * $('#cropbox').width()) + 'px',
+			height: Math.round(150 / coords.h * $('#cropbox').height()) + 'px',
+			marginLeft: '-' + Math.round(248 / coords.w * coords.x) + 'px',
+			marginTop: '-' + Math.round(150 / coords.h * coords.y) + 'px'
+		});
+	}
+
+	$(function() {
+
+		// Se inicia JCrop
+		$("#cropbox").Jcrop({
+			aspectRatio: 1.65333333,
+			setSelect: [0, 0, 248, 150],
+			bgOpacity: 0.2,
+			onSelect: update,
+			onChange: update
+		});
+
+		$("#work-videothumb-form-crop").css("width", "600px");
+		$("#work-videothumb-form-crop").css("height", "400px");
+
+		// Cuando el formulario del display se al server
+		$("#work-videothumb-form").bind("ajax:success", function(evt, data, status, xhr) {
+
+			// Se cierra la ventana de dialogo
+			$("#work-edit-images-dialog").dialog("close");
+
+			// Se coloca la imagen de display
+			$("#<%= id_div %>").empty();
+			$("#<%= id_div %>").append("<img src=" + xhr.responseText + " style='width: 248px; height: 150px;'>");
+		});
+	});
+
+</script>
