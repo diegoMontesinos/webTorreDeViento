@@ -1,0 +1,15 @@
+<div id="admin-works-content">
+	<%= render partial: "works/form_new_work", locals: { work: @work } %>
+</div>
+
+<script type="text/javascript">
+	// Cuando el formulario se sube exitosamente
+	$("#form-work").bind("ajax:success", function(evt, data, status, xhr) {
+
+		// Se vacia el contenido
+		$("#admin-works-content").empty();
+
+		// Y se manda a la seleccion del display / crop
+		$("#admin-works-content").append(xhr.responseText);
+	});
+</script>

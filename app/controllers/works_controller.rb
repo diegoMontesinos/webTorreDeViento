@@ -108,6 +108,82 @@ class WorksController < ApplicationController
 		redirect_to edit_images_path + "/?id=" + @work.id.to_s
 	end
 
+	# PUT
+	def update
+		@work = Work.find(params[:id])
+
+		permitted_params = work_params # Parametros filtrados (permitidos)
+
+		# Setea a nil la informacion (esp y en) si se indico que no hay
+		if params[:work][:has_credits].to_i == 0 and params[:work][:has_credits_in_en].to_i == 0
+			permitted_params[:credits] = nil
+			permitted_params[:credits_in_en] = nil
+		end
+
+		if params[:work][:has_synopsis].to_i == 0 and params[:work][:has_synopsis_in_en].to_i == 0 
+			permitted_params[:synopsis] = nil
+			permitted_params[:synopsis_in_en] = nil
+		end
+
+		if params[:work][:has_notes].to_i == 0 and params[:work][:has_notes_in_en].to_i == 0 
+			permitted_params[:notes] = nil
+			permitted_params[:notes_in_en] = nil
+		end
+
+		if params[:work][:has_program].to_i == 0 and params[:work][:has_program_in_en].to_i == 0 
+			permitted_params[:program] = nil
+			permitted_params[:program_in_en] = nil
+		end
+
+		# Setea a nil el video si se indico que no hay
+		if params[:work][:has_video].to_i == 0
+			permitted_params[:video] = nil
+			permitted_params[:videothumb] = nil
+		end
+
+		# Si la obra se salvo bien
+		if @work.update(permitted_params)
+
+			# Se agregan las fotos que fueron subidas
+			filefolder_params = params[:work][:file_folders_attributes]
+
+			filefolder_params.each do |key, value|
+				name_filefolder = filefolder_params[key.to_s][:name_folder]
+				currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id).first
+
+				ids_photos = filefolder_params[key.to_s][:ids_photos]
+				ids_photos.gsub! 'submitted', ''
+				ids_photos.gsub! ' ', ''
+				ids_photos_parse = ids_photos.split(',')
+
+				ids_photos_parse.each do |id_photo|
+					currPhoto = Photo.find(id_photo.to_i)
+					currPhoto.file_folder = currFolder
+					currPhoto.save
+
+					if currFolder.display.nil?
+						currFolder.display = id_photo
+						currFolder.save
+					end
+
+					if @work.type_work == "minima_minima"
+						if name_filefolder == "DEFAULT" and @work.display.nil?
+							@work.display = id_photo
+							@work.save
+						end
+					else
+						if name_filefolder == "GALERIA" and @work.display.nil?
+							@work.display = id_photo
+							@work.save
+						end
+					end
+				end
+			end
+		end
+
+		redirect_to edit_images_path + "/?id=" + @work.id.to_s
+	end
+
 	# DELETE
 	def destroy
 		@work = Work.find(params[:id])

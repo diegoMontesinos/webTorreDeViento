@@ -1,4 +1,7 @@
 class FileFolder < ActiveRecord::Base
+
+	has_translations :name_folder
+
 	belongs_to :holdable, polymorphic: true
 
 	has_many :photos, dependent: :destroy

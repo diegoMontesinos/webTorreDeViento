@@ -17,7 +17,7 @@ class AdminController < ApplicationController
 	def edit_work
 		@work = Work.find(params[:id])
 
-		render partial: "works/form_new_work", locals: { work: @work }
+		render partial: "admin_edit_work", locals: { work: @work }
 	end
 
 	# GET

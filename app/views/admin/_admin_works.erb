@@ -10,7 +10,9 @@
 
 			<ul id="admin-works-list" >
 				<% @works.each do |work| %>
-					<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this)" id-work="<%= work.id %>" title-work="<%= work.title %>" display-url="<%= Photo.find(work.display).image.url(:display) %>" style="font-family: latha, latha_ie;" ><%= work.title %>
+					<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this)" id-work="<%= work.id %>" title-work="<%= work.title %>" display-url="<%= Photo.find(work.display).image.url(:display) %>" style="font-family: latha, latha_ie;" >
+						<%= work.title %><%= link_to work_path(work.id),:style => "float: right; margin-right: 4%;" do %><i class="fa fa-arrow-circle-o-right fa-2"></i><% end %>
+
 						<div id="destroy-work-<%= work.id.to_s %>" style="display: none;" ><%= link_to work_path(work), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %></div>
 						<script type="text/javascript">
 							$("#destroy-work-<%= work.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
