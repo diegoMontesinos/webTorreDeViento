@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140122071240) do
+ActiveRecord::Schema.define(version: 20140123023953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 20140122071240) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "file_folder_translations", force: true do |t|
+    t.integer  "file_folder_id"
+    t.string   "language_code"
+    t.string   "name_folder"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "file_folder_translations", ["file_folder_id", "language_code"], name: "file_folder_translations_index", unique: true, using: :btree
 
   create_table "file_folders", force: true do |t|
     t.string   "name_folder"

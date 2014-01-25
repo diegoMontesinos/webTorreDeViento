@@ -73,7 +73,9 @@ class WorksController < ApplicationController
 
 			filefolder_params.each do |key, value|
 				name_filefolder = filefolder_params[key.to_s][:name_folder]
-				currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id).first
+				saved_folders = FileFolder.where(holdable_id: @work.id)
+				saved_folders.reject { |folder| folder.name_folder_in_es == name_filefolder }
+				currFolder = saved_folders.first
 
 				ids_photos = filefolder_params[key.to_s][:ids_photos]
 				ids_photos.gsub! 'submitted', ''
@@ -201,7 +203,7 @@ class WorksController < ApplicationController
 		permitted_params = params.permit(:id, :folder)
 
 		@work = Work.find(permitted_params[:id])
-		image_folder = @work.file_folders.find_by_name_folder(permitted_params[:folder].to_s)
+		image_folder = @work.filefolder(permitted_params[:folder].to_s)
 		photos = image_folder.photos.map { |p| p.image.url(:display) }
 
 		respond_to do |format|
@@ -313,6 +315,6 @@ class WorksController < ApplicationController
 	private
 		def work_params
 			params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_en, :credits, :credits_in_en,
-										 :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder])
+										 :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder, :name_folder_in_en])
 		end
 end

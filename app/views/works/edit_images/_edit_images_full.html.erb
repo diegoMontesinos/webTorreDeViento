@@ -38,13 +38,13 @@
 			if(to_edit == "display") {
 				content_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-full-edit-images-display' }) %>";
 			} else if(to_edit == "GALERIA") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
 			} else if(to_edit == "VIDEO") {
 				content_html = "<%= j (render partial: 'works/edit_images/edit_videothumb', locals: { work: @work, id_div: 'work-full-edit-images-video' }) %>";
 			} else if(to_edit == "DETRAS DE") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
 			} else if(to_edit == "OTROS") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
 			}
 
 			return content_html;
@@ -60,13 +60,13 @@
 			if(to_edit == "display") {
 				content_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-full-edit-images-display' }) %>";
 			} else if(to_edit == "GALERIA") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
 			} else if(to_edit == "VIDEO") {
 				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.substitute_video_folder, id_div: 'work-full-edit-images-sustitutovideo' }) %>";
 			} else if(to_edit == "DETRAS DE") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
 			} else if(to_edit == "OTROS") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
+				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
 			}
 
 			return content_html;

@@ -65,7 +65,7 @@
 			$("#work-edit-images-dialog").dialog("option", "title", "GALERIA");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('GALERIA'), id_div: 'work-mediana-edit-images-galeria' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-mediana-edit-images-galeria' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo
@@ -81,7 +81,7 @@
 			$("#work-edit-images-dialog").dialog("option", "title", "DETRAS DE");
 
 			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.file_folders.find_by_name_folder('OTROS'), id_div: 'work-mediana-edit-images-otros' }) %>";
+			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-mediana-edit-images-otros' }) %>";
 			$("#work-edit-images-dialog").append(gal_html);
 
 			// Se abre la ventana de dialogo

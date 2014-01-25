@@ -19,10 +19,27 @@ class Work < ActiveRecord::Base
 		end
 
 		if self.type_work == "full"
-			substitute_folder = file_folders.reject{ |folder| (folder.name_folder == "GALERIA" or folder.name_folder == "DETRAS DE" or folder.name_folder == "OTROS" or folder.name_folder == "DEFAULT") }
+			
+			substitute_folder = file_folders.reject{ |folder|
+				(folder.name_folder_in_es == "GALERIA" or folder.name_folder_in_es == "DETRAS DE" or folder.name_folder_in_es == "OTROS" or folder.name_folder_in_es == "DEFAULT")
+			}
+
 			return substitute_folder.first
 		else
 			return nil
+		end
+	end
+
+	def filefolder (name_filefolder)
+		folders = self.file_folders
+		folders = folders.reject { |folder|
+			folder.name_folder_in_es != name_filefolder
+		}
+
+		if folders.empty?
+			return nil
+		else
+			return folders.first
 		end
 	end
 
@@ -33,7 +50,7 @@ class Work < ActiveRecord::Base
 	def self.works_inorder
 
 		if Work.count == 0
-			return nil
+			return Work.all
 		else
 			works_inorder = Array.new
 			

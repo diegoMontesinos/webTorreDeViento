@@ -109,8 +109,16 @@
 					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
 				<% end  %>
 
-				<%= link_to work_path(@work.next) do %><%= image_tag "next.png", :alt => "Siguiente", :style => "width: 10px; height: 20px;" %><% end %>
-				<%= link_to work_path(@work.previous) do %><%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %><% end %>
+				<%= link_to work_path(@work.next) do %>
+					<div style="width: 10px; height: 20px; float: right; margin-right: 30px;">
+						<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
+					</div>
+				<% end %>
+				<%= link_to work_path(@work.previous) do %>
+					<div style="width: 10px; height: 20px; float: right; margin-right: 12px;	">
+						<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
+					</div>
+				<% end %>
 			</ul>
 		</div>
 	</div>
@@ -120,7 +128,7 @@
 		<div style="width: 60%; height: 72px; position: relative; float: left; margin-top: 3px; background: #000000;"></div>
 
 		<div id="work-minima-galeria">
-			<% folder_galeria = work.file_folders.find_by_name_folder("GALERIA") %>
+			<% folder_galeria = work.filefolder("GALERIA") %>
 			<% photos_galeria = folder_galeria.photos %>
 			<% photos_galeria.each do |photo| %>
 

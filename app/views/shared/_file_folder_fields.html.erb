@@ -1,10 +1,12 @@
 <div class="fields">
-	<% if ff_name == "false" %>
+
+	<% if cbu == "true" %>
 
 		<!-- HEADER TAB CON TEXT FIELD -->
 		<li>
 			<%= link_to "#image-folder-tab-", :id => "image-folder-tab-header-", :style => "font-family: latha, latha_ie; font-size: 1em;" do %>
-				<%= f.text_field :name_folder, :required => true %>
+				<div style="float:left; margin-top: 7px;">ESPAÑOL:</div><div style="float:left; margin-left: 5px;"><%= f.text_field :name_folder, :required => true %></div>
+				<div style="float:left; margin-top: 7px; margin-left: 8px;">INGLÉS:</div><div style="float:left; margin-left: 5px;"><%= f.text_field :name_folder_in_en, :required => true %></div>
 			<% end %>
 		</li>
 	
@@ -14,6 +16,7 @@
 		<li style="margin-top: 1.2%;">
 			<%= link_to "#image-folder-tab-", :id => "image-folder-tab-header-", :style => "font-family: latha, latha_ie; font-size: 1em;" do %>
 				<%= f.hidden_field :name_folder, :value => ff_name %>
+				<%= f.hidden_field :name_folder_in_en, :value => ff_name_in_en %>
 				<%= ff_name %>
 			<% end %>
 		</li>
