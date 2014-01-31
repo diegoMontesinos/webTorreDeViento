@@ -213,6 +213,25 @@ class WorksController < ApplicationController
 		end
 	end
 
+	# GET
+	def images
+		work = Work.find(params[:id])
+		folders = work.file_folders
+		photos = Array.new
+
+		folders.each do |folder|
+			photos = photos + folder.photos
+		end
+
+		photos = photos.map { |p| p.image.url(:display) }
+
+		respond_to do |format|
+			format.json {
+				render json: photos
+			}
+		end
+	end
+
 	def edit_images
 		@work = Work.find(params[:id])
 

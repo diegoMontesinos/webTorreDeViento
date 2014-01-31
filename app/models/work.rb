@@ -5,6 +5,9 @@ class Work < ActiveRecord::Base
 	has_many :file_folders, as: :holdable, dependent: :destroy
 	accepts_nested_attributes_for :file_folders, :allow_destroy => true
 
+	has_one :grid_element
+
+	# Carrierwave
 	mount_uploader :video, VideoUploader
 	mount_uploader :videothumb, ImageUploader
 

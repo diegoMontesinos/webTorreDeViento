@@ -207,8 +207,110 @@
 	font-size: 0.89em;
 }
 
-
 // TERMINA CSS WORKS
+
+// EMPIEZA CSS WORK GRIDS
+
+#admin-works-grid-options {
+	width: 90%;
+	height: 90%;
+	
+	overflow-y: scroll;
+	margin-left: 3%;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.admin-works-grid-option {
+	width: 90%;
+	height: 90px;
+
+	position: relative;
+	margin-top: 8px;
+	margin-left: 5%;
+	float: left;
+
+	cursor: pointer;
+}
+
+.admin-works-grid-option:hover, .admin-works-grid-option-selected {
+	border: 1px solid #4195fc;
+
+	-webkit-box-shadow: 0px 0px 4px #4195fc;
+	-moz-box-shadow: 0px 0px 4px #4195fc;
+	box-shadow: 0px 0px 4px #4195fc;
+}
+
+.admin-works-grid-option > div {
+	position: absolute;
+
+	top: 9px;
+	left: 42%;
+
+	color: #ffffff;
+	font-family: latha, latha_ie;
+	font-size: 3em;
+}
+
+#admin-grid-works-list-container {
+	width: 35%;
+
+	float: left;
+
+	margin-left: 1.3%;
+	margin-top: 12px;
+}
+
+#admin-grid-works-list {
+	width: 95%;
+	height: 400px;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	margin-top: 10px;
+	margin-left: -30px;
+
+	list-style: none;
+}
+
+#admin-grid-image-options-container {
+	width: 61%;
+	float: left;
+	margin-left: 2%;
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+#admin-grid-image-options {
+	width: 95%;
+	height: 390px;
+
+	padding: 5px;
+
+	margin-top: 11px;
+	margin-left: 1.5%;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+
+// TERMINA CSS WORK GRIDS
 
 // EMPIEZA CSS ADMIN JQUERY UI
 

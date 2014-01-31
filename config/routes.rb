@@ -19,7 +19,11 @@ WebTorreDeViento::Application.routes.draw do
 
   get '/admin/works' => 'admin#works', as: "admin_works"
 
-  get '/admin/works/catalog' => 'admin#works_catalog', as: "admin_works_catalog"
+  get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"
+
+  get '/admin/works/grid/:id' => 'admin#work_grid_edit', as: "admin_work_grid"
+
+  get '/admin/works/grid_element/:id' => 'admin#work_grid_elem_edit', as: "admin_work_gridelement"
 
   # Photos
   # Creando las fotos
@@ -39,6 +43,9 @@ WebTorreDeViento::Application.routes.draw do
 
   # Obteniendo un folder
   get "/work/image_folder/:id" => "works#image_folder", as: "image_folder"
+
+  # Obteniendo todas las fotos de una obra
+  get "/work/images/:id" => "works#images", as: "work_images"
 
   # Guardando orden
   post "/works/order" => "works#store_order", as: "works_store_order"

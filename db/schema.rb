@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123023953) do
+ActiveRecord::Schema.define(version: 20140130003607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,19 @@ ActiveRecord::Schema.define(version: 20140123023953) do
     t.integer  "display"
   end
 
+  create_table "grid_elements", force: true do |t|
+    t.integer  "work_grid_id"
+    t.string   "box"
+    t.decimal  "x"
+    t.decimal  "y"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "work_id"
+  end
+
+  add_index "grid_elements", ["work_grid_id"], name: "index_grid_elements_on_work_grid_id", using: :btree
+  add_index "grid_elements", ["work_id"], name: "index_grid_elements_on_work_id", using: :btree
+
   create_table "photos", force: true do |t|
     t.integer  "file_folder_id"
     t.string   "image"
@@ -77,6 +90,11 @@ ActiveRecord::Schema.define(version: 20140123023953) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "work_grids", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "work_translations", force: true do |t|
     t.integer  "work_id"

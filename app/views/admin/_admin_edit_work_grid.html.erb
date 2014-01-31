@@ -1,0 +1,65 @@
+
+<!-- GRID -->
+<div class="work-grid" style="width: 97%; margin-top: 80px; margin-left: 1.5%;">
+	<% grid_elements.each do |grid_element| %>
+		<div class="grid-element-<%= grid_element.box %>" style="cursor: pointer;"
+			onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');">
+			
+			<% if grid_element.work.present? %>
+			<% end %>
+			
+		</div>
+	<% end %>
+</div>
+
+<!-- DIALOG WINDOW -->
+<div id="edit-work-grid-dialog" title="Edita el rodillo" style="display: none; z-index: 4;"></div>
+
+<script type="text/javascript">
+	
+	function showEditDialog(gridElem_div, content_url) {
+		$("#edit-work-grid-dialog").empty();
+
+		$.ajax({
+			type: "GET",
+			url: content_url,
+			dataType: "html",
+			success: function(data) {
+				// Se le agrega el contenido
+				$("#edit-work-grid-dialog").append(data);
+
+				// Se despliega
+				$("#edit-work-grid-dialog").dialog("open");
+			}
+		});
+	}
+
+	$(function() {
+		var currWidth = $(".work-grid").width();
+		var newHeight = (currWidth * 500.0) / 1125.0;
+		$(".work-grid").height(newHeight);
+
+		for (var i = 0; i <= 14; i++) {
+			$(".grid-element-" + i).hover(function() {
+				$(this).animate({opacity: 0.85}, 100);
+			}, function() {
+				$(this).animate({opacity: 1.0}, 100);
+			});
+		};
+
+		// Se inicia el dialog
+		$("#edit-work-grid-dialog").dialog({
+			width: 1000,
+			
+			autoOpen: false,
+			
+			show: "scale",
+			hide: "scale",
+
+			dialogClass: "no-close",
+
+			modal: "true"
+		});
+	});
+
+</script>

@@ -3,18 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // EMPIEZA CSS FORMULARIO NEW WORK
-#form-work-wrapper {
-	width: 100%;
-}
+	#form-work-wrapper {
+		width: 100%;
+	}
 
-#form-work {
-	position: relative;
+	#form-work {
+		position: relative;
 
-	margin-top: 1.5%;
-	margin-left: 2.5%;
-	
-	font-family: latha, latha_ie;
-	font-size: 1em;
+		margin-top: 1.5%;
+		margin-left: 2.5%;
+		
+		font-family: latha, latha_ie;
+		font-size: 1em;
 }
 // TERMINA CSS FORMULARIO NEW WORK
 
@@ -1009,5 +1009,178 @@ div.next {
 	padding: 0;
 }
 
-
 // TERMINA CSS SHOW MINIMA MINIMA
+
+// EMPIEZA CSS RODILLO
+
+.work-grid {
+	position: relative;
+	float: left;
+}
+
+.grid-element-0 {
+	width: 22.0472%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 0.0889%;
+	top: 0.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-1 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 22.3139%;
+	top: 0.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-2 {
+	width: 22.0472%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 33.4264%;
+	top: 0.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-3 {
+	width: 22.0472%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 55.6514%;
+	top: 0.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-4 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 77.8764%;
+	top: 0.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-5 {
+	width: 10.9347%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 0.0889%;
+	top: 25.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-6 {
+	width: 22.0472%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 11.2014%;
+	top: 25.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-7 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 33.4264%;
+	top: 50.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-8 {
+	width: 22.0472%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 44.5389%;
+	top: 50.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-9 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 55.6514%;
+	top: 25.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-10 {
+	width: 22.0472%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 66.7639%;
+	top: 25.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-11 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 11.2014%;
+	top: 75.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-12 {
+	width: 22.0472%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 22.3139%;
+	top: 75.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-13 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 66.7639%;
+	top: 75.2%;
+
+	background-color: #000000;
+}
+
+.grid-element-14 {
+	width: 22.0472%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 77.8764%;
+	top: 75.2%;
+
+	background-color: #000000;
+}
+
+// TERMINA CSS RODILLO

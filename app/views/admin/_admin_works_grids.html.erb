@@ -1,0 +1,49 @@
+<div id="admin-works-grids-content">
+	<div style="width: 19%; height: 580px; margin-top: 15px; margin-left: 1.5%; position: relative; float: left; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		<div id="admin-works-grid-options">
+			<% i = 1 %>
+			<% work_grids.each do |work_grid| %>
+				
+				<div class="admin-works-grid-option" onclick="selectGrid(this)" id-grid="<%= work_grid.id %>" >
+					<div><%= i %></div>
+					<%= image_tag "plantilla_mini.png", :style => "width: 100%; height: 100%;" %>
+				</div>
+
+				<div id="edit-work-grid-<%= work_grid.id %>" style="display: none;"><%= link_to admin_work_grid_path(work_grid), remote: true, method: :get do %><% end %></div>
+				<script type="text/javascript">
+					$("#edit-work-grid-<%= work_grid.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+						$("#admin-works-grid-selection").empty();
+
+						$("#admin-works-grid-selection").append(xhr.responseText);
+					});
+				</script>
+
+				<% i = i + 1 %>
+			<% end %>
+		</div>
+	</div>
+
+	<div style="width: 78%; height: 580px; margin-top: 15px; margin-left: 1%; position: relative; float: left; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		<div id="admin-works-grid-selection"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function selectGrid(option_div) {
+
+		// Estilo
+		if($(".admin-works-grid-option-selected").length > 0) {
+			$(".admin-works-grid-option-selected").removeClass("admin-works-grid-option-selected");
+		}
+
+		$(option_div).addClass("admin-works-grid-option-selected");
+
+		// Coloca su formulario
+		$("#edit-work-grid-" + $(option_div).attr("id-grid")).find("a").click();
+	}
+
+	$(function() {
+	});
+
+</script>

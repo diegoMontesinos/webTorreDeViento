@@ -16,6 +16,7 @@
 						<div id="destroy-work-<%= work.id.to_s %>" style="display: none;" ><%= link_to work_path(work), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %></div>
 						<script type="text/javascript">
 							$("#destroy-work-<%= work.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
+								
 								// Se hace lo mismo como si dieramos click al works-menu
 								$("#works-menu-item").click();
 							});

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work_grid_id: 
+  work_id: 
+  box: MyString
+  x: 9.99
+  'y': 9.99
+
+two:
+  work_grid_id: 
+  work_id: 
+  box: MyString
+  x: 9.99
+  'y': 9.99

@@ -39,6 +39,7 @@
 				$("#content-admin").append(data);
 			}
 		});
+		
 	});
 
 	// OBRAS CARGADAS
@@ -64,7 +65,7 @@
 
 		$.ajax({
 			type: "GET",
-			url: "<%= admin_works_catalog_path %>",
+			url: "<%= admin_works_grids_path %>",
 			dataType: "html",
 			success: function(data) {
 				$("#content-admin").append(data);

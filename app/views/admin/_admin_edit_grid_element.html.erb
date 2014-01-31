@@ -1,0 +1,77 @@
+<div style="width: 100%; height: 490px; overflow: hidden">
+
+	<!-- SELECCION DE OBRA E IMAGEN -->
+	<div id="edit-work-and-image" style="width: 96.5%; height: 100%; margin-left: 1.5%;">
+		
+		<div id="admin-grid-works-list-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+			
+			<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+				<strong>1. SELECCIONE LA OBRA CORRESPONDIENTE AL<br>MÓDULO SELECCIONADO:</strong>
+			</div>
+
+			<ul id="admin-grid-works-list">
+				<% works.each do |work| %>
+						<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this);" id-work="<%= work.id %>" title-work="<%= work.title %>" style="font-family: latha, latha_ie;" url-images="<%= work_images_path(work) %>">
+							<%= work.title %>
+						</li>
+				<% end %>
+			</ul>
+		</div>
+
+		<div id="admin-grid-image-options-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+			
+			<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+				<strong>2. SELECCIONE LA IMÁGEN QUE SE MOSTRARA EN<br>EL MÓDULO SELECCIONADO:</strong>
+			</div>
+
+			<div id="admin-grid-image-options"></div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function selectWork(work_li) {
+		
+		// Estilo
+		if($(".selec").length > 0) {
+			$(".selec").css("border", "1px solid #d3d3d3");
+			$(".selec").css("background", "#e6e6e6");
+			$(".selec").css("font-weight", "normal");
+			$(".selec").css("color", "#555555");
+
+			$(".selec").removeClass("selec");
+		}
+
+		$(work_li).addClass("selec");
+		$(".selec").css("background", "#065ECE");
+		$(".selec").css("color", "#000000");	
+
+		// Carga imagenes
+		$.ajax({
+			type: "GET",
+			url: $(work_li).attr("url-images"),
+			dataType: "json",
+			success: function(data) {
+
+				$("#admin-grid-image-options").empty();
+
+				for (var i = 0; i < data.length; i++) {
+					
+					var divImageOption = document.createElement("div");
+					$(divImageOption).addClass("img-folder-option");
+					$(divImageOption).css("margin-left", "4px");
+					$(divImageOption).css("margin-top", "5px");
+
+					$(divImageOption).append("<img src='" + data[i] + "' style='width: 100%; height: 100%;'>");
+
+					$(divImageOption).appendTo("#admin-grid-image-options");		
+
+					console.log(data[i]);
+				}
+			}
+		});
+	}
+
+</script>
