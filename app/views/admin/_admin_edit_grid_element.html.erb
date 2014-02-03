@@ -1,36 +1,90 @@
 <div style="width: 100%; height: 490px; overflow: hidden">
 
-	<!-- SELECCION DE OBRA E IMAGEN -->
-	<div id="edit-work-and-image" style="width: 96.5%; height: 100%; margin-left: 1.5%;">
-		
-		<div id="admin-grid-works-list-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
-			
-			<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
-				<strong>1. SELECCIONE LA OBRA CORRESPONDIENTE AL<br>MÓDULO SELECCIONADO:</strong>
+	<%= form_for grid_element, remote: true do |f| %>
+
+		<!-- SELECCION DE OBRA E IMAGEN -->
+		<div id="edit-work-and-image">
+			<div id="admin-grid-works-list-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<%= f.hidden_field :work_id %>
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+					<strong>1. SELECCIONE LA OBRA CORRESPONDIENTE AL<br>MÓDULO SELECCIONADO:</strong>
+				</div>
+
+				<ul id="admin-grid-works-list">
+					<% works.each do |work| %>
+							<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this);" id-work="<%= work.id %>" title-work="<%= work.title %>" style="font-family: latha, latha_ie;" url-images="<%= work_images_path(work) %>">
+								<%= work.title %>
+							</li>
+					<% end %>
+				</ul>
 			</div>
 
-			<ul id="admin-grid-works-list">
-				<% works.each do |work| %>
-						<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this);" id-work="<%= work.id %>" title-work="<%= work.title %>" style="font-family: latha, latha_ie;" url-images="<%= work_images_path(work) %>">
-							<%= work.title %>
-						</li>
-				<% end %>
-			</ul>
-		</div>
+			<div id="admin-grid-image-options-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<%= f.hidden_field :display %>
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+					<strong>2. SELECCIONE LA IMÁGEN QUE SE MOSTRARA EN<br>EL MÓDULO SELECCIONADO:</strong>
+				</div>
 
-		<div id="admin-grid-image-options-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
-			
-			<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
-				<strong>2. SELECCIONE LA IMÁGEN QUE SE MOSTRARA EN<br>EL MÓDULO SELECCIONADO:</strong>
+				<div id="admin-grid-image-options"></div>
 			</div>
 
-			<div id="admin-grid-image-options"></div>
+			<div style="float: right; margin-top: 15px;">
+				<%= button_tag(type: "button", id: "cancel_form_0", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+			</div>
+
 		</div>
 
-	</div>
+		<!-- SELECCION DE ENCUADRE -->
+		<div id="grid-element-crop">
+			<div id="grid-element-crop-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<%= f.hidden_field :x %>
+				<%= f.hidden_field :y %>
+				<%= f.hidden_field :w %>
+				<%= f.hidden_field :h %>
+
+				<div id="grid-element-image-container"></div>
+
+				<div style="width: 36%; float: left; margin-top: 12px; margin-top: 75px;">
+					<div style="margin-left: 42%;"><strong>PREVIEW</strong></div>
+
+					<div id="grid-element-preview-container"></div>
+				</div>
+			</div>
+
+			<div style="float: right; margin-top: 15px;">
+				<%= button_tag(type: "button", id: "back_form", style: "float: left;", class: "pure-button pure-button-active") do %>ATRÁS<% end %>
+				<%= button_tag(type: "button", id: "cancel_form_1", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+				<%= f.submit "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "float: left;" %>
+			</div>
+		</div>
+
+	<% end %>
 </div>
 
+<% aspecRat = (dimensions["w"] / dimensions["h"]) %>
+
 <script type="text/javascript">
+
+	function update(coords) {
+		$("#grid_element_x").val(coords.x);
+		$("#grid_element_y").val(coords.y);
+		$("#grid_element_w").val(coords.w);
+		$("#grid_element_h").val(coords.h);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview(coords) {
+		var newWidth = Math.round(($("#grid-element-preview-container").width() * $("#cropbox").width()) / coords.w);
+		var newHeight = Math.round(($("#grid-element-preview-container").height() * $("#cropbox").height()) / coords.h);
+
+		$('#preview').css({
+			width: newWidth + 'px',
+			height: newHeight + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#cropbox").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#cropbox").height()) + 'px',
+		});
+	}
 
 	function selectWork(work_li) {
 		
@@ -46,7 +100,10 @@
 
 		$(work_li).addClass("selec");
 		$(".selec").css("background", "#065ECE");
-		$(".selec").css("color", "#000000");	
+		$(".selec").css("color", "#000000");
+
+		// Formulario
+		$("#grid_element_work_id").val($(work_li).attr("id-work"));
 
 		// Carga imagenes
 		$.ajax({
@@ -54,24 +111,114 @@
 			url: $(work_li).attr("url-images"),
 			dataType: "json",
 			success: function(data) {
-
 				$("#admin-grid-image-options").empty();
 
 				for (var i = 0; i < data.length; i++) {
-					
 					var divImageOption = document.createElement("div");
 					$(divImageOption).addClass("img-folder-option");
+					$(divImageOption).attr("urlPhoto", data[i].image.display.url);
+					$(divImageOption).attr("idPhoto", data[i].id);
 					$(divImageOption).css("margin-left", "4px");
 					$(divImageOption).css("margin-top", "5px");
 
-					$(divImageOption).append("<img src='" + data[i] + "' style='width: 100%; height: 100%;'>");
+					$(divImageOption).append("<img src='" + data[i].image.display.url + "' style='width: 100%; height: 100%;'>");
+					$(divImageOption).appendTo("#admin-grid-image-options");
 
-					$(divImageOption).appendTo("#admin-grid-image-options");		
+					// Agregando evento al div de la opcion
+					$(divImageOption).on("click", function() {
 
-					console.log(data[i]);
+						$("#grid_element_display").val($(this).attr("idPhoto"));
+						
+						var img = new Image();
+						img.id = "cropbox";
+						
+						var img_preview = new Image();
+						img_preview.id = "preview";
+
+						img.onload = function() {
+							$("#edit-work-and-image").animate({	marginLeft: "-=" + ($("#edit-work-and-image").width() * 1.5) + "px" }, 250);
+							$("#grid-element-crop").show();
+
+							$(img).appendTo("#grid-element-image-container");
+							$(img).css("width", "600px");
+							$(img).css("height", "400px");
+
+							// Se inicia JCrop
+							$("#cropbox").Jcrop({
+								aspectRatio: parseFloat("<%= aspecRat %>"),
+								setSelect: [0, 0, parseFloat("<%= dimensions['w'] %>"), parseFloat("<%= dimensions['h'] %>")],
+								bgOpacity: 0.2,
+								onSelect: update,
+								onChange: update
+							});
+						}
+
+						img_preview.onload = function() {
+							// Se hacen ajustes a el contenedor del preview
+							$("#grid-element-preview-container").css("width", "<%= dimensions['w'] %>px");
+							$("#grid-element-preview-container").css("height", "<%= dimensions['h'] %>px");
+							if("<%= dimensions['w'] %>px" == "123px") {
+								$("#grid-element-preview-container").css("margin-left", "34%");
+							} else {
+								$("#grid-element-preview-container").css("margin-left", "17%");
+							}
+
+							// Se agrega a su contenedor y se aplica css
+							$(img_preview).appendTo("#grid-element-preview-container");
+							$(img_preview).css("width", "600px");
+							$(img_preview).css("height", "400px");
+						}
+
+						img.src = $(this).attr("urlPhoto");
+						img_preview.src = $(this).attr("urlPhoto");
+					});
+
 				}
 			}
 		});
 	}
+
+	$(function() {
+		$("#grid-element-crop").hide();
+
+		$("#cancel_form_0").click(function() {
+			$("#edit-work-grid-dialog").dialog("close");
+		});
+
+		$("#back_form").click(function() {
+			$("#edit-work-and-image").animate({ marginLeft: "+=" + ($("#edit-work-and-image").width() * 1.5) + "px"	}, 250);
+
+			$("#grid-element-crop").hide();
+
+			$("#grid-element-image-container").empty();
+			$("#grid-element-preview-container").empty();
+		});
+
+		$("#cancel_form_1").click(function() {
+			$("#edit-work-grid-dialog").dialog("close");
+		});
+
+		$("#edit_grid_element_<%= grid_element.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+
+			var responseImg = new Image();
+			responseImg.onload = function() {
+				$(".<%= div %>").empty();
+				$(responseImg).appendTo(".<%= div %>");
+
+				var newWidth = Math.round(($(".<%= div %>").width() * $(responseImg).width()) / data.w);
+				var newHeight = Math.round(($(".<%= div %>").height() * $(responseImg).height()) / data.h);
+
+				$(responseImg).css({
+					width: newWidth + 'px',
+					height: newHeight + 'px',
+					marginLeft: '-' + Math.round((newWidth * data.x) / $(responseImg).width()) + 'px',
+					marginTop: '-' + Math.round((newHeight * data.y) / $(responseImg).height()) + 'px',
+				});
+
+				$("#edit-work-grid-dialog").dialog("close");
+			}
+			responseImg.src = data.image;
+		});
+	});
 
 </script>

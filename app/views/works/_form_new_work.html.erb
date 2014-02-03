@@ -176,7 +176,6 @@
 
 		// Accion del submit
 		$("#form-work").submit(function(e) {
-
 			// Checamos si ya estan vacías todas las colas de archivos
 			if(!emptyQueues()) {
 				e.preventDefault();
@@ -194,6 +193,7 @@
 </script>
 
 <div id="form-work-wrapper">
+
 	<%= form_for work, remote: true, html: { id: "form-work", :class => "pure-form pure-form-stacked" } do |f| %>
 
 		<!-- TIPO DE OBRA -->

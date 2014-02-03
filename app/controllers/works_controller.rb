@@ -223,8 +223,6 @@ class WorksController < ApplicationController
 			photos = photos + folder.photos
 		end
 
-		photos = photos.map { |p| p.image.url(:display) }
-
 		respond_to do |format|
 			format.json {
 				render json: photos
@@ -237,10 +235,13 @@ class WorksController < ApplicationController
 
 		if @work.type_work == "full"
 	 		render partial: "works/edit_images/edit_images_full"
+
 		elsif @work.type_work == "mediana"
 	 		render partial: "works/edit_images/edit_images_mediana"
+
 		elsif @work.type_work == "minima"
 	 		render partial: "works/edit_images/edit_images_minima"
+	 		
 		else
 	 		render partial: "works/edit_images/edit_images_minima_minima"
 		end

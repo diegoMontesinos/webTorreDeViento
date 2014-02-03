@@ -145,7 +145,7 @@
 .dropdown-item-admin:hover {
 	background: rgb(189, 190, 191);
 	opacity: 0.85;
-	filter: alpha(opacity=75);
+	filter: alpha(opacity=85);
 
 	color: #000000;
 }
@@ -211,6 +211,13 @@
 
 // EMPIEZA CSS WORK GRIDS
 
+#edit-work-and-image {
+	width: 96.5%;
+	height: 450px;
+	float: left;
+	margin-left: 1.5%;	
+}
+
 #admin-works-grid-options {
 	width: 90%;
 	height: 90%;
@@ -269,7 +276,7 @@
 
 #admin-grid-works-list {
 	width: 95%;
-	height: 400px;
+	height: 370px;
 
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -284,13 +291,13 @@
 	width: 61%;
 	float: left;
 	margin-left: 2%;
-	margin-top: 10px;
+	margin-top: 12px;
 	padding-bottom: 10px;
 }
 
 #admin-grid-image-options {
 	width: 95%;
-	height: 390px;
+	height: 359px;
 
 	padding: 5px;
 
@@ -309,6 +316,39 @@
 	border-radius: 2px;
 }
 
+#grid-element-crop {
+	width: 96.5%;
+	height: 100%;
+	float: left;
+	margin-left: 1.5%;
+}
+
+#grid-element-crop-container {
+	width: 100%;
+	height: 415px;
+
+	float: left;
+
+	margin-top: 12px;
+}
+
+#grid-element-image-container {
+	width: 600px;
+	height: 400px;
+
+	float: left;
+
+	margin-top: 6px;
+	margin-left: 8px;
+}
+
+#grid-element-preview-container {
+	margin-top: 6px;
+
+	overflow: hidden;
+
+	background: #000000;
+}
 
 // TERMINA CSS WORK GRIDS
 

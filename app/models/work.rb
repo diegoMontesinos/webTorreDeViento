@@ -72,5 +72,20 @@ class Work < ActiveRecord::Base
 			return works_inorder
 		end
 	end
+
+	def self.dimensions_box(box)
+		if (box == "0" or box == "3" or box == "14" or box == "12")
+			return { "w" => 248, "h" => 123 }
+
+		elsif (box == "1" or box == "4" or box == "7" or box == "9" or box == "11" or box == "13")
+			return { "w" => 123, "h" => 123 }
+
+		elsif (box == "2" or box == "6" or box == "8" or box == "10")
+			return { "w" => 248, "h" => 248 }
+			
+		elsif box == "5"
+			return { "w" => 123, "h" => 248 }
+		end
+	end
 	
 end

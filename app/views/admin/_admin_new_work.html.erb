@@ -5,25 +5,11 @@
 <script type="text/javascript">
 	// Cuando el formulario se sube exitosamente
 	$("#form-work").bind("ajax:success", function(evt, data, status, xhr) {
-		alert("ok!");
-
+		
 		// Se vacia el contenido
 		$("#admin-works-content").empty();
 
 		// Y se manda a la seleccion del display / crop
 		$("#admin-works-content").append(xhr.responseText);
-
-		var work_param = "/?id=" + $(".ui-state-default-selec").attr("id-work");
-
-			$("#content-admin").empty();
-
-			$.ajax({
-				type: "GET",
-				url: "<%= edit_images_path %>" + work_param,
-				dataType: "html",
-				success: function(data) {
-					$("#content-admin").append(data);
-				}
-			});
 	});
 </script>

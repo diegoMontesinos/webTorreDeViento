@@ -25,6 +25,9 @@ WebTorreDeViento::Application.routes.draw do
 
   get '/admin/works/grid_element/:id' => 'admin#work_grid_elem_edit', as: "admin_work_gridelement"
 
+  # Guardando el grid
+  patch "/admin/works/edit_grid_element/:id" => "admin#save_grid_elem", as: "grid_element"
+
   # Photos
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130003607) do
+ActiveRecord::Schema.define(version: 20140203150616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 20140130003607) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "work_id"
+    t.integer  "display"
+    t.decimal  "h"
+    t.decimal  "w"
   end
 
   add_index "grid_elements", ["work_grid_id"], name: "index_grid_elements_on_work_grid_id", using: :btree
