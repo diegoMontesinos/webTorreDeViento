@@ -3,18 +3,30 @@
 	<!-- GRID -->
 	<div id="grid-edit-images-content">
 
-		<div id="work-full-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-display" url-dialog="<%= edit_display_path(@work) %>?id_div=work-full-edit-images-display">
+			<%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 		<div id="work-full-edit-images-info"></div>
-		<div id="work-full-edit-images-galeria"><%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-galeria" url-dialog="<%= edit_folder_path(@work.filefolder('GALERIA')) %>?id_div=work-full-edit-images-galeria">
+			<%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 
 		<% if @work.video.present? %>
-			<div id="work-full-edit-images-video"><%= image_tag "elegir-portada-video.png", :style => "width: 100%; height: 100%;" %></div>
+			<div id="work-full-edit-images-video" url-dialog="<%= edit_videothumb_path(@work) %>?id_div=work-full-edit-images-video">
+				<%= image_tag "elegir-portada-video.png", :style => "width: 100%; height: 100%;" %>
+			</div>
 		<% else %>
-			<div id="work-full-edit-images-sustitutovideo"><%= image_tag "elegir-portada-sustitutovideo.png", :style => "width: 100%; height: 100%;" %></div>
+			<div id="work-full-edit-images-sustitutovideo" url-dialog="<%= edit_folder_path(@work.substitute_video_folder) %>?id_div=work-full-edit-images-sustitutovideo">
+				<%= image_tag "elegir-portada-sustitutovideo.png", :style => "width: 100%; height: 100%;" %>
+			</div>
 		<% end %>
 
-		<div id="work-full-edit-images-detrasde"><%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %></div>
-		<div id="work-full-edit-images-otros"><%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-full-edit-images-detrasde" url-dialog="<%= edit_folder_path(@work.filefolder('DETRAS DE')) %>?id_div=work-full-edit-images-detrasde">
+			<%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %>
+		</div>
+		<div id="work-full-edit-images-otros" url-dialog="<%= edit_folder_path(@work.filefolder('OTROS')) %>?id_div=work-full-edit-images-otros">
+			<%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 	</div>
 
 	<!-- DIALOG WINDOW -->
@@ -29,66 +41,27 @@
 	<br>
 <% end %>
 
-<% if @work.video.present? %>
-
-	<script type="text/javascript">
-		function content(to_edit) {
-			var content_html = "";
-			
-			if(to_edit == "display") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-full-edit-images-display' }) %>";
-			} else if(to_edit == "GALERIA") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
-			} else if(to_edit == "VIDEO") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_videothumb', locals: { work: @work, id_div: 'work-full-edit-images-video' }) %>";
-			} else if(to_edit == "DETRAS DE") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
-			} else if(to_edit == "OTROS") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
-			}
-
-			return content_html;
-		}
-	</script>
-
-<% else %>
-
-	<script type="text/javascript">
-		function content(to_edit) {
-			var content_html = "";
-
-			if(to_edit == "display") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-full-edit-images-display' }) %>";
-			} else if(to_edit == "GALERIA") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-full-edit-images-galeria' }) %>";
-			} else if(to_edit == "VIDEO") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.substitute_video_folder, id_div: 'work-full-edit-images-sustitutovideo' }) %>";
-			} else if(to_edit == "DETRAS DE") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('DETRAS DE'), id_div: 'work-full-edit-images-detrasde' }) %>";
-			} else if(to_edit == "OTROS") {
-				content_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-full-edit-images-otros' }) %>";
-			}
-
-			return content_html;
-		}
-	</script>
-
-<% end %>
-
 <script type="text/javascript">
 
-	function loadDialog(title, content) {
-		// Vacia el contenido de la ventana de dialogo
-		$("#work-edit-images-dialog").empty();
+	function loadDialog(title, div) {
+		$.ajax({
+			type: "GET",
+			url: $(div).attr("url-dialog"),
+			dataType: "html",
+			success: function(data) {
+				// Vacia el contenido de la ventana de dialogo
+				$("#work-edit-images-dialog").empty();
 
-		// Le cambiamos el titulo
-		$("#work-edit-images-dialog").dialog("option", "title", title);
+				// Le cambiamos el titulo
+				$("#work-edit-images-dialog").dialog("option", "title", title);
 
-		// Se le agrega el contenido
-		$("#work-edit-images-dialog").append(content);
+				// Se le agrega el contenido
+				$("#work-edit-images-dialog").append(data);
 
-		// Se despliega
-		$("#work-edit-images-dialog").dialog("open");
+				// Se despliega
+				$("#work-edit-images-dialog").dialog("open");
+			}
+		});
 	}
 
 	$(function() {
@@ -109,41 +82,35 @@
 
 		// Click en display
 		$("#work-full-edit-images-display").click(function() {
-			var content_html = content("display");
-			loadDialog("Seleccione la imagen de display", content_html);
+			loadDialog("Seleccione la imagen de display", this);
 		});
 
 		// Click en galeria
 		$("#work-full-edit-images-galeria").click(function() {
-			var content_html = content("GALERIA");
-			loadDialog("GALERIA", content_html);
+			loadDialog("GALERIA", this);
 		});
 
 		// Video o sustituto
 		if($("#work-full-edit-images-video").length > 0) {
 			// Click en video
 			$("#work-full-edit-images-video").click(function() {
-				var content_html = content("VIDEO");
-				loadDialog("VIDEOTHUMB", content_html);
+				loadDialog("VIDEOTHUMB", this);
 			});
 		} else {
 			// Click en sustituto de video
 			$("#work-full-edit-images-sustitutovideo").click(function() {
-				var content_html = content("VIDEO");
-				loadDialog("SUSTITUTO VIDEO", content_html);
+				loadDialog("SUSTITUTO VIDEO", this);
 			});
 		}
 
 		// Click en detras de
 		$("#work-full-edit-images-detrasde").click(function() {
-			var content_html = content("DETRAS DE");
-			loadDialog("DETRAS DE", content_html);
+			loadDialog("DETRAS DE", this);
 		});
 
 		// Click en detras de
 		$("#work-full-edit-images-otros").click(function() {
-			var content_html = content("OTROS");
-			loadDialog("OTROS", content_html);
+			loadDialog("OTROS", this);
 		});
 	});
 

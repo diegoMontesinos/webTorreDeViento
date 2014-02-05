@@ -1,7 +1,7 @@
 <div id="work-videothumb-form-container" >
 
 	<!-- FORMULARIO -->
-	<%= form_tag(edit_videothumb_path(work.id), remote: true, method: "post", id: "work-videothumb-form") do %>
+	<%= form_tag(save_videothumb_path(work.id), remote: true, method: "post", id: "work-videothumb-form") do %>
 
 		<div id="work-videothumb-form-crop" >
 			<%= image_tag work.videothumb.url(:display), :id => "cropbox", :style => "width: 100%; height: 100%;" %>

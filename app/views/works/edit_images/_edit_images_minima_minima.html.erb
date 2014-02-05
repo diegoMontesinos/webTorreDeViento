@@ -3,7 +3,9 @@
 	<!-- GRID -->
 	<div id="grid-edit-images-content">
 
-		<div id="work-minima-minima-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-minima-minima-edit-images-display" url-dialog="<%= edit_display_path(@work) %>?id_div=work-minima-minima-edit-images-display">
+			<%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 		<div id="work-minima-minima-edit-images-info"></div>
 
 	</div>
@@ -21,6 +23,26 @@
 <% end %>
 
 <script type="text/javascript">
+
+	function loadDialog(title, div) {
+		$.ajax({
+			type: "GET",
+			url: $(div).attr("url-dialog"),
+			dataType: "html",
+			success: function(data) {
+				// Vacia el contenido de la ventana de dialogo
+				$("#work-edit-images-dialog").empty();
+
+				// Le cambiamos el titulo
+				$("#work-edit-images-dialog").dialog("option", "title", title);
+
+				// Se le agrega el contenido
+				$("#work-edit-images-dialog").append(data);
+
+				$("#work-edit-images-dialog").dialog("open");
+			}
+		});
+	}
 
 	$(function() {
 
@@ -40,18 +62,7 @@
 
 		// Click en display
 		$("#work-minima-minima-edit-images-display").click(function() {
-
-			// Vacia el contenido de la ventana de dialogo
-			$("#work-edit-images-dialog").empty();
-
-			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
-
-			// Se le agrega el contenido
-			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-minima-minima-edit-images-display' }) %>"; 
-			$("#work-edit-images-dialog").append(display_html);
-
-			$("#work-edit-images-dialog").dialog("open");
+			loadDialog("Seleccione la imagen de display", this);
 		});
 		
 	});

@@ -1,47 +1,61 @@
-<div id="work-folder-form-container" >
+<div id="work-folder-form-container" style="width: 100%; height: 480px; overflow: hidden;">
 
 	<!-- FORMULARIO -->
-	<%= form_tag(edit_folder_path(work.id), remote: true, method: "post", id: "work-folder-form") do %>
+	<%= form_tag(save_folder_path(work.id), remote: true, method: "post", id: "work-folder-form") do %>
 		<%= hidden_field_tag :id_folder, file_folder.id %>
 
-		<div id="folder-options">
-
-			<!-- IMAGENES-OPCIONES FOLDER -->	
-			<% file_folder.photos.each do |photo| %>
-				<div class="img-folder-option" urlPhoto="<%= photo.image.url(:display) %>" onclick="showImg(this);" >
-					<% if file_folder.display.to_s == photo.id.to_s %>
-						<%= radio_button_tag :display, photo.id, true, :class => "radio-button-folder-option" %>
-					<% else %>
-						<%= radio_button_tag :display, photo.id, false, :class => "radio-button-folder-option" %>
-					<% end %>
-						
-					<%= image_tag photo.image.url(:display), :style => "width: 100%; height: 100%;" %>
+		<div id="select-folder-options" style="width: 96.5%; height: 450px; float: left; margin-left: 1.5%;">
+			<div id="folder-options-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.3em; line-height: 0.89em; margin-left: 16%; margin-top: 10px;">
+						<strong>1. SELECCIONE LA IMÁGEN PARA LA PORTADA DE LA SECCIÓN SELECCIONADA:</strong>
 				</div>
-			<% end %>
-			
+
+				<!-- IMAGENES-OPCIONES FOLDER -->
+				<div id="folder-options">
+					<% file_folder.photos.each do |photo| %>
+						<div class="img-folder-option" urlPhoto="<%= photo.image.url(:display) %>" onclick="showImg(this);" >
+							<% if file_folder.display.to_s == photo.id.to_s %>
+								<%= radio_button_tag :display, photo.id, true, :class => "radio-button-folder-option" %>
+							<% else %>
+								<%= radio_button_tag :display, photo.id, false, :class => "radio-button-folder-option" %>
+							<% end %>
+								
+							<%= image_tag photo.image.url(:display), :style => "width: 100%; height: 100%;" %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+
+			<div style="float: right; margin-right: 0.7%; margin-top: 10px;">
+				<%= button_tag(type: "button", id: "cancel-folder-form-0", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+			</div>
 		</div>
 
-		<div id="work-folder-form-crop"></div>
+		<div id="crop-selected-folder-option" style="width: 96.5%; float: left;	margin-left: 1.5%;">
+			<div id="folder-form-crop-container" style="width: 100%; height: 415px;	float: left; margin-top: 12px; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				
+				<div id="work-folder-form-crop"></div>
 
-		<div id="folder-form-preview-container">
-			<div style="margin-left: 31%;"><strong>PREVIEW</strong></div>
-			<div id="preview-container" style="width: 248px; height: 150px; overflow: hidden;"></div>
-		</div>
+				<div id="folder-form-preview-container">
+					<div style="margin-left: 31%;"><strong>PREVIEW</strong></div>
+					<div id="preview-container" style="overflow: hidden;"></div>
+				</div>
 
-		<% %w[x y w h].each do |attribute| %>
-			<%= hidden_field_tag "crop_#{attribute}" %>
-		<% end %>
+				<% %w[x y w h].each do |attribute| %>
+					<%= hidden_field_tag "crop_#{attribute}" %>
+				<% end %>
+			</div>
 
-		<div style="float: left; margin-top: 7%; margin-left: 4%;">
-			<%= submit_tag "OK", id: "submit_form", :class => "pure-button pure-button-primary", :style => "width: 125%; height: 40px;"  %>
+			<div style="float: right; margin-right: 0.7%; margin-top: 10px;">
+				<%= button_tag(type: "button", id: "back-folder-form", style: "float: left;", class: "pure-button pure-button-active") do %>ATRÁS<% end %>
+				<%= button_tag(type: "button", id: "cancel-folder-form-1", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+				<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary" %>
+			</div>
 		</div>
 	<% end %>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 </div>
+
+<% aspecRat = (dimensions[:w] / dimensions[:h]) %>
 
 <script type="text/javascript">
 
@@ -58,51 +72,90 @@
 	}
 
 	function update(coords) {
-		$("#crop_x").val(coords.x / 0.75);
-		$("#crop_y").val(coords.y / 0.75);
-		$("#crop_w").val(coords.w / 0.75);
-		$("#crop_h").val(coords.h / 0.75);
+		$("#crop_x").val(coords.x);
+		$("#crop_y").val(coords.y);
+		$("#crop_w").val(coords.w);
+		$("#crop_h").val(coords.h);
 
 		updatePreview(coords);
 	}
 
-	function updatePreview (coords) {
+	function updatePreview(coords) {
+		var newWidth = Math.round(($("#preview-container").width() * $("#cropbox").width()) / coords.w);
+		var newHeight = Math.round(($("#preview-container").height() * $("#cropbox").height()) / coords.h);
+
 		$('#preview').css({
-			width: Math.round(248 / coords.w * $('#cropbox').width()) + 'px',
-			height: Math.round(150 / coords.h * $('#cropbox').height()) + 'px',
-			marginLeft: '-' + Math.round(248 / coords.w * coords.x) + 'px',
-			marginTop: '-' + Math.round(150 / coords.h * coords.y) + 'px'
+			width: newWidth + 'px',
+			height: newHeight + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#cropbox").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#cropbox").height()) + 'px',
 		});
 	}
 
 	// Pone como imagen para hacer el crop el que tenga el checked
 	function putChecked() {
-		// Selecciona el default y lo pone en la pantalla del crop
+
+		// Obtenemos el url de la imagen que se eligio
 		var url_img = $(".radio-button-folder-option:checked").parent().attr("urlPhoto");
 
-		var img_html = "<img id='cropbox' src='"+ url_img +"' style='max-width: 450px; max-height: 300px;'>";
-		$("#work-folder-form-crop").empty();
-		$("#work-folder-form-crop").append(img_html);
+		var img = new Image();
+		img.id = "cropbox";
+						
+		var img_preview = new Image();
+		img_preview.id = "preview";
 
-		var img_preview_html = "<img id='preview' src='"+ url_img +"' style='max-width: 450px; max-height: 300px;'>";
-		$("#preview-container").empty();
-		$("#preview-container").append(img_preview_html);
+		img.onload = function() {
 
-		// Se inicia JCrop
-		$("#cropbox").Jcrop({
-			aspectRatio: 1.65333333,
-			setSelect: [0, 0, 248, 150],
-	  		bgOpacity:   0.2,
-	  		onSelect: update,
-	  		onChange: update
-		});
+			// Se muesta la pantalla del crop
+			$("#select-folder-options").animate({ marginLeft: "-=" + ($("#select-folder-options").width() * 1.4) + "px" }, 250);
+			$("#crop-selected-folder-option").show();
 
-		$("#work-folder-form-crop").css("width", "450px");
-		$("#work-folder-form-crop").css("height", "300px");
+			$(img).appendTo("#work-folder-form-crop");
+
+			// Se inicia JCrop
+			$("#cropbox").Jcrop({
+				aspectRatio: parseFloat("<%= aspecRat %>"),
+				setSelect: [0, 0, parseFloat("<%= dimensions[:w] %>"), parseFloat("<%= dimensions[:h] %>") ],
+				bgOpacity: 0.2,
+				onSelect: update,
+				onChange: update
+			});
+		}
+
+		img_preview.onload = function() {
+			// Se hacen ajustes a el contenedor del preview
+			$("#preview-container").css("width", "<%= dimensions[:w] %>px");
+			$("#preview-container").css("height", "<%= dimensions[:h] %>px");
+
+			// Se agrega a su contenedor y se aplica css
+			$(img_preview).appendTo("#preview-container");
+		}
+
+		img.src = url_img;
+		img_preview.src = url_img;
 	}
 
 	$(function() {
-		putChecked();
+		console.log("<%= dimensions[:w] %>");
+
+		$("#crop-selected-folder-option").hide();
+
+		$("#cancel-folder-form-0").click(function() {
+			$("#work-edit-images-dialog").dialog("close");
+		});
+
+		$("#cancel-folder-form-1").click(function() {
+			$("#work-edit-images-dialog").dialog("close");
+		});
+
+		$("#back-folder-form").click(function() {
+			$("#select-folder-options").animate({ marginLeft: "+=" + ($("#select-folder-options").width() * 1.4) + "px" }, 250);
+
+			$("#crop-selected-folder-option").hide();
+
+			$("#work-folder-form-crop").empty();
+			$("#preview-container").empty();
+		});
 
 		// Cuando el formulario del display se al server
 		$("#work-folder-form").bind("ajax:success", function(evt, data, status, xhr) {
@@ -112,7 +165,7 @@
 
 			// Se coloca la imagen de display
 			$("#<%= id_div %>").empty();
-			$("#<%= id_div %>").append("<img src=" + xhr.responseText + " style='width: 248px; height: 150px;'>");
+			$("#<%= id_div %>").append("<img src=" + xhr.responseText + " style='width: 100%; height: 100%;'>");
 		});
 	});
 </script>

@@ -23,6 +23,7 @@ WebTorreDeViento::Application.routes.draw do
   get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"
 
   get '/admin/works/grid/:id' => 'admin#work_grid_edit', as: "admin_work_grid"
+  delete '/admin/works/grid/:id' => 'admin#work_grid_delete', as: "admin_delete_work_grid"
 
   get '/admin/works/grid_element/:id' => 'admin#work_grid_elem_edit', as: "admin_work_gridelement"
 
@@ -38,13 +39,16 @@ WebTorreDeViento::Application.routes.draw do
   get "/work/edit_images" => "works#edit_images", as: "edit_images"
 
   # Editar el display de una obra
-  post "/works/edit_display/:id" => "works#edit_display", as: "edit_display"
+  get "/works/edit_display/:id" => "works#edit_display", as: "edit_display"
+  post "/works/save_display/:id" => "works#save_display", as: "save_display"
 
   # Editar un folder (orden de las fotos y su display)
-  post "/works/edit_folder/:id" => "works#edit_folder", as: "edit_folder"
+  get "/works/edit_folder/:id" => "works#edit_folder", as: "edit_folder"
+  post "/works/save_folder/:id" => "works#save_folder", as: "save_folder"
 
   # Editar el videothumb
-  post "/works/edit_videothumb/:id" => "works#edit_videothumb", as: "edit_videothumb"
+  get "/works/edit_videothumb/:id" => "works#edit_videothumb", as: "edit_videothumb"
+  post "/works/save_videothumb/:id" => "works#save_videothumb", as: "save_videothumb"
 
   # Obteniendo un folder
   get "/work/image_folder/:id" => "works#image_folder", as: "image_folder"

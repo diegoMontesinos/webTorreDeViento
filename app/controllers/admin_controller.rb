@@ -61,6 +61,20 @@ class AdminController < ApplicationController
 		render partial: "admin_edit_work_grid", locals: { work_grid: @work_grid, grid_elements: @grid_elements, count: params[:count] }
 	end
 
+	# DELETE
+	def work_grid_delete
+		@work_grid = WorkGrid.find(params[:id])
+		id_work_grid = @work_grid.id
+
+		@work_grid.destroy
+
+		respond_to do |format|
+			format.json {
+				render json: id_work_grid.to_json
+			}
+		end
+	end
+
 	# GET
 	def work_grid_elem_edit
 		@grid_element = GridElement.find(params[:id])

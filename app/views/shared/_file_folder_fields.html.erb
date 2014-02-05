@@ -38,8 +38,8 @@
 
 		// Cambiamos los ids
 		$("#image-folder-tab-header-").attr("id", "image-folder-tab-header-" + "<%= ff_name.to_s %>");
-		$("#image-folder-tab-header-" + "<%= ff_name.to_s %>").attr("href", "#image-folder-tab-" + "<%= ff_name.to_s %>");
-		$("#image-folder-tab-").attr("id", "image-folder-tab-" + "<%= ff_name.to_s %>");
+		$("#image-folder-tab-header-" + "<%= ff_name.to_s %>").attr("href", "#image-folder-tab-<%= ff_name.to_s %>");
+		$("#image-folder-tab-").attr("id", "image-folder-tab-<%= ff_name.to_s %>");
 
 		// Ordenamos los elementos html generados
 		$(".fields").each(function() {

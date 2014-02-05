@@ -3,10 +3,16 @@
 	<!-- GRID -->
 	<div id="grid-edit-images-content">
 
-		<div id="work-mediana-edit-images-display"><%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-mediana-edit-images-display" url-dialog="<%= edit_display_path(@work) %>?id_div=work-mediana-edit-images-display">
+			<%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 		<div id="work-mediana-edit-images-info"></div>
-		<div id="work-mediana-edit-images-galeria"><%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %></div>
-		<div id="work-mediana-edit-images-otros"><%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %></div>
+		<div id="work-mediana-edit-images-galeria" url-dialog="<%= edit_folder_path(@work.filefolder('GALERIA')) %>?id_div=work-mediana-edit-images-galeria">
+			<%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %>
+		</div>
+		<div id="work-mediana-edit-images-otros" url-dialog="<%= edit_folder_path(@work.filefolder('OTROS')) %>?id_div=work-mediana-edit-images-otros">
+			<%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %>
+		</div>
 
 	</div>
 
@@ -23,6 +29,28 @@
 <% end %>
 
 <script type="text/javascript">
+
+	function loadDialog(title, div) {
+		$.ajax({
+			type: "GET",
+			url: $(div).attr("url-dialog"),
+			dataType: "html",
+			success: function(data) {
+				// Vacia el contenido de la ventana de dialogo
+				$("#work-edit-images-dialog").empty();
+
+				// Le cambiamos el titulo
+				$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
+
+				// Se le agrega el contenido
+				$("#work-edit-images-dialog").append(data);
+
+				// Se despliega
+				$("#work-edit-images-dialog").dialog("open");
+			}
+		});
+	}
+
 
 	$(function() {
 
@@ -42,50 +70,18 @@
 
 		// Click en display
 		$("#work-mediana-edit-images-display").click(function() {
-
-			// Vacia el contenido de la ventana de dialogo
-			$("#work-edit-images-dialog").empty();
-
-			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "Seleccione la imagen de display");
-
-			// Se le agrega el contenido
-			var display_html = "<%= j (render partial: 'works/edit_images/edit_display', locals: { work: @work, id_div: 'work-mediana-edit-images-display' }) %>"; 
-			$("#work-edit-images-dialog").append(display_html);
-
-			$("#work-edit-images-dialog").dialog("open");
+			console.log("123");
+			loadDialog("Seleccione la imagen de display", this);
 		});
 
 		// Click en galeria
 		$("#work-mediana-edit-images-galeria").click(function() {
-			// Vacia el contenido de la ventana de dialogo
-			$("#work-edit-images-dialog").empty();
-
-			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "GALERIA");
-
-			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('GALERIA'), id_div: 'work-mediana-edit-images-galeria' }) %>";
-			$("#work-edit-images-dialog").append(gal_html);
-
-			// Se abre la ventana de dialogo
-			$("#work-edit-images-dialog").dialog("open");
+			loadDialog("GALERIA", this);
 		});
 
 		// Click en detras otros
 		$("#work-mediana-edit-images-otros").click(function() {
-			// Vacia el contenido de la ventana de dialogo
-			$("#work-edit-images-dialog").empty();
-
-			// Le cambiamos el titulo
-			$("#work-edit-images-dialog").dialog("option", "title", "DETRAS DE");
-
-			// Se le agrega el contenido
-			var gal_html = "<%= j (render partial: 'works/edit_images/edit_file_folder', locals: { work: @work, file_folder: @work.filefolder('OTROS'), id_div: 'work-mediana-edit-images-otros' }) %>";
-			$("#work-edit-images-dialog").append(gal_html);
-
-			// Se abre la ventana de dialogo
-			$("#work-edit-images-dialog").dialog("open");
+			loadDialog("DETRAS DE", this);
 		});
 		
 	});

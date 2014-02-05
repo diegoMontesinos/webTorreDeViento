@@ -1,7 +1,7 @@
 class WorksController < ApplicationController
 
 	skip_before_filter :verify_authenticity_token, :only => [:create]
-	before_filter :authenticate_user!, :only => [ :edit_images, :edit_display, :edit_folder, :edit_videothumb, :new, :create, :destroy ]
+	before_filter :authenticate_user!, :only => [ :edit_images, :edit_display, :edit_folder, :edit_videothumb, :save_display, :save_folder, :save_videothumb, :new, :create, :destroy ]
 	
 	# GET
 	def show
@@ -252,8 +252,15 @@ class WorksController < ApplicationController
 		end
 	end
 
-	# POST
+	# GET
 	def edit_display
+		@work = Work.find(params[:id])
+
+		render partial: "works/edit_images/edit_display", locals: { work: @work, id_div: params[:id_div] }
+	end
+
+	# POST
+	def save_display
 		@work = Work.find(params[:id])
 
 		@work.update_attribute(:display, params[:display].to_i)
@@ -267,8 +274,25 @@ class WorksController < ApplicationController
 		end
 	end
 
-	# POST
+	# GET
 	def edit_folder
+		@file_folder = FileFolder.find(params[:id])
+		@work = @file_folder.holdable
+
+		@dimensions = { :w => nil, :h => nil }
+		if @work.type_work == "full"
+			@dimensions[:w] = 248.0
+			@dimensions[:h] = 150.0
+		elsif @work.type_work == "mediana"
+			@dimensions[:w] = 299.0
+			@dimensions[:h] = 150.0
+		end
+
+		render partial: "works/edit_images/edit_file_folder", locals: { work: @work, file_folder: @file_folder, id_div: params[:id_div], dimensions: @dimensions }
+	end
+
+	# POST
+	def save_folder
 		@file_folder = FileFolder.find(params[:id_folder])
 		@file_folder.update_attribute(:display, params[:display].to_i)
 		@file_folder.crop_x = params[:crop_x]
@@ -287,8 +311,12 @@ class WorksController < ApplicationController
 		end
 	end
 
-	# POST
+	# GET
 	def edit_videothumb
+	end
+
+	# POST
+	def save_videothumb
 		@work = Work.find(params[:id])
 		@work.crop_x = params[:crop_x]
 		@work.crop_y = params[:crop_y]

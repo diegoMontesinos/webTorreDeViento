@@ -252,15 +252,15 @@
 	margin-left: 3.5%;
 	padding: 5px;
 
-	overflow: scroll;
+	overflow-y: scroll;
 
 	background: #5F5F5F;
 	border: 1px solid #000;
 	border-right: 1px solid #353535;
 	border-bottom: 1px solid #353535;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
 
 .img-display-option {
@@ -279,24 +279,31 @@
 
 // TERMINA CSS EDIT DISPLAY
 
+#folder-options-container {
+	width: 98%;
+	height: 430px;
+	margin-top: 10px;
+	margin-left: 1%;
+}
+
 #folder-options {
-	width: 41%;
-	height: 450px;
+	width: 90%;
+	height: 355px;
 
 	padding: 5px;
 	float: left;
-	margin-left: 0.5%;
-	margin-top: 0.5%;
+	margin-left: 4.3%;
+	margin-top: 15px;
 
-	overflow: scroll;
+	overflow-y: scroll;
 
 	background: #5F5F5F;
 	border: 1px solid #000;
 	border-right: 1px solid #353535;
 	border-bottom: 1px solid #353535;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
 
 .img-folder-option {
@@ -320,11 +327,6 @@
 }
 
 #work-folder-form-crop {
-	width: 450px;
-	height: 300px;
-
-	overflow: hidden;
-
 	float: left;
 	margin-left: 5%;
 }
@@ -335,11 +337,8 @@
 }
 
 #folder-form-preview-container {
-	width: 28%;
-	height: 170px;
-
-	margin-left: 5%;
-	margin-top: 7px;
+	margin-left: 0.6%;
+	margin-top: 125px;
 
 	position: relative;
 	float: left;
