@@ -1,19 +1,29 @@
+<div style="margin-top: 5px; margin-left: 42%; color: #000000; font-family: latha, latha_ie; font-size: 3em;"><%= count %></div>
 
 <!-- GRID -->
-<div class="work-grid" style="width: 97%; margin-top: 80px; margin-left: 1.5%;">
+<div class="work-grid" style="width: 97%; margin-top: 0px; margin-left: 1.5%;">
 	<% grid_elements.each do |grid_element| %>
 		<div class="grid-element-<%= grid_element.box %>" style="cursor: pointer;"
-			onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');">
-			
+			onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');" data="">
+
 			<% if grid_element.work.present? %>
+				<%= image_tag Photo.find(grid_element.display).image.url(:display) %>
+
+				<script type="text/javascript">
+					var container = $(".grid-element-<%= grid_element.box %>");
+					container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
+				</script>
 			<% end %>
-			
 		</div>
 	<% end %>
 </div>
 
 <!-- DIALOG WINDOW -->
 <div id="edit-work-grid-dialog" title="Edita el rodillo" style="display: none; z-index: 4;"></div>
+
+<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.89em;">
+	<%= link_to works_path, :class => "pure-button pure-button-primary", :style => "width: 10%; float: right; margin-right: 2%; margin-top: 20px;" do %>IR A RODILLO<% end %>
+</div>
 
 <script type="text/javascript">
 	
@@ -35,16 +45,43 @@
 	}
 
 	$(function() {
+
 		var currWidth = $(".work-grid").width();
 		var newHeight = (currWidth * 500.0) / 1125.0;
 		$(".work-grid").height(newHeight);
 
 		for (var i = 0; i <= 14; i++) {
-			$(".grid-element-" + i).hover(function() {
+			var container = $(".grid-element-" + i);
+
+			container.hover(function() {
 				$(this).animate({opacity: 0.85}, 100);
 			}, function() {
 				$(this).animate({opacity: 1.0}, 100);
 			});
+
+			// Se colocan bien las imagenes
+			var img = container.find("img");
+
+			if(img.length > 0) {
+				var dataAttr = container.attr("data").split(";");
+				var data = {
+					x: parseFloat(dataAttr[0]),
+					y: parseFloat(dataAttr[1]),
+					w: parseFloat(dataAttr[2]),
+					h: parseFloat(dataAttr[3]),
+				}
+				
+				var newWidth = Math.round((container.width() * img.width()) / data.w);
+				var newHeight = Math.round((container.height() * img.height()) / data.h);
+				console.log(container.height());
+
+				img.css({
+					width: newWidth + 'px',
+					height: newHeight + 'px',
+					marginLeft: '-' + Math.round((newWidth * data.x) / img.width()) + 'px',
+					marginTop: '-' + Math.round((newHeight * data.y) / img.height()) + 'px',
+				});
+			}
 		};
 
 		// Se inicia el dialog

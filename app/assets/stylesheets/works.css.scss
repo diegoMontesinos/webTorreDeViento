@@ -1014,9 +1014,16 @@ div.next {
 
 // EMPIEZA CSS RODILLO
 
+#work-grids-container {
+	width: 100%;
+	height: 500px;
+	margin-top: -5px;
+
+	position: relative;
+}
+
 .work-grid {
 	position: relative;
-	float: left;
 }
 
 .grid-element-0 {

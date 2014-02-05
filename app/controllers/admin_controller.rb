@@ -37,11 +37,28 @@ class AdminController < ApplicationController
 	end
 
 	# GET
+	def new_work_grid
+		@work_grid = WorkGrid.new 
+		15.times { |count|
+			grid_element = @work_grid.grid_elements.build
+			grid_element.box = count.to_s
+		}
+
+		if @work_grid.save
+			respond_to do |format|
+				format.json {
+					render json: @work_grid.to_json
+				}
+			end
+		end
+	end
+
+	# GET
 	def work_grid_edit
 		@work_grid = WorkGrid.find(params[:id])
 		@grid_elements = @work_grid.grid_elements
 
-		render partial: "admin_edit_work_grid", locals: { work_grid: @work_grid, grid_elements: @grid_elements }
+		render partial: "admin_edit_work_grid", locals: { work_grid: @work_grid, grid_elements: @grid_elements, count: params[:count] }
 	end
 
 	# GET

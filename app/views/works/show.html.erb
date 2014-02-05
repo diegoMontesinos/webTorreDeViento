@@ -24,14 +24,14 @@
 	});
 </script>
 
-<div id="#wrapper-tvp" >
+<div id="wrapper-tvp" >
 	<div id="container-tvp" >
 		<div id="banner-tvp" >
-			<%= render "shared/banner_tvp" %>
+			<%= render partial: "shared/banner_tvp", locals: { :bco => true } %>
 		</div>
 
 		<div style="margin-top: 25px;">
-			<%= render "shared/menu_tvp" %>
+			<%= render partial: "shared/menu_tvp" %>
 		</div>
 
 		<% if !@work.type_work.nil? %>

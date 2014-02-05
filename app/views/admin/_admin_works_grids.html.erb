@@ -1,5 +1,10 @@
 <div id="admin-works-grids-content">
 	<div style="width: 19%; height: 580px; margin-top: 15px; margin-left: 1.5%; position: relative; float: left; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+			<strong>PLANTILLAS DEL RODILLO<br>CARGADAS</strong>
+		</div>
+
 		<div id="admin-works-grid-options">
 			<% i = 1 %>
 			<% work_grids.each do |work_grid| %>
@@ -9,7 +14,7 @@
 					<%= image_tag "plantilla_mini.png", :style => "width: 100%; height: 100%;" %>
 				</div>
 
-				<div id="edit-work-grid-<%= work_grid.id %>" style="display: none;"><%= link_to admin_work_grid_path(work_grid), remote: true, method: :get do %><% end %></div>
+				<div id="edit-work-grid-<%= work_grid.id %>" style="display: none;"><%= link_to admin_work_grid_path(work_grid) + "?count=" + i.to_s, remote: true, method: :get do %><% end %></div>
 				<script type="text/javascript">
 					$("#edit-work-grid-<%= work_grid.id %>").bind("ajax:success", function(evt, data, status, xhr) {
 						$("#admin-works-grid-selection").empty();
@@ -19,6 +24,14 @@
 				</script>
 
 				<% i = i + 1 %>
+			<% end %>
+		</div>
+
+		<div style="width: 100%; height: 60px;">
+			<%= link_to admin_new_work_grid_path, id: "new-work-grid-link", remote: true do %>
+				<div class="pure-button pure-button-primary" style="width: 30%; margin-left: 52%; margin-top: 20px; font-family: latha, latha_ie; font-size: 0.8em; line-height: 0.89em;">
+					<center>AGREGAR<br>PLANTILLA</center>
+				</div>
 			<% end %>
 		</div>
 	</div>
@@ -44,6 +57,11 @@
 	}
 
 	$(function() {
+		$("#new-work-grid-link").bind("ajax:success", function(evt, data, status, xhr) {
+			$("#works-catalog-menu-item").click();
+		});
+
+		$(".admin-works-grid-option").first().click();
 	});
 
 </script>

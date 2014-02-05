@@ -19,14 +19,16 @@ WebTorreDeViento::Application.routes.draw do
 
   get '/admin/works' => 'admin#works', as: "admin_works"
 
+  # Grids de Obras (Rodillo de obras)
   get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"
 
   get '/admin/works/grid/:id' => 'admin#work_grid_edit', as: "admin_work_grid"
 
   get '/admin/works/grid_element/:id' => 'admin#work_grid_elem_edit', as: "admin_work_gridelement"
 
-  # Guardando el grid
   patch "/admin/works/edit_grid_element/:id" => "admin#save_grid_elem", as: "grid_element"
+
+  get "/admin/works/new_grid" => "admin#new_work_grid", as: "admin_new_work_grid"
 
   # Photos
   # Creando las fotos

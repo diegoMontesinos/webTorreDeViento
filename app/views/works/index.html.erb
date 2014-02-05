@@ -1,0 +1,128 @@
+<div id="wrapper-tvp" >
+	<div id="container-tvp">
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+
+		<div id="work-grids-container">
+			<% i = 0 %>
+			<% @work_grids.each do |work_grid| %>
+				
+				<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 500px; position: absolute; left: <%= i * 100 %>%;">
+
+					<% j = 0 %>
+					<% work_grid.grid_elements.each do |grid_element| %>
+						<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="">
+
+							<% if grid_element.work.present? %>
+								<%= link_to work_path(grid_element.work_id) do %><% end %>
+
+								<script type="text/javascript">
+									var container = $("#element-<%= i %>-<%= j %>");
+									container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
+									container.attr("img-url", "<%= Photo.find(grid_element.display).image.url(:display) %>");
+								</script>
+							<% end %>
+
+						</div>
+
+						<% j = j + 1 %>
+					<% end %>
+				</div>
+
+				<% i = i + 1 %>
+			<% end %>
+		</div>
+
+		<div id="lower-bar" style="width: 100%; height: 50px; background: #000000;"></div>
+
+		<div id="legals-tvp">
+			<%= image_tag "01-LEGALESTXT.png", :style => "width: 100%; cursor: pointer;" %>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				$("html").css("background", "#FFFFFF");
+				$("body").css("background", "#FFFFFF");
+
+				$("#legals-tvp").hover(function() {
+					$("#legals-tvp img").attr('src', "/assets/02-LEGALESTXT.png");
+				}, function() {
+					$("#legals-tvp img").attr('src', "/assets/01-LEGALESTXT.png");
+				});
+
+				
+				for (var i = 0; i <= 14; i++) {
+					var container = $(".grid-element-" + i);
+
+					container.each(function() {
+
+						// Se colocan bien las imagenes
+						var img_url = $(this).attr("img-url");
+
+						if(img_url != "") {
+							var dataAttr = $(this).attr("data").split(";");
+							var data = {
+								x: parseFloat(dataAttr[0]),
+								y: parseFloat(dataAttr[1]),
+								w: parseFloat(dataAttr[2]),
+								h: parseFloat(dataAttr[3]),
+							}
+
+							var that = this;
+							var img = new Image();
+							img.onload = function() {
+								$(img).appendTo($(that).find("a"));
+
+								var newW = Math.round(($(that).width() * $(img).width()) / data.w);
+								var newH = Math.round(($(that).height() * $(img).height()) / data.h);
+
+								$(img).css({
+									width: newW + 'px',
+									height: newH + 'px',
+									marginLeft: '-' + Math.round((newW * data.x) / $(img).width()) + 'px',
+									marginTop: '-' + Math.round((newH * data.y) / $(img).height()) + 'px',
+								});
+							}
+
+							img.src = img_url;
+						}
+					});
+				}
+
+				/*$("#work-grids-container").carouFredSel({
+					auto: {
+						items: 1,
+						duration		: 1500,
+						easing			: "linear",
+						timeoutDuration	: 0
+					}
+				}).trigger("pause");
+
+				$("#prev").hover(function() {
+					$("#work-grids-container").trigger("configuration", ["direction", "right"]);
+					$("#work-grids-container").trigger("play");
+				}, function() {
+					$("#work-grids-container").trigger("pause");
+				}).click(function() {
+					return false;
+				});
+
+				$("#next").hover(function() {
+					$("#work-grids-container").trigger("configuration", ["direction", "left"]);
+					$("#work-grids-container").trigger("play");
+				}, function() {
+					$("#work-grids-container").trigger("pause");
+				}).click(function() {
+					return false;
+				});*/
+
+			});
+		</script>
+	</div>
+</div>

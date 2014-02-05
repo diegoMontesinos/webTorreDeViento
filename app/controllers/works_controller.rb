@@ -199,6 +199,11 @@ class WorksController < ApplicationController
 		end
 	end
 
+	# GET
+	def index
+		@work_grids = WorkGrid.all
+	end
+
 	def image_folder
 		permitted_params = params.permit(:id, :folder)
 
