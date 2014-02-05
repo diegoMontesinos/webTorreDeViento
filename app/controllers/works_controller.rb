@@ -313,6 +313,9 @@ class WorksController < ApplicationController
 
 	# GET
 	def edit_videothumb
+		@work = Work.find(params[:id])
+
+		render partial: "works/edit_images/edit_videothumb", locals: { work: @work, id_div: params[:id_div] }
 	end
 
 	# POST
@@ -337,7 +340,7 @@ class WorksController < ApplicationController
 	# POST
 	def store_order
 
-		ordered_ids = params[:order].split(',')
+		ordered_ids = params[:order].split('_')
 		index = 0
 
 		while (index < ordered_ids.length) do

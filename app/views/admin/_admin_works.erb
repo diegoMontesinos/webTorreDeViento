@@ -25,7 +25,7 @@
 				<% end %>
 			</ul>
 
-			<div style="margin-left: 46%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
+			<div style="margin-left: 30%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
 				<%= button_tag(type: "button", id: "admin-works-store-order", class: "pure-button pure-button-primary") do %>
 					<strong>GUARDAR ORDEN</strong> <i class="fa fa-list"></i>
 				<% end %>
@@ -121,7 +121,10 @@
 			var order_str = "";
 
 			for(var i = 0; i < works_li.length; i++) {
-				order_str += $(works_li[i]).attr("id-work") + ",";
+				var id_work = $(works_li[i]).attr("id-work");
+				if(id_work != undefined) {
+					order_str += id_work + "_";
+				}
 			}
 
 			var order_param = "/?order=" + order_str;
