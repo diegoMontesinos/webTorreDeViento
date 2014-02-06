@@ -85,6 +85,20 @@ class AdminController < ApplicationController
 	end
 
 	# POST
+	def work_grid_elem_clean
+		@grid_element = GridElement.find(params[:id])
+		@grid_element.work = nil
+		@grid_element.display = nil
+		@grid_element.save
+
+		respond_to do |format|
+			format.json {
+				render json: "".to_json
+			}
+		end
+	end
+
+	# POST
 	def save_grid_elem
 		@grid_element = GridElement.find(params[:id])
 		@grid_element.work = Work.find(params[:grid_element][:work_id])

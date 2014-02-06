@@ -17,16 +17,21 @@
 
 					<% j = 0 %>
 					<% work_grid.grid_elements.each do |grid_element| %>
-						<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="">
+						<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="">
 
 							<% if grid_element.work.present? %>
-								<%= link_to work_path(grid_element.work_id) do %><% end %>
-
 								<script type="text/javascript">
 									var container = $("#element-<%= i %>-<%= j %>");
 									container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
 									container.attr("img-url", "<%= Photo.find(grid_element.display).image.url(:display) %>");
+									container.attr("work-url", "<%= work_path(grid_element.work_id) %>");
 								</script>
+
+								<div class="grid-element-info">
+									<div style="float: right; margin-right: 1.6%;">
+										<%= grid_element.work.titles_text.html_safe %>
+									</div>
+								</div>
 							<% end %>
 
 						</div>
@@ -47,8 +52,13 @@
 
 		<script type="text/javascript">
 			$(function() {
-				$("html").css("background", "#FFFFFF");
-				$("body").css("background", "#FFFFFF");
+				$("html").css("width", "100%");
+				$("html").css("min-height", "100%");
+				$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+				$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+				$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+				$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+				$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
 
 				$("#legals-tvp").hover(function() {
 					$("#legals-tvp img").attr('src', "/assets/02-LEGALESTXT.png");
@@ -66,6 +76,8 @@
 						var img_url = $(this).attr("img-url");
 
 						if(img_url != "") {
+
+							// Se agrega la imagen
 							var dataAttr = $(this).attr("data").split(";");
 							var data = {
 								x: parseFloat(dataAttr[0]),
@@ -77,16 +89,43 @@
 							var that = this;
 							var img = new Image();
 							img.onload = function() {
-								$(img).appendTo($(that).find("a"));
+								$(img).prependTo($(that));
 
 								var newW = Math.round(($(that).width() * $(img).width()) / data.w);
 								var newH = Math.round(($(that).height() * $(img).height()) / data.h);
+								var mLeft = Math.round((newW * data.x) / $(img).width());
+								var mRight = Math.round((newH * data.y) / $(img).height());
 
 								$(img).css({
 									width: newW + 'px',
 									height: newH + 'px',
-									marginLeft: '-' + Math.round((newW * data.x) / $(img).width()) + 'px',
-									marginTop: '-' + Math.round((newH * data.y) / $(img).height()) + 'px',
+									marginLeft: '-' + mLeft + 'px',
+									marginTop: '-' + mRight + 'px'
+								});
+
+								// Se le da el efecto hover
+								$(that).hover(function() {
+									$(this).find('img').animate({
+										width: $(that).width() * 0.5,
+										height: $(that).height() * 0.5,
+										marginTop: 10,
+										marginLeft: 10
+									}, 500)
+								}, function() {
+									$(this).find('img').animate({
+										width: newW + 'px',
+										height: newH + 'px',
+										marginLeft: '-' + mLeft + 'px',
+										marginTop: '-' + mRight + 'px'
+									}, 300);
+								});
+
+								// Se le pone cursor de manita
+								$(that).css("cursor", "pointer");
+
+								// Se le da accion de click
+								$(that).click(function() {
+									$(location).attr("href", $(this).attr("work-url"));
 								});
 							}
 

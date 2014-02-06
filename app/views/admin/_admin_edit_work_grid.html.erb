@@ -3,10 +3,12 @@
 <!-- GRID -->
 <div class="work-grid" style="width: 97%; margin-top: 0px; margin-left: 1.5%;">
 	<% grid_elements.each do |grid_element| %>
-		<div class="grid-element-<%= grid_element.box %>" style="cursor: pointer;"
-			onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');" data="">
+		<div class="grid-element-<%= grid_element.box %>" onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');" data="">
 
 			<% if grid_element.work.present? %>
+				<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 4%; top: 5px; cursor: pointer;" onclick="quit_element('<%= admin_work_clean_gridelement_path(grid_element)%>', this, event);">
+					<i class="fa fa-times-circle"></i>
+				</div>
 				<%= image_tag Photo.find(grid_element.display).image.url(:display) %>
 
 				<script type="text/javascript">
@@ -44,6 +46,20 @@
 		});
 	}
 
+	function quit_element(clear_url, div, event) {
+		$.ajax({
+			type: "POST",
+			url: clear_url,
+			dataType: "json",
+			success: function(data) {
+				$(div).parent().empty();
+			}
+		});
+
+		event.stopPropagation();
+		return;
+	}
+
 	$(function() {
 
 		var currWidth = $(".work-grid").width();
@@ -52,12 +68,6 @@
 
 		for (var i = 0; i <= 14; i++) {
 			var container = $(".grid-element-" + i);
-
-			container.hover(function() {
-				$(this).animate({opacity: 0.85}, 100);
-			}, function() {
-				$(this).animate({opacity: 1.0}, 100);
-			});
 
 			// Se colocan bien las imagenes
 			var img = container.find("img");
@@ -73,7 +83,6 @@
 				
 				var newWidth = Math.round((container.width() * img.width()) / data.w);
 				var newHeight = Math.round((container.height() * img.height()) / data.h);
-				console.log(container.height());
 
 				img.css({
 					width: newWidth + 'px',

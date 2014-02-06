@@ -26,6 +26,7 @@ WebTorreDeViento::Application.routes.draw do
   delete '/admin/works/grid/:id' => 'admin#work_grid_delete', as: "admin_delete_work_grid"
 
   get '/admin/works/grid_element/:id' => 'admin#work_grid_elem_edit', as: "admin_work_gridelement"
+  post '/admin/works/grid_element/:id' => 'admin#work_grid_elem_clean', as: "admin_work_clean_gridelement"
 
   patch "/admin/works/edit_grid_element/:id" => "admin#save_grid_elem", as: "grid_element"
 
