@@ -162,6 +162,8 @@
 			<div class="work-full-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_galeria.name_folder %></div></div>
 		</div>
 
+		<div style="width: 0.1%; height: 150px; float: left; background: #FFFFFF;"></div>
+
 		<!-- VIDEO O SUSTITUTO -->
 		<% if @work.video.present? %>
 			<div class="work-full-sections-item" style="width: 24.8%; height: 150px;" onclick="putVideo('<%= @work.video.url %>');" >
@@ -178,6 +180,8 @@
 			</div>
 		<% end %>
 
+		<div style="width: 0.2%; height: 150px; float: left; background: #FFFFFF;"></div>
+
 		<!-- DETRAS DE -->
 		<div class="work-full-sections-item" style="width: 24.8%; height: 150px;" onclick="showFolder('DETRAS DE');">
 			<% folder_detrasde = @work.filefolder("DETRAS DE") %>
@@ -186,8 +190,10 @@
 			<div class="work-full-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_detrasde.name_folder %></div></div>
 		</div>
 
+		<div style="width: 0.2%; height: 150px; float: left; background: #FFFFFF;"></div>
+
 		<!-- OTROS -->
-		<div class="work-full-sections-item-right" style="width: 24.9%; height: 150px;" onclick="showFolder('OTROS');">
+		<div class="work-full-sections-item-right" style="width: 25%; height: 150px;" onclick="showFolder('OTROS');">
 			<% folder_otros = @work.filefolder("OTROS") %>
 			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
 

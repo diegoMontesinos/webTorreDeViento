@@ -13,11 +13,13 @@ WebTorreDeViento::Application.routes.draw do
   # Administrador
   get '/admin' => 'admin#show'
 
+  # Administrador (Obras)
   get '/admin/works/new' => 'admin#new_work', as: "admin_new_work"
-
   get '/admin/works/edit' => 'admin#edit_work', as: "admin_edit_work"
-
   get '/admin/works' => 'admin#works', as: "admin_works"
+
+  # Administrador (Colaboradores)
+  get '/admin/colaborator/new' => 'admin#new_colaborator', as: "admin_new_colaborator"
 
   # Grids de Obras (Rodillo de obras)
   get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"
@@ -62,5 +64,8 @@ WebTorreDeViento::Application.routes.draw do
 
   # Obras (Works)
   resources :works
+
+  # Colaboradores (Colaborators)
+  resources :colaborators
 
 end

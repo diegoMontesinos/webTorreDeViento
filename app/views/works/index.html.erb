@@ -9,7 +9,7 @@
 		</div>
 
 
-		<div id="work-grids-container">
+		<div id="work-grids-container" style="background: #FFFFFF;">
 			<% i = 0 %>
 			<% @work_grids.each do |work_grid| %>
 				
@@ -51,6 +51,25 @@
 		</div>
 
 		<script type="text/javascript">
+			function correctLineHeight(elem) {
+				elem.find("p").each(function() {
+					var maxFontSize = 0;
+
+					$(this).find("span").each(function() {
+						var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+						if(maxFontSize < currFontSize) {
+							maxFontSize = currFontSize;
+						}
+					});
+
+					if(maxFontSize == 0) {
+						$(this).css("line-height", "9px");
+					} else {
+						$(this).css("line-height", maxFontSize + "px");
+					}
+				});
+			}
+
 			$(function() {
 				$("html").css("width", "100%");
 				$("html").css("min-height", "100%");
@@ -71,6 +90,7 @@
 					var container = $(".grid-element-" + i);
 
 					container.each(function() {
+						correctLineHeight($(this));
 
 						// Se colocan bien las imagenes
 						var img_url = $(this).attr("img-url");
@@ -137,13 +157,13 @@
 				/*$("#work-grids-container").carouFredSel({
 					auto: {
 						items: 1,
-						duration		: 1500,
+						duration		: 3500,
 						easing			: "linear",
 						timeoutDuration	: 0
 					}
-				}).trigger("pause");
+				});*/
 
-				$("#prev").hover(function() {
+				/*$("#prev").hover(function() {
 					$("#work-grids-container").trigger("configuration", ["direction", "right"]);
 					$("#work-grids-container").trigger("play");
 				}, function() {

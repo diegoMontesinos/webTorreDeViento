@@ -6,6 +6,8 @@ class AdminController < ApplicationController
 	def show
 	end
 
+	### ADMIN OBRAS
+
 	# GET
 	def new_work
 		@work = Work.new
@@ -19,6 +21,15 @@ class AdminController < ApplicationController
 
 		render partial: "admin_edit_work", locals: { work: @work }
 	end
+
+	# GET
+	def works
+		@works = Work.works_inorder
+
+		render partial: "admin_works"
+	end
+
+	### ADMIN RODILLO DE OBRAS
 
 	# GET
 	def works_grids
@@ -125,11 +136,13 @@ class AdminController < ApplicationController
 		end
 	end
 
-	# GET
-	def works
-		@works = Work.works_inorder
+	### ADMIN COLABORADORES
 
-		render partial: "admin_works"
+	# GET
+	def new_colaborator
+		@colaborator = Colaborator.new
+
+		render partial: "admin_new_colaborator"
 	end
 
 end

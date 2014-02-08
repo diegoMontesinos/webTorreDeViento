@@ -4,13 +4,18 @@
 		<!-- OBRAS -->
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">OBRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 189px; top: 40px;">
-				<li id="new-work-menu-item" class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Agregar una nueva obra</div></li>
+				<li id="new-work-menu-item" class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Nueva obra</div></li>
 				<li id="works-menu-item" class="dropdown-item-admin"><div><i class="fa fa-list"></i> Obras cargadas</div></li>
 				<li id="works-catalog-menu-item" class="dropdown-item-admin"><div><i class="fa fa-th"></i> Rodillo de Obras</div></li>
 			</ul>
 		</li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">COLABORADORES</div></li>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">COLABORADORES<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+			<ul class="dropdown-menu-admin" style="left: 189px; top: 85px;">
+				<li id="new-colaborator-menu-item" class="dropdown-item-admin"><div><i class="fa fa-user"></i> Nuevo colaborador</div></li>
+				<li id="colaborators-menu-item" class="dropdown-item-admin"><div><i class="fa fa-users"></i> Colaboradores cargados</div></li>
+			</ul>
+		</li>
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">NOSOTROS</div></li>
 
@@ -27,11 +32,11 @@
 
 <script type="text/javascript">
 
-    ////////////////////////////////
-    //         M O D U L O        //
-    //          O B R A S         //
-    ////////////////////////////////
-    
+	//////////////////////////////
+	//        M O D U L O       //
+	//         O B R A S        //
+	//////////////////////////////
+	
 	// NUEVA OBRA
 	$("#new-work-menu-item").click(function() {
 		$("#content-admin").empty();
@@ -76,7 +81,25 @@
 				$("#content-admin").append(data);
 			}
 		});
+	});
 
+	///////////////////////////////
+	//        M O D U L O        //
+	// C O L A B O R A D O R E S //
+	///////////////////////////////
+
+	$("#new-colaborator-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_new_colaborator_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
 	});
 
 </script>
