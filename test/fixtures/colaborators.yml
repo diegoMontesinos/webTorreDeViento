@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  title: MyText
+  cv_text: MyText
+  semblance_text: MyText
+  cv: MyString
+  semblance: MyString
+  frequent: false
+  next: 1
+  previous: 1
+
+two:
+  name: MyString
+  title: MyText
+  cv_text: MyText
+  semblance_text: MyText
+  cv: MyString
+  semblance: MyString
+  frequent: false
+  next: 1
+  previous: 1
