@@ -1,2 +1,110 @@
-<h1>Colaborators#show</h1>
-<p>Find me in app/views/colaborators/show.html.erb</p>
+<div id="wrapper-tvp" >
+	<div id="container-tvp" >
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- COLABORADOR -->
+		<div id="colaborator-container">
+
+			<!-- SEMBLANZA -->
+			<div id="colaborator-semblance-container">
+
+				<!-- TITULO -->
+				<div id="colaborator-semblance-title">
+					<div id="colaborator-semblance-title-content">
+						<span style="width: 100%"><%= @colaborator.title.html_safe %></span>
+					</div>
+				</div>
+
+				<!-- TEXTO -->
+				<div class="colaborator-semblance-text" style="width: 100%; height: 431px; float: right; margin-top: 0px;">
+					<div id="colaborator-semblance-text-content" style="width: 89.05%; height: auto; margin-top: 1px;">
+						<%= @colaborator.semblance_text.html_safe %>
+					</div>
+				</div>
+
+				<!-- MENU PARA EL COLABORADOR -->
+				<div id="colaborator-info-menu-navigator">
+					<ul id="colaborator-info-menu">
+						<li id="semblance" class="colaborator-info-menu-item"><div><center><%= t(:semblance) %></center></div></li>
+						<li id="cv" class="colaborator-info-menu-item"><div><center><%= t(:cv) %></center></div></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- RETRATO -->
+			<div id="colaborator-portrait-container">
+				<%= image_tag @colaborator.portrait.url(:display), :style => "width: 100%; height: 100%;" %>
+			</div>
+		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
+		</div>
+
+	</diV>
+</div>
+
+<script type="text/javascript">
+	function correctLineHeight(id_elem) {
+		$("#" + id_elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+
+	$(function() {
+		$("html").css("width", "100%");
+		$("html").css("min-height", "100%");
+		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+
+		if(($(".colaborator-semblance-text").data("jsp"))) {
+			$(".colaborator-semblance-text").data("jsp").destroy();
+		}
+
+		$(".colaborator-semblance-text").bind("jsp-initialised", function(event, isScrollable) {
+			// Se redimensiona el area scrollable
+			$(".jspContainer").css("width", "91%");
+			$(".jspContainer").css("margin-right", "2.75%");
+			$(".jspContainer").css("margin-left", "5.556%");
+		}).jScrollPane({hideFocus: true });
+
+
+		$('#semblance').click(function(e) {
+			e.preventDefault();
+			window.location.href = '<%= @colaborator.semblance.url %>';
+		});
+
+		$('#cv').click(function(e) {
+			e.preventDefault();
+			window.location.href = '<%= @colaborator.cv.url %>';
+		});
+
+		correctLineHeight("colaborator-semblance-text-content");
+	});
+</script>

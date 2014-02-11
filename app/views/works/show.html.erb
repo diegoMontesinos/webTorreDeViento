@@ -39,17 +39,8 @@
 		<% end %>
 
 		<div id="legals-tvp">
-			<%= image_tag "01-LEGALESTXT-BCO.png", :style => "width: 100%; cursor: pointer;" %>
+			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
 		</div>
 
-		<script type="text/javascript">
-			$(function() {
-				$("#legals-tvp").hover(function() {
-					$("#legals-tvp img").attr('src', "/assets/02-LEGALESTXT-BCO.png");
-				}, function() {
-					$("#legals-tvp img").attr('src', "/assets/01-LEGALESTXT-BCO.png");
-				});
-			});
-		</script>
 	</div>
 </div>

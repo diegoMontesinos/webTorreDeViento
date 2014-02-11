@@ -1,6 +1,7 @@
 <% if bco %>
 	<div id="logo-banner-tvp">
-		<%= image_tag "01-LOGO-BCO.png", :style => "width: 100%; height: auto;" %>
+		<%= image_tag "01-LOGO-BCO.png", :id => "logo-01", :style => "width: 100%; height: auto;" %>
+		<%= image_tag "02-LOGO-BCO.png", :id => "logo-02", :style => "width: 100%; height: auto; display: none;" %>
 	</div>
 
 	<div id="languages">
@@ -10,15 +11,18 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#logo-banner-tvp").hover(function() {
-				$("#logo-banner-tvp img").attr('src', "/assets/02-LOGO-BCO.png");
+				$("#logo-01").hide();
+				$("#logo-02").show();
 			}, function() {
-				$("#logo-banner-tvp img").attr('src', "/assets/01-LOGO-BCO.png");
+				$("#logo-02").hide();
+				$("#logo-01").show();
 			});
 		});
 	</script>
 <% else %>
 	<div id="logo-banner-tvp">
-		<%= image_tag "01-LOGO.png", :style => "width: 100%; height: auto;" %>
+		<%= image_tag "01-LOGO.png", :id => "logo-01", :style => "width: 100%; height: auto;" %>
+		<%= image_tag "02-LOGO.png", :id => "logo-02", :style => "width: 100%; height: auto; display: none;" %>
 	</div>
 
 	<div id="languages">
@@ -28,9 +32,11 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#logo-banner-tvp").hover(function() {
-				$("#logo-banner-tvp img").attr('src', "/assets/02-LOGO.png");
+				$("#logo-01").hide();
+				$("#logo-02").show();
 			}, function() {
-				$("#logo-banner-tvp img").attr('src', "/assets/01-LOGO.png");
+				$("#logo-02").hide();
+				$("#logo-01").show();
 			});
 		});
 	</script>

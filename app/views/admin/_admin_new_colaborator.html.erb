@@ -1,0 +1,15 @@
+<div id="admin-colaborator-content">
+	<%= render template: new_colaborator_path %>
+</div>
+
+<script type="text/javascript">
+	// Cuando el formulario se sube exitosamente
+	$("#submit-colaborator-form").bind("ajax:success", function(evt, data, status, xhr) {
+		
+		// Se vacia el contenido
+		$("#admin-colaborator-content").empty();
+
+		// Y se manda a la seleccion del display / crop
+		$("#admin-colaborator-content").append(xhr.responseText);
+	});
+</script>

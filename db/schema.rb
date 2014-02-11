@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140207184018) do
+ActiveRecord::Schema.define(version: 20140210234516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,18 +32,30 @@ ActiveRecord::Schema.define(version: 20140207184018) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
+  create_table "colaborator_translations", force: true do |t|
+    t.integer  "colaborator_id"
+    t.string   "language_code"
+    t.text     "semblance_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "colaborator_translations", ["colaborator_id", "language_code"], name: "colaborator_trans_index", unique: true, using: :btree
+
   create_table "colaborators", force: true do |t|
     t.string   "name"
     t.text     "title"
-    t.text     "cv_text"
     t.text     "semblance_text"
     t.string   "cv"
     t.string   "semblance"
     t.boolean  "frequent"
-    t.integer  "next"
-    t.integer  "previous"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cv_en"
+    t.string   "semblance_en"
+    t.string   "sproket_1"
+    t.string   "sproket_2"
+    t.string   "portrait"
   end
 
   create_table "file_folder_translations", force: true do |t|

@@ -1,0 +1,35 @@
+<% if bco %>
+
+	<%= image_tag "01-LEGALESTXT-BCO.png", :id => "legals-01", :style => "width: 100%; cursor: pointer;" %>
+	<%= image_tag "02-LEGALESTXT-BCO.png", :id => "legals-02", :style => "width: 100%; cursor: pointer; display: none;" %>
+
+	<script type="text/javascript">
+		$(function() {
+			$("#legals-tvp").hover(function() {
+				$("#legals-01").hide();
+				$("#legals-02").show();
+			}, function() {
+				$("#legals-02").hide();
+				$("#legals-01").show();
+			});
+		});
+	</script>
+
+<% else %>
+
+	<%= image_tag "01-LEGALESTXT.png", :id => "legals-01", :style => "width: 100%; cursor: pointer;" %>
+	<%= image_tag "02-LEGALESTXT.png", :id => "legals-02", :style => "width: 100%; cursor: pointer; display: none;" %>
+
+	<script type="text/javascript">
+		$(function() {
+			$("#legals-tvp").hover(function() {
+				$("#legals-01").hide();
+				$("#legals-02").show();
+			}, function() {
+				$("#legals-02").hide();
+				$("#legals-01").show();
+			});
+		});
+	</script>
+
+<% end %>
