@@ -13,11 +13,33 @@ class Colaborator < ActiveRecord::Base
 	attr_accessor :next, :previous
 
 	def self.colaborators_inorder
+		colaborators = Colaborator.all.order(:name)
+		colaborators = colaborators.reject { |colab| colab.frequent }
 
-		if Colaborator.count == 0
-			return Colaborator.all
-		else
-			return Colaborator.all.order(:name)
-		end
+		colaborators.push("COLABORADORES FRECUENTES")
+		colaborators.sort { |x,y|
+			if (x.is_a? Colaborator)
+				if (y.is_a? Colaborator)
+					x.name <=> y.name
+				else
+					x.name <=> y
+				end
+			else
+				if (y.is_a? Colaborator)
+					x <=> y.name
+				else
+					x <=> y
+				end
+			end
+		}
+
+		return colaborators
+	end
+
+	def self.frequents_colaborators
+		colaborators = Colaborator.all.order(:name)
+		colaborators = colaborators.reject { |colab| colab.frequent == false }
+
+		return colaborators
 	end
 end

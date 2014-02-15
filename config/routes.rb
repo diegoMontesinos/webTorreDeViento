@@ -66,6 +66,10 @@ WebTorreDeViento::Application.routes.draw do
   resources :works
 
   # Colaboradores (Colaborators)
+  
+  # Colaboradores Frecuentes
+  get "colaborators/frequents" => "colaborators#frequents", as: "frequents"
+
   resources :colaborators
 
 end
