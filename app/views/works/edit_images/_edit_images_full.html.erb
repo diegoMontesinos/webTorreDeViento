@@ -1,30 +1,31 @@
+
 <div id="grid-edit-images-container" style="float: left;" >
 
 	<!-- GRID -->
 	<div id="grid-edit-images-content">
 
-		<div id="work-full-edit-images-display" url-dialog="<%= edit_display_path(@work) %>?id_div=work-full-edit-images-display">
+		<div id="work-full-edit-images-display" url-dialog="<%= edit_display_path(work) %>?id_div=work-full-edit-images-display">
 			<%= image_tag "elegir-display.png", :style => "width: 100%; height: 100%;" %>
 		</div>
 		<div id="work-full-edit-images-info"></div>
-		<div id="work-full-edit-images-galeria" url-dialog="<%= edit_folder_path(@work.filefolder('GALERIA')) %>?id_div=work-full-edit-images-galeria">
+		<div id="work-full-edit-images-galeria" url-dialog="<%= edit_folder_path(work.filefolder('GALERIA')) %>?id_div=work-full-edit-images-galeria">
 			<%= image_tag "elegir-portada-galeria.png", :style => "width: 100%; height: 100%;" %>
 		</div>
 
-		<% if @work.video.present? %>
-			<div id="work-full-edit-images-video" url-dialog="<%= edit_videothumb_path(@work) %>?id_div=work-full-edit-images-video">
+		<% if work.video.present? %>
+			<div id="work-full-edit-images-video" url-dialog="<%= edit_videothumb_path(work) %>?id_div=work-full-edit-images-video">
 				<%= image_tag "elegir-portada-video.png", :style => "width: 100%; height: 100%;" %>
 			</div>
 		<% else %>
-			<div id="work-full-edit-images-sustitutovideo" url-dialog="<%= edit_folder_path(@work.substitute_video_folder) %>?id_div=work-full-edit-images-sustitutovideo">
+			<div id="work-full-edit-images-sustitutovideo" url-dialog="<%= edit_folder_path(work.substitute_video_folder) %>?id_div=work-full-edit-images-sustitutovideo">
 				<%= image_tag "elegir-portada-sustitutovideo.png", :style => "width: 100%; height: 100%;" %>
 			</div>
 		<% end %>
 
-		<div id="work-full-edit-images-detrasde" url-dialog="<%= edit_folder_path(@work.filefolder('DETRAS DE')) %>?id_div=work-full-edit-images-detrasde">
+		<div id="work-full-edit-images-detrasde" url-dialog="<%= edit_folder_path(work.filefolder('DETRAS DE')) %>?id_div=work-full-edit-images-detrasde">
 			<%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %>
 		</div>
-		<div id="work-full-edit-images-otros" url-dialog="<%= edit_folder_path(@work.filefolder('OTROS')) %>?id_div=work-full-edit-images-otros">
+		<div id="work-full-edit-images-otros" url-dialog="<%= edit_folder_path(work.filefolder('OTROS')) %>?id_div=work-full-edit-images-otros">
 			<%= image_tag "elegir-portada-otros.png", :style => "width: 100%; height: 100%;" %>
 		</div>
 	</div>
@@ -34,7 +35,7 @@
 
 </div>
 
-<%= link_to work_path(@work.id) do %>
+<%= link_to work_path(work.id) do %>
 	<div class="pure-button pure-button-primary" style="float: right; font-family: latha, latha_ie; font-size: 1em; margin-top: 49%; margin-right: 11%;">
 		IR A OBRA
 	</div>

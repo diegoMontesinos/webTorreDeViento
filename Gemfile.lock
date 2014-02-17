@@ -64,7 +64,6 @@ GEM
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     jcrop-rails-v2 (0.9.12.3)
-    jplayer-rails (2.4.1)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -101,6 +100,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    remotipart (1.2.1)
     rmagick (2.13.2)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -149,12 +149,12 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 1.2)
   jcrop-rails-v2
-  jplayer-rails
   jquery-rails
   jquery-ui-rails
   pg
   rails (= 4.0.2)
   rails-translate-models
+  remotipart (~> 1.0)
   rmagick
   sass-rails (~> 4.0.0)
   sdoc

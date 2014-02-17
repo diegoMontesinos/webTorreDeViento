@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
 
 	before_filter :authenticate_user!
+	skip_before_filter :verify_authenticity_token, :only => [:save_colab_gridelem]
 
 	# GET
 	def show
@@ -143,6 +144,87 @@ class AdminController < ApplicationController
 		@colaborator = Colaborator.new
 
 		render partial: "admin_new_colaborator"
+	end
+
+	# GET
+	def colaborators
+		@colaborators = Colaborator.all
+
+		render partial: "admin_colaborators"
+	end
+
+	# GET
+	def colaborators_home
+		if ColaboratorGridElement.count == 0
+			28.times { |count|
+				colab_grid_element = ColaboratorGridElement.new
+				colab_grid_element.box = count.to_s
+
+				colab_grid_element.save
+			}
+		end
+
+		@colaborator_grid_elements = ColaboratorGridElement.all
+
+		render partial: "admin_colaborators_home"
+	end
+
+	# GET
+	def colab_gridelement
+		@grid_element = ColaboratorGridElement.find(params[:id])
+
+		@colaborators = Colaborator.all
+		@colaborators = @colaborators.reject { |colab| colab.frequent }
+
+		render partial: "admin_colab_gridelement", locals: { grid_element: @grid_element, colaborators: @colaborators, div: params[:div] }
+	end
+
+	# PATH
+	def save_colab_gridelem
+		@grid_element = ColaboratorGridElement.find(params[:id])
+		img_str = ""
+
+		if params[:colaborator_grid_element][:colaborator_id] != ""
+			@grid_element.colaborator = Colaborator.find(params[:colaborator_grid_element][:colaborator_id])
+
+			if @grid_element.save
+				img_str = @grid_element.colaborator.sproket_1.url(:display)
+			end
+		else
+			permitted_params = params.require(:colaborator_grid_element).permit(:sprocket)
+			
+			if @grid_element.update(permitted_params)
+				if @grid_element.colaborator.present?
+					@grid_element.colaborator = nil
+
+					if @grid_element.save
+						img_str = @grid_element.sprocket.url(:display)						
+					end
+				else
+					img_str = @grid_element.sprocket.url(:display)
+				end
+			end
+		end
+
+		respond_to do |format|
+			format.json {
+				render json: img_str.to_json
+			}
+		end
+	end
+
+	# POST
+	def clean_colab_gridelem
+		@grid_element = ColaboratorGridElement.find(params[:id])
+		@grid_element.colaborator = nil
+		@grid_element.remove_sprocket!
+		@grid_element.save
+
+		respond_to do |format|
+			format.json {
+				render json: "".to_json
+			}
+		end
 	end
 
 end

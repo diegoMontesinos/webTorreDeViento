@@ -32,12 +32,12 @@
 			</div>
 		</div>
 
-		<div id="admin-works-selection" >
+		<div id="admin-works-selection">
 			<div id="admin-works-selection-display"></div>
 			<div id="admin-works-selection-title"></div>
 			<div id="admin-works-selection-buttons">
 				<%= button_tag(type: "button", id: "admin-edit-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px;") do %>
-					<strong>EDITAR OBRA</strong> <i class="fa fa-file-text-o"></i>
+					<strong>EDITAR OBRA</strong> <i class="fa fa-pencil-square-o"></i>
 				<% end %>
 
 				<%= button_tag(type: "button", id: "admin-edit-images-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%;") do %>
@@ -79,7 +79,6 @@
 		// Se asocian acciones a los botones
 		$("#admin-edit-work-button").click(function() {
 			var work_param = "/?id=" + $(".ui-state-default-selec").attr("id-work");
-			console.log(work_param);
 
 			$("#content-admin").empty();
 

@@ -17,7 +17,7 @@
 //= require ckeditor/init
 //= require dropzone
 //= require jquery.Jcrop
-//= require "jquery.jplayer"
+//= require jquery.remotipart
 //= require_tree .
 
 function remove_fields(link) {

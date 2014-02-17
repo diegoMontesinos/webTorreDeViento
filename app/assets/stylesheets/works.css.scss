@@ -1009,6 +1009,12 @@ div.next {
 
 // EMPIEZA CSS RODILLO
 
+#work-grids-container div.scrollableArea div {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
 #work-grids-container {
 	width: 100%;
 	height: 500px;
@@ -1196,6 +1202,30 @@ div.next {
 	position: absolute;
 	left: 77.8764%;
 	top: 75.2%;
+	overflow: hidden;
+
+	background-color: #000000;
+}
+
+.grid-element-extra-0 {
+	width: 10.9347%;
+	height: 24.6%;
+
+	position: absolute;
+	left: 0.0889%;
+	top: 75.2%;
+	overflow: hidden;
+
+	background-color: #000000;
+}
+
+.grid-element-extra-1 {
+	width: 10.9347%;
+	height: 49.6%;
+
+	position: absolute;
+	left: 88.9889%;
+	top: 0.2%;
 	overflow: hidden;
 
 	background-color: #000000;

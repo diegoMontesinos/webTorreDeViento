@@ -1,2 +1,62 @@
-<h1>Colaborators#index</h1>
-<p>Find me in app/views/colaborators/index.html.erb</p>
+<div id="wrapper-tvp" >
+	<div id="container-tvp">
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => true } %>
+		</div>
+
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<div id="colaborators-container">
+			<div id="colaborators-csi-conatiner">
+				<%= image_tag "csi-colaboradores.jpg", :style => "width: 100%; height: 100%;" %>
+			</div>
+
+			<div class="colaborator-home-grid" style="background: #000000;">
+				<% @colaborator_grid_elements.each.with_index do |grid_element, index| %>
+					
+					<% if index > 0 and index % 9 == 1 %>
+						<div class="colab-grid-element-extra1-<%= index %>">
+							<%= image_tag "sproket_lateral.jpg", :style => "width: 100%; height: 100%;" %>
+						</div>
+					<% end %>
+					
+					<div class="colab-grid-element-<%= grid_element.box %>">
+
+						<% if grid_element.colaborator.present? %>
+							<%= link_to colaborator_path(grid_element.colaborator) do %>
+								<%= image_tag grid_element.colaborator.sproket_1.url(:display), :style => "width: 100%; height: 100%;" %>
+							<% end %>
+						<% elsif grid_element.sprocket.present? %>
+							<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>
+						<% else %>
+							<%= image_tag "sproket_grid_element.jpg", :style => "width: 100%; height: 100%;" %>
+						<% end %>
+
+					</div>
+
+					<% if index > 0 and index % 9 == 0 %>
+						<div class="colab-grid-element-extra2-<%= index %>">
+							<%= image_tag "sproket_lateral.jpg", :style => "width: 100%; height: 100%;" %>
+						</div>
+					<% end %>
+
+				<% end %>
+			</div>
+		</div>
+
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#menu-tvp").css("background", "none");
+		$("html").css("background", "#000000");
+		$("body").css("background", "#000000");
+	});
+</script>

@@ -4,6 +4,16 @@ class ColaboratorsController < ApplicationController
   before_filter :authenticate_user!, :only => [ :new, :create ]
 
   def index
+    if ColaboratorGridElement.count == 0
+      28.times { |count|
+        colab_grid_element = ColaboratorGridElement.new
+        colab_grid_element.box = count.to_s
+
+        colab_grid_element.save
+      }
+    end
+    
+    @colaborator_grid_elements = ColaboratorGridElement.all
   end
 
   # POST
@@ -88,7 +98,17 @@ class ColaboratorsController < ApplicationController
   def update
   end
 
+  # DELETE
   def destroy
+    @colaborator = Colaborator.find(params[:id])
+    id_colaborator = @colaborator.id
+    @colaborator.destroy
+
+    respond_to do |format|
+      format.json {
+        render json: id_colaborator.to_json
+      }
+    end
   end
 
   def frequents

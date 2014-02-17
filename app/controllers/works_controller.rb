@@ -66,41 +66,42 @@ class WorksController < ApplicationController
 				works_inorder.first.save
 			end
 			
-			@work.save
+			if @work.save
 
-			# Se agregan las fotos que fueron subidas
-			filefolder_params = params[:work][:file_folders_attributes]
+				# Se agregan las fotos que fueron subidas
+				filefolder_params = params[:work][:file_folders_attributes]
 
-			filefolder_params.each do |key, value|
-				name_filefolder = filefolder_params[key.to_s][:name_folder]
-				saved_folders = FileFolder.where(holdable_id: @work.id)
-				saved_folders.reject { |folder| folder.name_folder_in_es == name_filefolder }
-				currFolder = saved_folders.first
+				filefolder_params.each do |key, value|
+					name_filefolder = filefolder_params[key.to_s][:name_folder]
+					saved_folders = FileFolder.where(holdable_id: @work.id)
+					saved_folders.reject { |folder| folder.name_folder_in_es == name_filefolder }
+					currFolder = saved_folders.first
 
-				ids_photos = filefolder_params[key.to_s][:ids_photos]
-				ids_photos.gsub! 'submitted', ''
-				ids_photos.gsub! ' ', ''
-				ids_photos_parse = ids_photos.split(',')
+					ids_photos = filefolder_params[key.to_s][:ids_photos]
+					ids_photos.gsub! 'submitted', ''
+					ids_photos.gsub! ' ', ''
+					ids_photos_parse = ids_photos.split(',')
 
-				ids_photos_parse.each do |id_photo|
-					currPhoto = Photo.find(id_photo.to_i)
-					currPhoto.file_folder = currFolder
-					currPhoto.save
+					ids_photos_parse.each do |id_photo|
+						currPhoto = Photo.find(id_photo.to_i)
+						currPhoto.file_folder = currFolder
+						currPhoto.save
 
-					if currFolder.display.nil?
-						currFolder.display = id_photo
-						currFolder.save
-					end
-
-					if @work.type_work == "minima_minima"
-						if name_filefolder == "DEFAULT" and @work.display.nil?
-							@work.display = id_photo
-							@work.save
+						if currFolder.display.nil?
+							currFolder.display = id_photo
+							currFolder.save
 						end
-					else
-						if name_filefolder == "GALERIA" and @work.display.nil?
-							@work.display = id_photo
-							@work.save
+
+						if @work.type_work == "minima_minima"
+							if name_filefolder == "DEFAULT" and @work.display.nil?
+								@work.display = id_photo
+								@work.save
+							end
+						else
+							if name_filefolder == "GALERIA" and @work.display.nil?
+								@work.display = id_photo
+								@work.save
+							end
 						end
 					end
 				end
@@ -183,7 +184,7 @@ class WorksController < ApplicationController
 			end
 		end
 
-		redirect_to edit_images_path + "/?id=" + @work.id.to_s
+		redirect_to edit_images_path + "/?id=" + @work.id.to_s + "&remoti="
 	end
 
 	# DELETE
@@ -239,17 +240,14 @@ class WorksController < ApplicationController
 		@work = Work.find(params[:id])
 
 		if @work.type_work == "full"
-	 		render partial: "works/edit_images/edit_images_full"
-
-		elsif @work.type_work == "mediana"
-	 		render partial: "works/edit_images/edit_images_mediana"
-
-		elsif @work.type_work == "minima"
-	 		render partial: "works/edit_images/edit_images_minima"
-	 		
-		else
-	 		render partial: "works/edit_images/edit_images_minima_minima"
-		end
+			render partial: "works/edit_images/edit_images_full", locals: { work: @work }
+ 		elsif @work.type_work == "mediana"
+			render partial: "works/edit_images/edit_images_mediana", locals: { work: @work }
+ 		elsif @work.type_work == "minima"
+			render partial: "works/edit_images/edit_images_minima", locals: { work: @work }
+ 		else
+			render partial: "works/edit_images/edit_images_minima_minima", locals: { work: @work }
+ 		end
 	end
 
 	# GET

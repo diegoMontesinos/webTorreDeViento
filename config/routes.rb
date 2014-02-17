@@ -20,6 +20,11 @@ WebTorreDeViento::Application.routes.draw do
 
   # Administrador (Colaboradores)
   get '/admin/colaborator/new' => 'admin#new_colaborator', as: "admin_new_colaborator"
+  get '/admin/colaborators' => 'admin#colaborators', as: "admin_colaborators"
+  get '/admin/colaborators/home' => 'admin#colaborators_home', as: "admin_colaborators_home"
+  get '/admin/colaborators/grid_element/:id' => 'admin#colab_gridelement', as: "admin_colab_gridelement"
+  patch '/admin/colaborators/grid_element/:id' => "admin#save_colab_gridelem", as: "colaborator_grid_element"
+  post '/admin/colaborators/grid_element/:id' => 'admin#clean_colab_gridelem', as: "colaborator_gridelement_clean"
 
   # Grids de Obras (Rodillo de obras)
   get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"

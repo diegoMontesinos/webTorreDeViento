@@ -1,0 +1,102 @@
+<div id="admin-colaborators-content">
+
+	<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		<div style="width: 69%%; font-family: latha, latha_ie; font-size: 1.02em; line-height: 0.89em; margin-left: 31%; margin-top: 14px;">
+			<strong>HAGA CLICK EN UN ESPACIO PARA EDITARLO</strong>
+		</div>
+
+		<!-- GRID -->
+		<div class="colaborator-home-grid" style="width: 1000px; height: 392px; margin-top: 50px; margin-left: 4%; position: relative;">
+
+			<% @colaborator_grid_elements.each do |grid_element| %>
+
+				<div class="colab-grid-element-<%= grid_element.box %>"
+					 onclick="showEditDialog('<%= admin_colab_gridelement_path(grid_element)%>?div=colab-grid-element-<%= grid_element.box %>');">
+
+					<% if grid_element.colaborator.present? %>
+						<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 12%; top: 3px; cursor: pointer;"
+						     onclick="quit_element('<%= colaborator_gridelement_clean_path(grid_element)%>', this, event);">
+							<i class="fa fa-times-circle"></i>
+						</div>
+						<%= image_tag grid_element.colaborator.sproket_1.url(:display), :style => "width: 100%; height: 100%;" %>
+					<% elsif grid_element.sprocket.present? %>
+						<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 12%; top: 3px; cursor: pointer;"
+						     onclick="quit_element('<%= colaborator_gridelement_clean_path(grid_element)%>', this, event);">
+							<i class="fa fa-times-circle"></i>
+						</div>
+						<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>
+					<% else %>
+						<%= image_tag "sproket_grid_element.jpg", :style => "width: 100%; height: 100%;" %>
+					<% end %>
+
+				</div>
+
+			<% end %>
+		</div>
+
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.89em;">
+			<%= link_to colaborators_path, :class => "pure-button pure-button-primary", :style => "width: 10%; float: right; margin-right: 3%; margin-top: 40px;" do %>
+				IR A HOME
+			<% end %>
+		</div>
+	</div>
+
+</div>
+
+<!-- DIALOG WINDOW -->
+<div id="edit-colaborator-grid-dialog" title="Inserta un colaborador" style="display: none; z-index: 4;"></div>
+
+<script type="text/javascript">
+
+	function showEditDialog(content_url) {
+		$("#edit-colaborator-grid-dialog").empty();
+
+		$.ajax({
+			type: "GET",
+			url: content_url,
+			dataType: "html",
+			success: function(data) {
+				// Se le agrega el contenido
+				$("#edit-colaborator-grid-dialog").append(data);
+
+				// Se despliega
+				$("#edit-colaborator-grid-dialog").dialog("open");
+			}
+		});
+	}
+
+	function quit_element(clear_url, div, event) {
+		$.ajax({
+			type: "POST",
+			url: clear_url,
+			dataType: "json",
+			success: function(data) {
+				var parent = $(div).parent();
+				parent.empty();
+				parent.append("<img alt='Sproket grid element' src='/assets/sproket_grid_element.jpg' style='width: 100%; height: 100%;'>");
+			}
+		});
+
+		event.stopPropagation();
+		return;
+	}
+
+	$(function() {
+
+		// Se inicia el dialog
+		$("#edit-colaborator-grid-dialog").dialog({
+			width: 1000,
+			
+			autoOpen: false,
+			
+			show: "scale",
+			hide: "scale",
+
+			dialogClass: "no-close",
+
+			modal: "true"
+		});
+
+	});
+
+</script>

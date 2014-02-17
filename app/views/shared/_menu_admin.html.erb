@@ -14,6 +14,7 @@
 			<ul class="dropdown-menu-admin" style="left: 189px; top: 85px;">
 				<li id="new-colaborator-menu-item" class="dropdown-item-admin"><div><i class="fa fa-user"></i> Nuevo colaborador</div></li>
 				<li id="colaborators-menu-item" class="dropdown-item-admin"><div><i class="fa fa-users"></i> Colaboradores cargados</div></li>
+				<li id="colaborators-home-menu-item" class="dropdown-item-admin"><div><i class="fa fa-th"></i> Home Colaboradores</div></li>
 			</ul>
 		</li>
 
@@ -88,6 +89,7 @@
 	// C O L A B O R A D O R E S //
 	///////////////////////////////
 
+	// NUEVA COLABORADOR
 	$("#new-colaborator-menu-item").click(function() {
 		$("#content-admin").empty();
 		$("input").remove();
@@ -95,6 +97,36 @@
 		$.ajax({
 			type: "GET",
 			url: "<%= admin_new_colaborator_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
+
+	// COLABORADORES CARGADOS
+	$("#colaborators-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_colaborators_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});	
+
+	// HOME COLABORADORES
+	$("#colaborators-home-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_colaborators_home_path %>",
 			dataType: "html",
 			success: function(data) {
 				$("#content-admin").append(data);

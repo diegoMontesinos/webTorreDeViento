@@ -1,0 +1,117 @@
+<div style="width: 100%; height: 480px; overflow: hidden">
+
+	<%= form_for grid_element, remote: true, html: { :class => "pure-form pure-form-stacked" } do |f| %>
+		<div style="margin-top: 5px; margin-left: 1%;">
+			<span style="font-family: latha, latha_ie; font-size: 1em;">¿Qué desea insertar?</span>
+			<%= select_tag "what-insert", "<option>Colaborador</option><option>Imagen</option>".html_safe %>
+		</div>
+
+		<div id="insert-colab-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+			<div id="admin-grid-colaborators-options">
+				<%= f.hidden_field :colaborator_id %>
+				<% colaborators.each do |colab| %>
+					<div class="colaborator-option" onclick="selectColab(this);" id-colab="<%= colab.id %>">
+
+						<div style="width: 100%; height: 98px;">
+							<%= image_tag colab.sproket_1.url(:display), :style => "width 100%; height: 100%;" %>
+						</div>
+
+						<div style="width: 100%; height: 35px; background: #000000;">
+							<div style="width: 75%; color: #FFFFFF; font-family: felixti, felixti_ie; font-size: 0.9em; margin-left: 10%;">
+								<center><%= colab.name.upcase %></center>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
+		<div id="insert-image-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+			<div id="insert-image" style="margin-top: 135px; margin-left: 33%; font-family: latha, latha_ie;">
+				<span style="margin-left: 20%; font-size: 1.8em"><strong>Imagen</strong></span><br>
+				<%= f.file_field :sprocket, :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button" %>
+			</div>
+		</div>
+
+		<div style="float: right; margin-top: 15px; marign-right: 1.2%;">
+			<%= button_tag(type: "button", id: "cancel_form", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+			<%= f.submit "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "float: left;" %>
+		</div>
+	<% end %>
+
+</div>
+
+<script type="text/javascript">
+
+	function selectColab(option) {
+		// Estilo
+		if($(".selec-colab").length > 0) {
+			$(".selec-colab").css("border", "0px");
+			$(".selec-colab").css("-webkit-box-shadow", "0px 0px 0px 0px");
+			$(".selec-colab").css("-moz-box-shadow", "0px 0px 0px 0px");
+			$(".selec-colab").css("box-shadow", "0px 0px 0px 0px");
+
+			$(".selec-colab").removeClass("selec-colab");
+		}
+
+		$(option).addClass("selec-colab");
+		$(".selec-colab").css("border", "1px solid #4195fc");
+		$(".selec-colab").css("-webkit-box-shadow", "0px 0px 4px #4195fc");
+		$(".selec-colab").css("-moz-box-shadow", "0px 0px 4px #4195fc");
+		$(".selec-colab").css("box-shadow", "0px 0px 4px #4195fc");
+
+		$("#colaborator_grid_element_colaborator_id").val($(option).attr("id-colab"));
+	}
+
+	$(function() {
+
+		$("#insert-image-container").hide();
+
+		$("#cancel_form").click(function() {
+			$("#edit-colaborator-grid-dialog").dialog("close");
+		});
+
+		// Comportamiento cuando selecciona que se quiere hacer
+		$("#what-insert").change(function() {
+			var option = $(this).find('option:selected');
+			if ($(option).val() == "Colaborador") {
+				$("#colaborator_grid_element_sprocket").replaceWith($("#colaborator_grid_element_sprocket").clone());
+				$("#insert-colab-container").show();
+				$("#insert-image-container").hide();
+			} else {
+				$("#colaborator_grid_element_colaborator_id").replaceWith($("#colaborator_grid_element_colaborator_id").clone());
+				$("#insert-colab-container").hide();
+				$("#insert-image-container").show();
+			}
+		});
+
+		$("#edit_colaborator_grid_element_<%= grid_element.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+
+			var responseImg = new Image();
+			responseImg.onload = function() {
+				$(".<%= div %>").empty();
+
+				/*var divClear = document.createElement("div");
+				$(divClear).css({
+					color: "#1C1C1C",
+					fontSize: "1.2em",
+					position: "absolute",
+					right: "4%",
+					top: "5px",
+					cursor: "pointer"
+				});
+				$(divClear).append("<i class='fa fa-times-circle'></i>");
+				divClear.onclick = function(){ quit_element('<%= admin_work_clean_gridelement_path(grid_element) %>', this, event); };
+
+				$(divClear).appendTo(".<%= div %>");*/
+				$(responseImg).appendTo(".<%= div %>");
+
+				$("#edit-colaborator-grid-dialog").dialog("close");
+			}
+
+			responseImg.src = data.replace('"', '').replace('"', '');
+		});
+
+	});
+
+</script>

@@ -74,5 +74,5 @@ gem "dropzonejs-rails"
 # JCrop, crop images
 gem "jcrop-rails-v2"
 
-# Video Player
-gem "jplayer-rails"
+# Remotipart para forms que suben archivos
+gem "remotipart", "~> 1.0"

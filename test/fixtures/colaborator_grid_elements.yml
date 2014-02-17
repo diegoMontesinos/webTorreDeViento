@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  colaborator_id: 
+  box: MyString
+  sprocket: MyString
+
+two:
+  colaborator_id: 
+  box: MyString
+  sprocket: MyString
