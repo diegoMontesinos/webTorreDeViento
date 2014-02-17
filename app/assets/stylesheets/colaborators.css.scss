@@ -658,3 +658,33 @@
 
 	position: relative;
 }
+
+.colab-sprocket-neg {
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+
+.colab-sprocket {
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.colab-sprocket:hover {
+	padding: 0;
+	opacity: 0;
+	transition: opacity .25s linear;
+	-moz-transition: opacity .25s linear;
+	-o-transition: opacity .25s linear;
+	-webkit-transition: opacity .25s linear;
+	-ms-transition: opacity .25s linear;
+}

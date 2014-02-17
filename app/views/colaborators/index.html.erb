@@ -23,10 +23,14 @@
 					<% end %>
 					
 					<div class="colab-grid-element-<%= grid_element.box %>">
-
 						<% if grid_element.colaborator.present? %>
 							<%= link_to colaborator_path(grid_element.colaborator) do %>
-								<%= image_tag grid_element.colaborator.sproket_1.url(:display), :style => "width: 100%; height: 100%;" %>
+								<div class="colab-sprocket">
+									<%= image_tag grid_element.colaborator.sproket_1.url(:display), :style => "width: 100%; height: 100%;" %>
+								</div>
+								<div class="colab-sprocket-neg">
+									<%= image_tag grid_element.colaborator.sproket_2.url(:display), :style => "width: 100%; height: 100%;" %>
+								</div>
 							<% end %>
 						<% elsif grid_element.sprocket.present? %>
 							<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>
