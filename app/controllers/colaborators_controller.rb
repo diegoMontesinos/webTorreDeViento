@@ -1,7 +1,7 @@
 class ColaboratorsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :only => [:create]
-  before_filter :authenticate_user!, :only => [ :new, :create ]
+  before_filter :authenticate_user!, :only => [ :new, :create, :destroy ]
 
   def index
     if ColaboratorGridElement.count == 0
@@ -31,6 +31,7 @@ class ColaboratorsController < ApplicationController
     @colaborator = Colaborator.new
   end
 
+  # GET
   def edit
   end
 
@@ -95,7 +96,65 @@ class ColaboratorsController < ApplicationController
 
   end
 
+  # PATCH
   def update
+    @colaborator = Colaborator.find(params[:id])
+
+    if @colaborator.frequent
+      
+      if params[:previous].present?
+        @colaborator.previous = params[:previous].to_i
+      else
+        @colaborator.previous = @colaborator.id
+      end
+
+      if params[:next].present?
+        @colaborator.next = params[:next].to_i
+      else
+        @colaborator.next = @colaborator.id
+      end
+      
+    else
+      colaborators = Colaborator.colaborators_inorder
+
+      colaborators.each.with_index { |colab, index|
+        if colab.is_a? Colaborator
+          if colab.id == @colaborator.id
+
+            if index - 1 >= 0
+              if colaborators[index - 1].is_a? Colaborator
+                @colaborator.previous = colaborators[index - 1].id
+              else
+                @colaborator.previous = "-1"
+              end
+            else
+              if colaborators[colaborators.length - 1].is_a? Colaborator
+                @colaborator.previous = colaborators[colaborators.length - 1].id
+              else
+                @colaborator.previous = "-1"
+              end
+            end
+
+            if index + 1 < colaborators.length
+              if colaborators[index + 1].is_a? Colaborator
+                @colaborator.next = colaborators[index + 1].id
+              else
+                @colaborator.next = "-1"
+              end
+            else
+              if colaborators[0].is_a? Colaborator
+                @colaborator.next = colaborators[0].id
+              else
+                @colaborator.next = "-1"
+              end
+            end
+
+            break
+          end
+        end
+      }
+
+    end
   end
 
   # DELETE

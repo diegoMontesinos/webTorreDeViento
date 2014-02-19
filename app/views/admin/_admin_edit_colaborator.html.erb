@@ -1,5 +1,5 @@
 <div id="admin-colaborator-content">
-	<%= render template: new_colaborator_path %>
+	<%= render partial: "colaborators/form_new_colaborator", locals: { colaborator: @colaborator } %>
 </div>
 
 <script type="text/javascript">

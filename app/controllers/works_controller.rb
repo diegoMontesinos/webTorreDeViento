@@ -240,7 +240,7 @@ class WorksController < ApplicationController
 		@work = Work.find(params[:id])
 
 		if @work.type_work == "full"
-			render partial: "works/edit_images/edit_images_full", locals: { work: @work }
+			render template: "works/edit_images/edit_images_full", locals: { work: @work }
  		elsif @work.type_work == "mediana"
 			render partial: "works/edit_images/edit_images_mediana", locals: { work: @work }
  		elsif @work.type_work == "minima"

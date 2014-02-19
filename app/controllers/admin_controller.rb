@@ -147,6 +147,13 @@ class AdminController < ApplicationController
 	end
 
 	# GET
+	def edit_colaborator
+		@colaborator = Colaborator.find(params[:id])
+
+		render partial: "admin_edit_colaborator"
+	end
+
+	# GET
 	def colaborators
 		@colaborators = Colaborator.all
 

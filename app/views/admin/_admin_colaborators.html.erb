@@ -9,7 +9,7 @@
 
 			<ul id="admin-colaborators-list">
 				<% @colaborators.each do |colab| %>
-					<li class="ui-state-default" id="colab-list-<%= colab.id %>" onclick="selectColab(this);" id-colab="<%= colab.id %>" title-colab="<%= colab.title %>" display-url="<%= colab.portrait.url %>" style="font-family: latha, latha_ie;">
+					<li class="ui-state-default" id="colab-list-<%= colab.id %>" onclick="selectColab(this);" id-colab="<%= colab.id %>" title-colab="<%= colab.title %>" display-url="<%= colab.portrait.url %>" style="font-family: latha, latha_ie;" url-edit="<%= admin_edit_colaborator_path(colab) %>">
 						
 						<span style="width: 100%; font-family: felixti, felixti_ie; font-size: 1em;"><%= colab.name.upcase %></span>
 						<%= link_to colaborator_path(colab.id), :style => "float: right; margin-right: 4%;" do %><i class="fa fa-arrow-circle-o-right fa-2"></i><% end %>
@@ -66,6 +66,24 @@
 
 	$(function() {
 		// Se asocian acciones a los botones:
+
+		// Editar
+		$("#admin-edit-colab-button").click(function() {
+			if($(".ui-state-default-selec").length > 0) {
+				var url_edit = $(".ui-state-default-selec").attr("url-edit");
+				
+				$("#content-admin").empty();
+
+				$.ajax({
+					type: "GET",
+					url: url_edit,
+					dataType: "html",
+					success: function(data) {
+						$("#content-admin").append(data);
+					}
+				});
+			}
+		});
 
 		// Eliminar
 		$("#admin-delete-colab-button").click(function() {
