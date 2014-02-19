@@ -368,7 +368,8 @@ class WorksController < ApplicationController
 
 	private
 		def work_params
-			params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_en, :credits, :credits_in_en,
-										 :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder, :name_folder_in_en])
+			params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_es, :titles_text_in_en, :titles_grid, :titles_grid_in_es, :titles_grid_in_en,
+										 :credits, :credits_in_en, :synopsis, :synopsis_in_en, :notes, :notes_in_en, :program, :program_in_en, :video, :videothumb,
+										  file_folders_attributes: [:name_folder, :name_folder_in_en])
 		end
 end

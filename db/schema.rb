@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215071011) do
+ActiveRecord::Schema.define(version: 20140219215745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20140215071011) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "titles_grid"
   end
 
   add_index "work_translations", ["work_id", "language_code"], name: "index_work_translations_on_work_id_and_language_code", unique: true, using: :btree
@@ -164,6 +165,7 @@ ActiveRecord::Schema.define(version: 20140215071011) do
     t.string   "videothumb"
     t.integer  "next"
     t.integer  "previous"
+    t.text     "titles_grid"
   end
 
 end
