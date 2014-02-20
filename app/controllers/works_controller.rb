@@ -108,7 +108,15 @@ class WorksController < ApplicationController
 			end
 		end
 
-		redirect_to edit_images_path + "/?id=" + @work.id.to_s
+		if @work.type_work == "full" and @work.video.present?
+			respond_to do |format|
+				format.json {
+					render json: ("remotipart" + @work.id.to_s).to_json
+				}
+			end
+		else
+			redirect_to edit_images_path + "/?id=" + @work.id.to_s
+		end
 	end
 
 	# PUT
@@ -184,7 +192,15 @@ class WorksController < ApplicationController
 			end
 		end
 
-		redirect_to edit_images_path + "/?id=" + @work.id.to_s + "&remoti="
+		if @work.type_work == "full" and @work.video.present?
+			respond_to do |format|
+				format.json {
+					render json: ("remotipart" + @work.id.to_s).to_json
+				}
+			end
+		else
+			redirect_to edit_images_path + "/?id=" + @work.id.to_s
+		end
 	end
 
 	# DELETE
@@ -240,7 +256,7 @@ class WorksController < ApplicationController
 		@work = Work.find(params[:id])
 
 		if @work.type_work == "full"
-			render template: "works/edit_images/edit_images_full", locals: { work: @work }
+			render partial: "works/edit_images/edit_images_full", locals: { work: @work }
  		elsif @work.type_work == "mediana"
 			render partial: "works/edit_images/edit_images_mediana", locals: { work: @work }
  		elsif @work.type_work == "minima"

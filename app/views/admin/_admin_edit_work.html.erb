@@ -5,11 +5,26 @@
 <script type="text/javascript">
 	// Cuando el formulario se sube exitosamente
 	$("#form-work").bind("ajax:success", function(evt, data, status, xhr) {
+		if(data.lastIndexOf("remotipart") != -1) {
+			var idWork = data.replace("remotipart", "").replace('"', '').replace('"', '');
+			var work_param = "/?id=" + idWork;
 
-		// Se vacia el contenido
-		$("#admin-works-content").empty();
+			$("#content-admin").empty();
 
-		// Y se manda a la seleccion del display / crop
-		$("#admin-works-content").append(xhr.responseText);
+			$.ajax({
+				type: "GET",
+				url: "<%= edit_images_path %>" + work_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").append(data);
+				}
+			});
+		} else {
+			// Se vacia el contenido
+			$("#admin-works-content").empty();
+
+			// Y se manda a la seleccion del display / crop
+			$("#admin-works-content").append(data);
+		}
 	});
 </script>
