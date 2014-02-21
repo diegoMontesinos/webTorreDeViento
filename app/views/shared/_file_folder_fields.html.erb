@@ -54,6 +54,7 @@
 		$(dropzoneDiv).dropzone({
 			url: "<%= photos_path %>",
 			paramName: "image",
+			acceptedFiles: "image/png,image/gif,image/jpeg",
 			autoProcessQueue: false,
 			parallelUploads: 500,
 			dictDefaultMessage: "Arrastra las imágenes aquí o has click para agregar...",
@@ -86,11 +87,18 @@
 				this.on("success", function(file, response) {
 					var ids = $(dropzoneObj.element).find("input").attr("value");
 					$(dropzoneObj.element).find("input").attr("value", ids + file.xhr.response + ", ");
+
+					var percent = percentSuccessDropzone();
+					$("#progressbar").progressbar("value", percentSuccessDropzone());
 				});
 
 				// Cuando el archivo es quitado del dropzone
 				this.on("complete", function() {
 					if(emptyQueues()) {
+						$("#progressbar").progressbar("value", false);
+						$(".ui-progressbar").css("background", "#ADA9A9");
+						$(".ui-progressbar-value").css("background", "#ADA9A9");
+
 						$("#form-work").submit();
 					}
 				});
