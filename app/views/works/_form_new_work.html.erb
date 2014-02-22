@@ -277,20 +277,38 @@
 				return false;
 			}
 
-			// Checamos que no dejen ningun folder vacío
-			var emptyDropzone = false;
-			$(".dropzone").each(function() {
-				var dropzoneObj = this.dropzone;
-				emptyDropzone = emptyDropzone || dropzoneObj.getAcceptedFiles().length == 0;
-			});
+			// Checamos que no dejen ningun folder vacío si es que la obra no ha sido creada
+			if("<%= work.id.present? %>" == "false") {
+				var emptyDropzone = false;
+				$(".dropzone").each(function() {
+					var dropzoneObj = this.dropzone;
+					emptyDropzone = emptyDropzone || dropzoneObj.getAcceptedFiles().length == 0;
+				});
 
-			if(emptyDropzone) {
-				alert("¡Hay un folder sin imagenes!");
+				if(emptyDropzone) {
+					alert("¡Hay un folder sin imagenes!");
 
-				e.preventDefault();
-				e.stopPropagation();
+					e.preventDefault();
+					e.stopPropagation();
 
-				return false;
+					return false;
+				} else {
+					// Checamos si ya estan vacías todas las colas de archivos
+					if(!emptyQueues()) {
+						e.preventDefault();
+						e.stopPropagation();
+
+						$("#submit_form").attr("disabled", "disabled");
+
+						$("#progressbar").show();
+						$(".ui-progressbar-value").css("background", "#10BC02");
+
+						$(".dropzone").each(function() {
+							var dropzoneObj = this.dropzone;
+							dropzoneObj.processQueue();
+						});
+					}
+				}
 			} else {
 				// Checamos si ya estan vacías todas las colas de archivos
 				if(!emptyQueues()) {
