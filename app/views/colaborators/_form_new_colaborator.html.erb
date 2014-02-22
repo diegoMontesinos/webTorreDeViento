@@ -1,6 +1,50 @@
-<div id="form-colaborator-wrapper">
+<script type="text/javascript">
+	$(function() {
+		// Accion del submit
+		$("#form-colaborator").submit(function(e) {
+			// Checamos que no dejen ningun ckeditor vacio
+			var ck_instances = CKEDITOR.instances;
+			var msg = "";
+			for(var key in ck_instances) {
+				var ck = ck_instances[key];
+				ck.updateElement();
 
-	<%= form_for colaborator, remote: true, html: { id: "form-colaborator", :class => "pure-form pure-form-stacked" } do |f| %>
+				if($("#" + ck.name).val() == "") {
+					if(ck.name == "colaborator_title") {
+						msg = "Titulo está vacío!!";
+					} else if(ck.name.lastIndexOf("semblance_text_in_en") != -1) {
+						msg = "Semblanza-Inglés está vacío!!";
+					} else if(ck.name.lastIndexOf("semblance_text") != -1) {
+						msg = "Semblanza-Español está vacío!!";
+					}
+
+					alert("El campo " + msg);
+
+					e.preventDefault();
+					e.stopPropagation();
+
+					return false;
+				}
+			}
+
+			$("#progressbar").show();
+		});
+
+		// ProgressBar
+		$("#progressbar").progressbar({
+			value: false
+		});
+
+		$("#progressbar").hide();
+	});
+</script>
+
+<div id="form-colaborator-wrapper">
+	<div id="progressbar" style="position: fixed; width: 86%; z-index: 2; margin-left: 0.55%; margin-top: -20px;">
+		<div class="progress-label">SUBIENDO COLABORADOR... ESPERE </div>
+	</div>
+
+	<%= form_for colaborator, html: { id: "form-colaborator", :class => "pure-form pure-form-stacked" } do |f| %>
 
 		<!-- NOMBRE DEL COLABORADOR -->
 		<div style="position:relative; margin-top: 60px;">
@@ -36,15 +80,21 @@
 					<span style="font-size: 0.8em"><strong>- EN ESPAÑOL</strong></span>
 					<div style="width: 100%;">
 						<% if colaborator.semblance_text_in_es.present? %>
-							<%= f.cktext_area :semblance_text_in_es, :ckeditor => { :language => "es", :width => 385 }, :required => true %>
+							<%= f.cktext_area :semblance_text_in_es, :ckeditor => { :language => "es", :width => 385 } %>
 						<% else %>
-							<%= f.cktext_area :semblance_text, :ckeditor => { :language => "es", :width => 385 }, :required => true %>
+							<%= f.cktext_area :semblance_text, :ckeditor => { :language => "es", :width => 385 } %>
 						<% end %>
 					</div>
 
 					<div style="margin-top: 25px;">
 						<span style="font-size: 0.8em"><strong>- PDF EN ESPAÑOL</strong></span>
-						<%= f.file_field :semblance, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+						<% if colaborator.semblance.present? %>
+							<%= f.file_field :semblance, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+							    accept: "application/pdf" %>
+						<% else %>
+							<%= f.file_field :semblance, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+							    accept: "application/pdf", :required => true %>
+						<% end %>
 					</div>
 				</div>
 
@@ -52,12 +102,18 @@
 				<div style="margin-left: 2%; width: 400px; float: left;">
 					<span style="font-size: 0.8em"><strong>- EN INGLÉS</strong></span>
 					<div style="width: 100%;">
-						<%= f.cktext_area :semblance_text_in_en, :ckeditor => { :language => "en", :width => 385 }, :required => true %>
+						<%= f.cktext_area :semblance_text_in_en, :ckeditor => { :language => "en", :width => 385 } %>
 					</div>
 
 					<div style="margin-top: 25px;">
 						<span style="font-size: 0.8em"><strong>- PDF EN INGLÉS</strong></span>
-						<%= f.file_field :semblance_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+						<% if colaborator.semblance_en.present? %>
+							<%= f.file_field :semblance_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+						    accept: "application/pdf" %>
+						<% else %>
+							<%= f.file_field :semblance_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+						    accept: "application/pdf", :required => true %>
+						<% end %>
 					</div>
 				</div>
 			</div>
@@ -72,13 +128,25 @@
 				<!-- Español -->
 				<div style="margin-left: 2%; width: 25%; float: left;">
 					<span style="font-size: 0.8em"><strong>- PDF EN ESPAÑOL</strong></span>
-					<%= f.file_field :cv, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+					<% if colaborator.cv.present? %>
+						<%= f.file_field :cv, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					    accept: "application/pdf" %>
+					<% else %>
+						<%= f.file_field :cv, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					    accept: "application/pdf", :required => true %>
+					<% end %>
 				</div>
 
 				<!-- Inglés -->
 				<div style="margin-left: 2%; width: 25%; float: left;">
 					<span style="font-size: 0.8em"><strong>- PDF EN INGLÉS</strong></span>
-					<%= f.file_field :cv_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+					<% if colaborator.cv_en.present? %>
+						<%= f.file_field :cv_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					    accept: "application/pdf" %>
+					<% else %>
+						<%= f.file_field :cv_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					    accept: "application/pdf", :required => true %>
+					<% end %>
 				</div>
 			</div>
 
@@ -91,19 +159,37 @@
 			<!-- SPROKET -->
 			<div style="margin-top: 1%; font-family: latha, latha_ie; font-size: 1em;">
 				<span style="font-size: 0.8em"><strong>- SPROKET</strong></span><br>
-				<%= f.file_field :sproket_1, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+				<% if colaborator.sproket_1.present? %>
+					<%= f.file_field :sproket_1, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :sproket_1, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
 			</div>
 
 			<!-- SPROKET NEGATIVO -->
 			<div style="margin-top: 1%; font-family: latha, latha_ie; font-size: 1em;">
 				<span style="font-size: 0.8em"><strong>- SPROKET NEGATIVO</strong></span><br>
-				<%= f.file_field :sproket_2, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+				<% if colaborator.sproket_2.present? %>
+					<%= f.file_field :sproket_2, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :sproket_2, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
 			</div>
 
 			<!-- RETRATO -->
 			<div style="margin-top: 1%; font-family: latha, latha_ie; font-size: 1em;">
 				<span style="font-size: 0.8em"><strong>- RETRATO</strong></span><br>
-				<%= f.file_field :portrait, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button" %>
+				<% if colaborator.portrait.present? %>
+					<%= f.file_field :portrait, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :portrait, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
 			</div>
 		</div>
 

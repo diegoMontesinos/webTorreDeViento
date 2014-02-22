@@ -259,7 +259,6 @@
 
 		// Accion del submit
 		$("#form-work").submit(function(e) {
-			console.log(percentSuccessDropzone());
 			var ckeditors_ok = true;
 
 			// Checamos que no dejen ningun ckeditor vacio
@@ -535,12 +534,14 @@
 
 				<div id="uploader-video-div" style="margin-left: 1%;">
 					<%= f.label :video, "Archivo de video: " %>
-					<%= f.file_field :video, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button", accept: "video/mp4,video/webm,video/mpeg" %>
+					<%= f.file_field :video, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+						accept: "video/mp4,video/webm,video/mpeg" %>
 				</div>
 
 				<div id="uploader-video-thumb-div" style="margin-left: 1%;">
 					<%= f.label :videothumb, "Imágen muestra de video: " %>
-					<%= f.file_field :videothumb, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button", accept: "image/png,image/gif,image/jpeg" %>
+					<%= f.file_field :videothumb, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+						accept: "image/png,image/gif,image/jpeg" %>
 				</div>
 			</div>
 
