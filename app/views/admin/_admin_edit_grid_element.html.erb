@@ -61,8 +61,6 @@
 	<% end %>
 </div>
 
-<% aspecRat = (dimensions["w"] / dimensions["h"]) %>
-
 <script type="text/javascript">
 
 	function update(coords) {
@@ -143,7 +141,7 @@
 
 							// Se inicia JCrop
 							$("#cropbox").Jcrop({
-								aspectRatio: parseFloat("<%= aspecRat %>"),
+								aspectRatio: (parseFloat("<%= dimensions['w'] %>") / parseFloat("<%= dimensions['h'] %>")),
 								setSelect: [0, 0, parseFloat("<%= dimensions['w'] %>"), parseFloat("<%= dimensions['h'] %>")],
 								bgOpacity: 0.2,
 								onSelect: update,

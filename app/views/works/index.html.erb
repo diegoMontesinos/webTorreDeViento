@@ -31,9 +31,7 @@
 										</script>
 
 										<div class="grid-element-info">
-											<div style="float: right; margin-right: 1.6%;">
-												<%= grid_element.work.titles_text.html_safe %>
-											</div>
+											<%= grid_element.work.titles_grid.html_safe %>
 										</div>
 									<% end %>
 
@@ -127,20 +125,30 @@
 								var mLeft = Math.round((newW * data.x) / $(img).width());
 								var mRight = Math.round((newH * data.y) / $(img).height());
 
+								var scaleFactor = 0.1;
+								var box = parseInt($(that).attr("class").replace("grid-element-", ""));
+								if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
+									scaleFactor = 50.0 / $(img).height();
+								} else if(box == 2 || box == 6 || box == 8 || box == 10) {
+									scaleFactor = 125.0 / $(img).height();
+								} else if(box == 5) {
+									scaleFactor = 100.0 / $(img).width();
+								}
+
 								$(img).css({
 									width: newW + 'px',
 									height: newH + 'px',
 									marginLeft: '-' + mLeft + 'px',
 									marginTop: '-' + mRight + 'px'
 								});
-
+								
 								// Se le da el efecto hover
 								$(that).hover(function() {
 									$(this).find('img').animate({
-										width: $(that).width() * 0.5,
-										height: $(that).height() * 0.5,
-										marginTop: 10,
-										marginLeft: 10
+										width: $(img).width() * scaleFactor,
+										height: $(img).height() * scaleFactor,
+										marginTop: 5,
+										marginLeft: 5
 									}, 500)
 								}, function() {
 									$(this).find('img').animate({
@@ -176,14 +184,15 @@
 
 						// Dandole eventos a los hotspots
 						$(".scrollingHotSpotLeft").first().bind("mouseout", function() {
-							var scrollerOffset = Math.floor($("#work-grids-container").smoothDivScroll("getScrollerOffset"));
-							$("#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 100);
+							var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+							$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
 						});
 
 						$(".scrollingHotSpotRight").first().bind("mouseout", function() {
-							var scrollerOffset = Math.floor($("#work-grids-container").smoothDivScroll("getScrollerOffset"));
-							$("#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 100);
+							var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+							$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
 						});
+
 					}
 				});
 
