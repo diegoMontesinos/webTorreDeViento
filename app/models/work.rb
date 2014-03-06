@@ -2,14 +2,14 @@ class Work < ActiveRecord::Base
 
 	has_translations :titles_text, :titles_grid, :credits, :synopsis, :program, :notes
 
-	has_many :file_folders, as: :holdable, dependent: :destroy
+	has_many :file_folders, as: :holdable, dependent: :delete_all
 	accepts_nested_attributes_for :file_folders, :allow_destroy => true
 
 	has_one :grid_element
 
 	# Carrierwave
 	mount_uploader :video, VideoUploader
-	mount_uploader :videothumb, ImageUploader
+	mount_uploader :videothumb, VideothumbUploader
 
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 	after_update :crop_videothumb
@@ -47,7 +47,9 @@ class Work < ActiveRecord::Base
 	end
 
 	def crop_videothumb
-		self.videothumb.recreate_versions! if crop_x.present?
+		if crop_x.present?
+			self.videothumb.recreate_versions!
+		end
 	end
 
 	def self.works_inorder

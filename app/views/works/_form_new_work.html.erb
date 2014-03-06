@@ -354,17 +354,27 @@
 
 	<%= form_for work, remote: true, html: { id: "form-work", :class => "pure-form pure-form-stacked" } do |f| %>
 
-		<!-- TIPO DE OBRA -->
-		<div style="padding-top: 15px;">
-			<%= f.label :type_work, "Tipo de Obra: " %>
-			<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima con galería", "minima"], ["Minima", "minima_minima"]] %><br>
-		</div>
+		<% if !work.id.present? %>
+			<!-- TIPO DE OBRA -->
+			<div style="padding-top: 15px;">
+				<%= f.label :type_work, "Tipo de Obra: " %>
+				<%= f.select :type_work, [["Full", "full"], ["Mediana", "mediana"], ["Minima con galería", "minima"], ["Minima", "minima_minima"]] %><br>
+			</div>
 
-		<!-- NOMBRE DE LA OBRA -->
-		<div style="position:relative; margin-top: -1.5%;">
-			<%= f.label :title, "Nombre de la Obra: " %>
-			<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
-		</div>
+			<!-- NOMBRE DE LA OBRA -->
+			<div style="position:relative; margin-top: -1.5%;">
+				<%= f.label :title, "Nombre de la Obra: " %>
+				<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
+			</div>
+		<% else %>
+
+			<!-- NOMBRE DE LA OBRA -->
+			<div style="position:relative; margin-top: 55px;">
+				<%= f.label :title, "Nombre de la Obra: " %>
+				<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
+			</div>
+
+		<% end %>
 
 		<!-- TITULOS DE LA OBRA -->
 		<div style="width: 95%; height: 590px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
@@ -563,31 +573,41 @@
 				</div>
 			</div>
 
-			<!-- IMAGENES -->
-			<div id="form-work-images-div" style="margin-top: 2.5%; font-family: latha, latha_ie; font-size: 1em;">
-				<strong>- IMÁGENES</strong>
+			<% if !work.id.present? %>
+				<!-- IMAGENES -->
+				<div id="form-work-images-div" style="margin-top: 2.5%; font-family: latha, latha_ie; font-size: 1em;">
+					<strong>- IMÁGENES</strong>
 
-				<div id="form-work-images-tabs" >
-					<ul id="form-work-images-header" style="font-size: 0.8em;"></ul>
-				</div>
+					<div id="form-work-images-tabs" >
+						<ul id="form-work-images-header" style="font-size: 0.8em;"></ul>
+					</div>
 
-				<!-- Links to add -->
-				<div id="add_GALERIA_folder" style="display: none">
-					<%= link_to_add_fields "", f, :file_folders, "GALERIA", "GALLERY", false %>
+					<!-- Links to add -->
+					<div id="add_GALERIA_folder" style="display: none">
+						<%= link_to_add_fields "", f, :file_folders, "GALERIA", "GALLERY", false %>
+					</div>
+					<div id="add_DETRASDE_folder" style="display: none">
+						<%= link_to_add_fields "", f, :file_folders, "DETRAS DE", "BEHIND", false %>
+					</div>
+					<div id="add_OTROS_folder" style="display: none">
+						<%= link_to_add_fields "", f, :file_folders, "OTROS", "OTHERS", false %>
+					</div>
+					<div id="add_DEFAULT_folder" style="display: none">
+						<%= link_to_add_fields "", f, :file_folders, "DEFAULT", "DEFAULT", false %>
+					</div>
+					<div id="add_folder" style="display: none">
+						<%= link_to_add_fields "", f, :file_folders, "false", "false", true %>
+					</div>
 				</div>
-				<div id="add_DETRASDE_folder" style="display: none">
-					<%= link_to_add_fields "", f, :file_folders, "DETRAS DE", "BEHIND", false %>
+			<% else %>
+				<div style="margin-top: 5px;">
+					<i>AVISO:</i>
 				</div>
-				<div id="add_OTROS_folder" style="display: none">
-					<%= link_to_add_fields "", f, :file_folders, "OTROS", "OTHERS", false %>
+				<div>
+					<i>Para eliminar o agregar imágenes vaya a
+					<span style="background: #A5A5A5;">Obras <i class="fa fa-angle-right"></i> Obras cargadas <i class="fa fa-angle-right"></i> "EDITAR CARPETAS".</span></i>
 				</div>
-				<div id="add_DEFAULT_folder" style="display: none">
-					<%= link_to_add_fields "", f, :file_folders, "DEFAULT", "DEFAULT", false %>
-				</div>
-				<div id="add_folder" style="display: none">
-					<%= link_to_add_fields "", f, :file_folders, "false", "false", true %>
-				</div>
-			</div>
+			<% end %>
 
 		</div>
 

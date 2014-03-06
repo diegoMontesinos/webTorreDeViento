@@ -198,7 +198,7 @@ class AdminController < ApplicationController
 				img_str = @grid_element.colaborator.sproket_1.url(:display)
 			end
 		else
-			permitted_params = params.require(:colaborator_grid_element).permit(:sprocket)
+			permitted_params = params.require(:colaborator_grid_element).permit(:sprocket, :accessFrequent)
 			
 			if @grid_element.update(permitted_params)
 				if @grid_element.colaborator.present?

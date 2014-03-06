@@ -44,6 +44,10 @@ WebTorreDeViento::Application.routes.draw do
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"
 
+  # Form para agregar o elminar fotos
+  get "/work/edit_folders" => "works#edit_folders", as: "edit_folders"
+  post "/work/folders/add_images/:id" => "works#add_images", as: "add_images"
+
   # Form para elegir el display y hacer crops
   get "/work/edit_images" => "works#edit_images", as: "edit_images"
 

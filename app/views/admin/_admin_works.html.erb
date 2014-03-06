@@ -2,13 +2,13 @@
 
 	<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
 		
-		<div id="admin-works-list-container">
+		<div id="admin-works-list-container" class="list-container">
 			
 			<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
 				<strong>SELECCIONE PARA EDITAR O ARRASTRE PARA<br>MODIFICAR EL ORDEN DE LAS OBRAS:</strong>
 			</div>
 
-			<ul id="admin-works-list" >
+			<ul id="admin-works-list" class="admin-list">
 				<% @works.each do |work| %>
 					<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this)" id-work="<%= work.id %>" title-work="<%= work.title %>" display-url="<%= Photo.find(work.display).image.url(:display) %>" style="font-family: latha, latha_ie;" >
 						<%= work.title %><%= link_to work_path(work.id),:style => "float: right; margin-right: 4%;" do %><i class="fa fa-arrow-circle-o-right fa-2"></i><% end %>
@@ -36,17 +36,25 @@
 			<div id="admin-works-selection-display"></div>
 			<div id="admin-works-selection-title"></div>
 			<div id="admin-works-selection-buttons">
-				<%= button_tag(type: "button", id: "admin-edit-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px;") do %>
-					<strong>EDITAR OBRA</strong> <i class="fa fa-pencil-square-o"></i>
-				<% end %>
+				<div style="width: 100%; margin-left: 14%; margin-top: -25px;">
+					<%= button_tag(type: "button", id: "admin-edit-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; font-size: 0.9em;") do %>
+						<strong>EDITAR OBRA</strong> <i class="fa fa-pencil-square-o"></i>
+					<% end %>
 
-				<%= button_tag(type: "button", id: "admin-edit-images-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%;") do %>
-					<strong>EDITAR IMÁGENES</strong> <i class="fa fa-picture-o"></i>
-				<% end %>
+					<%= button_tag(type: "button", id: "admin-edit-folders-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; font-size: 0.9em;") do %>
+						<strong>EDITAR CARPETAS</strong> <i class="fa fa-folder-o"></i>
+					<% end %>
 
-				<%= button_tag(type: "button", id: "admin-delete-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20);") do %>
-					<strong>ELIMINAR OBRA</strong> <i class="fa fa-times"></i>
-				<% end %>
+					<%= button_tag(type: "button", id: "admin-edit-images-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; font-size: 0.9em;") do %>
+						<strong>SELECCIONAR IMÁGENES</strong><i class="fa fa-picture-o"></i>
+					<% end %>
+				</div>
+
+				<div style="width: 75%; margin-left: 38%; margin-top: -25px;">
+					<%= button_tag(type: "button", id: "admin-delete-work-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20); font-size: 0.9em;") do %>
+						<strong>ELIMINAR OBRA</strong> <i class="fa fa-times"></i>
+					<% end %>
+				</div>
 			</div>
 		</div>
 
@@ -85,6 +93,22 @@
 			$.ajax({
 				type: "GET",
 				url: "<%= admin_edit_work_path %>" + work_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").append(data);
+				}
+			});
+		});
+
+		// Edita folders
+		$("#admin-edit-folders-button").click(function() {
+			var work_param = "/?id=" + $(".ui-state-default-selec").attr("id-work");
+
+			$("#content-admin").empty();
+
+			$.ajax({
+				type: "GET",
+				url: "<%= edit_folders_path %>" + work_param,
 				dataType: "html",
 				success: function(data) {
 					$("#content-admin").append(data);

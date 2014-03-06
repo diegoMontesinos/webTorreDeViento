@@ -71,6 +71,9 @@ gem "rmagick"
 # Dropzone, files uploader
 gem "dropzonejs-rails"
 
+# Jplayer, video
+#gem 'jplayer-rails'
+
 # JCrop, crop images
 gem "jcrop-rails-v2"
 

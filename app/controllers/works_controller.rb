@@ -1,7 +1,7 @@
 class WorksController < ApplicationController
 
 	skip_before_filter :verify_authenticity_token, :only => [:create]
-	before_filter :authenticate_user!, :only => [ :edit_images, :edit_display, :edit_folder, :edit_videothumb, :save_display, :save_folder, :save_videothumb, :new, :create, :destroy ]
+	before_filter :authenticate_user!, :only => [ :edit_images, :edit_folders, :edit_display, :edit_folder, :edit_videothumb, :save_display, :save_folder, :save_videothumb, :new, :create, :destroy ]
 	
 	# GET
 	def show
@@ -252,6 +252,7 @@ class WorksController < ApplicationController
 		end
 	end
 
+	# GET
 	def edit_images
 		@work = Work.find(params[:id])
 
@@ -265,6 +266,13 @@ class WorksController < ApplicationController
 			render partial: "works/edit_images/edit_images_minima_minima", locals: { work: @work }
  		end
 	end
+
+	# GET
+	def edit_folders
+		@work = Work.find(params[:id])
+		render partial: "works/edit_folders", locals: { work: @work }
+	end
+
 
 	# GET
 	def edit_display

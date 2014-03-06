@@ -155,13 +155,29 @@
 
 // EMPIEZA CSS WORKS
 
-#admin-works-list-container {
-	width: 36%;
-	height: 570px;
-	float: left;
+#admin-folders-options {
+	width: 100%;
+	height: 235px;
+	margin-left: 2.5%;
+	margin-top: 5px;
+	padding: 5px;
+	overflow-y: scroll;
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
 
-#admin-works-list {
+.list-container {
+	width: 36%;
+	height: 570px;
+	float: left;	
+}
+
+.admin-list {
 	list-style: none;
 	height: 480px;
 
@@ -171,7 +187,7 @@
 	margin-top: 5px;
 }
 
-#admin-works-list li {
+.admin-list li {
 	width: 100%;
 }
 
@@ -201,7 +217,7 @@
 #admin-works-selection-buttons {
 	width: 90%;
 
-	margin-left: 21%;
+	margin-left: 5.5%;
 
 	font-family: latha, latha_ie;
 	font-size: 0.89em;

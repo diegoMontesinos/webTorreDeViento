@@ -3,7 +3,7 @@
 	<%= form_for grid_element, remote: true, html: { :class => "pure-form pure-form-stacked" } do |f| %>
 		<div style="margin-top: 5px; margin-left: 1%;">
 			<span style="font-family: latha, latha_ie; font-size: 1em;">¿Qué desea insertar?</span>
-			<%= select_tag "what-insert", "<option>Colaborador</option><option>Imagen</option>".html_safe %>
+			<%= select_tag "what-insert", "<option>Colaborador</option><option>Imagen</option><option>Acceso a Frecuentes</option>".html_safe %>
 		</div>
 
 		<div id="insert-colab-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
@@ -30,6 +30,7 @@
 			<div id="insert-image" style="margin-top: 135px; margin-left: 33%; font-family: latha, latha_ie;">
 				<span style="margin-left: 20%; font-size: 1.8em"><strong>Imagen</strong></span><br>
 				<%= f.file_field :sprocket, :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button" %>
+				<%= f.hidden_field :accessFrequent %>
 			</div>
 		</div>
 
@@ -75,10 +76,16 @@
 		$("#what-insert").change(function() {
 			var option = $(this).find('option:selected');
 			if ($(option).val() == "Colaborador") {
+				$("#colaborator_grid_element_accessFrequent").val(false);
 				$("#colaborator_grid_element_sprocket").replaceWith($("#colaborator_grid_element_sprocket").clone());
 				$("#insert-colab-container").show();
 				$("#insert-image-container").hide();
 			} else {
+				if ($(option).val() == "Acceso a Frecuentes") {
+					$("#colaborator_grid_element_accessFrequent").val(true);
+				} else {
+					$("#colaborator_grid_element_accessFrequent").val(false);
+				}
 				$("#colaborator_grid_element_colaborator_id").replaceWith($("#colaborator_grid_element_colaborator_id").clone());
 				$("#insert-colab-container").hide();
 				$("#insert-image-container").show();
