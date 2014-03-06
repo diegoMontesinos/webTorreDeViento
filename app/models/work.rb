@@ -78,15 +78,15 @@ class Work < ActiveRecord::Base
 			works_inorder = Array.new
 			
 			work = Work.first
-			first_id = work.id
-
 			works_inorder.push(work)
+			
+			first_id = work.id
 			last_id = work.next
 
 			while last_id != first_id do
 				work = Work.find(last_id)
 				works_inorder.push(work)
-				last_id = work.next				
+				last_id = work.next
 			end
 
 			return works_inorder
