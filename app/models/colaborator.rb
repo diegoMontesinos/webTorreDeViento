@@ -11,6 +11,7 @@ class Colaborator < ActiveRecord::Base
 	mount_uploader :portrait, PortraitUploader
 
 	attr_accessor :next, :previous
+	before_destroy :remove_uploads
 
 	def self.colaborators_inorder
 		colaborators = Colaborator.all.order(:name)
@@ -41,5 +42,25 @@ class Colaborator < ActiveRecord::Base
 		colaborators = colaborators.reject { |colab| colab.frequent == false }
 
 		return colaborators
+	end
+
+	def remove_uploads
+		grid_element = ColaboratorGridElement.find_by_colaborator_id(self.id)
+		if !grid_element.nil?
+			grid_element.colaborator = nil
+			grid_element.remove_sprocket!
+			grid_element.save
+		end
+
+		self.remove_cv!
+		self.remove_cv_en!
+		self.remove_semblance!
+		self.remove_semblance_en!
+
+		self.remove_sproket_1!
+		self.remove_sproket_2!
+		self.remove_portrait!
+
+		self.save
 	end
 end

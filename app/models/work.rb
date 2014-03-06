@@ -7,6 +7,8 @@ class Work < ActiveRecord::Base
 
 	has_one :grid_element
 
+	before_destroy :fix_destroy
+
 	# Carrierwave
 	mount_uploader :video, VideoUploader
 	mount_uploader :videothumb, VideothumbUploader
@@ -31,6 +33,22 @@ class Work < ActiveRecord::Base
 		else
 			return nil
 		end
+	end
+
+	def fix_destroy
+		if self.grid_element.present?
+			self.grid_element.work = nil
+			self.grid_element.display = nil
+			self.grid_element.save
+		end
+
+		p = Work.find_by_id(self.previous)
+		n = Work.find_by_id(self.next)
+
+		p.next = n
+		n.previous = p
+		p.save
+		n.save
 	end
 
 	def filefolder (name_filefolder)
