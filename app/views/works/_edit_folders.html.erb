@@ -1,0 +1,118 @@
+<div id="admin-works-content">
+
+	<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		
+		<div id="admin-folders-list-container" class="list-container" style="width: 22%;">
+			<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 16%; margin-top: 14px;">
+				<strong>SELECCIONE UN FOLDER:</strong>
+			</div>
+
+			<ul id="admin-folders-list" class="admin-list">
+				<% work.file_folders.each do |file_folder| %>
+					<li class="ui-state-default" style="font-family: latha, latha_ie;" onclick="selectFolder(this);" id-folder="<%= file_folder.id %>">
+						<%= file_folder.name_folder %>
+
+
+						<%= form_tag(add_images_path(file_folder.id), remote: true, method: "post", id: "file-folder-form-" + file_folder.id.to_s) do %>
+							<%= hidden_field_tag 'ids_photos_' + file_folder.id.to_s, :value => :submitted %>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+
+		</div>
+
+		<div style="width: 72%;	float: left; margin-top: -5px;">
+			<div style="font-family: latha, latha_ie; font-size: 0.95em; line-height: 0.89em; margin-left: 3%; margin-top: 14px;">
+				OCUPE ESTA AREA PARA <strong>ELIMINAR</strong> IMÁGENES
+			</div>
+
+			<div id="admin-folders-options">
+			</div>
+		</div>
+
+		<div style="width: 72%;	float: left; margin-top: 12px;">
+			<div style="font-family: latha, latha_ie; font-size: 0.95em; line-height: 0.89em; margin-left: 3%; margin-top: 14px;">
+				OCUPE ESTA AREA PARA <strong>AGREGAR</strong> IMÁGENES
+			</div>
+
+			<!-- DIV DROPZONE -->
+			<div id="dropzone-container" style="width: 100%; font-family: latha, latha_ie; font-size: 0.8em; overflow: scroll-y;">
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	// Setear dropzone manualmente
+	Dropzone.autoDiscover = false;
+
+	function selectFolder(li_elem) {
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+
+		// Dropzone
+		$("#dropzone-container").empty();
+		var dropzoneDiv = document.createElement("div");
+		$(dropzoneDiv).attr("class", "dropzone");
+		$(dropzoneDiv).css({
+			"width" : "96%",
+			"margin-top" : "10px",
+			"margin-left" : "5%"
+		});
+
+		$(dropzoneDiv).dropzone({
+			url: "<%= photos_path %>",
+			paramName: "image",
+			acceptedFiles: "image/png,image/gif,image/jpeg",
+			autoProcessQueue: false,
+			parallelUploads: 500,
+			dictDefaultMessage: "Arrastra las imágenes aquí o has click para agregar...",
+
+			init: function() {
+
+				var dropzoneObj = this;
+
+				// Evento cuando se agrega un archivo para agregarle el boton eliminar
+				this.on("addedfile", function(file) {
+					var removeButton = Dropzone.createElement("<button class='pure-button'><i class='fa fa-times fa-1'></i> Eliminar</button>");
+					var _this = this;
+					
+					removeButton.addEventListener("click", function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+						
+						_this.removeFile(file);
+					});
+					
+					file.previewElement.appendChild(removeButton);
+					console.log($(file.previewElement));
+				});
+
+				// Cuando se envía un archivo, para agregarle la CSRFprotecion al xhr
+				this.on("sending", function(file, xhr) {
+					$.rails.CSRFProtection(xhr);
+				});
+
+				// Cuando un archivo es bien recibido por el servidor
+				this.on("success", function(file, response) {
+				});
+
+				// Cuando el archivo es quitado del dropzone
+				this.on("complete", function() {
+				});
+			}
+		});
+
+
+		$("#dropzone-container").append(dropzoneDiv);	
+	}
+
+</script>
