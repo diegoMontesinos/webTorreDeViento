@@ -44,6 +44,8 @@ WebTorreDeViento::Application.routes.draw do
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"
 
+  post "/photos/destroy" => "photos#destroy", as: "destroy_photo"
+
   # Form para agregar o elminar fotos
   get "/work/edit_folders" => "works#edit_folders", as: "edit_folders"
   post "/work/folders/add_images/:id" => "works#add_images", as: "add_images"
@@ -65,6 +67,9 @@ WebTorreDeViento::Application.routes.draw do
 
   # Obteniendo un folder
   get "/work/image_folder/:id" => "works#image_folder", as: "image_folder"
+
+  # Obteniendo las imagenes de un folder
+  get "/work/image_folder" => "works#images_folder", as: "images_folder"
 
   # Obteniendo todas las fotos de una obra
   get "/work/images/:id" => "works#images", as: "work_images"

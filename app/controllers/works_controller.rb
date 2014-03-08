@@ -158,34 +158,36 @@ class WorksController < ApplicationController
 			# Se agregan las fotos que fueron subidas
 			filefolder_params = params[:work][:file_folders_attributes]
 
-			filefolder_params.each do |key, value|
-				name_filefolder = filefolder_params[key.to_s][:name_folder]
-				currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id).first
+			if !filefolder_params.nil?
+				filefolder_params.each do |key, value|
+					name_filefolder = filefolder_params[key.to_s][:name_folder]
+					currFolder = FileFolder.where(name_folder: name_filefolder.to_s, holdable_id: @work.id).first
 
-				ids_photos = filefolder_params[key.to_s][:ids_photos]
-				ids_photos.gsub! 'submitted', ''
-				ids_photos.gsub! ' ', ''
-				ids_photos_parse = ids_photos.split(',')
+					ids_photos = filefolder_params[key.to_s][:ids_photos]
+					ids_photos.gsub! 'submitted', ''
+					ids_photos.gsub! ' ', ''
+					ids_photos_parse = ids_photos.split(',')
 
-				ids_photos_parse.each do |id_photo|
-					currPhoto = Photo.find(id_photo.to_i)
-					currPhoto.file_folder = currFolder
-					currPhoto.save
+					ids_photos_parse.each do |id_photo|
+						currPhoto = Photo.find(id_photo.to_i)
+						currPhoto.file_folder = currFolder
+						currPhoto.save
 
-					if currFolder.display.nil?
-						currFolder.display = id_photo
-						currFolder.save
-					end
-
-					if @work.type_work == "minima_minima"
-						if name_filefolder == "DEFAULT" and @work.display.nil?
-							@work.display = id_photo
-							@work.save
+						if currFolder.display.nil?
+							currFolder.display = id_photo
+							currFolder.save
 						end
-					else
-						if name_filefolder == "GALERIA" and @work.display.nil?
-							@work.display = id_photo
-							@work.save
+
+						if @work.type_work == "minima_minima"
+							if name_filefolder == "DEFAULT" and @work.display.nil?
+								@work.display = id_photo
+								@work.save
+							end
+						else
+							if name_filefolder == "GALERIA" and @work.display.nil?
+								@work.display = id_photo
+								@work.save
+							end
 						end
 					end
 				end
@@ -231,6 +233,17 @@ class WorksController < ApplicationController
 		respond_to do |format|
 			format.json {
 				render json: photos
+			}
+		end
+	end
+
+	# GET
+	def images_folder
+		file_folder = FileFolder.find(params[:id])
+
+		respond_to do |format|
+			format.json {
+				render json: file_folder.photos.to_json
 			}
 		end
 	end
