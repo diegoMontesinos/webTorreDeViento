@@ -218,6 +218,26 @@ class WorksController < ApplicationController
 		end
 	end
 
+	# POST
+	def add_images
+		filefolder = FileFolder.find(params[:id])
+		ids_photos = params["ids_photos_" + params[:id].to_s]
+		ids_photos.gsub! '{:value=>:submitted}', ''
+		ids_photos.gsub! ' ', ''
+		ids_photos_parse = ids_photos.split(',')
+		ids_photos_parse.each do |id_photo|
+			photo = Photo.find(id_photo.to_i)
+			photo.file_folder = filefolder
+			photo.save
+		end
+
+		respond_to do |format|
+			format.json {
+				render json: filefolder.id.to_json
+			}
+		end
+	end
+
 	# GET
 	def index
 		@work_grids = WorkGrid.all

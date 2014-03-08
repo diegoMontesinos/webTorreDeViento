@@ -215,8 +215,6 @@
 			successFiles += dropzoneObj.getUploadingFiles().length;
 		});
 
-		console.log(acceptedFiles);
-		console.log(successFiles);
 		return 100 - Math.floor((successFiles / acceptedFiles) * 100);
 	}
 

@@ -17,6 +17,12 @@
 							<%= hidden_field_tag 'ids_photos_' + file_folder.id.to_s, :value => :submitted %>
 						<% end %>
 					</li>
+
+					<script type="text/javascript">
+						$("#file-folder-form-<%= file_folder.id.to_s%>").bind("ajax:success", function(evt, data, status, xhr) {
+							$("#file-folder-form-<%= file_folder.id.to_s%>").parent().click();
+						});
+					</script>
 				<% end %>
 			</ul>
 
@@ -137,6 +143,10 @@
 
 						var dropzoneObj = this;
 
+						$("#store-new-images").on("click", function() {
+							dropzoneObj.processQueue();
+						});
+
 						// Evento cuando se agrega un archivo para agregarle el boton eliminar
 						this.on("addedfile", function(file) {
 							$("#store-new-images").prop('disabled', false);
@@ -152,7 +162,6 @@
 							});
 							
 							file.previewElement.appendChild(removeButton);
-							console.log($(file.previewElement));
 						});
 
 						// Cuando se envía un archivo, para agregarle la CSRFprotecion al xhr
@@ -162,10 +171,22 @@
 
 						// Cuando un archivo es bien recibido por el servidor
 						this.on("success", function(file, response) {
+							var ids = $("#ids_photos_" +  $(".ui-state-default-selec").attr("id-folder")).attr("value");
+							$("#ids_photos_" +  $(".ui-state-default-selec").attr("id-folder")).attr("value", ids + file.xhr.response + ", ");
 						});
 
 						// Cuando el archivo es quitado del dropzone
 						this.on("complete", function() {
+							if(dropzoneObj.getUploadingFiles().length === 0 && dropzoneObj.getQueuedFiles().length === 0) {
+								$("#store-new-images").prop('disabled', true);
+								$("#file-folder-form-" + $(".ui-state-default-selec").attr("id-folder")).submit();
+							}
+						});
+
+						this.on("removedfile", function() {
+							if(dropzoneObj.getQueuedFiles().length == 0) {
+								$("#store-new-images").prop('disabled', true);
+							}
 						});
 					}
 				});
