@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  photo: 1
+  home_carousel_id: 
+  x: 9.99
+  'y': 9.99
+  w: 9.99
+  h: 9.99
+  previous: 1
+  next: 1
+
+two:
+  photo: 1
+  home_carousel_id: 
+  x: 9.99
+  'y': 9.99
+  w: 9.99
+  h: 9.99
+  previous: 1
+  next: 1

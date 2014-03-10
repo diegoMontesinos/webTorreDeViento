@@ -110,7 +110,7 @@ class AdminController < ApplicationController
 		end
 	end
 
-	# POST
+	# PATCH
 	def save_grid_elem
 		@grid_element = GridElement.find(params[:id])
 		@grid_element.work = Work.find(params[:grid_element][:work_id])
@@ -226,6 +226,113 @@ class AdminController < ApplicationController
 		@grid_element.colaborator = nil
 		@grid_element.remove_sprocket!
 		@grid_element.save
+
+		respond_to do |format|
+			format.json {
+				render json: "".to_json
+			}
+		end
+	end
+
+	# HOME
+	# Carousel
+
+	# GET
+	def home_carousel
+		if HomeCarousel.count == 0 
+			first_carousel = HomeCarousel.new 
+			20.times { |count|
+				carousel_element = first_carousel.carousel_elements.build
+			}
+
+			first_carousel.save
+		end
+
+		@carousels = HomeCarousel.all
+
+		render partial: "admin_home_carousel"
+	end
+
+	# GET
+	def new_home_carousel
+		@carousel = HomeCarousel.new 
+		20.times { |count|
+			carousel_element = @carousel.carousel_elements.build
+		}
+
+		if @carousel.save
+			respond_to do |format|
+				format.json {
+					render json: @carousel.to_json
+				}
+			end
+		end
+	end
+
+	# GET
+	def edit_home_carousel
+		@carousel = HomeCarousel.find(params[:id])
+		@carousel_elements = @carousel.carousel_elements
+
+		render partial: "admin_edit_home_carousel", locals: { carousel: @carousel, carousel_elements: @carousel_elements, count: params[:count] }
+	end
+
+	# DELETE
+	def delete_home_carousel
+		@carousel = HomeCarousel.find(params[:id])
+		id_carousel = @carousel.id
+
+		@carousel.destroy
+
+		respond_to do |format|
+			format.json {
+				render json: id_carousel.to_json
+			}
+		end
+	end
+
+	# GET
+	def carousel_elem_edit
+		@carousel_element = CarouselElement.find(params[:id])
+		@works = Work.all
+
+		render partial: "admin_edit_carousel_element", locals: { carousel_element: @carousel_element, works: @works, div: params[:div] }
+	end
+
+	# PATCH
+	def save_carousel_elem
+		@carousel_element = CarouselElement.find(params[:id])
+
+		@carousel_element.photo = params[:carousel_element][:photo]
+		@carousel_element.x = params[:carousel_element][:x].to_f
+		@carousel_element.y = params[:carousel_element][:y].to_f
+		@carousel_element.w = params[:carousel_element][:w].to_f
+		@carousel_element.h = params[:carousel_element][:h].to_f
+
+		if @carousel_element.save
+			info = { :image => Photo.find(@carousel_element.photo).image.url(:display),
+						 :x => @carousel_element.x,
+						 :y => @carousel_element.y,
+						 :w => @carousel_element.w,
+						 :h => @carousel_element.h }
+
+			respond_to do |format|
+				format.json {
+					render json: info.to_json
+				}
+			end
+		end
+	end
+
+	# POST
+	def clean_carousel_elem
+		@carousel_element = CarouselElement.find(params[:id])
+		@carousel_element.photo = nil
+		@carousel_element.x = nil
+		@carousel_element.y = nil
+		@carousel_element.w = nil
+		@carousel_element.h = nil
+		@carousel_element.save
 
 		respond_to do |format|
 			format.json {

@@ -138,3 +138,41 @@
 }
 
 // TERMINA CSS MENU TVP
+
+// EMPIEZA CSS CARUSEL
+
+#carousel-wrapper {
+	width: 100%;
+	height: 400px;
+}
+
+/* HORIZONTAL */
+#carousel-horizontal {
+	width: 40%;
+	height: 400px;
+
+	margin-top: 25px;
+
+}
+
+#carousel-horizontal div {
+	position: relative;
+	float: left;
+}
+
+/* VERTICAL */
+#carousel-vertical {
+	width: 60%;
+	height: 400px;
+
+	margin-top: -40%;
+	float: right;
+
+}
+
+#carousel-vertical div {
+	position: relative;
+	float: left;
+}
+
+// TERMINA CSS CARUSEL

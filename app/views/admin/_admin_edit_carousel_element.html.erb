@@ -1,0 +1,230 @@
+<div style="width: 100%; height: 480px; overflow: hidden">
+	<%= form_for carousel_element, remote: true do |f| %>
+
+		<!-- SELECCION DE OBRA E IMAGEN -->
+		<div id="edit-work-and-image">
+			<div id="admin-grid-works-list-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+					<strong>1. SELECCIONE UNA OBRA PARA VER SUS IMÁGENES:</strong>
+				</div>
+
+				<ul id="admin-grid-works-list">
+					<% works.each do |work| %>
+							<li class="ui-state-default" id="work-list-<%= work.id %>" onclick="selectWork(this);" id-work="<%= work.id %>" title-work="<%= work.title %>" style="font-family: latha, latha_ie;" url-images="<%= work_images_path(work) %>">
+								<%= work.title %>
+							</li>
+					<% end %>
+				</ul>
+			</div>
+
+			<div id="admin-carousel-image-options-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<%= f.hidden_field :photo %>
+
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.06em; line-height: 0.89em; margin-left: 3%; margin-top: 10px;">
+					<strong>2. SELECCIONE LA IMÁGEN QUE SE MOSTRARA EN ESTE ELEMENTO:</strong>
+				</div>
+
+				<div id="admin-carousel-image-options"></div>
+			</div>
+
+			<div style="float: right; margin-top: 15px;">
+				<%= button_tag(type: "button", id: "cancel_form_0", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+			</div>
+
+		</div>
+
+
+		<!-- SELECCION DE ENCUADRE -->
+		<div id="carousel-element-crop">
+			<div id="carousel-element-crop-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+				<%= f.hidden_field :x %>
+				<%= f.hidden_field :y %>
+				<%= f.hidden_field :w %>
+				<%= f.hidden_field :h %>
+
+				<div id="carousel-element-image-container"></div>
+
+				<div style="width: 34%; float: left;">
+					<div style="margin-left: 42%;"><strong>PREVIEW</strong></div>
+
+					<div id="carousel-element-preview-container"></div>
+				</div>
+			</div>
+
+			<div style="float: right; margin-top: 8px;">
+				<%= button_tag(type: "button", id: "back_form", style: "float: left;", class: "pure-button pure-button-active") do %>ATRÁS<% end %>
+				<%= button_tag(type: "button", id: "cancel_form_1", style: "float: left;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
+				<%= f.submit "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "float: left;" %>
+			</div>
+		</div>
+
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+	function update(coords) {
+		$("#carousel_element_x").val(coords.x);
+		$("#carousel_element_y").val(coords.y);
+		$("#carousel_element_w").val(coords.w);
+		$("#carousel_element_h").val(coords.h);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview(coords) {
+		var newWidth = Math.round(($("#carousel-element-preview-container").width() * $("#cropbox").width()) / coords.w);
+		var newHeight = Math.round(($("#carousel-element-preview-container").height() * $("#cropbox").height()) / coords.h);
+
+		$('#preview').css({
+			width: newWidth + 'px',
+			height: newHeight + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#cropbox").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#cropbox").height()) + 'px',
+		});
+	}
+
+	function selectWork(work_li) {
+		
+		// Estilo
+		if($(".selec").length > 0) {
+			$(".selec").css("border", "1px solid #d3d3d3");
+			$(".selec").css("background", "#e6e6e6");
+			$(".selec").css("font-weight", "normal");
+			$(".selec").css("color", "#555555");
+
+			$(".selec").removeClass("selec");
+		}
+
+		$(work_li).addClass("selec");
+		$(".selec").css("background", "#065ECE");
+		$(".selec").css("color", "#000000");
+
+		// Carga imagenes
+		$.ajax({
+			type: "GET",
+			url: $(work_li).attr("url-images"),
+			dataType: "json",
+			success: function(data) {
+				$("#admin-carousel-image-options").empty();
+
+				for (var i = 0; i < data.length; i++) {
+					var divImageOption = document.createElement("div");
+					$(divImageOption).addClass("img-folder-option");
+					$(divImageOption).attr("urlPhoto", data[i].image.display.url);
+					$(divImageOption).attr("idPhoto", data[i].id);
+					$(divImageOption).css("margin-left", "4px");
+					$(divImageOption).css("margin-top", "5px");
+
+					$(divImageOption).append("<img src='" + data[i].image.display.url + "' style='width: 100%; height: 100%;'>");
+					$(divImageOption).appendTo("#admin-carousel-image-options");
+
+					// Agregando evento al div de la opcion
+					$(divImageOption).on("click", function() {
+
+						// Formulario
+						$("#carousel_element_photo").val($(this).attr("idPhoto"));
+
+						var img = new Image();
+						img.id = "cropbox";
+						
+						var img_preview = new Image();
+						img_preview.id = "preview";
+
+						img.onload = function() {
+							$("#edit-work-and-image").animate({	marginLeft: "-=" + ($("#edit-work-and-image").width() * 1.5) + "px" }, 250);
+							$("#carousel-element-crop").show();
+
+							$(img).appendTo("#carousel-element-image-container");
+
+							// Se inicia JCrop
+							$("#cropbox").Jcrop({
+								aspectRatio: 0.25,
+								setSelect: [0, 0, 100, 400],
+								minSize: [100, 400],
+								maxSize: [100, 400],
+								bgOpacity: 0.2,
+								onSelect: update,
+								onChange: update
+							});
+						}
+
+						img_preview.onload = function() {
+							// Se hacen ajustes a el contenedor del preview
+							$("#carousel-element-preview-container").css("width", "100px");
+							$("#carousel-element-preview-container").css("height", "400px");
+							$("#carousel-element-preview-container").css("margin-left", "38%");
+
+							// Se agrega a su contenedor y se aplica css
+							$(img_preview).appendTo("#carousel-element-preview-container");
+							$(img_preview).css("width", "600px");
+							$(img_preview).css("height", "400px");
+						}
+
+						img.src = $(this).attr("urlPhoto");
+						img_preview.src = $(this).attr("urlPhoto");
+
+
+					})
+				}
+			}
+		});
+	}
+
+	$(function() {
+		$("#carousel-element-crop").hide();
+
+		$("#cancel_form_0").click(function() {
+			$("#edit-carousel-dialog").dialog("close");
+		});
+
+		$("#back_form").click(function() {
+			$("#edit-work-and-image").animate({ marginLeft: "+=" + ($("#edit-work-and-image").width() * 1.5) + "px"	}, 250);
+
+			$("#carousel-element-crop").hide();
+
+			$("#carousel-element-image-container").empty();
+			$("#carousel-element-preview-container").empty();
+		});
+
+		$("#cancel_form_1").click(function() {
+			$("#edit-carousel-dialog").dialog("close");
+		});
+		
+		$("#edit_carousel_element_<%= carousel_element.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+
+			var responseImg = new Image();
+			responseImg.onload = function() {
+				$("#<%= div %>").empty();
+
+				var divClear = document.createElement("div");
+				$(divClear).css({
+					color: "#1C1C1C",
+					fontSize: "1.2em",
+					position: "absolute",
+					right: "4%",
+					top: "5px",
+					cursor: "pointer"
+				});
+				$(divClear).append("<i class='fa fa-times-circle'></i>");
+
+				$(divClear).appendTo("#<%= div %>");
+				$(responseImg).appendTo("#<%= div %>");
+
+				var newWidth = Math.round(($("#<%= div %>").width() * $(responseImg).width()) / data.w);
+				var newHeight = Math.round(($("#<%= div %>").height() * $(responseImg).height()) / data.h);
+
+				$(responseImg).css({
+					width: newWidth + 'px',
+					height: newHeight + 'px',
+					marginLeft: '-' + Math.round((newWidth * data.x) / $(responseImg).width()) + 'px',
+					marginTop: '-' + Math.round((newHeight * data.y) / $(responseImg).height()) + 'px',
+				});
+
+				$("#edit-carousel-dialog").dialog("close");
+			}
+			responseImg.src = data.image;
+		});
+
+	})
+</script>

@@ -29,7 +29,6 @@ WebTorreDeViento::Application.routes.draw do
 
   # Grids de Obras (Rodillo de obras)
   get '/admin/works/grid' => 'admin#works_grids', as: "admin_works_grids"
-
   get '/admin/works/grid/:id' => 'admin#work_grid_edit', as: "admin_work_grid"
   delete '/admin/works/grid/:id' => 'admin#work_grid_delete', as: "admin_delete_work_grid"
 
@@ -39,6 +38,18 @@ WebTorreDeViento::Application.routes.draw do
   patch "/admin/works/edit_grid_element/:id" => "admin#save_grid_elem", as: "grid_element"
 
   get "/admin/works/new_grid" => "admin#new_work_grid", as: "admin_new_work_grid"
+
+  # Administrador (Colaboradores)
+  # Admin Home carousel
+  get "/admin/home/carousel" => "admin#home_carousel", as: "admin_home_carousel"
+  get "/admin/home/new_carousel" => "admin#new_home_carousel", as: "admin_new_home_carousel"
+  get "/admin/home/edit_carousel/:id" => "admin#edit_home_carousel", as: "admin_edit_home_carousel"
+  delete "/admin/home/carousel/:id" => "admin#delete_home_carousel", as: "admin_delete_home_carousel"
+
+  # Admin Home carousel element
+  get "/admin/home/carousel_element/:id" => "admin#carousel_elem_edit", as: "admin_carousel_element"
+  patch "/admin/home/carousel_element/:id" => "admin#save_carousel_elem", as: "carousel_element"
+  post "/admin/home/carousel_element/:id" => "admin#clean_carousel_elem", as: "clean_carousel_element"
 
   # Photos
   # Creando las fotos

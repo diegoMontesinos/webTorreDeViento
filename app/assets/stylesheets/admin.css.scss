@@ -369,6 +369,118 @@
 
 // TERMINA CSS WORK GRIDS
 
+// EMPIEZA CSS HOME CAROUSELS
+#admin-home-carousel-options {
+	width: 90%;
+	height: 450px;
+	
+	overflow-y: scroll;
+	margin-left: 3%;
+	margin-top: 15px;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.admin-home-carousel-option {
+	width: 90%;
+	height: 40px;
+
+	position: relative;
+	margin-top: 8px;
+	margin-left: 5%;
+	float: left;
+
+	background: #000000;
+
+	cursor: pointer;
+}
+
+.admin-home-carousel-option:hover, .admin-home-carousel-option-selected {
+	border: 1px solid #4195fc;
+
+	-webkit-box-shadow: 0px 0px 4px #4195fc;
+	-moz-box-shadow: 0px 0px 4px #4195fc;
+	box-shadow: 0px 0px 4px #4195fc;
+}
+
+.carousel-elem {
+	width: 100px;
+	height: 400px;
+
+	position: relative;
+	overflow: hidden;
+	float: left;
+
+	background: #000000;
+}
+
+#carousel-element-crop {
+	width: 96.5%;
+	height: 100%;
+	float: left;
+	margin-left: 1.5%;
+}
+
+#carousel-element-image-container {
+	width: 63%;
+	float: left;
+	position: relative;
+
+	margin-top: 16px;
+	margin-left: 1%;
+}
+
+#carousel-element-crop-container {
+	width: 100%;
+	height: 425px;
+
+	float: left;
+
+	margin-top: 12px;
+}
+
+#admin-carousel-image-options-container {
+	width: 61%;
+	float: left;
+	margin-left: 2%;
+	margin-top: 12px;
+	padding-bottom: 10px;
+}
+
+#admin-carousel-image-options {
+	width: 95%;
+	height: 359px;
+
+	padding: 5px;
+
+	margin-top: 11px;
+	margin-left: 1.5%;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	background: #5F5F5F;
+	border: 1px solid #000;
+	border-right: 1px solid #353535;
+	border-bottom: 1px solid #353535;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+#carousel-element-preview-container {
+	overflow: hidden;
+	background: #000000;
+}
+
+// TERMINA CSS HOME CAROUSELS
+
 // EMPIEZA CSS ADMIN JQUERY UI
 
 // TABS

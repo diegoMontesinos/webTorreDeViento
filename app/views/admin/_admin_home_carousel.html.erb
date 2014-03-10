@@ -1,0 +1,88 @@
+<div id="admin-home-carousels-content">
+	<div style="width: 19%; height: 580px; margin-top: 15px; margin-left: 1.5%; position: relative; float: left; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.95em; margin-left: 3%; margin-top: 10px;">
+			<strong>CARRUSELES CARGADOS</strong>
+		</div>
+
+		<div id="admin-home-carousel-options">
+			<% i = 1 %>
+			<% @carousels.each do |carousel| %>
+
+				<div class="admin-home-carousel-option" onclick="selectCarousel(this)" id-carousel="<%= carousel.id %>" >
+					<div style="color: #FFFFFF; font-size: 1.1em; font-family: latha, latha_ie; position: relative; margin-left: 13%; margin-top: 7px;"><strong>CARRUSEL <%= i %></strong></div>
+				</div>
+
+				<div id="edit-home-carousel-<%= carousel.id %>" style="display: none;">
+					<%= link_to admin_edit_home_carousel_path(carousel.id) + "?count=" + i.to_s, remote: true, method: :get do %><% end %>
+				</div>
+				<script type="text/javascript">
+					$("#edit-home-carousel-<%= carousel.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+						$("#admin-home-carousel-selection").empty();
+
+						$("#admin-home-carousel-selection").append(xhr.responseText);
+					});
+				</script>
+
+				<div id="delete-home-carousel-<%= carousel.id %>" style="display: none;">
+					<%= link_to admin_delete_home_carousel_path(carousel.id), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %>
+				</div>
+				<script type="text/javascript">
+					$("#delete-home-carousel-<%= carousel.id %>").bind("ajax:success", function(evt, data, status, xhr) {
+						$("#carousel-menu-item").click();
+					});
+				</script>
+
+				<% i = i + 1 %>
+			<% end %>
+		</div>
+
+		<div style="width: 100%; height: 60px;">
+			<%= button_tag(type: "button", id: "delete-carousel-button", class: "pure-button pure-button-primary", style: "width: 40%; float: left; margin-left: 3.5%; margin-top: 20px; font-family: latha, latha_ie; font-size: 0.8em; line-height: 0.89em; background: rgb(223, 117, 20);") do %>
+					<center>ELIMINAR<br>CARRUSEL</center>
+			<% end %>
+			<%= link_to admin_new_home_carousel_path, id: "new-home-carousel-link", remote: true do %>
+				<div class="pure-button pure-button-primary" style="width: 30%; float: left; margin-left: 9%; margin-top: 20px; font-family: latha, latha_ie; font-size: 0.8em; line-height: 0.89em;">
+					<center>AGREGAR<br>CARRUSEL</center>
+				</div>
+			<% end %>
+		</div>
+
+	</div>
+
+	<div style="width: 78%; height: 580px; margin-top: 15px; margin-left: 1%; position: relative; float: left; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+		<div id="admin-home-carousel-selection"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function selectCarousel(option_div) {
+		// Estilo
+		if($(".admin-home-carousel-option-selected").length > 0) {
+			$(".admin-home-carousel-option-selected").removeClass("admin-home-carousel-option-selected");
+		}
+
+		$(option_div).addClass("admin-home-carousel-option-selected");
+
+		// Coloca su formulario
+		$("#edit-home-carousel-" + $(option_div).attr("id-carousel")).find("a").click();
+	}
+
+	$(function() {
+		$("#delete-carousel-button").click(function() {
+			if($(".admin-home-carousel-option-selected").length > 0) {
+				if($(".admin-home-carousel-option").length > 1) {
+					$("#delete-home-carousel-" + $(".admin-home-carousel-option-selected").first().attr("id-carousel")).find("a").click();
+				} else {
+					alert("NO PUEDES ELIMINAR TODOS LOS CARRUSELES!");
+				}
+			} else {
+				alert("SELECCIONE EL CARRUSEL A ELIMINAR!");
+			}
+		});
+
+		$("#new-home-carousel-link").bind("ajax:success", function(evt, data, status, xhr) {
+			$("#carousel-menu-item").click();
+		});
+	})
+</script>

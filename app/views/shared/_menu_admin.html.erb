@@ -24,7 +24,11 @@
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">EXTRAS</div></li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">HOME</div></li>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">HOME<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+			<ul class="dropdown-menu-admin" style="left: 189px; top: 265px;">
+				<li id="carousel-menu-item" class="dropdown-item-admin"><div><i class="fa fa-home"></i> Carousel Home</div></li>
+			</ul>
+		</li>
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">PERFIL ADMIN</div></li>
 
@@ -134,4 +138,23 @@
 		});
 	});
 
+	///////////////////////////////
+	//        M O D U L O        //
+	//          H O M E          //
+	///////////////////////////////
+
+	// CAROUSEL HOME
+	$("#carousel-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= admin_home_carousel_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
 </script>

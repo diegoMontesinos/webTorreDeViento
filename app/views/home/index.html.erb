@@ -1,10 +1,125 @@
-<div style="width: 100%;">
-	<%= image_tag "proximamente.png", :style => "width: 52%; margin-left: 24%; margin-top: 8%;" %>
+<div id="wrapper-tvp" >
+	<div id="container-tvp" >
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<!-- CAROUSEL -->
+		<div id="carousel-wrapper">
+			<div id="carousel-horizontal-wrapper">
+				<div id="carousel-horizontal">
+					<% @carousel.carousel_elements.each do |carousel_elem| %>
+						<% if carousel_elem.photo.present? %>
+							<div class="carousel-elem" data="<%= carousel_elem.x %>;<%= carousel_elem.y %>;<%= carousel_elem.w %>;<%= carousel_elem.h %>">
+								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display) %>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+
+			<div id="carousel-vertial-wrapper">
+				<div id="carousel-vertical">
+					<% @carousel.carousel_elements.each do |carousel_elem| %>
+						<% if carousel_elem.photo.present? %>
+							<div>
+								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display), :style => "width: 600px; height: 400px;" %>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+
+		</div>
+
+		<!-- MENU TVP -->
+		<div>
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+	</div>
 </div>
 
 <script type="text/javascript">
 	$(function() {
-		$("html").css("background", "#FFFFFF");
-		$("body").css("background", "#FFFFFF");
+
+		// Se corrigen las imagenes
+		$(".carousel-elem").each(function() {
+			if($(this).attr("data") != "") {
+				// Se colocan bien las imagenes
+				var img = $(this).find("img");
+
+				if(img.length > 0) {
+					var dataAttr = $(this).attr("data").split(";");
+					var data = {
+						x: parseFloat(dataAttr[0]),
+						y: parseFloat(dataAttr[1]),
+						w: parseFloat(dataAttr[2]),
+						h: parseFloat(dataAttr[3]),
+					}
+
+					img.css({
+						marginLeft: '-' +  data.x + 'px'
+					});
+				}
+			}
+		});
+
+		// Comportamiento del carousel horizontal
+		$('#carousel-horizontal').carouFredSel({
+			circular: true,
+			direction: "right",
+
+			items: {
+				visible: 4,
+				start: -3
+			},
+					
+			scroll: {
+				items: 1,
+				fx: "scroll",
+				easing: "linear"
+			},
+
+			auto: true,
+			next: '#galeria-prev',
+			prev: '#galeria-next'
+		});
+
+		// Comportamiento del carousel vertical
+		$('#carousel-vertical').carouFredSel({
+			circular: true,
+			direction: "right",
+			synchronise: "#carousel-horizontal",
+
+			items: {
+				visible: 1,
+				start: 0
+			},
+
+			scroll: {
+				fx: "scroll",
+				easing: "linear"
+			},
+
+			auto: true,
+			next: '#galeria-prev',
+			prev: '#galeria-next'
+		});
+
+		$('#carousel-wrapper').hover(function() {
+			$("#carousel-horizontal").trigger("pause");
+			$("#carousel-vertical").trigger("pause");
+		}, function() {
+			$("#carousel-horizontal").trigger("play");
+			$("#carousel-vertical").trigger("play");
+		});
+
+		// Se corrige el menu
+		$("#menu-tvp").css("margin-top", "-5px");
 	});
 </script>

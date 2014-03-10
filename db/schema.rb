@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306005101) do
+ActiveRecord::Schema.define(version: 20140309233654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carousel_elements", force: true do |t|
+    t.integer  "photo"
+    t.integer  "home_carousel_id"
+    t.decimal  "x"
+    t.decimal  "y"
+    t.decimal  "w"
+    t.decimal  "h"
+    t.integer  "previous"
+    t.integer  "next"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carousel_elements", ["home_carousel_id"], name: "index_carousel_elements_on_home_carousel_id", using: :btree
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -103,6 +118,11 @@ ActiveRecord::Schema.define(version: 20140306005101) do
 
   add_index "grid_elements", ["work_grid_id"], name: "index_grid_elements_on_work_grid_id", using: :btree
   add_index "grid_elements", ["work_id"], name: "index_grid_elements_on_work_id", using: :btree
+
+  create_table "home_carousels", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "photos", force: true do |t|
     t.integer  "file_folder_id"
