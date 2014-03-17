@@ -16,7 +16,10 @@ WebTorreDeViento::Application.routes.draw do
   # Mostrando un carousel y home
   get "/home/carousel/:id" => "home#show_carousel", as: "carousel"
 
-  # Administrador
+  # En construccion
+  get "/comming_soon" => "home#comming_soon", as: "comming_soon"
+
+  # ADMINISTRADOR
   get '/admin' => 'admin#show'
 
   # Administrador (Obras)
@@ -45,7 +48,7 @@ WebTorreDeViento::Application.routes.draw do
 
   get "/admin/works/new_grid" => "admin#new_work_grid", as: "admin_new_work_grid"
 
-  # Administrador (Colaboradores)
+  # Administrador (Carousel home)
   # Admin Home carousel
   get "/admin/home/carousel" => "admin#home_carousel", as: "admin_home_carousel"
   get "/admin/home/new_carousel" => "admin#new_home_carousel", as: "admin_new_home_carousel"
@@ -56,6 +59,13 @@ WebTorreDeViento::Application.routes.draw do
   get "/admin/home/carousel_element/:id" => "admin#carousel_elem_edit", as: "admin_carousel_element"
   patch "/admin/home/carousel_element/:id" => "admin#save_carousel_elem", as: "carousel_element"
   post "/admin/home/carousel_element/:id" => "admin#clean_carousel_elem", as: "clean_carousel_element"
+
+  # Administrador (Nosotros)
+  get "/admin/we_are" => "admin#we_are_edit", as: "we_are_edit"
+  get "/admin/we_do" => "admin#we_do_edit", as: "we_do_edit"
+  get "/admin/list_projects" => "admin#list_projects_edit", as: "list_projects_edit"
+
+  patch "/admin/webinfo/:id" => "admin#webinfo_save", as: "web_info"
 
   # Photos
   # Creando las fotos
@@ -100,8 +110,19 @@ WebTorreDeViento::Application.routes.draw do
   # Colaboradores (Colaborators)
   
   # Colaboradores Frecuentes
-  get "colaborators/frequents" => "colaborators#frequents", as: "frequents"
+  get "/colaborators/frequents" => "colaborators#frequents", as: "frequents"
 
   resources :colaborators
+
+  # NOSOTROS
+
+  # Quienes somos
+  get "/we_are" => "home#we_are", as: "we_are"
+
+  # Que hacemos
+  get "/we_do" => "home#we_do", as: "we_do"
+
+  # Lista de proyectos
+  get "/list_projects" => "home#list_projects", as: "list_projects"
 
 end

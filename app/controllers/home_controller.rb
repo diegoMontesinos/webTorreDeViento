@@ -8,10 +8,15 @@ class HomeController < ApplicationController
   	@carousel = carousels[Random.rand(carousels.length)]
   end
 
+  # GET
   def show_carousel
     @carousel = HomeCarousel.find(params[:id])
 
     render template: "home/index"
+  end
+
+  # GET
+  def comming_soon
   end
 
   # POST
@@ -47,7 +52,36 @@ class HomeController < ApplicationController
     		}
       end
     end
-    
+  end
+
+  # GET
+  def we_are
+    @we_are = WebInfo.find_by_type_info("we_are")
+    if @we_are.nil?
+     @we_are = WebInfo.new
+     @we_are.type_info = "we_are"
+     @we_are.save
+    end
+  end
+
+  # GET
+  def we_do
+    @we_do = WebInfo.find_by_type_info("we_do")
+    if @we_do.nil?
+      @we_do = WebInfo.new
+      @we_do.type_info = "we_do"
+      @we_do.save
+    end
+  end
+
+  # GET
+  def list_projects
+    @list_projects = WebInfo.find_by_type_info("list_projects")
+    if @list_projects.nil?
+      @list_projects = WebInfo.new
+      @list_projects.type_info = "list_projects"
+      @list_projects.save
+    end
   end
 
 end

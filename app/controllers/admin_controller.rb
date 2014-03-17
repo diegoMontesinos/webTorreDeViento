@@ -386,4 +386,57 @@ class AdminController < ApplicationController
 		end
 	end
 
+	# NOSOTROS
+
+	# Quienes somos
+	# GET
+	def we_are_edit
+		we_are = WebInfo.find_by_type_info("we_are")
+		if we_are.nil?
+			we_are = WebInfo.new
+			we_are.type_info = "we_are"
+			we_are.save
+		end
+
+		render partial: "admin_form_we_are", locals: { we_are: we_are }
+	end
+
+	# GET
+	def we_do_edit
+		we_do = WebInfo.find_by_type_info("we_do")
+		if we_do.nil?
+			we_do = WebInfo.new
+			we_do.type_info = "we_do"
+			we_do.save
+		end
+
+		render partial: "admin_form_we_do", locals: { we_do: we_do }
+	end
+
+	def list_projects_edit
+		list_projects = WebInfo.find_by_type_info("list_projects")
+		if list_projects.nil?
+			list_projects = WebInfo.new
+			list_projects.type_info = "list_projects"
+			list_projects.save
+		end
+
+		render partial: "admin_form_list_projects", locals: { list_projects: list_projects }
+	end
+
+	# PATCH
+	def webinfo_save
+		web_info = WebInfo.find(params[:id])
+
+		web_info.update(params.require(:web_info).permit(:body, :body_in_es, :body_in_en, :image))
+
+		if web_info.type_info == "we_are"
+			redirect_to we_are_path
+		elsif web_info.type_info == "we_do"
+			redirect_to we_do_path
+		else
+			redirect_to list_projects_path
+		end
+	end
+
 end

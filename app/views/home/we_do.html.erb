@@ -1,0 +1,48 @@
+<div id="wrapper-tvp">
+	<div id="container-tvp">
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- INFO -->
+		<div id="we-do-container">
+			<% if @we_do.image.present? %>
+				<% photo_src = @we_do.image.url(:display) %>
+			<% else %>
+				<% photo_src = "info_default.png" %>
+			<% end %>
+
+			<div id="we-do-image">
+				<%= image_tag photo_src, :style => "width: 100%;" %>
+			</div>
+
+			<div id="we-do-body">
+				<%= @we_do.body.html_safe %>
+			</div>
+
+		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("html").css("width", "100%");
+	$("html").css("min-height", "100%");
+	$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+	$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+	$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+	$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+	$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+</script>

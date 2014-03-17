@@ -1,0 +1,94 @@
+<script type="text/javascript">
+	$(function() {
+		// Accion del submit
+		$("#form-we-are").submit(function(e) {
+			// Checamos que no dejen ningun ckeditor vacio
+			var ck_instances = CKEDITOR.instances;
+			var msg = "";
+			for(var key in ck_instances) {
+				var ck = ck_instances[key];
+				ck.updateElement();
+
+				if($("#" + ck.name).val() == "") {
+					if(ck.name.lastIndexOf("web_info_body_in_en") != -1) {
+						msg = "Texto-Inglés está vacío!!";
+					} else if(ck.name.lastIndexOf("web_info_body") != -1) {
+						msg = "Texto-Español está vacío!!";
+					}
+
+					alert("El campo " + msg);
+
+					e.preventDefault();
+					e.stopPropagation();
+
+					return false;
+				}
+			}
+
+			$("#progressbar").show();
+		});
+
+		// ProgressBar
+		$("#progressbar").progressbar({
+			value: false
+		});
+
+		$("#progressbar").hide();
+	});
+</script>
+
+<div id="form-we-are-wrapper">
+	<div id="progressbar" style="position: fixed; width: 86%; z-index: 2; margin-left: 0.55%; margin-top: -20px;">
+		<div class="progress-label">SUBIENDO INFORMACIÓN... ESPERE </div>
+	</div>
+
+	<%= form_for we_are, html: { id: "form-we-are", :class => "pure-form pure-form-stacked" } do |f| %>
+
+		<!-- TEXTO -->
+		<div style="width: 95%; height: 800px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong>TEXTO</strong></span>
+
+			<div style="margin-top: 1.2%;">
+
+				<!-- Español -->
+				<div style="width: 97%; margin-left: 2%; float: left;">
+					<span style="font-size: 0.9em"><strong>- EN ESPAÑOL</strong></span>
+					<div style="width: 100%;">
+						<% if we_are.body_in_es.present? %>
+							<%= f.cktext_area :body_in_es, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+						<% else %>
+							<%= f.cktext_area :body, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+						<% end %>
+					</div>
+				</div>
+
+				<!-- Español -->
+				<div style="width: 97%; margin-left: 2%; margin-top: 10px; float: left;">
+					<span style="font-size: 0.9em"><strong>- EN INGLÉS</strong></span>
+					<div style="width: 100%;">
+						<%= f.cktext_area :body_in_en, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- IMAGEN DE FONDO -->
+		<div style="width: 95%; height: 105px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong>IMÁGEN DE FONDO</strong></span>
+
+			<div id="uploader-video-thumb-div" style="margin-left: 1%;">
+				<%= f.label :image, "Imágen de fondo: " %>
+				<%= f.file_field :image, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+			</div>
+		</div>
+
+		<div style="margin-top: 1.6%; margin-right: 2.6%; float: right;">
+			<%= f.submit "GUARDAR INFORMACIÓN", id: "submit_form", :class => "pure-button pure-button-primary" %>
+		</div>
+		<br>
+		<br>
+		<br>
+	<% end %>
+</div>

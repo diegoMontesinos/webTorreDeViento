@@ -3,7 +3,7 @@
 
 		<!-- OBRAS -->
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">OBRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
-			<ul class="dropdown-menu-admin" style="left: 189px; top: 40px;">
+			<ul class="dropdown-menu-admin" style="left: 14%; top: 40px;">
 				<li id="new-work-menu-item" class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Nueva obra</div></li>
 				<li id="works-menu-item" class="dropdown-item-admin"><div><i class="fa fa-list"></i> Obras cargadas</div></li>
 				<li id="works-catalog-menu-item" class="dropdown-item-admin"><div><i class="fa fa-th"></i> Rodillo de Obras</div></li>
@@ -11,21 +11,34 @@
 		</li>
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">COLABORADORES<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
-			<ul class="dropdown-menu-admin" style="left: 189px; top: 85px;">
+			<ul class="dropdown-menu-admin" style="left: 14%; top: 85px;">
 				<li id="new-colaborator-menu-item" class="dropdown-item-admin"><div><i class="fa fa-user"></i> Nuevo colaborador</div></li>
 				<li id="colaborators-menu-item" class="dropdown-item-admin"><div><i class="fa fa-users"></i> Colaboradores cargados</div></li>
 				<li id="colaborators-home-menu-item" class="dropdown-item-admin"><div><i class="fa fa-th"></i> Home Colaboradores</div></li>
 			</ul>
 		</li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">NOSOTROS</div></li>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">NOSOTROS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+			<ul class="dropdown-menu-admin" style="left: 14%; top: 130px;">
+				<li id="we-are-menu-item" class="dropdown-item-admin"><div><i class="fa fa-info-circle"></i> Quienes somos</div></li>
+				<li id="we-do-menu-item" class="dropdown-item-admin"><div><i class="fa fa-info-circle"></i> Que hacemos</div></li>
+				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-list-alt"></i> Lista de Proyectos</div></li>
+			</ul>
+		</li>
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">PRENSA</div></li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">EXTRAS</div></li>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">EXTRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+			<ul class="dropdown-menu-admin" style="left: 14%; top: 220px;">
+				<li id="we-are-menu-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
+				<li id="we-do-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Descargas</div></li>
+				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-bullhorn"></i> Noticias</div></li>
+				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-comment"></i> Contacto</div></li>
+			</ul>
+		</li>
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">HOME<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
-			<ul class="dropdown-menu-admin" style="left: 189px; top: 265px;">
+			<ul class="dropdown-menu-admin" style="left: 14%; top: 265px;">
 				<li id="carousel-menu-item" class="dropdown-item-admin"><div><i class="fa fa-home"></i> Carousel Home</div></li>
 			</ul>
 		</li>
@@ -137,6 +150,61 @@
 			}
 		});
 	});
+
+	///////////////////////////////
+	//        M O D U L O        //
+	//      N O S O T R O S      //
+	///////////////////////////////
+
+	// QUIENES SOMOS
+	$("#we-are-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= we_are_edit_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
+
+	// QUE HACEMOS
+	$("#we-do-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= we_do_edit_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
+
+	// LISTA DE PROYECTOS
+	$("#projects-list-menu-item").click(function() {
+		$("#content-admin").empty();
+		$("input").remove();
+
+		$.ajax({
+			type: "GET",
+			url: "<%= list_projects_edit_path %>",
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	});
+
+	///////////////////////////////
+	//        M O D U L O        //
+	//        E X T R A S        //
+	///////////////////////////////
 
 	///////////////////////////////
 	//        M O D U L O        //
