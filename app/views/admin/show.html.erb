@@ -3,7 +3,9 @@
 <div id="wrapper-admin">
 	<%= render "shared/menu_admin" %>
 
-	<div id="content-admin"></div>
+	<div id="content-admin">
+		<%= image_tag "bienvenida_admin.png", :style => "margin-top: 55px; margin-left: 6%;" %>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -11,8 +13,6 @@
 	$(function() {
 		$("html").css("background", "#FFFFFF");
 		$("body").css("background", "#FFFFFF");
-
-		$("#new-work-menu-item").click();
 	});
 
 </script>

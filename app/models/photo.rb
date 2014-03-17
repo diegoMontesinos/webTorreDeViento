@@ -27,6 +27,18 @@ class Photo < ActiveRecord::Base
 			file_folder.save
 		end
 
+		carousel_elements = CarouselElement.where(photo: self.id)
+		if !carousel_elements.empty?
+			carousel_elements.each do |c_element|
+				c_element.photo = nil
+				c_element.x = nil
+				c_element.y = nil
+				c_element.w = nil
+				c_element.h = nil
+				c_element.save
+			end
+		end
+
 		self.remove_image!
 	end
 end

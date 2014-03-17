@@ -1,12 +1,12 @@
 <div style="margin-top: 5px; margin-left: 42%; color: #000000; font-family: latha, latha_ie; font-size: 3em;"><%= count %></div>
 
 <div style="width: 95%; margin-left: 1.5%; overflow-x: scroll; overflow-y: none;">
-
 	<!-- CAROUSEL -->
-	<div style="width: 258%; height: 400px;">
+	<div id="edit-carousel-container" style="width: 258%; height: 400px;">
 		<% carousel_elements.each do |carousel_elem| %>
-			<div id="carousel-elem-<%= carousel_elem.id %>" class="carousel-elem" style="margin-left: 0.2%;"
+			<div id="carousel-elem-<%= carousel_elem.id %>" class="carousel-elem" id-elem="<%= carousel_elem.id %>" style="margin-left: 0.2%;"
 				onclick="showEditDialog(this, '<%= admin_carousel_element_path(carousel_elem.id)%>?div=carousel-elem-<%= carousel_elem.id %>');" data="">
+
 				<% if carousel_elem.photo.present? %>
 					<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 4%; top: 5px; cursor: pointer;"
 				     onclick="quit_element('<%= clean_carousel_element_path(carousel_elem)%>', this, event);">
@@ -19,11 +19,19 @@
 						container.attr("data", "<%= carousel_elem.x %>;<%= carousel_elem.y %>;<%= carousel_elem.w %>;<%= carousel_elem.h %>")
 					</script>
 				<% end %>
+
 			</div>
 		<% end %>
 	</div>
+</div>
 
-<div>
+<div style="width: 45%; float: right; margin-top: 10px; font-family: latha, latha_ie; font-size: 0.89em;">
+	<%= link_to carousel_path(carousel.id), :class => "pure-button pure-button-primary",
+	               :style => "float: right; margin-right: 8%; margin-top: 2px;" do %>IR A CAROUSEL<% end %>
+
+	<%= button_tag(type: "button", id: "admin-carousel-store-order", class: "pure-button pure-button-primary",
+	               style: "float: right; margin-right: 1%;") do %>GUARDAR ORDEN<% end %>
+</div>
 
 <!-- DIALOG WINDOW -->
 <div id="edit-carousel-dialog" title="Edita el carousel <%= count %>" style="display: none; z-index: 4;"></div>
@@ -63,6 +71,8 @@
 	}
 
 	$(function() {
+		$("#edit-carousel-container").sortable();
+		$("#edit-carousel-container").disableSelection();
 
 		$(".carousel-elem").each(function() {
 			if($(this).attr("data") != "") {
@@ -104,5 +114,28 @@
 
 			modal: "true"
 		});
+
+		// Guardar el orden
+		$("#admin-carousel-store-order").click(function() {
+			var carousel_elems = $(".carousel-elem");
+			var order_str = "";
+
+			for(var i = 0; i < carousel_elems.length; i++) {
+				var id_elem = $(carousel_elems[i]).attr("id-elem");
+				order_str += id_elem + "_";				
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "<%= carousel_store_order_path(carousel.id) %>",
+				data: { "order": order_str },
+				dataType: "json",
+				success: function(data) {
+					alert("EL ORDEN FUE GUARDADO EXITOSAMENTE");
+				}
+			});
+
+		});
+
 	});
 </script>

@@ -240,12 +240,35 @@ class AdminController < ApplicationController
 	# GET
 	def home_carousel
 		if HomeCarousel.count == 0 
-			first_carousel = HomeCarousel.new 
+			first_carousel = HomeCarousel.new
+
 			20.times { |count|
 				carousel_element = first_carousel.carousel_elements.build
 			}
 
-			first_carousel.save
+			if first_carousel.save
+				elements = first_carousel.carousel_elements
+				first_carousel.head = elements.first.id
+
+				elements.each.with_index do |elem, index|
+					if index == 0
+						elem.next = elements[(index + 1) % elements.length].id
+						elem.previous = elements.last.id
+					
+					elsif index == (elements.length - 1)
+						elem.next = elements.first.id
+						elem.previous = elements[(index - 1) % elements.length].id
+					
+					else
+						elem.next = elements[(index + 1) % elements.length].id
+						elem.previous = elements[(index - 1) % elements.length].id
+					end
+
+					elem.save
+				end
+				
+				first_carousel.save
+			end
 		end
 
 		@carousels = HomeCarousel.all
@@ -261,10 +284,32 @@ class AdminController < ApplicationController
 		}
 
 		if @carousel.save
-			respond_to do |format|
-				format.json {
-					render json: @carousel.to_json
-				}
+			elements = @carousel.carousel_elements
+			@carousel.head = elements.first.id
+
+			elements.each.with_index do |elem, index|
+				if index == 0
+					elem.next = elements[(index + 1) % elements.length].id
+					elem.previous = elements.last.id
+				
+				elsif index == (elements.length - 1)
+					elem.next = elements.first.id
+					elem.previous = elements[(index - 1) % elements.length].id
+				
+				else
+					elem.next = elements[(index + 1) % elements.length].id
+					elem.previous = elements[(index - 1) % elements.length].id
+				end
+
+				elem.save
+			end
+
+			if @carousel.save
+				respond_to do |format|
+					format.json {
+						render json: @carousel.to_json
+					}
+				end
 			end
 		end
 	end
@@ -272,7 +317,7 @@ class AdminController < ApplicationController
 	# GET
 	def edit_home_carousel
 		@carousel = HomeCarousel.find(params[:id])
-		@carousel_elements = @carousel.carousel_elements
+		@carousel_elements = @carousel.elements_inorder
 
 		render partial: "admin_edit_home_carousel", locals: { carousel: @carousel, carousel_elements: @carousel_elements, count: params[:count] }
 	end

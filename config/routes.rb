@@ -6,9 +6,15 @@ WebTorreDeViento::Application.routes.draw do
   # Mount CKEditor
   mount Ckeditor::Engine => '/ckeditor'
 
-  # Rutas principales
+  # HOME
   root 'home#index'
   get 'home/index' => 'home#index'
+
+  # Guardando orden de los elementos del carousel
+  post "/home/carousel/order/:id" => "home#carousel_store_order", as: "carousel_store_order"
+
+  # Mostrando un carousel y home
+  get "/home/carousel/:id" => "home#show_carousel", as: "carousel"
 
   # Administrador
   get '/admin' => 'admin#show'

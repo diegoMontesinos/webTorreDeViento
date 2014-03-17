@@ -10,7 +10,7 @@
 		<div id="carousel-wrapper">
 			<div id="carousel-horizontal-wrapper">
 				<div id="carousel-horizontal">
-					<% @carousel.carousel_elements.each do |carousel_elem| %>
+					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
 						<% if carousel_elem.photo.present? %>
 							<div class="carousel-elem" data="<%= carousel_elem.x %>;<%= carousel_elem.y %>;<%= carousel_elem.w %>;<%= carousel_elem.h %>">
 								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display) %>
@@ -22,7 +22,7 @@
 
 			<div id="carousel-vertial-wrapper">
 				<div id="carousel-vertical">
-					<% @carousel.carousel_elements.each do |carousel_elem| %>
+					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
 						<% if carousel_elem.photo.present? %>
 							<div>
 								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display), :style => "width: 600px; height: 400px;" %>
@@ -46,6 +46,14 @@
 
 <script type="text/javascript">
 	$(function() {
+
+		$("html").css("width", "100%");
+		$("html").css("min-height", "100%");
+		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
 
 		// Se corrigen las imagenes
 		$(".carousel-elem").each(function() {
