@@ -125,4 +125,7 @@ WebTorreDeViento::Application.routes.draw do
   # Lista de proyectos
   get "/list_projects" => "home#list_projects", as: "list_projects"
 
+  # NOTICIAS
+  resources :news
+
 end

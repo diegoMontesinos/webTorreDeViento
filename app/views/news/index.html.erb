@@ -1,0 +1,138 @@
+<div id="wrapper-tvp" >
+	<div id="container-tvp">
+
+		<!-- BANNER -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => true } %>
+		</div>
+
+		<!-- MENU -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- NOTICIAS -->
+		<div id="news-container">
+
+			<div id="list-news-container">
+				<div id="carousel-news">
+					<div class="carousel-news-elem" onclick="putNew('/news/1');">
+						<%= image_tag "news/i01.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/1');">
+						<%= image_tag "news/i02.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/1');">
+						<%= image_tag "news/i03.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/2');">
+						<%= image_tag "news/i04.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/2');">
+						<%= image_tag "news/i05.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/2');">
+						<%= image_tag "news/i06.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/3');">
+						<%= image_tag "news/i07.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/3');">
+						<%= image_tag "news/i08.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/3');">
+						<%= image_tag "news/i09.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+					<div class="carousel-news-elem" onclick="putNew('/news/1');">
+						<%= image_tag "news/i10.jpg", :style => "width: 100%; height: 100%;" %>
+					</div>
+				</div>
+
+				<div id="prev" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 483px;">
+					<%= image_tag "prev_gallery_up.png", :style => "width: 100%; height: 100%;" %>
+				</div>
+				<div id="next" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 2px;">
+					<%= image_tag "next_gallery_down.png", :style => "width: 100%; height: 100%;" %>
+				</div>
+			</div>
+
+			<div id="news-text-container"></div>
+
+		</div>
+
+		<div id="lower-bar" style="width: 100%; height: 50px; background: #14191d; margin-top: px;"></div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function correctLineHeight(id_elem) {
+		$("#" + id_elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+
+	function putNew (url_new) {
+		$.ajax({
+			type: "GET",
+			url: url_new,
+			dataType: "html",
+			success: function(data) {
+				
+				$("#news-text-container").append(data);
+
+				if(($("#news-text-container").data("jsp"))) {
+					$("#news-text-container").data("jsp").destroy();
+				}
+
+				$("#news-text-container").bind("jsp-initialised", function(event, isScrollable) {
+				}).jScrollPane({ hideFocus: true });
+
+				/*correctLineHeight("news-text-container");*/
+			}
+		});
+	}
+
+	$(function() {
+		$("#menu-tvp").css("background", "#14191d");
+		$("html").css("background", "#000000");
+		$("body").css("background", "#000000");
+
+		// CARUSEL
+		$("#carousel-news").carouFredSel({
+			responsive: true,
+			circular: false,
+			infinite: false,
+			direction: 'down',
+			items: {
+				visible: {
+					min: 4
+				}
+			},
+			scroll: {
+				items: 1,
+			},
+			auto: false,
+			prev: '#prev',
+			next: '#next'
+		});
+	});
+</script>
