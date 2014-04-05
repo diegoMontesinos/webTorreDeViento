@@ -34,8 +34,13 @@
 				<!-- MENU PARA EL COLABORADOR -->
 				<div id="colaborator-info-menu-navigator">
 					<ul id="colaborator-info-menu">
-						<li id="semblance" class="colaborator-info-menu-item"><div><center><%= t(:semblance) %></center></div></li>
-						<li id="cv" class="colaborator-info-menu-item"><div><center><%= t(:cv) %></center></div></li>
+						<% if @colaborator.semblance.present? || @colaborator.semblance_en.present? %>
+							<li id="semblance" class="colaborator-info-menu-item"><div><center><%= t(:semblance) %></center></div></li>
+						<% end %>
+
+						<% if @colaborator.cv.present? || @colaborator.cv_en.present? %>
+							<li id="cv" class="colaborator-info-menu-item"><div><center><%= t(:cv) %></center></div></li>
+						<% end %>
 
 
 						<!-- NEXT -->
@@ -125,16 +130,19 @@
 			$(".jspContainer").css("margin-left", "5.556%");
 		}).jScrollPane({ hideFocus: true });
 
+		if($('#semblance').length > 0) {
+			$('#semblance').click(function(e) {
+				e.preventDefault();
+				window.location.href = '<%= @colaborator.semblance.url %>';
+			});
+		}
 
-		$('#semblance').click(function(e) {
-			e.preventDefault();
-			window.location.href = '<%= @colaborator.semblance.url %>';
-		});
-
-		$('#cv').click(function(e) {
-			e.preventDefault();
-			window.location.href = '<%= @colaborator.cv.url %>';
-		});
+		if($('#cv').length > 0) {
+			$('#cv').click(function(e) {
+				e.preventDefault();
+				window.location.href = '<%= @colaborator.cv.url %>';
+			});
+		}
 
 		correctLineHeight("colaborator-semblance-text-content");
 	});

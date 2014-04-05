@@ -18,12 +18,14 @@
 						msg = "Semblanza-Español está vacío!!";
 					}
 
-					alert("El campo " + msg);
+					if(msg != "Semblanza-Inglés está vacío!!") {
+						alert("El campo " + msg);
 
-					e.preventDefault();
-					e.stopPropagation();
+						e.preventDefault();
+						e.stopPropagation();
 
-					return false;
+						return false;					
+					}
 				}
 			}
 
@@ -49,7 +51,7 @@
 		<!-- NOMBRE DEL COLABORADOR -->
 		<div style="position:relative; margin-top: 60px;">
 			<%= f.label :name, "Nombre: " %>
-			<%= f.text_field :name, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
+			<%= f.text_field :name, :autofocus => true, size: 80, :required => true, :style => "width: 30%;" %>
 		</div>
 
 		<div style="position:relative; margin-top: 1.5%; font-size: 0.95em;">
@@ -63,7 +65,7 @@
 			<div style="margin-top: 1.2%;">
 				<div style="margin-left: 2%; width: 400px; float: left;">
 					<div style="width: 100%;">
-						<%= f.cktext_area :title, :ckeditor => { :language => "es", :width => 385 }, :required => true %>
+						<%= f.cktext_area :title, :ckeditor => { :language => "es", :width => 385 } %>
 					</div>
 				</div>
 			</div>
@@ -93,7 +95,7 @@
 							    accept: "application/pdf" %>
 						<% else %>
 							<%= f.file_field :semblance, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-							    accept: "application/pdf", :required => true %>
+							    accept: "application/pdf" %>
 						<% end %>
 					</div>
 				</div>
@@ -112,7 +114,7 @@
 						    accept: "application/pdf" %>
 						<% else %>
 							<%= f.file_field :semblance_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-						    accept: "application/pdf", :required => true %>
+						    accept: "application/pdf" %>
 						<% end %>
 					</div>
 				</div>
@@ -133,7 +135,7 @@
 					    accept: "application/pdf" %>
 					<% else %>
 						<%= f.file_field :cv, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-					    accept: "application/pdf", :required => true %>
+					    accept: "application/pdf" %>
 					<% end %>
 				</div>
 
@@ -145,7 +147,7 @@
 					    accept: "application/pdf" %>
 					<% else %>
 						<%= f.file_field :cv_en, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-					    accept: "application/pdf", :required => true %>
+					    accept: "application/pdf" %>
 					<% end %>
 				</div>
 			</div>
@@ -163,8 +165,8 @@
 					<%= f.file_field :sproket_1, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
 					accept: "image/png,image/gif,image/jpeg" %>
 				<% else %>
-					<%= f.file_field :sproket_1, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-					accept: "image/png,image/gif,image/jpeg", :required => true %>
+					<%= f.file_field :sproket_1, :required => true, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
 				<% end %>
 			</div>
 
@@ -175,8 +177,8 @@
 					<%= f.file_field :sproket_2, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
 					accept: "image/png,image/gif,image/jpeg" %>
 				<% else %>
-					<%= f.file_field :sproket_2, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-					accept: "image/png,image/gif,image/jpeg", :required => true %>
+					<%= f.file_field :sproket_2, :required => true, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
 				<% end %>
 			</div>
 
@@ -187,8 +189,8 @@
 					<%= f.file_field :portrait, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
 					accept: "image/png,image/gif,image/jpeg" %>
 				<% else %>
-					<%= f.file_field :portrait, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
-					accept: "image/png,image/gif,image/jpeg", :required => true %>
+					<%= f.file_field :portrait, :required => true, :style => "font-family: latha, latha_ie; font-size: 0.8em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
 				<% end %>
 			</div>
 		</div>
