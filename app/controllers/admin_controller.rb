@@ -434,9 +434,26 @@ class AdminController < ApplicationController
 			redirect_to we_are_path
 		elsif web_info.type_info == "we_do"
 			redirect_to we_do_path
-		else
+		elsif web_info.type_info == "list_projects"
 			redirect_to list_projects_path
+		else
+			redirect_to links_path
 		end
+	end
+
+	# EXTRAS
+
+	# Links
+	# GET
+	def links_edit
+		links = WebInfo.find_by_type_info("links")
+		if links.nil?
+			links = WebInfo.new
+			links.type_info = "links"
+			links.save
+		end
+
+		render partial: "admin_form_links", locals: { links: links }
 	end
 
 end

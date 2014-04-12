@@ -67,6 +67,9 @@ WebTorreDeViento::Application.routes.draw do
 
   patch "/admin/webinfo/:id" => "admin#webinfo_save", as: "web_info"
 
+  # Administrador (Extras)
+  get "/admin/links" => "admin#links_edit", as: "links_edit"
+
   # Photos
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"
@@ -127,5 +130,13 @@ WebTorreDeViento::Application.routes.draw do
 
   # NOTICIAS
   resources :news
+
+  # EXTRAS
+
+  # Links
+  get "/links" => "home#links", as: "links"
+
+  # Contacto
+  get "/contact" => "home#contact", as: "contact" 
 
 end

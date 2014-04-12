@@ -84,4 +84,14 @@ class HomeController < ApplicationController
     end
   end
 
+  # GET
+  def links
+    @links = WebInfo.find_by_type_info("links")
+    if @links.nil?
+      @links = WebInfo.new
+      @links.type_info = "links"
+      @links.save
+    end
+  end
+
 end

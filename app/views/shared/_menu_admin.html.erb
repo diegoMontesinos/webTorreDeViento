@@ -30,7 +30,7 @@
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">EXTRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 220px;">
-				<li id="we-are-menu-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
+				<li id="links-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
 				<li id="we-do-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Descargas</div></li>
 				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-bullhorn"></i> Noticias</div></li>
 				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-comment"></i> Contacto</div></li>
@@ -50,6 +50,19 @@
 
 <script type="text/javascript">
 
+	function load_admin_module(url_module) {
+		$("#content-admin").empty();
+
+		$.ajax({
+			type: "GET",
+			url: url_module,
+			dataType: "html",
+			success: function(data) {
+				$("#content-admin").append(data);
+			}
+		});
+	}
+
 	//////////////////////////////
 	//        M O D U L O       //
 	//         O B R A S        //
@@ -57,48 +70,19 @@
 	
 	// NUEVA OBRA
 	$("#new-work-menu-item").click(function() {
-		$("#content-admin").empty();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_new_work_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
-		
+		load_admin_module("<%= admin_new_work_path %>");
 	});
 
 	// OBRAS CARGADAS
 	$("#works-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_works_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
-
+		load_admin_module("<%= admin_works_path %>");
 	});
 
 	// RODILLAS DE OBRAS
 	$("#works-catalog-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_works_grids_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= admin_works_grids_path %>");
 	});
 
 	///////////////////////////////
@@ -108,47 +92,20 @@
 
 	// NUEVA COLABORADOR
 	$("#new-colaborator-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_new_colaborator_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= admin_new_colaborator_path %>");
 	});
 
 	// COLABORADORES CARGADOS
 	$("#colaborators-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_colaborators_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= admin_colaborators_path %>");
 	});	
 
 	// HOME COLABORADORES
 	$("#colaborators-home-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_colaborators_home_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= admin_colaborators_home_path %>");
 	});
 
 	///////////////////////////////
@@ -158,53 +115,32 @@
 
 	// QUIENES SOMOS
 	$("#we-are-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= we_are_edit_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= we_are_edit_path %>");
 	});
 
 	// QUE HACEMOS
 	$("#we-do-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= we_do_edit_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= we_do_edit_path %>");
 	});
 
 	// LISTA DE PROYECTOS
 	$("#projects-list-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= list_projects_edit_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= list_projects_edit_path %>");
 	});
 
 	///////////////////////////////
 	//        M O D U L O        //
 	//        E X T R A S        //
 	///////////////////////////////
+
+	// LINKS
+	$("#links-item").click(function() {
+		$("input").remove();
+		load_admin_module("<%= links_edit_path %>");
+	});
 
 	///////////////////////////////
 	//        M O D U L O        //
@@ -213,16 +149,7 @@
 
 	// CAROUSEL HOME
 	$("#carousel-menu-item").click(function() {
-		$("#content-admin").empty();
 		$("input").remove();
-
-		$.ajax({
-			type: "GET",
-			url: "<%= admin_home_carousel_path %>",
-			dataType: "html",
-			success: function(data) {
-				$("#content-admin").append(data);
-			}
-		});
+		load_admin_module("<%= admin_home_carousel_path %>");
 	});
 </script>

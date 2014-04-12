@@ -1,0 +1,60 @@
+<div id="wrapper-tvp">
+	<div id="container-tvp">
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- INFO -->
+		<div id="links-container">
+			<!-- 2px blancos -->
+			<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+			<% if @links.image.present? %>
+				<% photo_src = @links.image.url(:display) %>
+			<% else %>
+				<% photo_src = "info_default.png" %>
+			<% end %>
+
+			<div id="links-image">
+				<%= image_tag photo_src, :style => "width: 100%; height: 100%;" %>
+			</div>
+
+			<div id="links-body">
+				<span style="font-family: felixti, felixti_ie; font-size: 1.5em; color: #FFF;">LINKS</span>
+				<div id="links-body-txt">
+					<%= @links.body.html_safe %>
+				</div>
+				
+			</div>
+
+			<!-- 2px blancos -->
+			<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+			<!-- FRANJA NEGRA -->
+			<div style="width: 100%; height: 50px; position: relative; float: left; background: #000;"></div>
+		</div>		
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+	$("#links-body-txt").jScrollPane({
+		hideFocus: true
+	});
+});
+
+</script>
