@@ -1,0 +1,144 @@
+<div id="wrapper-tvp">
+	<div id="container-tvp">
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- CONTAINER -->
+		<div id="contact-container">
+			
+			<!-- 2px blancos -->
+			<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+			<!-- CONTENT -->
+			<div id="contact-content">
+				
+				<!-- COLUMNA 1 -->
+				<div class="column-contact">
+					<div class="contact-xtr-img">
+						<%= image_tag "contact/contact01.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-img">
+						<%= image_tag "contact/contact02.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-img">
+						<%= image_tag "contact/contact03.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-xtr-img">
+						<%= image_tag "contact/contact04.png" %>
+					</div>
+				</div>
+
+				<!-- 2px blancos verticales -->
+				<div style="width: 0.2%; height: 496px; position: relative; float: left; background: #FFF;"></div>
+
+				<!-- FORMULARIO CONTACTO -->
+				<div id="form-contact-parent">
+					<div id="form-contact-container">
+
+						<span style="font-family: felixti, felixti_ie; font-size: 1.1em; color: #FFF;">TORRE DE VIENTO PRODUCCIONES</span>
+						<span style="font-family: euphemia, euphemia_ie; font-size: 0.83em; color: #FFF; line-height: 2.4em;">contacto@torredevientoproducciones.com</span>
+
+						<!-- FORMULARIO -->
+						<div id="form-contact">
+							<%= form_tag(contact_mail_path, method: :post, remote: true, id: "form-contact") do %>
+
+								<!-- NOMBRE -->
+								<%= label_tag t(:name_contact) %>
+								<%= text_field_tag 'name', nil, :required => true %>
+
+								<!-- EMAIL -->
+								<%= label_tag t(:mail_contact) %>
+								<%= email_field_tag 'mail', nil, :required => true %>
+
+								<!-- MENSAJE -->
+								<%= label_tag t(:msg_contact) %>
+								<%= text_area_tag 'mssg', nil, :required => true %>
+
+								<!-- ENVIAR -->
+								<div style="width: 100%; position: relative; float: left; margin-top: 10px; margin-left: 1.4%">
+									<%= submit_tag t(:send_contact) %>
+								</div>
+
+							<% end %>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2px blancos verticales -->
+				<div style="width: 0.2%; height: 496px; position: relative; float: left; background: #FFF;"></div>
+
+				<!-- COLUMNA 2 -->
+				<div class="column-contact">
+					<div class="contact-xtr-img">
+						<%= image_tag "contact/contact05.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-img">
+						<%= image_tag "contact/contact06.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-img">
+						<%= image_tag "contact/contact07.png" %>
+					</div>
+
+					<!-- 2px blancos -->
+					<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+					<div class="contact-xtr-img">
+						<%= image_tag "contact/contact08.png" %>
+					</div>
+				</div>
+			</div>
+
+			<!-- 2px blancos -->
+			<div style="width: 100%; height: 2px; position: relative; float: left; background: #FFF;"></div>
+
+			<!-- FRANJA NEGRA -->
+			<div style="width: 100%; height: 50px; position: relative; float: left; background: #000;"></div>
+
+		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("html").css("width", "100%");
+		$("html").css("min-height", "100%");
+		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
+		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
+		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
+		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+	});
+</script>

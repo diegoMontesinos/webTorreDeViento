@@ -18,3 +18,7 @@ es:
   program_menu: "PROGRAMA"
   semblance: "SEMBLANZA (PDF)"
   cv: "CV (PDF)"
+  name_contact: "Nombre:"
+  mail_contact: "Correo electrónico:"
+  msg_contact: "Mensaje:"
+  send_contact: "ENVIAR"

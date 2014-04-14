@@ -94,4 +94,15 @@ class HomeController < ApplicationController
     end
   end
 
+  # GET
+  def contact
+  end
+
+  # POST
+  def contact_mail
+    UserMailer.contact_us(params[:name], params[:mail], params[:mssg]).deliver
+
+    format.json { render json: "ok" }
+  end
+
 end

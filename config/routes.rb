@@ -137,6 +137,7 @@ WebTorreDeViento::Application.routes.draw do
   get "/links" => "home#links", as: "links"
 
   # Contacto
-  get "/contact" => "home#contact", as: "contact" 
+  get "/contact" => "home#contact", as: "contact"
+  post "/contact/mail" => "home#contact_mail", as: "contact_mail"
 
 end

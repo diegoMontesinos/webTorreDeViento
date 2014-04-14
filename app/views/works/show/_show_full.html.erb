@@ -28,6 +28,8 @@
 		}).jScrollPane({hideFocus: true });
 
 		correctLineHeight("work-info-text-content-full");
+		var api = $(".work-info-text-full").data("jsp");
+		api.reinitialise();
   	}
 
   	function showFolder(folder) {

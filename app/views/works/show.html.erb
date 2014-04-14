@@ -15,6 +15,10 @@
 			} else {
 				$(this).css("line-height", maxFontSize + "px");
 			}
+
+			if($(this).html() == "&nbsp;") {
+				$(this).remove();
+			}
 		});
 	}
 

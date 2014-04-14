@@ -30,10 +30,9 @@
 
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">EXTRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 220px;">
-				<li id="links-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
-				<li id="we-do-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Descargas</div></li>
+				<li id="links-menu-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
+				<li id="downloads-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Descargas</div></li>
 				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-bullhorn"></i> Noticias</div></li>
-				<li id="projects-list-menu-item" class="dropdown-item-admin"><div><i class="fa fa-comment"></i> Contacto</div></li>
 			</ul>
 		</li>
 
@@ -137,10 +136,17 @@
 	///////////////////////////////
 
 	// LINKS
-	$("#links-item").click(function() {
+	$("#links-menu-item").click(function() {
 		$("input").remove();
 		load_admin_module("<%= links_edit_path %>");
 	});
+
+	// DOWNLOADS
+	$("#downloads-menu-item-").click(function() {
+		$("input").remove();
+		load_admin_module("<%= downloads_edit_path %>");
+	});
+
 
 	///////////////////////////////
 	//        M O D U L O        //

@@ -28,6 +28,8 @@
 		}).jScrollPane({hideFocus: true });
 
 		correctLineHeight("work-info-text-content-mediana");
+		var api = $(".work-info-text-mediana").data('jsp');
+		api.reinitialise();
   	}
 
   	function showFolder(folder) {

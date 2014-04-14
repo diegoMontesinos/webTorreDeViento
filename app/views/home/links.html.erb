@@ -50,11 +50,35 @@
 </div>
 
 <script type="text/javascript">
+	function correctLineHeight(elem) {
+		$(elem).find("p").each(function() {
+			var maxFontSize = 0;
 
-$(function() {
-	$("#links-body-txt").jScrollPane({
-		hideFocus: true
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", "")) - 9;
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "5px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+
+			if($(this).html() == "&nbsp;") {
+				$(this).remove();
+			}
+		});
+	}
+
+	$(function() {
+		$("#links-body-txt").jScrollPane({ hideFocus: true });
+
+		correctLineHeight($("#links-body-txt").find(".jspPane"));
+		var api = $("#links-body-txt").data('jsp');
+		api.reinitialise();
 	});
-});
 
 </script>

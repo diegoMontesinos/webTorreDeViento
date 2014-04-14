@@ -107,6 +107,10 @@
 			} else {
 				$(this).css("line-height", maxFontSize + "px");
 			}
+
+			if($(this).html() == "&nbsp;") {
+				$(this).remove();
+			}
 		});
 	}
 
@@ -145,5 +149,7 @@
 		}
 
 		correctLineHeight("colaborator-semblance-text-content");
+		var api = $(".colaborator-semblance-text").data('jsp');
+		api.reinitialise();
 	});
 </script>
