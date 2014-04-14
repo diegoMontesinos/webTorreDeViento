@@ -456,4 +456,11 @@ class AdminController < ApplicationController
 		render partial: "admin_form_links", locals: { links: links }
 	end
 
+	# Descargas
+	def downloads_new
+		download = Download.new
+
+		render partial: "admin_form_downloads", locals: { download: download }
+	end
+
 end

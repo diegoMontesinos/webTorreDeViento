@@ -1,0 +1,58 @@
+<div id="wrapper-tvp">
+	<div id="container-tvp">
+
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => true } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- DESCARGAS -->
+		<div id="downloads-wapper">
+
+			<!-- DESCARGAS-CONTAINER -->
+			<div id="downloads-container">
+				<% @downloads.each.with_index do |download, index| %>
+					<div class="download-option">
+						<div class="download-option-thumb" url-download="<%= download.attachment.url %>">
+							<%= image_tag download.thumbnail.url(:display) %>
+						</div>
+
+						<div class="download-option-title">
+							<span style="margin-left: 30%;"><%= download.title %></span>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<!-- FRANJA NEGRA -->
+			<div style="width: 100%; height: 50px; position: relative;	float: left; background: #000000;"></div>
+		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#menu-tvp").css("background", "#14191D");
+		$("html").css("background", "#000000");
+		$("body").css("background", "#000000");
+
+		$(".download-option-thumb").each(function() {
+			$(this).click(function(event) {
+				var url = $(this).attr("url-download");
+				event.preventDefault();
+				window.location.href = url;
+			});
+		});
+	});
+</script>

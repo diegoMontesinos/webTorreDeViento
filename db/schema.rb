@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140317035843) do
+ActiveRecord::Schema.define(version: 20140414084329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,14 @@ ActiveRecord::Schema.define(version: 20140317035843) do
     t.string   "sproket_1"
     t.string   "sproket_2"
     t.string   "portrait"
+  end
+
+  create_table "downloads", force: true do |t|
+    t.string   "title"
+    t.string   "attachment"
+    t.string   "thumbnail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "file_folder_translations", force: true do |t|

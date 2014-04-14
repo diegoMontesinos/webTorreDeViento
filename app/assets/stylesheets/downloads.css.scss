@@ -1,0 +1,51 @@
+// Place all the styles related to the Downloads controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#downloads-wapper {
+	width: 100%;
+	height: 550px;
+
+	margin-top: -4px;
+}
+
+#downloads-container {
+	width: 100%;
+	height: 500px;
+
+	position: relative;
+	float: left;
+
+	background: #000000;
+}
+
+.download-option {
+	width: 19%;
+	height: 162.5px;
+
+	marging-top: 6.25px;
+	margin-left: 6.25px;
+}
+
+.download-option-thumb {
+	width: 100%;
+	height: 150px;
+
+	cursor: pointer;
+}
+
+.download-option-thumb img {
+	width: 100%;
+	height: 100%;
+}
+
+.download-option-title {
+	width: 100%;
+	height: 12.5px;
+
+	color: #FFF;
+	font-family: latha, latha_ie;
+	font-size: 0.75em;
+
+	overflow: hidden;
+}

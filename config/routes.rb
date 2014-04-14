@@ -1,5 +1,7 @@
 WebTorreDeViento::Application.routes.draw do
 
+  get "downloads/new"
+  get "downloads/create"
   # Devise Auth
   devise_for :users
   
@@ -69,6 +71,7 @@ WebTorreDeViento::Application.routes.draw do
 
   # Administrador (Extras)
   get "/admin/links" => "admin#links_edit", as: "links_edit"
+  get "/admin/downloads/new" => "admin#downloads_new", as: "admin_new_downloads"
 
   # Photos
   # Creando las fotos
@@ -139,5 +142,9 @@ WebTorreDeViento::Application.routes.draw do
   # Contacto
   get "/contact" => "home#contact", as: "contact"
   post "/contact/mail" => "home#contact_mail", as: "contact_mail"
+
+  # Descargas
+  post "/downloads/create" => "downloads#create", as: "downloads"
+  get "/downloads" => "downloads#index", as: "downoads_index"
 
 end
