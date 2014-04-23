@@ -39,6 +39,7 @@
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">HOME<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 265px;">
 				<li id="carousel-menu-item" class="dropdown-item-admin"><div><i class="fa fa-home"></i> Carousel Home</div></li>
+				<li id="news-menu-item" class="dropdown-item-admin"><div><i class="fa fa-files-o"></i> Noticias Home</div></li>
 			</ul>
 		</li>
 
@@ -150,8 +151,7 @@
 	// NOTICIAS
 	$("#new-new-menu-item").click(function() {
 		$("input").remove();
-		//load_admin_module("<%= admin_new_news_path %>");
-		load_admin_module("<%= edit_thumbnail_new_path %>?id=5");
+		load_admin_module("<%= admin_new_news_path %>");
 	});
 
 	///////////////////////////////
