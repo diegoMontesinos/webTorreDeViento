@@ -543,11 +543,12 @@
 }
 // TERMINA CSS LINKS
 
+// EMPIEZA CSS DOWNLOADS
 #form-downloads-wrapper {
 	width: 100%;
 }
 
-#form-downloads {
+#form_downloads {
 	position: relative;
 
 	margin-top: 65px;
@@ -557,7 +558,82 @@
 	font-size: 1em;
 }
 
+#download-crop-form {
+	font-family: latha, latha_ie;
+}
 
+#title-edit-download {
+	width: 96%;
+	font-family: latha, latha_ie;
+	font-size: 1.5em;
+	margin-left: 4%;
+	margin-top: 25px;
+	float: left;
+}
+
+#crop-download-container {
+	width: 100%;
+	height: 395px;
+	float: left;
+}
+
+#crop-download {
+	margin-left: 4%;
+	margin-top: 20px;
+	float: left;
+}
+
+#crop-download-preview-container {
+	width: 46%;
+	float: left;
+	margin-top: 100px;
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+}
+
+// TERMINA CSS DOWNLOADS
+
+// EMPIEZA CSS NEWS
+
+#form-news-wrapper {
+	width: 100%;
+}
+
+#form_news {
+	position: relative;
+
+	margin-top: 65px;
+	margin-left: 2.5%;
+	
+	font-family: latha, latha_ie;
+	font-size: 1em;
+}
+
+#new-crop-form {
+	font-family: latha, latha_ie;
+}
+
+#crop-new-container {
+	width: 100%;
+	height: 395px;
+	float: left;
+}
+
+#crop-new {
+	margin-left: 4%;
+	margin-top: 20px;
+	float: left;
+}
+
+#crop-new-preview-container {
+	width: 46%;
+	float: left;
+	margin-top: 100px;
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+}
+
+// TERMINA CSS NEWS
 
 // EMPIEZA CSS ADMIN JQUERY UI
 

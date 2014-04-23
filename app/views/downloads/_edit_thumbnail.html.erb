@@ -1,0 +1,87 @@
+
+<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+
+	<!-- FORMULARIO -->
+	<%= form_tag(save_thumbnail_path(download.id), remote: true, method: "post", id: "download-crop-form") do %>
+		<% %w[x y w h].each do |attribute| %>
+			<%= hidden_field_tag "crop_#{attribute}" %>
+		<% end %>
+
+		<div id="title-edit-download"><strong>CROP - IMÁGEN REPRESENTATIVA</strong></div>
+
+		<div id="crop-download-container">
+			<div id="crop-download"></div>
+
+			<div id="crop-download-preview-container">
+				<span style="margin-left: 50%"><strong>PREVIEW</strong></span>
+
+				<div id="crop-download-preview" style="width: 190px; height: 150px; margin-left: 35%; overflow: hidden;"></div>
+			</div>
+		</div>
+
+		<div style="float: right; margin-right: 3%;">
+			<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "height: 38px;" %>
+		</div>
+
+	<% end %>
+
+</div>
+
+<script type="text/javascript">
+
+	function update(coords) {
+		$("#crop_x").val(coords.x);
+		$("#crop_y").val(coords.y);
+		$("#crop_w").val(coords.w);
+		$("#crop_h").val(coords.h);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview(coords) {
+		var newWidth = Math.round((190 * $("#cropbox-downloads").width()) / coords.w);
+		var newHeight = Math.round((150 * $("#cropbox-downloads").height()) / coords.h);
+
+		$('#preview-downloads').css({
+			width: newWidth + 'px',
+			height: newHeight + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#cropbox-downloads").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#cropbox-downloads").height()) + 'px',
+		});
+	}
+
+	$(function() {
+		// Obtenemos el url de la imagen que se eligio
+		var url_img = "<%= download.thumbnail.url(:normalize) %>";
+
+		var img = new Image();
+		img.id = "cropbox-downloads";
+						
+		var img_preview = new Image();
+		img_preview.id = "preview-downloads";
+
+		img.onload = function() {
+			$(img).appendTo("#crop-download");
+
+			// Se inicia JCrop
+			$("#cropbox-downloads").Jcrop({
+				aspectRatio: 1.266666,
+				setSelect: [0, 0, 190, 150 ],
+				bgOpacity: 0.2,
+				onSelect: update,
+				onChange: update
+			});
+		}
+
+		img_preview.onload = function() {
+			$(img_preview).appendTo("#crop-download-preview");
+		}
+
+		img.src = url_img;
+		img_preview.src = url_img;
+
+		$("#download-crop-form").bind("ajax:success", function(evt, data, status, xhr) {
+			window.location = "<%= downoads_index_path %>";
+		});
+	});
+</script>

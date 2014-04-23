@@ -1,8 +1,8 @@
-class Download < ActiveRecord::Base
+class New < ActiveRecord::Base
 
 	# Carrierwave
-	mount_uploader :attachment, DownloadAttachmentUploader
-	mount_uploader :thumbnail, DownloadThumbnailUploader
+	mount_uploader :image_new, ImageNewUploader
+	mount_uploader :thumbnail, NewThumbnailUploader
 
 	attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 	after_update :crop_thumbnail

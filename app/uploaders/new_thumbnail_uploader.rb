@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class DownloadThumbnailUploader < CarrierWave::Uploader::Base
+class NewThumbnailUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::RMagick
 
@@ -13,12 +13,12 @@ class DownloadThumbnailUploader < CarrierWave::Uploader::Base
   end
 
   version :normalize do
-    resize_to_limit(475, 375)
+    resize_to_limit(623, 308)
   end
 
   version :display do
     process :crop
-    resize_to_fill(190, 150)
+    resize_to_fill(249, 123)
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -29,7 +29,7 @@ class DownloadThumbnailUploader < CarrierWave::Uploader::Base
 
   def crop
     if model.crop_x.present?
-      resize_to_limit(475, 375)
+      resize_to_limit(623, 308)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i

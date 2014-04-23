@@ -16,9 +16,17 @@
 
 			<!-- DESCARGAS-CONTAINER -->
 			<div id="downloads-container">
+				<% left_index = -1 %>
 				<% @downloads.each.with_index do |download, index| %>
-					<div class="download-option">
-						<div class="download-option-thumb" url-download="<%= download.attachment.url %>">
+					<% if (index % 3 == 0) %>
+						<% left_index = left_index + 1 %>
+					<% end %>
+
+					<% top = 12.5 + ((index % 3) * 162.5) %>
+					<% left = (left_index * 20.25) %>
+
+					<div class="download-option" style="top: <%= top %>px; left: <%= left %>%;">
+						<div class="download-option-thumb" url-download="<%= download.attachment.url %>" >
 							<%= image_tag download.thumbnail.url(:display) %>
 						</div>
 

@@ -1,0 +1,19 @@
+<div id="admin-new-content">
+	<%= render template: new_news_path %>
+</div>
+
+<script type="text/javascript">
+	// Cuando el formulario se sube exitosamente
+	$("#form_news").bind("ajax:success", function(evt, data, status, xhr) {
+		var new_id = data.replace('"', '').replace('"', '');
+		$.ajax({
+			type: "GET",
+			url: "<%= edit_thumbnail_new_path %>?id=" + new_id,
+			dataType: "html",
+			success: function(data) {
+				$("#admin-new-content").empty();
+				$("#admin-new-content").append(data);
+			}
+		});
+	});
+</script>

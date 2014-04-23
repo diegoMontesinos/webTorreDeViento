@@ -1,0 +1,19 @@
+<div id="admin-download-content">
+	<%= render template: new_download_path %>
+</div>
+
+<script type="text/javascript">
+	// Cuando el formulario se sube exitosamente
+	$("#form_downloads").bind("ajax:success", function(evt, data, status, xhr) {
+		var donwload_id = data.replace('"', '').replace('"', '');
+		$.ajax({
+			type: "GET",
+			url: "<%= edit_thumbnail_path %>?id=" + donwload_id,
+			dataType: "html",
+			success: function(data) {
+				$("#admin-download-content").empty();
+				$("#admin-download-content").append(data);
+			}
+		});
+	});
+</script>

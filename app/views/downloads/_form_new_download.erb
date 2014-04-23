@@ -1,0 +1,64 @@
+
+<div id="form-downloads-wrapper">
+		<div id="progressbar" style="position: fixed; width: 86%; z-index: 2; margin-left: 0.55%; margin-top: -25px;">
+		<div class="progress-label">SUBIENDO INFORMACIÓN... ESPERE </div>
+	</div>
+
+	<%= form_for download, remote: true, html: { id: "form_downloads", :class => "pure-form pure-form-stacked" } do |f| %>
+
+		<!-- TITULO -->
+		<div style="width: 95%; height: 105px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong>TITULO</strong></span>
+
+			<div id="title-form-div" style="margin-left: 1%;">
+				<%= f.label :title, "Titulo de descarga: " %>
+				<%= f.text_field :title, :autofocus => true, size: 80, :style => "width: 30%;", :required => true %>
+			</div>
+		</div>
+		
+		<!-- ATTACHMENT -->
+		<div style="width: 95%; height: 105px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong>ARCHIVO DE DESCARGA</strong></span>
+
+			<div id="attachment-form-div" style="margin-left: 1%;">
+				<%= f.label :attachment, "Archivo de descarga: " %>
+				<%= f.file_field :attachment, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button", :required => true %>
+			</div>
+		</div>
+
+		<!-- THUMBNAIL -->
+		<div style="width: 95%; height: 105px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong>IMÁGEN REPRESENTATIVA</strong></span>
+
+			<div id="thumbnail-form-div" style="margin-left: 1%;">
+				<%= f.label :thumbnail, "Imágen representativa: " %>
+				<%= f.file_field :thumbnail, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg", :required => true %>
+			</div>
+		</div>
+
+		<div style="margin-top: 1.6%; margin-right: 2.6%; float: right;">
+			<%= f.submit "GUARDAR INFORMACIÓN", id: "submit_form", :class => "pure-button pure-button-primary" %>
+		</div>
+		<br>
+		<br>
+		<br>
+
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		// Accion del submit
+		$("#form_downloads").submit(function(e) {
+			$("#progressbar").show();
+		});
+
+		// ProgressBar
+		$("#progressbar").progressbar({
+			value: false
+		});
+
+		$("#progressbar").hide();
+	});
+</script>

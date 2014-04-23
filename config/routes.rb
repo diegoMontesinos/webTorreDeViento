@@ -71,8 +71,13 @@ WebTorreDeViento::Application.routes.draw do
 
   # Administrador (Extras)
   get "/admin/links" => "admin#links_edit", as: "links_edit"
-  get "/admin/downloads/new" => "admin#downloads_new", as: "admin_new_downloads"
-
+  get "/admin/downloads/new" => "admin#new_download", as: "admin_new_downloads"
+  get "/downloads/edit_thumbnail" => "downloads#edit_thumbnail", as: "edit_thumbnail"
+  post "/downloads/save_thumbnail/:id" => "downloads#save_thumbnail", as: "save_thumbnail"
+  get "/admin/news/new" => "admin#new_new", as: "admin_new_news"
+  get "/news/edit_thumbnail_new" => "news#edit_thumbnail", as: "edit_thumbnail_new"
+  post "/news/save_thumbnail_new/:id" => "news#save_thumbnail", as: "save_thumbnail_new"
+  
   # Photos
   # Creando las fotos
   post "/photos" => "photos#create", as: "photos"
@@ -131,9 +136,6 @@ WebTorreDeViento::Application.routes.draw do
   # Lista de proyectos
   get "/list_projects" => "home#list_projects", as: "list_projects"
 
-  # NOTICIAS
-  resources :news
-
   # EXTRAS
 
   # Links
@@ -146,5 +148,11 @@ WebTorreDeViento::Application.routes.draw do
   # Descargas
   post "/downloads/create" => "downloads#create", as: "downloads"
   get "/downloads" => "downloads#index", as: "downoads_index"
+  get "/downloads/new" => "downloads#new", as: "new_download"
+
+  # Noticias
+  post "/news/create" => "news#create", as: "news"
+  get "/news" => "news#index", as: "news_index"
+  get "/news/new" => "news#new", as: "new_news"
 
 end
