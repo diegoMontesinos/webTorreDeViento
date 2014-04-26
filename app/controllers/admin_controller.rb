@@ -235,6 +235,14 @@ class AdminController < ApplicationController
 	end
 
 	# HOME
+	# Noticias
+	def home_news
+		@home_news = New.where.not(home: -1)
+
+		render partial: "admin_home_news"		
+	end
+
+	# HOME
 	# Carousel
 
 	# GET

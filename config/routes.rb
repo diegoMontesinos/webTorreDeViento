@@ -56,6 +56,8 @@ WebTorreDeViento::Application.routes.draw do
   get "/admin/home/new_carousel" => "admin#new_home_carousel", as: "admin_new_home_carousel"
   get "/admin/home/edit_carousel/:id" => "admin#edit_home_carousel", as: "admin_edit_home_carousel"
   delete "/admin/home/carousel/:id" => "admin#delete_home_carousel", as: "admin_delete_home_carousel"
+  # Admin News
+  get "/admin/home/news" => "admin#home_news", as: "admin_home_news"
 
   # Admin Home carousel element
   get "/admin/home/carousel_element/:id" => "admin#carousel_elem_edit", as: "admin_carousel_element"

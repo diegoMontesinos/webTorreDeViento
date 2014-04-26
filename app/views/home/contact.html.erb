@@ -64,22 +64,26 @@
 
 								<!-- NOMBRE -->
 								<%= label_tag t(:name_contact) %>
-								<%= text_field_tag 'name', nil, :required => true %>
+								<%= text_field_tag 'name', nil, :required => true, id: "name-contact" %>
 
 								<!-- EMAIL -->
 								<%= label_tag t(:mail_contact) %>
-								<%= email_field_tag 'mail', nil, :required => true %>
+								<%= email_field_tag 'mail', nil, :required => true, id: "email-contact" %>
 
 								<!-- MENSAJE -->
 								<%= label_tag t(:msg_contact) %>
-								<%= text_area_tag 'mssg', nil, :required => true %>
+								<%= text_area_tag 'mssg', nil, :required => true, id: "mmsg-contact" %>
 
 								<!-- ENVIAR -->
 								<div style="width: 100%; position: relative; float: left; margin-top: 10px; margin-left: 1.4%">
 									<%= submit_tag t(:send_contact) %>
 								</div>
-
 							<% end %>
+
+							<!-- RETROALIMENTACION -->
+							<div id="retro-contact">
+								Su mensaje ha sido enviado.<br>Muchas gracias.
+							</div>
 						</div>
 					</div>
 				</div>
@@ -140,5 +144,16 @@
 		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
 		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
 		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+
+		// Formulario
+		$("#form-contact").bind("ajax:success", function(evt, data, status, xhr) {
+			$("#name-contact").val("");
+			$("#email-contact").val("");
+			$("#mmsg-contact").val("");
+
+			// Mostramos la retroalimentacion
+			$("#retro-contact").show();
+		});
+
 	});
 </script>

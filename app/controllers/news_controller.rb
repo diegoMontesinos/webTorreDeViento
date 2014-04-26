@@ -17,6 +17,7 @@ class NewsController < ApplicationController
 	  permitted_params = new_params # Parametros filtrados (permitidos)
 
 	  @new = New.new(permitted_params)
+	  @new.home = -1
 	  @new.save
 
 	  respond_to do |format|

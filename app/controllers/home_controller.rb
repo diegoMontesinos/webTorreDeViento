@@ -102,7 +102,11 @@ class HomeController < ApplicationController
   def contact_mail
     UserMailer.contact_us(params[:name], params[:mail], params[:mssg]).deliver
 
-    format.json { render json: "ok" }
+    respond_to do |format|
+      format.json {
+        render json: "ok".to_json
+      }
+    end
   end
 
 end

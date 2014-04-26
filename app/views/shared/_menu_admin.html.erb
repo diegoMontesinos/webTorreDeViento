@@ -2,7 +2,7 @@
 	<ul id="menu-admin-content">
 
 		<!-- OBRAS -->
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">OBRAS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">PROYECTOS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 40px;">
 				<li id="new-work-menu-item" class="dropdown-item-admin"><div><i class="fa fa-plus"></i> Nueva obra</div></li>
 				<li id="works-menu-item" class="dropdown-item-admin"><div><i class="fa fa-list"></i> Obras cargadas</div></li>
@@ -10,7 +10,7 @@
 			</ul>
 		</li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">COLABORADORES<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">	NOSOTROS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 85px;">
 				<li id="new-colaborator-menu-item" class="dropdown-item-admin"><div><i class="fa fa-user"></i> Nuevo colaborador</div></li>
 				<li id="colaborators-menu-item" class="dropdown-item-admin"><div><i class="fa fa-users"></i> Colaboradores cargados</div></li>
@@ -18,7 +18,7 @@
 			</ul>
 		</li>
 
-		<li class="dropdown-admin"><div class="dropdown-admin-txt">NOSOTROS<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
+		<li class="dropdown-admin"><div class="dropdown-admin-txt">ACERCA DE<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 130px;">
 				<li id="we-are-menu-item" class="dropdown-item-admin"><div><i class="fa fa-info-circle"></i> Quienes somos</div></li>
 				<li id="we-do-menu-item" class="dropdown-item-admin"><div><i class="fa fa-info-circle"></i> Que hacemos</div></li>
@@ -164,4 +164,11 @@
 		$("input").remove();
 		load_admin_module("<%= admin_home_carousel_path %>");
 	});
+
+	// CAROUSEL NEWS
+	$("#news-menu-item").click(function() {
+		$("input").remove();
+		load_admin_module("<%= admin_home_news_path %>");
+	});
+
 </script>

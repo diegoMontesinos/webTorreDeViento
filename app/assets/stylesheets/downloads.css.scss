@@ -16,11 +16,20 @@
 	position: relative;
 	float: left;
 
+	overflow: hidden;
+
 	background: #000000;
 }
 
+.download-column {
+	height: 500px;
+
+	float: left;
+	position: relative;
+}
+
 .download-option {
-	width: 19%;
+	width: 93.8%;
 	height: 162.5px;
 
 	position: absolute;
@@ -45,6 +54,31 @@
 	color: #FFF;
 	font-family: latha, latha_ie;
 	font-size: 0.75em;
+	margin-top: -3px;
 
 	overflow: hidden;
+}
+
+#prev_down {
+	width: 2.5%;
+	height: 35px;
+	margin-top: 8px;
+	float: left;
+	margin-left: 0.5%;
+}
+
+#prev_down:hover {
+	cursor: pointer;
+}
+
+#next_down {
+	width: 2.5%;
+	height: 35px;
+	float: left;
+	margin-left: 93.8%;
+	margin-top: 8px;
+}
+
+#next_down:hover {
+	cursor: pointer;
 }
