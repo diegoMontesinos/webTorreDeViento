@@ -633,6 +633,33 @@
 	font-size: 0.89em;
 }
 
+#admin-news-thumb {
+	width: 64%;
+	height: 500px;
+
+	float: left;
+}
+
+#admin-news-display {
+	margin-top: 12px;
+	margin-left: 8%;
+
+	float: left;
+}
+
+#admin-news-preview-container {
+	width: 100%;
+	float: left;
+	margin-top: 8px;
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+	margin-left: 28%;
+}
+
+#home-news-crop-form {
+	font-family: latha, latha_ie;
+}
+
 // TERMINA CSS NEWS
 
 // EMPIEZA CSS ADMIN JQUERY UI

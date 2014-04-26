@@ -36,7 +36,7 @@ class DownloadsController < ApplicationController
 
   # POST
   def save_thumbnail
-    @download = Download.find(params[:id])
+    @download = Download.find(params[:id]) #base de datos
     @download.crop_x = params[:crop_x]
     @download.crop_y = params[:crop_y]
     @download.crop_w = params[:crop_w]

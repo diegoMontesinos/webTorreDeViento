@@ -6,6 +6,30 @@ class HomeController < ApplicationController
   def index
   	carousels = HomeCarousel.all
   	@carousel = carousels[Random.rand(carousels.length)]
+
+    @home_news = [nil, nil, nil, nil]
+
+    # Noticia1
+    news_place = New.where(home: 1)
+    if !news_place.empty?
+      @home_news[0] = news_place.first
+    end
+    # Noticia2
+    news_place = New.where(home: 2)
+    if !news_place.empty?
+      @home_news[1] = news_place.first
+    end
+    # Noticia3
+    news_place = New.where(home: 3)
+    if !news_place.empty?
+      @home_news[2] = news_place.first
+    end
+    # Noticia1
+    news_place = New.where(home: 4)
+    if !news_place.empty?
+      @home_news[3] = news_place.first
+    end
+
   end
 
   # GET

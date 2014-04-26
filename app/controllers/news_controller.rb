@@ -37,10 +37,10 @@ class NewsController < ApplicationController
 	# POST
 	def save_thumbnail
 	  @new = New.find(params[:id])
-	  @new.crop_x = params[:crop_x]
-	  @new.crop_y = params[:crop_y]
-	  @new.crop_w = params[:crop_w]
-	  @new.crop_h = params[:crop_h]
+	  @new.crop_x1 = params[:crop_x]
+	  @new.crop_y1 = params[:crop_y]
+	  @new.crop_w1 = params[:crop_w]
+	  @new.crop_h1 = params[:crop_h]
 
 	  @new.save
 

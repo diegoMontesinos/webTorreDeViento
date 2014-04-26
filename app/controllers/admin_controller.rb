@@ -239,7 +239,41 @@ class AdminController < ApplicationController
 	def home_news
 		@home_news = New.where.not(home: -1)
 
-		render partial: "admin_home_news"		
+		render partial: "admin_home_news"
+	end
+
+	def home_news_edit
+		@news = New.all
+		@place = params[:place]
+
+		render partial: "admin_home_news_edit"
+	end
+
+	def home_news_save
+		@new = New.find(params[:newselect])
+		@new.crop_x2 = params[:crop_x]
+		@new.crop_y2 = params[:crop_y]
+		@new.crop_w2 = params[:crop_w]
+		@new.crop_h2 = params[:crop_h]
+
+		# Quitamos el anterior del lugar
+		news_place = New.where.not(home: params[:place])
+		if !news_place.empty?
+			@bef_new = news_place.first
+			@bef_new.home = -1
+			@bef_new.save
+		end
+
+		@new.home = params[:place].to_i
+		@new.save
+
+		image_str = @new.thumbnail.url(:display2)
+
+		respond_to do |format|
+		  format.json {
+		    render json: { "image" => image_str, "place" => params[:place] }.to_json
+		  }
+		end
 	end
 
 	# HOME

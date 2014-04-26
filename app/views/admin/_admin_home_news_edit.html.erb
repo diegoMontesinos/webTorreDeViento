@@ -1,0 +1,127 @@
+
+<div style="width: 100%; height: 300px;" >
+
+	<div id="admin-news-list-container" class="list-container">
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+			<strong>SELECCIONE NOTICIA:</strong>
+		</div>
+
+		<ul id="admin-news-list" class="admin-list">
+			<% @news.each do |new_| %>
+				<li class="ui-state-default" onclick="selectNew(this);" id-new="<%= new_.id %>" url-display="<%= new_.thumbnail.url(:normalize) %>" style="font-family: latha, latha_ie; font-size: 0.89em;" >
+					<%= new_.title %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+
+	<div id="admin-news-thumb">
+		<div id="admin-news-display">
+		</div>
+
+		<div id="admin-news-preview-container">
+			<span style="margin-left: 22%"><strong>PREVIEW</strong></span>
+
+			<div id="admin-news-preview" style="width: 249px; height: 150px; margin-left: 6%; overflow: hidden;"></div>
+		</div>
+
+		<div style="float: right; margin-right: 3%; margin-top: 10px;">
+			<%= form_tag(admin_home_news_save_path, remote: true, method: "post", id: "home-news-crop-form") do %>
+				<%= hidden_field_tag "place", @place %>
+				<%= hidden_field_tag "newselect" %>
+				
+				<% %w[x y w h].each do |attribute| %>
+					<%= hidden_field_tag "crop_#{attribute}" %>
+				<% end %>
+
+				<div>
+					<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "height: 38px;" %>
+				</div>
+			<% end %>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	function update(coords) {
+		$("#crop_x").val(coords.x);
+		$("#crop_y").val(coords.y);
+		$("#crop_w").val(coords.w);
+		$("#crop_h").val(coords.h);
+
+		updatePreview(coords);
+	}
+
+	function updatePreview(coords) {
+		var newWidth = Math.round((249 * $("#news-cropbox").width()) / coords.w);
+		var newHeight = Math.round((150 * $("#news-cropbox").height()) / coords.h);
+
+		$('#news-preview').css({
+			width: newWidth + 'px',
+			height: newHeight + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#news-cropbox").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#news-cropbox").height()) + 'px',
+		});
+	}
+	
+	function selectNew(li_elem) {
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").addClass("ui-state-default");
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+		$(li_elem).removeClass("ui-state-default");
+
+		// Vaciamos
+		$("#admin-news-display").empty();
+		$("#admin-news-preview").empty();
+
+		// Noticia al formulario
+		$("#newselect").val($(li_elem).attr("id-new"));
+
+		// Imagen
+		var img = new Image();
+		img.id = "news-cropbox";
+		var imgPreview = new Image();
+		imgPreview.id = "news-preview";
+
+		img.onload = function() {
+			$(img).appendTo("#admin-news-display");
+
+			// Se inicia JCrop
+			$("#news-cropbox").Jcrop({
+				aspectRatio: 1.66,
+				setSelect: [0, 0, 249, 150 ],
+				bgOpacity: 0.2,
+				onSelect: update,
+				onChange: update
+			});
+		}
+		img.src = $(li_elem).attr("url-display");
+
+		imgPreview.onload = function() {
+			$(imgPreview).appendTo("#admin-news-preview");
+		}
+		imgPreview.src = $(li_elem).attr("url-display");
+	}
+
+	$(function() {
+		$("#home-news-crop-form").bind("ajax:success", function(evt, data, status, xhr) {
+			$("#home-edit-news-dialog").empty();
+			$("#home-edit-news-dialog").dialog("close");
+
+			var img = new Image();
+			$(img).css({ "width" : "100%", "height" : "100%" });
+			img.onload = function() {
+				$("#home-news-" + data.place).empty();
+				$(img).appendTo("#home-news-" + data.place);
+			}
+			img.src = data.image;
+		});
+	});
+</script>
