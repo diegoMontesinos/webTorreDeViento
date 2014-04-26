@@ -48,6 +48,8 @@
 				<% if !@home_news[0].nil? %>
 					<%= image_tag @home_news[0].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 				<% end %>
+
+				<div class="news-link"></div>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -56,6 +58,8 @@
 				<% if !@home_news[1].nil? %>
 					<%= image_tag @home_news[1].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 				<% end %>
+
+				<div class="news-link"></div>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -64,6 +68,8 @@
 				<% if !@home_news[2].nil? %>
 					<%= image_tag @home_news[2].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 				<% end %>
+
+				<div class="news-link"></div>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -72,6 +78,9 @@
 				<% if !@home_news[3].nil? %>
 					<%= image_tag @home_news[3].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 				<% end %>
+
+				<div class="news-link">
+				</div>
 			</div>
 		</div>
 
@@ -187,6 +196,15 @@
 				}
 			});
 		};
+
+		// Posicionamos links
+		$(".news-link").each(function() {
+			if($(this).parent().width() == 249) {
+				$(this).css({ "left" : "125px" });
+			} else {
+				$(this).css({ "left" : "124px" });
+			}
+		});
 
 	});
 </script>

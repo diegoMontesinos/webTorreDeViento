@@ -181,8 +181,29 @@
 
 .home-news {
 	float: left;
+	position: relative;
 	height: 100%;
 	background: #FFF;
+}
+
+.news-link {
+	width: 112px;
+	height: 25px;
+
+	position: absolute;
+	top: 113px;
+
+	background-color: #1A171B;
+	opacity: 0.8;
+	color: #FFFFFF;
+	
+	font-family: euphemia, euphemia_ie;
+	font-size: 12px;
+	
+	text-align: justify;
+	cursor: pointer;
+
+	overflow: hidden;
 }
 
 // TERMINA CSS NOTICIAS
