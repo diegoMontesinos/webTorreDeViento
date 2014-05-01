@@ -30,7 +30,7 @@
 						</div>
 
 						<div class="download-option-title" align="center">
-							<span><%= download.title %></span>
+							<span><%= download.title.upcase %></span>
 						</div>
 					</div>
 
@@ -60,7 +60,8 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#menu-tvp").css("background", "#14191D");
+		//$("#menu-tvp").css("background", "#14191D");
+		$("#menu-tvp").css("background", "#000000");
 		$("html").css("background", "#000000");
 		$("body").css("background", "#000000");
 

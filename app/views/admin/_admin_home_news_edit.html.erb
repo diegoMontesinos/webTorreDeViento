@@ -52,8 +52,14 @@
 	</div>
 
 	<% end %>
-
 </div>
+
+<% id_in_place = -1 %>
+<% txt_in_place = "" %>
+<% if !@new_in_place.empty? %>
+	<% id_in_place = @new_in_place.first.id %>
+	<% txt_in_place = j(@new_in_place.first.link.html_safe) %>
+<% end %>
 
 <script type="text/javascript">
 
@@ -137,11 +143,11 @@
 
 		// Click en el elemento
 		if("<%= @new_in_place.empty? %>" == "false") {
-			var id = "<%= @new_in_place.first.id %>";
+			var id = "<%= id_in_place %>";
 			$(".ui-state-default").each(function() {
 				if($(this).attr("id-new") == id) {
 					$(this).click();
-					$("#link_ckeditor").val("<%= j @new_in_place.first.link.html_safe if !@new_in_place.first.link.nil? %>");
+					$("#link_ckeditor").val("<%= txt_in_place %>");
 				}
 			});
 		}
