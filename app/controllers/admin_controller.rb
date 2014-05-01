@@ -245,6 +245,7 @@ class AdminController < ApplicationController
 	def home_news_edit
 		@news = New.all
 		@place = params[:place]
+		@new_in_place = New.where(home: params[:place])
 
 		render partial: "admin_home_news_edit"
 	end
@@ -261,10 +262,12 @@ class AdminController < ApplicationController
 		if !news_place.empty?
 			@bef_new = news_place.first
 			@bef_new.home = -1
+			@bef_new.link = nil
 			@bef_new.save
 		end
 
 		@new.home = params[:place].to_i
+		@new.link = params[:link][:ckeditor]
 		@new.save
 
 		image_str = @new.thumbnail.url(:display2)

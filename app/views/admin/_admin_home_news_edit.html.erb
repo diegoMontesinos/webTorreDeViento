@@ -1,14 +1,15 @@
 
-<div style="width: 100%; height: 540px; overflow-y: scroll;">
+<div style="width: 100%; height: 540px; overflow-y: scroll; overflow-x: hidden;">
 
 	<%= form_tag(admin_home_news_save_path, remote: true, method: "post", id: "home-news-crop-form") do %>
 	
-	<div id="admin-news-list-container" class="list-container">
-		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+	<div id="admin-news-list-container" class="list-container" style="height: 500px; margin-left: -2.5%; position: fixed; width: 25%;">
+
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.2em; margin-left: 13%; margin-top: 14px;">
 			<strong>SELECCIONE NOTICIA:</strong>
 		</div>
 
-		<ul id="admin-news-list" class="admin-list" style="height: 300px;">
+		<ul id="admin-news-list" class="admin-list">
 			<% @news.each do |new_| %>
 				<li class="ui-state-default" onclick="selectNew(this);" id-new="<%= new_.id %>" url-display="<%= new_.thumbnail.url(:normalize) %>" style="font-family: latha, latha_ie; font-size: 0.89em;" >
 					<%= new_.title %>
@@ -18,43 +19,39 @@
 	</div>
 
 	<div id="admin-news-thumb">
-		<div id="admin-news-display">
-		</div>
+		<div id="admin-news-display"></div>
 
 		<div id="admin-news-preview-container">
-			<span style="margin-left: 22%"><strong>PREVIEW</strong></span>
+			<span style="margin-left: 22%; font-family: latha, latha_ie; font-size: 1.2em;"><strong>PREVIEW</strong></span>
 
 			<div id="admin-news-preview" style="width: 249px; height: 150px; margin-left: 6%; overflow: hidden;"></div>
 		</div>
 
-		<div style="width: 100%; height: 300px; margin-left: 2%;">
-			<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
-				<strong>TEXTO LINK</strong>
-			</div>
-
-			<div style="width: 100%;" >
-				<%= cktext_area "link", :ckeditor => { :language => "es" }%>
-			</div>
-		</div>
-
-		<div style="float: right; margin-right: 3%; margin-top: 10px;">
-			
-				<%= hidden_field_tag "place", @place %>
-				<%= hidden_field_tag "newselect" %>
-				
-				<% %w[x y w h].each do |attribute| %>
-					<%= hidden_field_tag "crop_#{attribute}" %>
-				<% end %>
-
-
-
-				<div>
-					<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "height: 38px;" %>
-				</div>
-		</div>
-
+		<%= hidden_field_tag "place", @place %>
+		<%= hidden_field_tag "newselect" %>
+		
+		<% %w[x y w h].each do |attribute| %>
+			<%= hidden_field_tag "crop_#{attribute}" %>
 		<% end %>
+
 	</div>
+
+	<div style="width: 66%; height: 600px; float: left; margin-left: 32%; position: relative;">
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.5em; margin-left: 1%; margin-top: 14px;">
+			<strong>TEXTO LINK</strong>
+		</div>
+		
+		<div style="width: 100%;">
+			<%= cktext_area "link", :ckeditor %>
+		</div>
+
+		<div style="width: 100%;">
+			<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "height: 38px; float: right; margin-right: 3%; margin-top: 27px;" %>
+		</div>
+
+	</div>
+
+	<% end %>
 
 </div>
 
@@ -137,5 +134,16 @@
 			}
 			img.src = data.image;
 		});
+
+		// Click en el elemento
+		if("<%= @new_in_place.empty? %>" == "false") {
+			var id = "<%= @new_in_place.first.id %>";
+			$(".ui-state-default").each(function() {
+				if($(this).attr("id-new") == id) {
+					$(this).click();
+					$("#link_ckeditor").val("<%= j @new_in_place.first.link.html_safe if !@new_in_place.first.link.nil? %>");
+				}
+			});
+		}
 	});
 </script>

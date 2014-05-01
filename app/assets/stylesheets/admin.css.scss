@@ -634,14 +634,17 @@
 }
 
 #admin-news-thumb {
-	width: 64%;
-	height: 500px;
+	width: 66%;
+	height: 600px;
 
 	float: left;
+	margin-left: 32%;
 	position: relative;
 }
 
 #admin-news-display {
+	width: 468px;
+	height: 231px;
 	margin-top: 12px;
 	margin-left: 8%;
 
@@ -649,9 +652,9 @@
 }
 
 #admin-news-preview-container {
-	width: 100%;
+	width: 75%;
 	float: left;
-	margin-top: 8px;
+	margin-top: 95px;
 	font-family: latha, latha_ie;
 	font-size: 0.89em;
 	margin-left: 28%;

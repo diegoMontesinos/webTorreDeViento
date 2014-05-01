@@ -47,9 +47,13 @@
 			<div id="home-news-1" class="home-news" style="width: 24.9%;">
 				<% if !@home_news[0].nil? %>
 					<%= image_tag @home_news[0].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
-				<% end %>
 
-				<div class="news-link"></div>
+					<div class="news-link">
+						<div style="">
+							<%= @home_news[0].link.html_safe %>
+						</div>
+					</div>
+				<% end %>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -57,9 +61,13 @@
 			<div id="home-news-2" class="home-news" style="width: 24.8%;">
 				<% if !@home_news[1].nil? %>
 					<%= image_tag @home_news[1].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
-				<% end %>
 
-				<div class="news-link"></div>
+					<div class="news-link">
+						<div style="">
+							<%= @home_news[1].link.html_safe %>
+						</div>
+					</div>
+				<% end %>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -67,9 +75,13 @@
 			<div id="home-news-3" class="home-news" style="width: 24.8%;">
 				<% if !@home_news[2].nil? %>
 					<%= image_tag @home_news[2].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
-				<% end %>
 
-				<div class="news-link"></div>
+					<div class="news-link">
+						<div style=""> 
+							<%= @home_news[2].link.html_safe %>
+						</div>
+					</div>
+				<% end %>
 			</div>
 
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
@@ -77,10 +89,13 @@
 			<div id="home-news-4" class="home-news" style="width: 24.9%;">
 				<% if !@home_news[3].nil? %>
 					<%= image_tag @home_news[3].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
-				<% end %>
 
-				<div class="news-link">
-				</div>
+					<div class="news-link">
+						<div style="">
+							<%= @home_news[3].link.html_safe %>
+						</div>
+					</div>
+				<% end %>
 			</div>
 		</div>
 
@@ -92,6 +107,26 @@
 </div>
 
 <script type="text/javascript">
+	function correctLineHeight(elem) {
+		$(elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				maxFontSize = 12;
+			}
+			
+			$(this).css("line-height", maxFontSize + "px");
+			$(elem).find("div").css("margin-top", "-" + maxFontSize + "px");
+		});
+	}
+
 	$(function() {
 
 		$("html").css("width", "100%");
@@ -204,6 +239,8 @@
 			} else {
 				$(this).css({ "left" : "124px" });
 			}
+
+			correctLineHeight(this);
 		});
 
 	});
