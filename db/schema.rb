@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426224752) do
+ActiveRecord::Schema.define(version: 20140508214649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,22 @@ ActiveRecord::Schema.define(version: 20140426224752) do
   end
 
   add_index "photos", ["file_folder_id"], name: "index_photos_on_file_folder_id", using: :btree
+
+  create_table "press_elements", force: true do |t|
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "press_note_id"
+  end
+
+  add_index "press_elements", ["press_note_id"], name: "index_press_elements_on_press_note_id", using: :btree
+
+  create_table "press_notes", force: true do |t|
+    t.text     "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "background"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

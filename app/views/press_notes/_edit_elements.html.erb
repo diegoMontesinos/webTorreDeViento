@@ -1,0 +1,56 @@
+
+<!-- FORMULARIOS -->
+<% press_note.press_elements.each.with_index do |press_element, index| %>
+	<%= form_tag(save_press_element_path(press_element.id), remote: true, method: "post", :class => "pure-form pure-form-stacked form-press-element") do %>
+
+		<!-- TEXTO -->
+		<div style="width: 95%; height: auto; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
+			<span style="font-size: 1.3em"><strong><%= (index + 1) %></strong></span>
+
+			<div id="title-form-div" style="margin-left: 1%;">
+				<%= label_tag "Texto: " %>
+				<% if press_element.body.present? %>
+					<%= cktext_area "body" + press_element.id.to_s, :ckeditor, :value => press_element.body %>
+				<% else %>
+					<%= cktext_area "body" + press_element.id.to_s, :ckeditor, :value => "" %>
+				<% end %>
+			</div>
+		</div>
+
+	<% end %>
+<% end %>
+
+<%= button_tag(type: "button", id: "press-element-button", style: "float: right; background: rgb(0, 120, 231); color: #FFF; font-family: latha, latha_ie; margin-right: 4%; margin-top: 20px;", class: "pure-button pure-button-active") do %>
+	ENVIAR INFORMACION
+<% end %>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#press-element-button").click(function() {
+			var ck_instances = CKEDITOR.instances;
+			for(var key in ck_instances) {
+				var ck = ck_instances[key];
+				ck.updateElement();
+			}
+
+			$(".form-press-element").each(function() {
+				$(this).submit();
+			});
+		});
+
+		var counter = 1;
+		var form_counts = $(".form-press-element").length;
+		$(".form-press-element").bind("ajax:success", function(evt, data, status, xhr) {
+			if(counter == form_counts) {
+				window.location = "<%= press_notes_path %>";
+			}
+			counter++;
+		});
+	});
+</script>

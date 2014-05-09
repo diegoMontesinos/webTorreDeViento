@@ -1,0 +1,73 @@
+// Place all the styles related to the PressNotes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#press-wapper {
+	width: 100%;
+	height: 550px;
+
+	margin-top: -4px;
+	background: none;
+}
+
+#press-notes-container {
+	width: 25%;
+	height: 500px;
+
+	float: left;
+
+	background: none;
+	color: #FFF;
+}
+
+#press-notes-wapper {
+	width: 85%;
+	height: 425px;
+
+	margin-left: 10%;
+}
+
+#press-notes {
+	width: 94%;
+}
+
+#press-notes div:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#press-notes-display {
+	width: 75%;
+	height: 500px;
+
+	position: relative;
+	float: left;
+
+	background: #000;
+	color: #FFF;
+	z-index: 0;
+}
+
+.press_element_option {
+	font-family: latha, latha_ie;
+	font-size: 1.2em;
+	color: #FFF;
+	float: left;
+	position: absolute;
+}
+
+.press_element_option:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#press-notes-body {
+	width: 60%;
+	height: 450px;
+
+	margin-left: 3.33%;
+	margin-top: 25px;
+
+	position: relative;
+	z-index: 1;
+}

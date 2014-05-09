@@ -81,6 +81,11 @@ WebTorreDeViento::Application.routes.draw do
   get "/admin/news/new" => "admin#new_new", as: "admin_new_news"
   get "/news/edit_thumbnail_new" => "news#edit_thumbnail", as: "edit_thumbnail_new"
   post "/news/save_thumbnail_new/:id" => "news#save_thumbnail", as: "save_thumbnail_new"
+
+  # Administrador (Prensa)
+  get '/admin/press_notes/new' => 'admin#new_press_note', as: "admin_new_press_note"
+  get '/admin/press_notes/edit_elements' => 'press_notes#edit_elements', as: "edit_press_elements"
+  post '/admin/press_notes/save_element/:id' => 'press_notes#save_element', as: "save_press_element"
   
   # Photos
   # Creando las fotos
@@ -158,5 +163,10 @@ WebTorreDeViento::Application.routes.draw do
   post "/news/create" => "news#create", as: "news"
   get "/news" => "news#index", as: "news_index"
   get "/news/new" => "news#new", as: "new_news"
+
+  # PRENSA
+  resources :press_notes
+
+  get "/press_element" => "press_notes#press_element", as: "press_element"
 
 end

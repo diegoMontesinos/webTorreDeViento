@@ -515,4 +515,13 @@ class AdminController < ApplicationController
 		render partial: "admin_new_new"
 	end
 
+	### ADMIN PRENSA
+
+	# GET
+	def new_press_note
+		@press_note = PressNote.new
+
+		render partial: "admin_new_press_note"
+	end
+
 end

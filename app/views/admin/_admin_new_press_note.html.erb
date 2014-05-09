@@ -1,0 +1,23 @@
+<div id="admin-press-content">
+	<%= render template: new_press_note_path %>
+</div>
+
+<script type="text/javascript">
+	// Cuando el formulario se sube exitosamente
+	$("#form_press").bind("ajax:success", function(evt, data, status, xhr) {
+		var press_note_id = data.replace('"', '').replace('"', '');
+
+		$.ajax({
+			type: "GET",
+			url: "<%= edit_press_elements_path %>?id=" + press_note_id,
+			dataType: "html",
+			success: function(data) {
+				// Se vacia el contenido
+				$("#admin-press-content").empty();
+
+				// Y se manda a la seleccion del display / crop
+				$("#admin-press-content").append(data);
+			}
+		});
+	});
+</script>
