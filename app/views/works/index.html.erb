@@ -1,20 +1,65 @@
-<div id="wrapper-tvp" >
-	<div id="container-tvp">
+<style type="text/css">
+	html {
+		width: 100%;
+		height: auto;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #a3a3a3;
+	}
+
+	body {
+		width: 100%;
+		height: auto;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x;	
+		background: -moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x;
+		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
+		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
+	}
+</style>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
+
+		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
 			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
 		</div>
 
+		<!-- MENU TVP -->
 		<div style="margin-top: 25px;">
 			<%= render partial: "shared/menu_tvp" %>
 		</div>
 
+		<!-- GRIDS -->
+		<div id="work-grids-container">
 
-		<div id="work-grids-container" style="background: #FFFFFF;">
-			<div class="scrollingHotSpotLeft" style="opacity: 0;"><%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %></div>
-			<div class="scrollingHotSpotRight" style="opacity: 0;"><%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %></div>
+			<!-- FLECHA IZQUIERDA -->
+			<div class="scrollingHotSpotLeft" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
+				<%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %>
+			</div>
+			<!-- FLECHA DERECHA -->
+			<div class="scrollingHotSpotRight" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
+				<%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %>
+			</div>
+
+			<!-- SCROLL -->
 			<div class="scrollWrapper">
 				<div class="scrollableArea">
 					<% i = 0 %>
+
 					<% @work_grids.each do |work_grid| %>
 						<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 500px; position: absolute; left: <%= i * 100 %>%;">
 
@@ -53,150 +98,143 @@
 			</div>
 		</div>
 
+		<!-- BARRA BAJA -->
 		<div id="lower-bar" style="width: 100%; height: 50px; background: #000000;"></div>
 
+		<!-- LEGALES -->
 		<div id="legals-tvp">
 			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
 		</div>
+		<br>
+		<br>
 
-		<script type="text/javascript">
-			function correctLineHeight(elem) {
-				elem.find("p").each(function() {
-					var maxFontSize = 0;
-
-					$(this).find("span").each(function() {
-						var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-						if(maxFontSize < currFontSize) {
-							maxFontSize = currFontSize;
-						}
-					});
-
-					if(maxFontSize == 0) {
-						$(this).css("line-height", "9px");
-					} else {
-						$(this).css("line-height", maxFontSize + "px");
-					}
-				});
-			}
-
-			$(function() {
-				$("html").css("width", "100%");
-				$("html").css("min-height", "100%");
-				$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-				$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-				$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-				$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-				$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
-
-				$("#legals-tvp").hover(function() {
-					$("#legals-tvp img").attr('src', "/assets/02-LEGALESTXT.png");
-				}, function() {
-					$("#legals-tvp img").attr('src', "/assets/01-LEGALESTXT.png");
-				});
-
-				
-				for (var i = 0; i <= 14; i++) {
-					var container = $(".grid-element-" + i);
-
-					container.each(function() {
-						correctLineHeight($(this));
-
-						// Se colocan bien las imagenes
-						var img_url = $(this).attr("img-url");
-
-						if(img_url != "") {
-
-							// Se agrega la imagen
-							var dataAttr = $(this).attr("data").split(";");
-							var data = {
-								x: parseFloat(dataAttr[0]),
-								y: parseFloat(dataAttr[1]),
-								w: parseFloat(dataAttr[2]),
-								h: parseFloat(dataAttr[3]),
-							}
-
-							var that = this;
-							var img = new Image();
-							img.onload = function() {
-								$(img).prependTo($(that));
-
-								var newW = Math.round(($(that).width() * $(img).width()) / data.w);
-								var newH = Math.round(($(that).height() * $(img).height()) / data.h);
-								var mLeft = Math.round((newW * data.x) / $(img).width());
-								var mRight = Math.round((newH * data.y) / $(img).height());
-
-								var scaleFactor = 0.1;
-								var box = parseInt($(that).attr("class").replace("grid-element-", ""));
-								if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
-									scaleFactor = 50.0 / $(img).height();
-								} else if(box == 2 || box == 6 || box == 8 || box == 10) {
-									scaleFactor = 125.0 / $(img).height();
-								} else if(box == 5) {
-									scaleFactor = 100.0 / $(img).width();
-								}
-
-								$(img).css({
-									width: newW + 'px',
-									height: newH + 'px',
-									marginLeft: '-' + mLeft + 'px',
-									marginTop: '-' + mRight + 'px'
-								});
-								
-								// Se le da el efecto hover
-								$(that).hover(function() {
-									$(this).find('img').animate({
-										width: $(img).width() * scaleFactor,
-										height: $(img).height() * scaleFactor,
-										marginTop: 5,
-										marginLeft: 5
-									}, 500)
-								}, function() {
-									$(this).find('img').animate({
-										width: newW + 'px',
-										height: newH + 'px',
-										marginLeft: '-' + mLeft + 'px',
-										marginTop: '-' + mRight + 'px'
-									}, 300);
-								});
-
-								// Se le pone cursor de manita
-								$(that).css("cursor", "pointer");
-
-								// Se le da accion de click
-								$(that).click(function() {
-									$(location).attr("href", $(this).attr("work-url"));
-								});
-							}
-
-							img.src = img_url;
-						}
-					});
-				}
-
-				$("#work-grids-container").smoothDivScroll({
-					manualContinuousScrolling: true,
-					easingAfterHotSpotScrolling: false,
-					hotSpotScrollingStep: 4,
-					setupComplete: function() {
-
-						// Se redimensiona el area scrollable
-						$(".scrollableArea").first().width("100%");
-
-						// Dandole eventos a los hotspots
-						$(".scrollingHotSpotLeft").first().bind("mouseout", function() {
-							var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-							$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
-						});
-
-						$(".scrollingHotSpotRight").first().bind("mouseout", function() {
-							var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-							$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
-						});
-
-					}
-				});
-
-			});
-		</script>
 	</div>
 </div>
+
+<script type="text/javascript">
+	function correctLineHeight(elem) {
+		elem.find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+
+	$(document).ready(function() {
+
+		// Se reacomoda cada grid-element del grid por clase
+		for (var i = 0; i <= 14; i++) {
+			var container = $(".grid-element-" + i);
+
+			container.each(function() {
+				correctLineHeight($(this));
+
+				// Se colocan bien las imagenes
+				var img_url = $(this).attr("img-url");
+
+				if(img_url != "") {
+
+					// Se agrega la imagen
+					var dataAttr = $(this).attr("data").split(";");
+					var data = {
+						x: parseFloat(dataAttr[0]),
+						y: parseFloat(dataAttr[1]),
+						w: parseFloat(dataAttr[2]),
+						h: parseFloat(dataAttr[3]),
+					}
+
+					var that = this;
+					var img = new Image();
+					img.onload = function() {
+						$(img).prependTo($(that));
+
+						var newW = Math.round(($(that).width() * $(img).width()) / data.w);
+						var newH = Math.round(($(that).height() * $(img).height()) / data.h);
+						var mLeft = Math.round((newW * data.x) / $(img).width());
+						var mRight = Math.round((newH * data.y) / $(img).height());
+
+						var scaleFactor = 0.1;
+						var box = parseInt($(that).attr("class").replace("grid-element-", ""));
+						if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
+							scaleFactor = 50.0 / $(img).height();
+						} else if(box == 2 || box == 6 || box == 8 || box == 10) {
+							scaleFactor = 125.0 / $(img).height();
+						} else if(box == 5) {
+							scaleFactor = 100.0 / $(img).width();
+						}
+
+						$(img).css({
+							width: newW + 'px',
+							height: newH + 'px',
+							marginLeft: '-' + mLeft + 'px',
+							marginTop: '-' + mRight + 'px'
+						});
+						
+						// Se le da el efecto hover
+						$(that).hover(function() {
+							$(this).find('img').animate({
+								width: $(img).width() * scaleFactor,
+								height: $(img).height() * scaleFactor,
+								marginTop: 5,
+								marginLeft: 5
+							}, 500)
+						}, function() {
+							$(this).find('img').animate({
+								width: newW + 'px',
+								height: newH + 'px',
+								marginLeft: '-' + mLeft + 'px',
+								marginTop: '-' + mRight + 'px'
+							}, 300);
+						});
+
+						// Se le pone cursor de manita
+						$(that).css("cursor", "pointer");
+
+						// Se le da accion de click
+						$(that).click(function() {
+							$(location).attr("href", $(this).attr("work-url"));
+						});
+					}
+
+					img.src = img_url;
+				}
+			});
+		}
+
+		// RODILLO
+		$("#work-grids-container").smoothDivScroll({
+			manualContinuousScrolling: true,
+			easingAfterHotSpotScrolling: false,
+			hotSpotScrollingStep: 4,
+			setupComplete: function() {
+
+				// Se redimensiona el area scrollable
+				$(".scrollableArea").first().width("100%");
+
+				// Dandole eventos a los hotspots
+				$(".scrollingHotSpotLeft").first().bind("mouseout", function() {
+					var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+					$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
+				});
+
+				$(".scrollingHotSpotRight").first().bind("mouseout", function() {
+					var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+					$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
+				});
+
+			}
+		});
+
+	});
+</script>

@@ -1,6 +1,38 @@
-<div id="wrapper-tvp" >
-	<div id="container-tvp" >
+<style type="text/css">
+	html {
+		width: 100%;
+		height: auto;
 
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #a3a3a3;
+	}
+
+	body {
+		width: 100%;
+		height: auto;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x;	
+		background: -moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x;
+		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
+		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
+	}
+</style>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
+		
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
 			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
@@ -33,7 +65,6 @@
 			</div>
 
 			<div class="clearfix"></div>
-
 		</div>
 
 		<!-- MENU TVP -->
@@ -42,8 +73,9 @@
 		</div>
 
 		<!-- NOTICIAS -->
-		<div style="font-family: latha, latha_ie; font-size: 1em; width: 100%; background: #FFF; height: 150px; position: relative; margin-top: -4px;">
+		<div id="news-home-container">
 
+			<!-- 1 -->
 			<div id="home-news-1" class="home-news" style="width: 24.9%;">
 				<% if !@home_news[0].nil? %>
 					<%= image_tag @home_news[0].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
@@ -56,8 +88,10 @@
 				<% end %>
 			</div>
 
+			<!-- SEPARATOR -->
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
 
+			<!-- 2 -->
 			<div id="home-news-2" class="home-news" style="width: 24.8%;">
 				<% if !@home_news[1].nil? %>
 					<%= image_tag @home_news[1].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
@@ -70,8 +104,10 @@
 				<% end %>
 			</div>
 
+			<!-- SEPARATOR -->
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
 
+			<!-- 3 -->
 			<div id="home-news-3" class="home-news" style="width: 24.8%;">
 				<% if !@home_news[2].nil? %>
 					<%= image_tag @home_news[2].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
@@ -84,8 +120,10 @@
 				<% end %>
 			</div>
 
+			<!-- SEPARATOR -->
 			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
 
+			<!-- 4 -->
 			<div id="home-news-4" class="home-news" style="width: 24.9%;">
 				<% if !@home_news[3].nil? %>
 					<%= image_tag @home_news[3].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
@@ -97,16 +135,20 @@
 					</div>
 				<% end %>
 			</div>
+
 		</div>
 
+		<!-- LEGALES -->
 		<div id="legals-tvp">
 			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
 		</div>
-
+		<br><br>
+		
 	</div>
 </div>
 
 <script type="text/javascript">
+
 	function correctLineHeight(elem) {
 		$(elem).find("p").each(function() {
 			var maxFontSize = 0;
@@ -127,15 +169,7 @@
 		});
 	}
 
-	$(function() {
-
-		$("html").css("width", "100%");
-		$("html").css("min-height", "100%");
-		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
+	$(document).ready(function() {
 
 		// Se corrigen las imagenes
 		$(".carousel-elem").each(function() {
@@ -168,7 +202,7 @@
 				visible: 4,
 				start: -3
 			},
-					
+						
 			scroll: {
 				items: 1,
 				fx: "scroll",
@@ -209,11 +243,8 @@
 			$("#carousel-vertical").trigger("play");
 		});
 
-		// Se corrige el menu
-		$("#menu-tvp").css("margin-top", "-5px");
-
 		// Efectos de las noticias
-	 	var newsitems = $('.home-news').find("img");
+		var newsitems = $('.home-news').find("img");
 		for (var i = 0; i < newsitems.length; i++) {
 			$(newsitems[i]).hover(function() {
 				for (var j = 0; j < newsitems.length; j++) {

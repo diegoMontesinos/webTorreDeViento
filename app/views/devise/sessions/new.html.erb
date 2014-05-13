@@ -1,12 +1,16 @@
+
+<!-- LOGO -->
 <div style="margin-left: 3%; margin-top: 3%;">
 	<%= image_tag "01-LOGO.png", :style => "max-width: 20%; height: auto;" %>
 </div>
 
+<!-- TITULO -->
 <div style="margin-top: 4%; text-align: center;	font-family: euphemia, euphemia_ie; font-size: 1em;" >
 	<h2>ACCESO AL ADMINISTRADOR</h2>
 </div>
 
-<div id="access-form" >
+<!-- FORMULARIO DE ACCESO -->
+<div id="access-form">
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 		<div>
 			<%= f.label :email, "E-mail: " %>&nbsp;

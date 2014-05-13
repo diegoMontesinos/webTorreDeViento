@@ -9,7 +9,6 @@
 
 #container-tvp {
 	width: 1000px;
-	margin-left: 13.4%;
 	margin-top: 2%;
 }
 
@@ -145,6 +144,8 @@
 #carousel-wrapper {
 	width: 100%;
 	height: 400px;
+
+	background: #000;
 }
 
 /* HORIZONTAL */
@@ -180,11 +181,25 @@
 
 // EMPIEZA CSS NOTICIAS
 
+#news-home-container {
+	width: 100%;
+	height: 150px;
+
+	position: relative;
+	margin-top: -4px;
+
+	font-family: latha, latha_ie;
+	font-size: 1em;
+	background: #000;
+}
+
 .home-news {
+	height: 100%;
+	
 	float: left;
 	position: relative;
-	height: 100%;
-	background: #FFF;
+	
+	background: #000;
 }
 
 .news-link {
