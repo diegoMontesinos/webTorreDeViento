@@ -1,7 +1,7 @@
 <style type="text/css">
 	html {
 		width: 100%;
-		height: auto;
+		height: 100%;
 
 		position: absolute;
 		top: 0;
@@ -14,7 +14,7 @@
 
 	body {
 		width: 100%;
-		height: auto;
+		height: 100%;
 
 		position: absolute;
 		top: 0;
@@ -25,6 +25,27 @@
 		background: #000;
 	}
 </style>
+
+<script type="text/javascript">
+	function correctLineHeight(id_elem) {
+		$("#" + id_elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+</script>
 
 <div id="wrapper-tvp" align="center">
 	<div id="container-tvp" align="left">
@@ -52,24 +73,3 @@
 		<br>
 	</div>
 </div>
-
-<script type="text/javascript">
-	function correctLineHeight(id_elem) {
-		$("#" + id_elem).find("p").each(function() {
-			var maxFontSize = 0;
-
-			$(this).find("span").each(function() {
-				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-				if(maxFontSize < currFontSize) {
-					maxFontSize = currFontSize;
-				}
-			});
-
-			if(maxFontSize == 0) {
-				$(this).css("line-height", "9px");
-			} else {
-				$(this).css("line-height", maxFontSize + "px");
-			}
-		});
-	}
-</script>

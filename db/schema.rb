@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508214649) do
+ActiveRecord::Schema.define(version: 20140518174201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140508214649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "accessFrequent"
+    t.string   "sprocket2"
   end
 
   add_index "colaborator_grid_elements", ["colaborator_id"], name: "index_colaborator_grid_elements_on_colaborator_id", using: :btree

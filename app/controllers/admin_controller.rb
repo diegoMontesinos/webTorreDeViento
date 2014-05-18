@@ -198,7 +198,11 @@ class AdminController < ApplicationController
 				img_str = @grid_element.colaborator.sproket_1.url(:display)
 			end
 		else
-			permitted_params = params.require(:colaborator_grid_element).permit(:sprocket, :accessFrequent)
+			if params[:colaborator_grid_element][:accessFrequent] == "false"
+				permitted_params = params.require(:colaborator_grid_element).permit(:sprocket, :accessFrequent)
+			else
+				permitted_params = params.require(:colaborator_grid_element).permit(:sprocket, :sprocket2, :accessFrequent)
+			end
 			
 			if @grid_element.update(permitted_params)
 				if @grid_element.colaborator.present?
@@ -218,6 +222,7 @@ class AdminController < ApplicationController
 				render json: img_str.to_json
 			}
 		end
+
 	end
 
 	# POST

@@ -45,8 +45,9 @@ class Work < ActiveRecord::Base
 		p = Work.find_by_id(self.previous)
 		n = Work.find_by_id(self.next)
 
-		p.next = n
-		n.previous = p
+		p.next = n.id
+		n.previous = p.id
+
 		p.save
 		n.save
 	end
@@ -105,6 +106,24 @@ class Work < ActiveRecord::Base
 			
 		elsif box == "5"
 			return { "w" => 123, "h" => 248 }
+		end
+	end
+
+	def self.print_inorder
+		if Work.count == 0
+			puts ""
+		else
+			work = Work.first
+			
+			first_id = work.id
+			last_id = work.next
+			puts (first_id.to_s + " <-> " + last_id.to_s)
+
+			while last_id != first_id do
+				work = Work.find(last_id)
+				puts (last_id.to_s + " <-> " + work.next.to_s)
+				last_id = work.next
+			end
 		end
 	end
 	

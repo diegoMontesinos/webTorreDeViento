@@ -1,7 +1,7 @@
 <div style="margin-top: 5px; margin-left: 42%; color: #000000; font-family: latha, latha_ie; font-size: 3em;"><%= count %></div>
 
 <!-- GRID -->
-<div class="work-grid" style="width: 97%; margin-top: 0px; margin-left: 1.5%;">
+<div class="work-grid" style="width: 95%; margin-top: 0px; margin-left: 1.5%;">
 	<% grid_elements.each do |grid_element| %>
 		<div class="grid-element-<%= grid_element.box %>" onclick="showEditDialog(this, '<%= admin_work_gridelement_path(grid_element)%>?div=grid-element-<%= grid_element.box %>');" data="">
 
@@ -64,7 +64,7 @@
 	$(function() {
 
 		var currWidth = $(".work-grid").width();
-		var newHeight = (currWidth * 500.0) / 1000.0;
+		var newHeight = currWidth / 2.25;
 		$(".work-grid").height(newHeight);
 
 		for (var i = 0; i <= 14; i++) {

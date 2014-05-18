@@ -1,5 +1,92 @@
-<div id="wrapper-tvp" >
-	<div id="container-tvp" >
+<style type="text/css">
+	html {
+		width: 100%;
+		height: 100%;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #a3a3a3;
+	}
+
+	body {
+		width: 100%;
+		height: 100%;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x;	
+		background: -moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x;
+		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
+		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
+	}
+</style>
+
+<script type="text/javascript">
+
+	function correctLineHeight(id_elem) {
+		$("#" + id_elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", maxFontSize + "px");
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		// Ponemos el link de semblanza
+		if($('#semblance').length > 0) {
+			$('#semblance').click(function(e) {
+				e.preventDefault();
+				window.location.href = '<%= @colaborator.semblance.url %>';
+			});
+		}
+
+		// Ponemos el link del cv
+		if($('#cv').length > 0) {
+			$('#cv').click(function(e) {
+				e.preventDefault();
+				window.location.href = '<%= @colaborator.cv.url %>';
+			});
+		}
+
+		// Corregimos el texto
+		correctLineHeight("colaborator-semblance-text-content");
+
+		// Iniciamos el scroll
+		if(($(".colaborator-semblance-text").data("jsp"))) {
+			$(".colaborator-semblance-text").data("jsp").destroy();
+		}
+		$(".colaborator-semblance-text").bind("jsp-initialised", function(event, isScrollable) {
+			// Se redimensiona el area scrollable
+			$(".jspContainer").css("width", "91%");
+			$(".jspContainer").css("margin-right", "2.75%");
+			$(".jspContainer").css("margin-left", "5.556%");
+		}).jScrollPane({ hideFocus: true });
+	});
+
+</script>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
 
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
@@ -16,7 +103,7 @@
 
 			<!-- SEMBLANZA -->
 			<div id="colaborator-semblance-container">
-
+				
 				<!-- TITULO -->
 				<div id="colaborator-semblance-title">
 					<div id="colaborator-semblance-title-content">
@@ -34,14 +121,16 @@
 				<!-- MENU PARA EL COLABORADOR -->
 				<div id="colaborator-info-menu-navigator">
 					<ul id="colaborator-info-menu">
+
+						<!-- LINK SEMBLANZA -->
 						<% if @colaborator.semblance.present? || @colaborator.semblance_en.present? %>
 							<li id="semblance" class="colaborator-info-menu-item"><div><center><%= t(:semblance) %></center></div></li>
 						<% end %>
 
+						<!-- LINK CV -->
 						<% if @colaborator.cv.present? || @colaborator.cv_en.present? %>
 							<li id="cv" class="colaborator-info-menu-item"><div><center><%= t(:cv) %></center></div></li>
 						<% end %>
-
 
 						<!-- NEXT -->
 						<% if @colaborator.next.to_i != -1 %>
@@ -74,82 +163,20 @@
 						<% end %>
 					</ul>
 				</div>
+
 			</div>
 
 			<!-- RETRATO -->
 			<div id="colaborator-portrait-container">
 				<%= image_tag @colaborator.portrait.url(:display), :style => "width: 100%; height: 100%;" %>
 			</div>
+
 		</div>
 
 		<!-- LEGALES -->
 		<div id="legals-tvp">
 			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
 		</div>
-
+		<br><br>
 	</diV>
 </div>
-
-<script type="text/javascript">
-	function correctLineHeight(id_elem) {
-		$("#" + id_elem).find("p").each(function() {
-			var maxFontSize = 0;
-
-			$(this).find("span").each(function() {
-				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-				if(maxFontSize < currFontSize) {
-					maxFontSize = currFontSize;
-				}
-			});
-
-			if(maxFontSize == 0) {
-				$(this).css("line-height", "9px");
-			} else {
-				$(this).css("line-height", maxFontSize + "px");
-			}
-
-			if($(this).html() == "&nbsp;") {
-				$(this).remove();
-			}
-		});
-	}
-
-	$(function() {
-		$("html").css("width", "100%");
-		$("html").css("min-height", "100%");
-		$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-		$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-		$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-		$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
-
-		if(($(".colaborator-semblance-text").data("jsp"))) {
-			$(".colaborator-semblance-text").data("jsp").destroy();
-		}
-
-		$(".colaborator-semblance-text").bind("jsp-initialised", function(event, isScrollable) {
-			// Se redimensiona el area scrollable
-			$(".jspContainer").css("width", "91%");
-			$(".jspContainer").css("margin-right", "2.75%");
-			$(".jspContainer").css("margin-left", "5.556%");
-		}).jScrollPane({ hideFocus: true });
-
-		if($('#semblance').length > 0) {
-			$('#semblance').click(function(e) {
-				e.preventDefault();
-				window.location.href = '<%= @colaborator.semblance.url %>';
-			});
-		}
-
-		if($('#cv').length > 0) {
-			$('#cv').click(function(e) {
-				e.preventDefault();
-				window.location.href = '<%= @colaborator.cv.url %>';
-			});
-		}
-
-		correctLineHeight("colaborator-semblance-text-content");
-		var api = $(".colaborator-semblance-text").data('jsp');
-		api.reinitialise();
-	});
-</script>

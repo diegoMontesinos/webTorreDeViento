@@ -27,11 +27,17 @@
 		</div>
 
 		<div id="insert-image-container" style="outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
-			<div id="insert-image" style="margin-top: 135px; margin-left: 33%; font-family: latha, latha_ie;">
+			<div id="insert-image1" style="margin-top: 135px; margin-left: 33%; font-family: latha, latha_ie;">
 				<span style="margin-left: 20%; font-size: 1.8em"><strong>Imagen</strong></span><br>
-				<%= f.file_field :sprocket, :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button" %>
-				<%= f.hidden_field :accessFrequent %>
+				<%= f.file_field :sprocket, :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button", accept: "image/png,image/gif,image/jpeg" %>	
 			</div>
+
+			<div id="insert-image2" style="margin-top: 135px; margin-left: 33%; font-family: latha, latha_ie;">
+				<span style="margin-left: 20%; font-size: 1.8em"><strong>Imagen negativo</strong></span><br>
+				<%= f.file_field :sprocket2, :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button", accept: "image/png,image/gif,image/jpeg" %>	
+			</div>
+
+			<%= f.hidden_field :accessFrequent %>
 		</div>
 
 		<div style="float: right; margin-top: 15px; marign-right: 1.2%;">
@@ -47,24 +53,24 @@
 	function selectColab(option) {
 		// Estilo
 		if($(".selec-colab").length > 0) {
-			$(".selec-colab").css("border", "0px");
-			$(".selec-colab").css("-webkit-box-shadow", "0px 0px 0px 0px");
-			$(".selec-colab").css("-moz-box-shadow", "0px 0px 0px 0px");
-			$(".selec-colab").css("box-shadow", "0px 0px 0px 0px");
+			$(".selec-colab").css({"border"             : "0px",
+								   "-webkit-box-shadow" : "0px 0px 0px 0px",
+								   "-moz-box-shadow"    : "0px 0px 0px 0px",
+								   "box-shadow"         : "0px 0px 0px 0px"});
 
 			$(".selec-colab").removeClass("selec-colab");
 		}
 
 		$(option).addClass("selec-colab");
-		$(".selec-colab").css("border", "1px solid #4195fc");
-		$(".selec-colab").css("-webkit-box-shadow", "0px 0px 4px #4195fc");
-		$(".selec-colab").css("-moz-box-shadow", "0px 0px 4px #4195fc");
-		$(".selec-colab").css("box-shadow", "0px 0px 4px #4195fc");
+		$(".selec-colab").css({"border"             : "1px solid #4195fc",
+							   "-webkit-box-shadow" : "0px 0px 4px #4195fc",
+							   "-moz-box-shadow"    : "0px 0px 4px #4195fc",
+							   "box-shadow"         : "0px 0px 4px #4195fc"});
 
 		$("#colaborator_grid_element_colaborator_id").val($(option).attr("id-colab"));
 	}
 
-	$(function() {
+	$(document).ready(function() {
 
 		$("#insert-image-container").hide();
 
@@ -83,8 +89,26 @@
 			} else {
 				if ($(option).val() == "Acceso a Frecuentes") {
 					$("#colaborator_grid_element_accessFrequent").val(true);
+					$("#insert-image2").show();
+
+					// Estilo
+					$("#insert-image1").css({
+						"margin-top"  : "54px",
+						"margin-left" : "33%"
+					});
+					$("#insert-image2").css({
+						"margin-top"  : "40px",
+						"margin-left" : "33%"
+					});
 				} else {
 					$("#colaborator_grid_element_accessFrequent").val(false);
+					$("#insert-image2").hide();
+
+					// Estilo
+					$("#insert-image1").css({
+						"margin-top"  : "135px",
+						"margin-left" : "33%"
+					});
 				}
 				$("#colaborator_grid_element_colaborator_id").replaceWith($("#colaborator_grid_element_colaborator_id").clone());
 				$("#insert-colab-container").hide();
@@ -92,25 +116,12 @@
 			}
 		});
 
+		// Cuando regresa el formulario
 		$("#edit_colaborator_grid_element_<%= grid_element.id %>").bind("ajax:success", function(evt, data, status, xhr) {
 
 			var responseImg = new Image();
 			responseImg.onload = function() {
 				$(".<%= div %>").empty();
-
-				/*var divClear = document.createElement("div");
-				$(divClear).css({
-					color: "#1C1C1C",
-					fontSize: "1.2em",
-					position: "absolute",
-					right: "4%",
-					top: "5px",
-					cursor: "pointer"
-				});
-				$(divClear).append("<i class='fa fa-times-circle'></i>");
-				divClear.onclick = function(){ quit_element('<%= admin_work_clean_gridelement_path(grid_element) %>', this, event); };
-
-				$(divClear).appendTo(".<%= div %>");*/
 				$(responseImg).appendTo(".<%= div %>");
 
 				$("#edit-colaborator-grid-dialog").dialog("close");

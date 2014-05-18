@@ -1,5 +1,6 @@
 <script type="text/javascript">
-	$(function() {
+	$(document).ready(function() {
+
 		// Accion del submit
 		$("#form-colaborator").submit(function(e) {
 			// Checamos que no dejen ningun ckeditor vacio
@@ -30,6 +31,17 @@
 			}
 
 			$("#progressbar").show();
+		});
+
+		// Sprockets requeridos si es frecuente
+		$("#colaborator_frequent").change(function() {
+			if(this.checked) {
+				$("#colaborator_sproket_1").removeAttr("required");
+				$("#colaborator_sproket_2").removeAttr("required");
+			} else {
+				$("#colaborator_sproket_1").attr("required", "required");
+				$("#colaborator_sproket_2").attr("required", "required");
+			}
 		});
 
 		// ProgressBar

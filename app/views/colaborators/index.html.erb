@@ -72,9 +72,15 @@
 								</div>
 							<% end %>
 						<% elsif grid_element.sprocket.present? %>
+
 							<% if grid_element.accessFrequent %>
 								<%= link_to frequents_path() do %>
-									<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>
+									<div class="colab-sprocket">
+										<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>
+									</div>
+									<div class="colab-sprocket-neg">
+										<%= image_tag grid_element.sprocket2.url(:display), :style => "width: 100%; height: 100%;" %>
+									</div>
 								<% end %>
 							<% else %>
 								<%= image_tag grid_element.sprocket.url(:display), :style => "width: 100%; height: 100%;" %>

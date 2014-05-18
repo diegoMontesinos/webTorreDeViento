@@ -1,5 +1,37 @@
-<div id="wrapper-tvp">
-	<div id="container-tvp">
+<style type="text/css">
+	html {
+		width: 100%;
+		height: 100%;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #a3a3a3;
+	}
+
+	body {
+		width: 100%;
+		height: 100%;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x;	
+		background: -moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x;
+		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
+		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
+		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
+	}
+</style>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
 
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
@@ -16,18 +48,20 @@
 			<% if @we_do.image.present? %>
 				<% photo_src = @we_do.image.url(:display) %>
 			<% else %>
-				<% photo_src = "info_default.png" %>
+				<% photo_src = "info_default2.jpg" %>
 			<% end %>
 
 			<div id="we-do-image">
 				<%= image_tag photo_src, :style => "width: 100%;" %>
 			</div>
 
-			<div id="we-do-body">
-				<%= @we_do.body.html_safe %>
-			</div>
-
+			<div id="we-do-body1"></div>
+			<div id="we-do-body2"></div>
+			<div style="clear: both"></div>
 		</div>
+
+		<!-- BARRA NEGRA -->
+		<div style="width: 100%; height: 50px; float: left; background: #000;"></div>
 
 		<!-- LEGALES -->
 		<div id="legals-tvp">
@@ -37,12 +71,65 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$("html").css("width", "100%");
-	$("html").css("min-height", "100%");
-	$("html").css("background", "linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x");
-	$("html").css("background", "-moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x");
-	$("html").css("background", "-webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x");
-	$("html").css("background", "-ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x");
-	$("html").css("filter", "progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3')");
-</script>
+<% if @we_do.body.present? %>
+	<script type="text/javascript">
+		function correctLineHeight(elem) {
+			$(elem).find("p").each(function() {
+				if($(this).html() == "&nbsp;") {
+					$(this).remove();
+				} else {
+					var maxFontSize = 0;
+
+					$(this).find("span").each(function() {
+						var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+						if(maxFontSize < currFontSize) {
+							maxFontSize = currFontSize;
+						}
+					});
+
+					if(maxFontSize == 0) {
+						$(this).css("line-height", "9px");
+					} else {
+						$(this).css("line-height", maxFontSize + "px");
+					}
+				}
+			});
+		}
+
+		$(document).ready(function() {
+			var we_do_html = "<%=  j @we_do.body.html_safe %>";
+			var div_aux = document.createElement("div");
+			$(div_aux).html(we_do_html);
+			correctLineHeight(div_aux);
+
+			var elems = $(div_aux).children();
+
+			var i;
+			for (i = 0; i < elems.length; i++) {
+				$("#we-do-body1").append(elems[i]);
+
+				if($(elems[i]).position().top > 500) {
+					break;
+				}
+			}
+
+			// Agregando la primera columna
+			k = i;
+			$("#we-do-body1").empty();
+			for (i = 0; i < k; i++) {
+				$("#we-do-body1").append(elems[i]);
+			}
+			$("#we-do-body1").jScrollPane({
+				hideFocus: true
+			});
+
+			// Agregando la segunda columna
+			for (; i < elems.length; i++) {
+				$("#we-do-body2").append(elems[i]);
+			};
+			$("#we-do-body2").jScrollPane({
+				hideFocus: true
+			});
+		});
+	</script>
+<% end %>
