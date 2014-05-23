@@ -263,7 +263,7 @@ class AdminController < ApplicationController
 		@new.crop_h2 = params[:crop_h]
 
 		# Quitamos el anterior del lugar
-		news_place = New.where.not(home: params[:place])
+		news_place = New.where(home: params[:place])
 		if !news_place.empty?
 			@bef_new = news_place.first
 			@bef_new.home = -1
@@ -272,7 +272,7 @@ class AdminController < ApplicationController
 		end
 
 		@new.home = params[:place].to_i
-		@new.link = params[:link][:ckeditor]
+		@new.link = params[:link]
 		@new.save
 
 		image_str = @new.thumbnail.url(:display2)
@@ -292,7 +292,7 @@ class AdminController < ApplicationController
 		if HomeCarousel.count == 0 
 			first_carousel = HomeCarousel.new
 
-			20.times { |count|
+			25.times { |count|
 				carousel_element = first_carousel.carousel_elements.build
 			}
 
@@ -329,7 +329,7 @@ class AdminController < ApplicationController
 	# GET
 	def new_home_carousel
 		@carousel = HomeCarousel.new 
-		20.times { |count|
+		25.times { |count|
 			carousel_element = @carousel.carousel_elements.build
 		}
 

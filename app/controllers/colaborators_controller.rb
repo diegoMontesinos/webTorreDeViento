@@ -145,7 +145,7 @@ class ColaboratorsController < ApplicationController
 
   private
     def colaborator_params
-      params.require(:colaborator).permit(:name, :title, :cv_text, :semblance_text, :cv_text_in_en, :semblance_text_in_en,
+      params.require(:colaborator).permit(:name, :title, :cv_text, :semblance_text, :cv_text_in_en, :cv_text_in_es, :semblance_text_in_en, :semblance_text_in_es,
                                           :cv, :semblance, :frequent, :cv_en, :semblance_en, :sproket_1, :sproket_2, :portrait)
     end
 end

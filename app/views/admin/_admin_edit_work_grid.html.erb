@@ -1,3 +1,4 @@
+
 <div style="margin-top: 5px; margin-left: 42%; color: #000000; font-family: latha, latha_ie; font-size: 3em;"><%= count %></div>
 
 <!-- GRID -->
@@ -7,10 +8,9 @@
 
 			<% if grid_element.work.present? %>
 				<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 4%; top: 5px; cursor: pointer;"
-				     onclick="quit_element('<%= admin_work_clean_gridelement_path(grid_element)%>', this, event);">
-					<i class="fa fa-times-circle"></i>
+				     onclick="quit_element('<%= admin_work_clean_gridelement_path(grid_element)%>', this, event);"
+				     url-img="<%= Photo.find(grid_element.display).image.url(:display) %>">
 				</div>
-				<%= image_tag Photo.find(grid_element.display).image.url(:display) %>
 
 				<script type="text/javascript">
 					var container = $(".grid-element-<%= grid_element.box %>");
@@ -61,38 +61,54 @@
 		return;
 	}
 
-	$(function() {
-
+	$(document).ready(function() {
+		// Se redimensiona bien el grid
 		var currWidth = $(".work-grid").width();
 		var newHeight = currWidth / 2.25;
 		$(".work-grid").height(newHeight);
 
 		for (var i = 0; i <= 14; i++) {
-			var container = $(".grid-element-" + i);
+			$(".grid-element-" + i).each(function() {
+				var div = $(this).find("div");
+				if(div.length > 0) {
 
-			// Se colocan bien las imagenes
-			var img = container.find("img");
+					// Se colocan bien las imagenes
+					var img = document.createElement("img");
 
-			if(img.length > 0) {
-				var dataAttr = container.attr("data").split(";");
-				var data = {
-					x: parseFloat(dataAttr[0]),
-					y: parseFloat(dataAttr[1]),
-					w: parseFloat(dataAttr[2]),
-					h: parseFloat(dataAttr[3]),
+					var that = this;
+					img.onload = function() {
+						var dataAttr = $(that).attr("data").split(";");
+						var data = {
+							x: parseFloat(dataAttr[0]),
+							y: parseFloat(dataAttr[1]),
+							w: parseFloat(dataAttr[2]),
+							h: parseFloat(dataAttr[3]),
+						}
+						
+						var newWidth = Math.round(($(that).width() * img.width) / data.w);
+						var newHeight = Math.round(($(that).height() * img.height) / data.h);
+
+						$(img).css({
+							width: newWidth + 'px',
+							height: newHeight + 'px',
+							marginLeft: '-' + Math.round((newWidth * data.x) / img.width) + 'px',
+							marginTop: '-' + Math.round((newHeight * data.y) / img.height) + 'px',
+						});
+
+						$(that).append(img);
+
+						// El tachecito
+						var i_tache = document.createElement("i");
+						$(i_tache).addClass("fa");
+						$(i_tache).addClass("fa-times-circle");
+						$(div).append(i_tache);
+					};
+
+					img.src = div.attr("url-img");
 				}
-				
-				var newWidth = Math.round((container.width() * img.width()) / data.w);
-				var newHeight = Math.round((container.height() * img.height()) / data.h);
 
-				img.css({
-					width: newWidth + 'px',
-					height: newHeight + 'px',
-					marginLeft: '-' + Math.round((newWidth * data.x) / img.width()) + 'px',
-					marginTop: '-' + Math.round((newHeight * data.y) / img.height()) + 'px',
-				});
-			}
-		};
+			});
+		}
 
 		// Se inicia el dialog
 		$("#edit-work-grid-dialog").dialog({

@@ -1,7 +1,7 @@
 <ul id="menu-tvp" style="z-index: 2;">
 	<li style="width: 17%; padding-top: 14px;"><%= link_to "/", :style => "padding-left: 29.41%;" do %><%= t(:home) %><% end %></li>
 	<li class="dropdown-tvp" style="width: 12.5%; height: 50px;"><div style="padding-left: 9.6%; padding-top: 14px; padding-bottom: 14px;"><%= t(:about_us) %></div>
-		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%;">
+		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%; margin-top: -7px;">
 			<li><%= link_to we_are_path do %><div class="dropdown-item-tvp"><%= t(:who_we_are) %></div><% end %></li>
 			<li><%= link_to we_do_path do %><div class="dropdown-item-tvp"><%= t(:what_we_do) %></div><% end %></li>
 			<li><%= link_to list_projects_path do %><div class="dropdown-item-tvp"><%= t(:list_projects) %></div><% end %></li>
@@ -11,7 +11,7 @@
 	<li style="width: 17.8%; padding-top: 14px;"><%= link_to colaborators_path, :style => "padding-left: 23.595%;" do %><%= t(:tvp_crew) %><% end %></li>
 	<li style="width: 18.1%; padding-top: 14px;"><%= link_to press_notes_path, :style => "padding-left: 23.204%;" do %><%= t(:press) %><% end %></li>
 	<li class="dropdown-tvp" style="width: 8.8%; height: 50px;"><div style="padding-left: 13.636%; padding-top: 14px; padding-bottom: 14px;"><%= t(:extras) %></div>
-		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%;">
+		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%; margin-top: -7px;">
 			<li><%= link_to links_path do %><div class="dropdown-item-tvp"><%= t(:links) %></div><% end %></li>
 			<li><%= link_to downoads_index_path do %><div class="dropdown-item-tvp"><%= t(:downloads) %></div><% end %></li>
 			<li><%= link_to news_index_path do %><div class="dropdown-item-tvp"><%= t(:news) %></div><% end %></li>

@@ -163,6 +163,7 @@ WebTorreDeViento::Application.routes.draw do
   post "/news/create" => "news#create", as: "news"
   get "/news" => "news#index", as: "news_index"
   get "/news/new" => "news#new", as: "new_news"
+  get "/news/show/:id" => "news#show_new", as: "news_show"
 
   # PRENSA
   resources :press_notes

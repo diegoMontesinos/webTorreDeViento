@@ -47,11 +47,11 @@
 		<div id="work-grids-container">
 
 			<!-- FLECHA IZQUIERDA -->
-			<div class="scrollingHotSpotLeft" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
+			<div id="work-spot-left" class="scrollingHotSpotLeft" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
 				<%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %>
 			</div>
 			<!-- FLECHA DERECHA -->
-			<div class="scrollingHotSpotRight" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
+			<div id="work-spot-right" class="scrollingHotSpotRight" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20);">
 				<%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %>
 			</div>
 
@@ -182,14 +182,20 @@
 						});
 						
 						// Se le da el efecto hover
-						$(that).hover(function() {
+						$(that).hover(function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
 							$(this).find('img').animate({
 								width: $(img).width() * scaleFactor,
 								height: $(img).height() * scaleFactor,
 								marginTop: 5,
 								marginLeft: 5
 							}, 500)
-						}, function() {
+						}, function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
 							$(this).find('img').animate({
 								width: newW + 'px',
 								height: newH + 'px',
@@ -218,22 +224,22 @@
 			easingAfterHotSpotScrolling: false,
 			hotSpotScrollingStep: 4,
 			setupComplete: function() {
-
 				// Se redimensiona el area scrollable
 				$(".scrollableArea").first().width("100%");
-
-				// Dandole eventos a los hotspots
-				$(".scrollingHotSpotLeft").first().bind("mouseout", function() {
-					var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-					$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
-				});
-
-				$(".scrollingHotSpotRight").first().bind("mouseout", function() {
-					var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-					$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
-				});
-
 			}
+		});
+
+		// Dandole eventos a los hotspots
+		$("#work-spot-left").hover(function() {
+		}, function() {
+			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
+		});
+
+		$("#work-spot-right").hover(function() {
+		}, function() {
+			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
 		});
 
 	});

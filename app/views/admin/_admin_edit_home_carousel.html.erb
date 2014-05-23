@@ -1,8 +1,9 @@
 <div style="margin-top: 5px; margin-left: 42%; color: #000000; font-family: latha, latha_ie; font-size: 3em;"><%= count %></div>
 
 <div style="width: 95%; margin-left: 1.5%; overflow-x: scroll; overflow-y: none;">
+
 	<!-- CAROUSEL -->
-	<div id="edit-carousel-container" style="width: 258%; height: 400px;">
+	<div id="edit-carousel-container" style="width: 308%; height: 400px;">
 		<% carousel_elements.each do |carousel_elem| %>
 			<div id="carousel-elem-<%= carousel_elem.id %>" class="carousel-elem" id-elem="<%= carousel_elem.id %>" style="margin-left: 0.2%;"
 				onclick="showEditDialog(this, '<%= admin_carousel_element_path(carousel_elem.id)%>?div=carousel-elem-<%= carousel_elem.id %>');" data="">
@@ -23,6 +24,7 @@
 			</div>
 		<% end %>
 	</div>
+
 </div>
 
 <div style="width: 45%; float: right; margin-top: 10px; font-family: latha, latha_ie; font-size: 0.89em;">

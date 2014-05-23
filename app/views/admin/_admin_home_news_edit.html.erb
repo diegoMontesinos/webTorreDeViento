@@ -36,13 +36,13 @@
 
 	</div>
 
-	<div style="width: 66%; height: 600px; float: left; margin-left: 32%; position: relative;">
+	<div style="width: 66%; height: 200px; float: left; margin-left: 32%; position: relative;">
 		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.5em; margin-left: 1%; margin-top: 14px;">
 			<strong>TEXTO LINK</strong>
 		</div>
 		
 		<div style="width: 100%;">
-			<%= cktext_area "link", :ckeditor %>
+			<%= text_area_tag "link", nil, cols: 25 %>
 		</div>
 
 		<div style="width: 100%;">

@@ -5,6 +5,13 @@ class NewsController < ApplicationController
 
 	def index
 		@news = New.all
+		@show_new = -1
+	end
+
+	def show_new
+		@news = New.all
+		@show_new = params[:id]
+		render 'news/index.html.erb'
 	end
 
 	# GET

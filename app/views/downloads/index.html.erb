@@ -1,5 +1,37 @@
-<div id="wrapper-tvp">
-	<div id="container-tvp">
+<style type="text/css">
+	html {
+		width: 100%;
+		height: auto;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #000;
+	}
+
+	body {
+		width: 100%;
+		height: auto;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+
+		background: #000;
+	}
+
+	#menu-tvp" {
+		background: #000000;
+	}
+</style>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
 
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
@@ -59,12 +91,7 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
-		//$("#menu-tvp").css("background", "#14191D");
-		$("#menu-tvp").css("background", "#000000");
-		$("html").css("background", "#000000");
-		$("body").css("background", "#000000");
-
+	$(document).ready(function() {
 		$(".download-option-thumb").each(function() {
 			$(this).click(function(event) {
 				var url = $(this).attr("url-download");
