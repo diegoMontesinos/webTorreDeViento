@@ -45,7 +45,7 @@
 
 		<!-- COLABORATORS -->
 		<div id="colaborators-container">
-
+			
 			<!-- CSI -->
 			<div id="colaborators-csi-conatiner">
 				<%= image_tag "csi-colaboradores.jpg", :style => "width: 100%; height: 100%;" %>
@@ -53,7 +53,6 @@
 
 			<!-- COLABORATORS GRID -->
 			<div class="colaborator-home-grid" style="background: #000000;">
-
 				<% @colaborator_grid_elements.each.with_index do |grid_element, index| %>
 					<% if index > 0 and index % 9 == 1 %>
 						<div class="colab-grid-element-extra1-<%= index %>">
@@ -62,6 +61,7 @@
 					<% end %>
 					
 					<div class="colab-grid-element-<%= grid_element.box %>">
+						
 						<% if grid_element.colaborator.present? %>
 							<%= link_to colaborator_path(grid_element.colaborator) do %>
 								<div class="colab-sprocket">
@@ -99,6 +99,7 @@
 				<% end %>
 
 			</div>
+
 		</div>
 
 		<!-- LEGALES -->

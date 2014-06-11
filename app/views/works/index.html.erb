@@ -61,12 +61,12 @@
 					<% i = 0 %>
 
 					<% @work_grids.each do |work_grid| %>
-						<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 500px; position: absolute; left: <%= i * 100 %>%;">
+						<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%;">
+							<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
 
 							<% j = 0 %>
-							<% work_grid.grid_elements.each do |grid_element| %>
+							<% grid_elements.each do |grid_element| %>
 								<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="">
-
 									<% if grid_element.work.present? %>
 										<script type="text/javascript">
 											var container = $("#element-<%= i %>-<%= j %>");
@@ -79,7 +79,6 @@
 											<%= grid_element.work.titles_grid.html_safe %>
 										</div>
 									<% end %>
-
 								</div>
 
 								<% j = j + 1 %>
@@ -87,19 +86,22 @@
 
 							<% if i == 0 %>
 								<div class="grid-element-extra-0" data="" img-url="" work-url=""></div>
-							<% elsif i == (@work_grids.length - 1) %>
+							<% end %>
+							<% if i == (@work_grids.length - 1) %>
 								<div class="grid-element-extra-1" data="" img-url="" work-url=""></div>
 							<% end %>
+
 						</div>
 
 						<% i = i + 1 %>
 					<% end %>
 				</div>
 			</div>
+
 		</div>
 
 		<!-- BARRA BAJA -->
-		<div id="lower-bar" style="width: 100%; height: 50px; background: #000000;"></div>
+		<div id="lower-bar" style="width: 100%; height: 40px; background: #000000; margin-top: 0px;"></div>
 
 		<!-- LEGALES -->
 		<div id="legals-tvp">
@@ -111,6 +113,7 @@
 	</div>
 </div>
 
+			
 <script type="text/javascript">
 	function correctLineHeight(elem) {
 		elem.find("p").each(function() {

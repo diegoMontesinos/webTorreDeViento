@@ -1,5 +1,11 @@
 
-<div style="width: 100%; height: 780px; position: absolute; top: 0; left: 0; z-index: -1;">
+<style type="text/css">
+	html {
+		background : #000;
+	}
+</style>
+
+<div id="fondo_press" style="width: 100%; height: 10px; position: absolute; top: 0; left: 0; z-index: -1;">
 	<%= image_tag "FONDOPRENSA.jpg", :style => "width: 100%; height: 100%;" %>
 </div>
 
@@ -19,34 +25,41 @@
 		<!-- PRENSA -->
 		<div id="press-wapper">
 			<div id="press-notes-container">
-				<div style="font-family: felixti, felixti_ie; margin-top: 25px; margin-left: 10%; font-size: 1.24em;"><%= t(:press_notes) %></div>
+				<div style="font-family: felixti, felixti_ie; margin-top: 25px; margin-left: 10%; font-size: 1em;"><%= t(:press_notes) %></div>
 
 				<div id="press-notes-wapper">
 					<div id="press-notes">
-						<% @press_notes.each do |press_note| %>
-							<% id_elems = "" %>
-							<% press_note.press_elements.each do |press_element| %>
-								<% if(press_element.body.present?) %>
-									<% id_elems = id_elems + press_element.id.to_s + "," %>
-								<% end %>
-							<% end %>
+						<% index = 0 %>
+						<% if @press_notes.length > 0 %>
+							<% while (index < @press_notes.length) do %>
+								<% press_note = @press_notes[index] %>
 
-							<div class="press-note-option" url-background="<%= press_note.background.url(:display) %>" ids-elems="<%= id_elems %>">
-								<%= press_note.title.html_safe %>
-							</div>
+								<% id_elems = "" %>
+								<% press_note.press_elements.each do |press_element| %>
+									<% if(press_element.body.present?) %>
+										<% id_elems = id_elems + press_element.id.to_s + "," %>
+									<% end %>
+								<% end %>
+
+								<div class="press-note-option" url-background="<%= press_note.background.url(:display) %>" ids-elems="<%= id_elems %>"
+									id-press="<%= press_note.id %>" onclick="select_press_note(this);">
+									<%= press_note.title.html_safe %>
+								</div>
+
+								<% index = index + 1 %>
+							<% end %>
 						<% end %>
 					</div>
 				</div>
 			</div>
 
 			<div id="press-notes-display">
-
-				<div id="press-notes-body">
-				</div>
+				<div id="press-notes-body"></div>
 			</div>
 
 			<!-- FRANJA NEGRA -->
-			<div id="press-elements-bar" style="width: 100%; height: 50px; position: relative; float: left; background: #000000;"></div>
+			<div id="press-elements-bar" style="width: 100%; height: 40px; position: relative; float: left; background: #000000;"></div>
+
 		</div>
 
 		<!-- LEGALES -->
@@ -57,56 +70,65 @@
 	</div>
 </div>
 
+
 <script type="text/javascript">
-	$(function() {
-		$("html").css({
-			"background": "#000"
+	
+	function select_press_note(div_elem) {
+
+		// Colocamos el fondo
+		var img = new Image();
+		$(img).css({
+			"width"    : "100%",
+			"height"   : "100%",
+			"position" : "absolute",
+			"top"      : "0",
+			"left"     : "0"
 		});
+		img.onload = function() {
+			$("#press-notes-display img").remove();
+			$("#press-notes-display").append(this);
+		}
+		img.src = $(div_elem).attr("url-background");
 
-		$(".press-note-option").click(function() {
-			var img = new Image();
-			$(img).css({
-				"width"    : "100%",
-				"height"   : "100%",
-				"position" : "absolute",
-				"top"      : "0",
-				"left"     : "0"
-			});
-			img.onload = function() {
-				$("#press-notes-display img").remove();
-				$("#press-notes-display").append(this);
-			}
-			img.src = $(this).attr("url-background");
+		// Agregamos los numeros
+		$("#press-elements-bar").empty();
 
-			// Agregamos los numeros
-			$("#press-elements-bar").empty();
+		var elems_ids = $(div_elem).attr("ids-elems").split(",");
+		for (var i = 0; i < elems_ids.length; i++) {
 
-			var elems_ids = $(this).attr("ids-elems").split(",");
-			for (var i = 0; i < elems_ids.length; i++) {
+			if(elems_ids[i] != "") {
 				var div = document.createElement("div");
-				$(div).attr("elem_id", elems_ids[i]);
-				$(div).addClass("press_element_option");
-				$(div).html("" + (i + 1));
-				$(div).css({
+				$( div ).attr("elem_id", elems_ids[i]);
+				$( div ).addClass("press_element_option");
+				$( div ).html("" + (i + 1));
+				$( div ).css({
 					"left" : (27.5 + (i * 7)) + "%",
-					"top"  : "11px"
+					"top"  : "9px"
 				});
-				$(div).click(function() {
-					var id = $(this).attr("elem_id");
+
+				$( div ).click(function() {
+					var id = $( this ).attr("elem_id");
 					$.ajax({
 						type: "GET",
 						url: "<%= press_element_path %>?id=" + id,
 						dataType: "html",
 						success: function(data) {
-							$("#press-notes-body").html(data);
+							$("#press-notes-body").html( data );
 						}
 					});
 				});
 
 				$("#press-elements-bar").append(div);
 			}
+		}
 
-			$(".press_element_option").first().click();
-		});
+		$( ".press_element_option" ).first().click();
+	}
+
+	$( document ).ready(function() {
+		$("#fondo_press").css({ "height" : (window.innerHeight - 5) + "px"});
+
+		$( ".press-note-option" ).first().click();
 	});
+
 </script>

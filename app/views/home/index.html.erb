@@ -35,8 +35,8 @@
 </style>
 
 <div id="wrapper-tvp" align="center">
-	<div id="container-tvp" align="left">
-		
+	<div id="container-tvp" align="left" >
+
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
 			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
@@ -44,6 +44,7 @@
 
 		<!-- CAROUSEL -->
 		<div id="carousel-wrapper">
+
 			<div id="carousel-horizontal-wrapper">
 				<div id="carousel-horizontal">
 					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
@@ -61,7 +62,7 @@
 					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
 						<% if carousel_elem.photo.present? %>
 							<div>
-								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display), :style => "width: 600px; height: 400px;" %>
+								<%= image_tag Photo.find(carousel_elem.photo).image.url(:display), :style => "width: 480px; height: 320px;" %>
 							</div>
 						<% end %>
 					<% end %>
@@ -69,6 +70,9 @@
 			</div>
 
 			<div class="clearfix"></div>
+
+			<div class="prev-home" id="galeria-prev"><%= image_tag 'prev_gallery.png', :style => 'width: 100%; height: 100%' %></div>
+			<div class="next-home" id="galeria-next"><%= image_tag 'next_gallery.png', :style => 'width: 100%; height: 100%' %></div>
 		</div>
 
 		<!-- MENU TVP -->
@@ -153,7 +157,7 @@
 			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
 		</div>
 		<br><br>
-		
+
 	</div>
 </div>
 
@@ -249,7 +253,7 @@
 			$("#carousel-horizontal").trigger("pause");
 			$("#carousel-vertical").trigger("pause");
 		}, function() {
-			$("#carousel-horizontal").trigger("play");
+			$("#carousel-horizontal").trigger("play", [500, true]);
 			$("#carousel-vertical").trigger("play");
 		});
 
@@ -272,17 +276,6 @@
 				}
 			});
 		};
-
-		// Posicionamos links
-		$(".news-link").each(function() {
-			if($(this).parent().width() == 249) {
-				$(this).css({ "left" : "125px" });
-			} else {
-				$(this).css({ "left" : "124px" });
-			}
-
-			correctLineHeight(this);
-		});
 
 	});
 </script>

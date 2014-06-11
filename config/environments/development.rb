@@ -19,12 +19,12 @@ WebTorreDeViento::Application.configure do
   config.action_mailer.delivery_method :smtp
   config.action_mailer.smtp_settings = {
     enable_starttls_auto: true,
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'gmail.com',
+    address: 'mail.torredevientoproducciones.com',
+    port: 465,
+    domain: 'torredevientoproducciones.com',
     authentication: 'plain',
-    user_name: 'diegoa.montesinos@gmail.com',
-    password: 'BlackBeat20'
+    user_name: 'prueba@torredevientoproducciones.com',
+    password: 'prueba123'
   } 
 
   # Print deprecation notices to the Rails logger.

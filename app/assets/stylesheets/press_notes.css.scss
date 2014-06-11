@@ -4,7 +4,7 @@
 
 #press-wapper {
 	width: 100%;
-	height: 550px;
+	height: 440px;
 
 	margin-top: -4px;
 	background: none;
@@ -12,7 +12,7 @@
 
 #press-notes-container {
 	width: 25%;
-	height: 500px;
+	height: 400px;
 
 	float: left;
 
@@ -22,7 +22,7 @@
 
 #press-notes-wapper {
 	width: 85%;
-	height: 425px;
+	height: 340px;
 
 	margin-left: 10%;
 }
@@ -38,7 +38,7 @@
 
 #press-notes-display {
 	width: 75%;
-	height: 500px;
+	height: 400px;
 
 	position: relative;
 	float: left;
@@ -46,11 +46,13 @@
 	background: #000;
 	color: #FFF;
 	z-index: 0;
+
+	overflow: hidden;
 }
 
 .press_element_option {
 	font-family: latha, latha_ie;
-	font-size: 1.2em;
+	font-size: 1em;
 	color: #FFF;
 	float: left;
 	position: absolute;
@@ -63,10 +65,10 @@
 
 #press-notes-body {
 	width: 60%;
-	height: 450px;
+	height: 360px;
 
 	margin-left: 3.33%;
-	margin-top: 25px;
+	margin-top: 20px;
 
 	position: relative;
 	z-index: 1;

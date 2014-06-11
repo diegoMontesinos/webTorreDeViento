@@ -45,6 +45,17 @@
 // TERMINA CSS BANNER ADMIN
 
 // EMPIEZA CSS GENERAL ADMIN
+
+.admin-panel {
+	width: 95%;
+	height: 580px;
+	margin-top: 55px;
+	margin-left: 3%;
+	position: relative;
+	outline: 1.5px solid #b4b4b4;
+	border-top: 1px solid #fff;
+}
+
 #wrapper-admin, #menu-admin {
 	-webkit-transition: all 0.2s ease-out;
 	-moz-transition: all 0.2s ease-out;
@@ -156,7 +167,7 @@
 // EMPIEZA CSS WORKS
 
 #admin-folders-options {
-	width: 100%;
+	width: 95%;
 	height: 235px;
 	margin-left: 2.5%;
 	margin-top: 5px;
@@ -410,8 +421,8 @@
 }
 
 .carousel-elem {
-	width: 100px;
-	height: 400px;
+	width: 80px;
+	height: 320px;
 
 	position: relative;
 	overflow: hidden;
@@ -689,6 +700,38 @@
 	
 	font-family: latha, latha_ie;
 	font-size: 1em;	
+}
+
+#admin-press-selection {
+	float: left;
+}
+
+#admin-press-selection-display {
+	width: 600px;
+	height: 400px;
+
+	margin-left: 9%;
+	margin-top: 13px;
+
+	background: #000000;
+}
+
+#admin-press-selection-title {
+	margin-top: 10px;
+	margin-left: 28%;
+
+	color: #000000;
+	font-family: felixti, felixti_ie;
+	font-size: 1.1em;
+}
+
+#admin-press-selection-buttons {
+	width: 100%;
+
+	margin-left: 9%;
+
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
 }
 
 // TERMINA CSS PRESS

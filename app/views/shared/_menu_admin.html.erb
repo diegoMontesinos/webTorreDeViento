@@ -29,6 +29,7 @@
 		<li class="dropdown-admin"><div class="dropdown-admin-txt">PRENSA<i style="float: right; margin-right: 10px; margin-top: 5px;" class="fa fa-angle-right fa-3"></i></div>
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 175px;">
 				<li id="press-menu-item" class="dropdown-item-admin"><div><i class="fa fa-microphone"></i> Nueva Nota de Prensa</div></li>
+				<li id="press-notes-menu-item" class="dropdown-item-admin"><div><i class="fa fa-files-o"></i> Notas de Prensa</div></li>
 			</ul>
 		</li>
 
@@ -143,6 +144,11 @@
 	$("#press-menu-item").click(function() {
 		$("input").remove();
 		load_admin_module("<%= admin_new_press_note_path %>");
+	});
+
+	$("#press-notes-menu-item").click(function() {
+		$("input").remove();
+		load_admin_module("<%= admin_press_notes_path %>");
 	});
 
 	///////////////////////////////

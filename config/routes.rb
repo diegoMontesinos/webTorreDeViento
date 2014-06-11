@@ -33,6 +33,7 @@ WebTorreDeViento::Application.routes.draw do
   get '/admin/colaborator/new' => 'admin#new_colaborator', as: "admin_new_colaborator"
   get '/admin/colaborator/edit/:id' => 'admin#edit_colaborator', as: "admin_edit_colaborator"
   get '/admin/colaborators' => 'admin#colaborators', as: "admin_colaborators"
+  get '/admin/colaborators/order_frequents' => "admin#order_frequents", as: "admin_order_frequents"
   get '/admin/colaborators/home' => 'admin#colaborators_home', as: "admin_colaborators_home"
   get '/admin/colaborators/grid_element/:id' => 'admin#colab_gridelement', as: "admin_colab_gridelement"
   patch '/admin/colaborators/grid_element/:id' => "admin#save_colab_gridelem", as: "colaborator_grid_element"
@@ -84,8 +85,11 @@ WebTorreDeViento::Application.routes.draw do
 
   # Administrador (Prensa)
   get '/admin/press_notes/new' => 'admin#new_press_note', as: "admin_new_press_note"
+  get '/admin/press_notes/edit' => 'admin#edit_press_note', as: "admin_edit_press_note"
   get '/admin/press_notes/edit_elements' => 'press_notes#edit_elements', as: "edit_press_elements"
   post '/admin/press_notes/save_element/:id' => 'press_notes#save_element', as: "save_press_element"
+
+  get '/admin/press_notes' => 'admin#press_notes', as: "admin_press_notes"
   
   # Photos
   # Creando las fotos
@@ -169,5 +173,8 @@ WebTorreDeViento::Application.routes.draw do
   resources :press_notes
 
   get "/press_element" => "press_notes#press_element", as: "press_element"
+
+  # Guardar orden
+  post "/press_notes/order" => "press_notes#store_order", as: "press_notes_store_order"
 
 end

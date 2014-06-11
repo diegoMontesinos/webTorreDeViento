@@ -95,16 +95,16 @@
 
 	<!-- DISPLAY DE LA OBRA -->
 	<div id="work-display-mediana">
-		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: auto; " %>
+		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: 100%; " %>
 	</div>
 
 	<!-- SECCIONES DE LA OBRA -->
 	<div id="work-mediana-sections">
-
+		
 		<!-- GALERIA -->
 		<div class="work-mediana-sections-item-left" onclick="showFolder('GALERIA')" >
 			<% folder_galeria = @work.filefolder("GALERIA") %>
-			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
 			<div class="work-mediana-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_galeria.name_folder %></div></div>
 		</div>
@@ -112,13 +112,13 @@
 		<!-- OTROS -->
 		<div class="work-mediana-sections-item-right" onclick="showFolder('OTROS');">
 			<% folder_otros = @work.filefolder("OTROS") %>
-			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 150px;" %>
+			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
 			<div class="work-mediana-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_otros.name_folder %></div></div>
 		</div>
 
 	</div>
-
+	
 	<!-- INFORMACION GENERAL DE LA OBRA -->
 	<div id="work-info-mediana">
 
@@ -130,7 +130,7 @@
 		</div>
 
 		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-mediana" style="width: 100%; height: 413px; float: right; margin-top: 0px;">
+		<div class="work-info-text-mediana" style="width: 100%; height: 331px; float: right; margin-top: 0px;">
 			<div id="work-info-text-content-mediana" style="width: 87.5%; height: auto; margin-top: 1px;"></div>
 		</div>
 

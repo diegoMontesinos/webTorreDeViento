@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
 
-	default from: "diegoa.montesinos@gmail.com"
+	default from: "prueba@torredevientoproducciones.com"
 
 	def contact_us(name, from, message)
 		@name = name

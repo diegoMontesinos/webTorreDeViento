@@ -1,0 +1,139 @@
+
+<div class="admin-panel">
+
+	<div class="list-container">
+		
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+			<strong>SELECCIONE PARA EDITAR O ARRASTRE PARA<br>MODIFICAR EL ORDEN DE LAS NOTAS:</strong>
+		</div>
+
+		<ul id="admin-press-list" class="admin-list">
+			<% @press_notes.each do |press_note| %>
+				<li class="ui-state-default" onclick="selectPress(this);" id-press="<%= press_note.id %>" title-press="<%= press_note.title %>" display-url="<%= press_note.background.url(:display) %>" >
+					<%= press_note.title.html_safe %>
+
+					<div id="destroy-press-<%= press_note.id.to_s %>" style="display: none;" >
+						<%= link_to press_note_path(press_note), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %>
+					</div>
+					<script type="text/javascript">
+						$("#destroy-press-<%= press_note.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
+							// Se hace lo mismo como si dieramos click al works-menu
+							$("#press-notes-menu-item").click();
+						});
+					</script>
+				</li>
+			<% end %>
+		</ul>
+
+		<!-- GUARDAR ORDEN -->
+		<div style="margin-left: 30%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
+			<%= button_tag(type: "button", id: "admin-press-store-order", class: "pure-button pure-button-primary") do %>
+				<strong>GUARDAR ORDEN</strong> <i class="fa fa-list"></i>
+			<% end %>
+		</div>
+
+	</div>
+
+	<div id="admin-press-selection">
+			<div id="admin-press-selection-display"></div>
+			<div id="admin-press-selection-title"></div>
+			<div id="admin-press-selection-buttons">
+				<div style="width: 100%; margin-top: -25px;" align="center">
+					<%= button_tag(type: "button", id: "admin-edit-press-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; font-size: 0.9em;") do %>
+						<strong>EDITAR NOTA</strong> <i class="fa fa-pencil-square-o"></i>
+					<% end %>
+
+					<%= button_tag(type: "button", id: "admin-delete-press-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20); font-size: 0.9em;") do %>
+						<strong>ELIMINAR NOTA</strong> <i class="fa fa-times"></i>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	function selectPress(li_elem) {
+
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+
+		// Informacion
+		$("#admin-press-selection-display").empty();
+		$("#admin-press-selection-display").append("<img src='" + $(li_elem).attr("display-url") + "' style='width: 100%; height: 100%;' >");
+
+		$("#admin-press-selection-title").empty();
+		$("#admin-press-selection-title").append("<center><strong>" + $(li_elem).attr("title-press") + "</strong></center>");
+	}
+
+	$(function() {
+		$("#admin-press-list").sortable();
+		$("#admin-press-list").disableSelection();
+
+		// Se asocian acciones a los botones
+		$("#admin-edit-press-button").click(function() {
+			var press_param = "/?id=" + $(".ui-state-default-selec").attr("id-press");
+
+			$.ajax({
+				type: "GET",
+				url: "<%= admin_edit_press_note_path %>" + press_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").append(data);
+				}
+			});
+
+			$("#content-admin").empty();
+		});
+
+		// Eliminar
+		$("#admin-delete-press-button").click(function() {
+			var id_destroy_link = "destroy-press-" + $(".ui-state-default-selec").attr("id-press");
+			$("#" + id_destroy_link).find("a").click();
+		});
+
+		// Guardar el orden
+		$("#admin-press-store-order").click(function() {
+			var press_li = $(".ui-state-default");
+			var order_str = "";
+
+			for(var i = 0; i < press_li.length; i++) {
+				var id_press = $(press_li[i]).attr("id-press");
+				if(id_press != undefined) {
+					order_str += id_press + "_";
+				}
+			}
+
+			var order_param = "/?order=" + order_str;
+
+			$.ajax({
+				type: "POST",
+				url: "<%= press_notes_store_order_path %>" + order_param,
+				dataType: "json",
+				success: function(data) {
+					alert("EL ORDEN FUE GUARDADO EXITOSAMENTE");
+				}
+			});
+
+		});
+
+		// Si no hay notas de prensa desabilitamos todo
+		if(parseInt("<%= PressNote.count %>") == 0) {
+			 $("#admin-edit-press-button").attr("disabled", "disabled");
+			 $("#admin-edit-images-button").attr("disabled", "disabled");
+			 $("#admin-delete-press-button").attr("disabled", "disabled");
+			 $("#admin-press-store-order").attr("disabled", "disabled");
+		} else {
+			// Se selecciona el primero
+			$(".ui-state-default").first().click();
+		}
+	});
+
+</script>

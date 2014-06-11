@@ -161,6 +161,13 @@ class AdminController < ApplicationController
 	end
 
 	# GET
+	def order_frequents
+		@frequents_colaborators = Colaborator.frequents_colaborators
+
+		render partial: "admin_order_frequents"
+	end
+
+	# GET
 	def colaborators_home
 		if ColaboratorGridElement.count == 0
 			28.times { |count|
@@ -527,6 +534,20 @@ class AdminController < ApplicationController
 		@press_note = PressNote.new
 
 		render partial: "admin_new_press_note"
+	end
+
+	# GET
+	def edit_press_note
+		@press_note = PressNote.find(params[:id])
+
+		render partial: "admin_edit_press_note", locals: { press_note: @press_note }
+	end
+
+	# GET
+	def press_notes
+		@press_notes = PressNote.press_notes_inorder
+
+		render partial: "admin_press_notes"
 	end
 
 end

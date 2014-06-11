@@ -8,14 +8,14 @@
 }
 
 #container-tvp {
-	width: 1000px;
+	width: 800px;
 	margin-top: 2%;
 }
 
 // EMPIEZA CSS BANNER TVP
 #banner-tvp {
 	width: 100%;
-	height: 75px;
+	height: 60px;
 
 	position: relative;
 }
@@ -23,13 +23,12 @@
 #logo-banner-tvp {
 	width: 25%;
 	float: left;
-	margin-top: 6px;
 }
 
 #languages {
 	float: right;
 
-	margin-top: 62px;
+	margin-top: 46px;
 
 	color: #438bc5;
 	font-family: euphemia, euphemia_ie;
@@ -54,7 +53,7 @@
 	width: 50%;
 
 	float: right;
-	margin-top: 13px;
+	margin-top: 6px;
 }
 
 // TERMINA CSS LEGALS TVP
@@ -62,7 +61,7 @@
 // EMPIEZA CSS MENU TVP
 #menu-tvp {
 	width: 100%;
-	height: 50px;
+	height: 40px;
 
 	position: relative;
 
@@ -80,7 +79,7 @@
 	float: left;
 
 	font-family: latha, latha_ie;
-	font-size: 1.0625em;
+	font-size: 15px;
 }
 
 #menu-tvp > li a {
@@ -111,19 +110,19 @@
 	opacity: 0.85;
 
 	font-family: euphemia, euphemia_ie;
-	font-size: 0.68em;
+	font-size: 0.65em;
 
 	list-style: none;
 }
 
 .dropdown-item-tvp {
 	max-width: 100%;
-	height: 25px;
+	height: 20px;
 
 	position: relative;
 	overflow: hidden;
 
-	padding-left: 10px;
+	padding-left: 7%;
 	padding-top: 3px;
 
 	cursor: pointer;
@@ -143,7 +142,9 @@
 
 #carousel-wrapper {
 	width: 100%;
-	height: 400px;
+	height: 320px;
+
+	margin-top: 20px;
 
 	background: #000;
 }
@@ -151,10 +152,9 @@
 /* HORIZONTAL */
 #carousel-horizontal {
 	width: 40%;
-	height: 400px;
+	height: 320px;
 
-	margin-top: 25px;
-
+	margin-top: 20px;
 }
 
 #carousel-horizontal div {
@@ -165,7 +165,7 @@
 /* VERTICAL */
 #carousel-vertical {
 	width: 60%;
-	height: 400px;
+	height: 320px;
 
 	margin-top: -40%;
 	float: right;
@@ -177,13 +177,35 @@
 	float: left;
 }
 
+.prev-home, .next-home {
+	width: 20px;
+	height: 60px;
+
+	display: block;
+	position: absolute;
+	z-index: 2;
+	cursor: pointer;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+}
+
+.prev-home {
+	top: 238px;
+	margin-left: 7px;
+}
+
+.next-home {
+	top: 238px;
+	right: 289px;
+}
+
 // TERMINA CSS CARUSEL
 
 // EMPIEZA CSS NOTICIAS
 
 #news-home-container {
 	width: 100%;
-	height: 150px;
+	height: 120px;
 
 	position: relative;
 	margin-top: -4px;
@@ -203,11 +225,12 @@
 }
 
 .news-link {
-	width: 112px;
-	height: 25px;
+	width: 90px;
+	height: 20px;
 
 	position: absolute;
-	top: 113px;
+	top: 90px;
+	right: 10px;
 
 	background-color: #1A171B;
 	opacity: 0.8;
@@ -228,7 +251,7 @@
 
 #we-are-container {
 	width: 100%;
-	height: 500px;
+	height: 400px;
 
 	position: relative;
 
@@ -245,18 +268,19 @@
 
 #we-are-body, #list-projects-body {
 	width: 90%;
-	height: 200px;
+	height: 160px;
 
 	float: left;
-	margin-top: -449px;
-	margin-left: 5%;
+	position: absolute;
+	top: 20px;
+	left: 5%;
 
 	color: #FFF;
 }
 
 #we-do-container {
 	width: 100%;
-	height: 500px;
+	height: 400px;
 
 	position: relative;
 
@@ -272,27 +296,29 @@
 
 #we-do-body1 {
 	width: 20%;
-	height: 350px;
+	height: 280px;
 
 	float: left;
 
-	margin-top: -449px;
-	margin-left: 5%;
+	position: absolute;
+	top: 40px;
+	left: 5%;
 }
 
 #we-do-body2 {
 	width: 20%;
-	height: 350px;
+	height: 280px;
 
 	float: left;
 
-	margin-top: -449px;
-	margin-left: 75%;
+	position: absolute;
+	top: 40px;
+	left: 75%;
 }
 
 #list-projects-container {
 	width: 100%;
-	height: 500px;
+	height: 400px;
 
 	position: relative;
 

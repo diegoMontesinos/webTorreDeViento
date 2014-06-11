@@ -464,7 +464,7 @@
 
 #work-info-menu-navigator {
 	width: 100%;
-	height: 62px;
+	height: 50px;
 
 	display: block;
 	background-color: #000000;
@@ -472,7 +472,7 @@
 
 #work-info-menu {
 	width: 100%;
-	height: 62px;
+	height: 50px;
 	position: relative;
 
 	margin: 0;
@@ -507,7 +507,7 @@
 #work-info-menu > li div {
 	position: relative;
 
-	top: 17%;
+	top: 3px;
 }
 
 #work-info-menu > li:hover {
@@ -669,7 +669,7 @@ div.next {
 	position: relative;
 
 	width: 100%;
-	min-height: 550px;
+	min-height: 440px;
 	margin-top: -5px;
 
 	background: #000000;
@@ -677,25 +677,25 @@ div.next {
 
 #work-display-mediana {
 	width: 60%;
-	height: 400px;
+	height: 320px;
 
 	float: left;
 }
 
 #work-info-mediana {
 	width: 40%;
-	min-height: 550px;
+	min-height: 320px;
 
 	float: right;
 	padding: 0;
-	margin-top: -550px;
+	margin-top: -439px;
 
 	background: #000000;
 }
 
 #work-info-title-mediana {
 	width: 100%;
-	height: 74px;
+	height: 59px;
 
 	float: right;
 	margin-top: 2.5%;
@@ -750,23 +750,22 @@ div.next {
 
 #work-mediana-sections {
 	width: 60%;
-	height: 150px;
-	padding-top: 400px;
+	height: 120px;
+	padding-top: 320px;
 
 	background: #FFFFFF;
 }
 
 .work-mediana-sections-item-left {
-	width: 49.83%;
-	height: 150px;
+	width: 49.8%;
+	height: 120px;
 
 	float: left;
-	margin-right: 1px;
 }
 
 .work-mediana-sections-item-right {
-	width: 49.83%;
-	height: 150px;
+	width: 49.8%;
+	height: 120px;
 
 	float: left;
 	margin-left: 1px;
@@ -776,8 +775,8 @@ div.next {
 	position: relative;
 	float: right;
 	
-	right: 25px;
-	bottom: 34px;
+	right: 20px;
+	bottom: 27px;
 
 	margin: 0;
 
@@ -940,7 +939,7 @@ div.next {
 	position: relative;
 
 	width: 100%;
-	height: 550px;
+	height: 440px;
 	margin-top: -5px;
 
 	background: #000000;
@@ -948,7 +947,7 @@ div.next {
 
 #work-display-minima-minima {
 	width: 60%;
-	height: 550px;
+	height: 440px;
 	float: left;
 
 	background: #FFFFFF;
@@ -956,7 +955,7 @@ div.next {
 
 #work-info-minima-minima {
 	width: 40%;
-	height: 550px;
+	height: 440px;
 
 	padding: 0;
 	float: left;
@@ -966,7 +965,7 @@ div.next {
 
 #work-info-title-minima-minima {
 	width: 100%;
-	height: 74px;
+	height: 59px;
 
 	float: right;
 	margin-top: 2.5%;
@@ -1027,7 +1026,7 @@ div.next {
 
 #work-grids-container {
 	width: 100%;
-	height: 500px;
+	height: 400px;
 	margin-top: -4px;
 
 	position: relative;
@@ -1036,207 +1035,213 @@ div.next {
 
 .work-grid {
 	position: relative;
+	background: #FFF;
 }
 
+/****AUXILIARES***/
+
+
+/*************/
+
 .grid-element-0 {
-	width: 22.0472%;
-	height: 24.6%;
+	width: 22%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 0.0889%;
-	top: 0.2%;
+	left: 0.1111%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-1 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 22.3139%;
-	top: 0.2%;
+	left: 22.3333%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-2 {
-	width: 22.0472%;
-	height: 49.6%;
+	width: 22%;
+	height: 49.5%;
 
 	position: absolute;
-	left: 33.4264%;
-	top: 0.2%;
+	left: 33.4444%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-3 {
-	width: 22.0472%;
-	height: 24.6%;
+	width: 22%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 55.6514%;
-	top: 0.2%;
+	left: 55.6667%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-4 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 77.8764%;
-	top: 0.2%;
+	left: 77.8889%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-5 {
-	width: 10.9347%;
-	height: 49.6%;
+	width: 10.8889%;
+	height: 49.5%;
 
 	position: absolute;
-	left: 0.0889%;
-	top: 25.2%;
+	left: 0.1111%;
+	top: 25.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-6 {
-	width: 22.0472%;
-	height: 49.6%;
+	width: 22%;
+	height: 49.5%;
 
 	position: absolute;
-	left: 11.2014%;
-	top: 25.2%;
+	left: 11.2222%;
+	top: 25.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-7 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 33.4264%;
-	top: 50.2%;
+	left: 33.4444%;
+	top: 50.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-8 {
-	width: 22.0472%;
-	height: 49.6%;
+	width: 22%;
+	height: 49.5%;
 
 	position: absolute;
-	left: 44.5389%;
-	top: 50.2%;
+	left: 44.5556%;
+	top: 50.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-9 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 55.6514%;
-	top: 25.2%;
+	left: 55.6667%;
+	top: 25.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-10 {
-	width: 22.0472%;
-	height: 49.6%;
+	width: 22%;
+	height: 49.5%;
 
 	position: absolute;
-	left: 66.7639%;
-	top: 25.2%;
+	left: 66.7778%;
+	top: 25.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-11 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
 	left: 11.2014%;
-	top: 75.2%;
+	top: 75.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-12 {
-	width: 22.0472%;
-	height: 24.6%;
+	width: 22%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 22.3139%;
-	top: 75.2%;
+	left: 22.3333%;
+	top: 75.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-13 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 66.7639%;
-	top: 75.2%;
+	left: 66.7778%;
+	top: 75.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-14 {
-	width: 22.0472%;
-	height: 24.6%;
+	width: 22%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 77.8764%;
-	top: 75.2%;
+	left: 77.8889%;
+	top: 75.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-extra-0 {
-	width: 10.9347%;
-	height: 24.6%;
+	width: 10.8889%;
+	height: 24.5%;
 
 	position: absolute;
-	left: 0.0889%;
-	top: 75.2%;
+	left: 0.1111%;
+	top: 75.25%;
 	overflow: hidden;
 
 	background-color: #000000;
 }
 
 .grid-element-extra-1 {
-	width: 10.9347%;
-	height: 74.6%;
+	width: 10.8889%;
+	height: 74.5%;
 
 	position: absolute;
-	left: 88.9889%;
-	top: 0.2%;
+	left: 89%;
+	top: 0.25%;
 	overflow: hidden;
 
 	background-color: #000000;

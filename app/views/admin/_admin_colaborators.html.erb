@@ -1,6 +1,6 @@
 <div id="admin-colaborators-content">
 
-	<div style="width: 95%; height: 580px; margin-top: 55px; margin-left: 3%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
+	<div class="admin-panel">
 		
 		<div id="admin-colaborators-list-container">
 			<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
@@ -27,6 +27,12 @@
 					</li>
 				<% end %>
 			</ul>
+
+			<div style="margin-left: 25%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
+				<%= button_tag(type: "button", id: "admin-frecuents-order", class: "pure-button pure-button-primary") do %>
+					<strong>ORDEN COLAB. FRECUENTES</strong> <i class="fa fa-list"></i>
+				<% end %>
+			</div>
 		</div>
 
 		<div id="admin-colaborators-selection">
@@ -43,6 +49,9 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- DIALOG WINDOW -->
+	<div id="order-frequents-dialog" title="" style="display: none; z-index: 4;"></div>
 
 </div>
 
@@ -89,6 +98,43 @@
 		$("#admin-delete-colab-button").click(function() {
 			var id_destroy_link = "destroy-colab-" + $(".ui-state-default-selec").attr("id-colab");
 			$("#" + id_destroy_link).find("a").click();
+		});
+
+		// Dialogo de colaboradores frecuentes
+		$("#order-frequents-dialog").dialog({
+			width: 850,
+			
+			autoOpen: false,
+			
+			show: "scale",
+			hide: "scale",
+
+			dialogClass: "no-close",
+
+			modal: true,
+
+			position: { my: "center", at: "center", of: $(".admin-panel").last() }
+		});
+
+		$("#admin-frecuents-order").click(function() {
+			$.ajax({
+				type: "GET",
+				url: "<%= admin_order_frequents_path %>",
+				dataType: "html",
+				success: function(data) {
+					// Vacia el contenido de la ventana de dialogo
+					$("#order-frequents-dialog").empty();
+
+					// Le cambiamos el titulo
+					$("#order-frequents-dialog").dialog("option", "title", "ORDEN COLABORADORES FRECUENTES");
+
+					// Se le agrega el contenido
+					$("#order-frequents-dialog").append(data);
+
+					// Se despliega
+					$("#order-frequents-dialog").dialog("open");
+				}
+			});
 		});
 
 		if(parseInt("<%= Colaborator.count %>") == 0) {

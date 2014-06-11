@@ -1,6 +1,6 @@
 
 <div id="form-press-wrapper">
-		<div id="progressbar" style="position: fixed; width: 86%; z-index: 2; margin-left: 0.55%; margin-top: -25px;">
+	<div id="progressbar" style="position: fixed; width: 86%; z-index: 2; margin-left: 0.55%; margin-top: -25px;">
 		<div class="progress-label">SUBIENDO INFORMACIÓN... ESPERE </div>
 	</div>
 
@@ -22,8 +22,13 @@
 
 			<div style="margin-left: 1%;">
 				<%= f.label :background, "Fondo: " %>
-				<%= f.file_field :background, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
-					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% if press_note.background.present? %>
+					<%= f.file_field :background, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+						accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :background, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+						accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
 			</div>
 		</div>
 

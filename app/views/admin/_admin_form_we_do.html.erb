@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 	$(function() {
 		// Accion del submit
@@ -51,22 +52,23 @@
 			<div style="margin-top: 1.2%;">
 
 				<!-- Español -->
-				<div style="width: 97%; margin-left: 2%; float: left;">
+				<div style="width: 40%; height: auto; margin-left: 2%; float: left;">
 					<span style="font-size: 0.9em"><strong>- EN ESPAÑOL</strong></span>
-					<div style="width: 100%;">
+
+					<div style="width: 100%; height: auto; ">
 						<% if we_do.body_in_es.present? %>
-							<%= f.cktext_area :body_in_es, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+							<%= f.cktext_area :body_in_es, :ckeditor => { :language => "es", :width => 170 }, :required => true %>
 						<% else %>
-							<%= f.cktext_area :body, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+							<%= f.cktext_area :body, :ckeditor => { :language => "es", :width => 170 }, :required => true %>
 						<% end %>
 					</div>
 				</div>
 
-				<!-- Español -->
-				<div style="width: 97%; margin-left: 2%; margin-top: 10px; float: left;">
+				<!-- Ingles -->
+				<div style="width: 40%;  height: auto; margin-left: 2%; margin-top: 10px; float: left;">
 					<span style="font-size: 0.9em"><strong>- EN INGLÉS</strong></span>
-					<div style="width: 100%;">
-						<%= f.cktext_area :body_in_en, :ckeditor => { :language => "es", :width => 1035 }, :required => true %>
+					<div style="width: 100%; height: auto; ">
+						<%= f.cktext_area :body_in_en, :ckeditor => { :language => "es", :width => 170 }, :required => true %>
 					</div>
 				</div>
 
