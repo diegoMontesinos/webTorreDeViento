@@ -236,13 +236,13 @@
 		$("#work-spot-left").hover(function() {
 		}, function() {
 			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
 		});
 
 		$("#work-spot-right").hover(function() {
 		}, function() {
 			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 125) + 1);
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
 		});
 
 	});

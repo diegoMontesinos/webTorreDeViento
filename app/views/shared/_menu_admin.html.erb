@@ -38,6 +38,7 @@
 				<li id="links-menu-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
 				<li id="new-download-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Nueva Descarga</div></li>
 				<li id="new-new-menu-item" class="dropdown-item-admin"><div><i class="fa fa-bullhorn"></i> Nueva Noticia</div></li>
+				<li id="admin-news-menu-item" class="dropdown-item-admin"><div><i class="fa fa-comments-o"></i> Noticias</div></li>
 			</ul>
 		</li>
 
@@ -168,8 +169,14 @@
 		load_admin_module("<%= admin_new_downloads_path %>");
 	});
 
-	// NOTICIAS
+	// NUEVA NOTICIAS
 	$("#new-new-menu-item").click(function() {
+		$("input").remove();
+		load_admin_module("<%= admin_new_news_path %>");
+	});
+
+	// NOTICIAS
+	$("#admin-news-menu-item").click(function() {
 		$("input").remove();
 		load_admin_module("<%= admin_new_news_path %>");
 	});
