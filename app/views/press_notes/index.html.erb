@@ -107,15 +107,28 @@
 				});
 
 				$( div ).click(function() {
-					var id = $( this ).attr("elem_id");
-					$.ajax({
-						type: "GET",
-						url: "<%= press_element_path %>?id=" + id,
-						dataType: "html",
-						success: function(data) {
-							$("#press-notes-body").html( data );
-						}
-					});
+					if("<%= @locale %>" == "en") {
+						var id = $( this ).attr("elem_id");
+						$.ajax({
+							type: "GET",
+							url: "<%= press_element_path %>?id=" + id + "&locale=en",
+							dataType: "html",
+							success: function(data) {
+								$("#press-notes-body").html( data );
+							}
+						});
+					} else {
+						var id = $( this ).attr("elem_id");
+						$.ajax({
+							type: "GET",
+							url: "<%= press_element_path %>?id=" + id + "&locale=es",
+							dataType: "html",
+							success: function(data) {
+								$("#press-notes-body").html( data );
+							}
+						});
+					}
+					
 				});
 
 				$("#press-elements-bar").append(div);

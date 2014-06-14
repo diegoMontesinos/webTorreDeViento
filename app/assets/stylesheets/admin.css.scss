@@ -675,6 +675,40 @@
 	font-family: latha, latha_ie;
 }
 
+
+#admin-news-selection {
+	width: 60%;
+	float: left;
+}
+
+#admin-news-selection-display {
+	width: 319px;
+	height: 400px;
+
+	margin-left: 9%;
+	margin-top: 13px;
+
+	background: #000000;
+}
+
+#admin-news-selection-title {
+	margin-top: 10px;
+	margin-left: 28%;
+
+	color: #000000;
+	font-family: felixti, felixti_ie;
+	font-size: 1.1em;
+}
+
+#admin-news-selection-buttons {
+	width: 100%;
+
+	margin-left: 9%;
+
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+}
+
 // TERMINA CSS NEWS
 
 // EMPIEZA CSS PRESS

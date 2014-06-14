@@ -5,6 +5,8 @@ class PressNotesController < ApplicationController
 
 	def index
 		@press_notes = PressNote.press_notes_inorder
+
+		@locale = params[:locale]
 	end
 
 	def new
@@ -64,7 +66,8 @@ class PressNotesController < ApplicationController
 
 	def save_element
 		@press_element = PressElement.find(params[:id])
-		@press_element.body = params["body" + params[:id].to_s]["ckeditor"]
+		@press_element.body_in_es = params["body" + params[:id].to_s]["ckeditor"]
+		@press_element.body_in_en = params["body" + params[:id].to_s + "in_en"]["ckeditor"]
 		@press_element.save
 
 		respond_to do |format|
@@ -88,12 +91,21 @@ class PressNotesController < ApplicationController
 
 	def press_element
 		@press_element = PressElement.find(params[:id])
-		
-		respond_to do |format|
-			format.json {
-				render json: @press_element.body.html_safe
-			}
+
+		if(params[:locale] == "en")
+			respond_to do |format|
+				format.json {
+					render json: @press_element.body_in_en.html_safe
+				}
+			end
+		else
+			respond_to do |format|
+				format.json {
+					render json: @press_element.body_in_es.html_safe
+				}
+			end
 		end
+		
 	end
 
 	# POST
@@ -144,6 +156,6 @@ class PressNotesController < ApplicationController
 
 	private
 		def press_params
-			params.require(:press_note).permit(:title, :background)
+			params.require(:press_note).permit(:title, :title_in_es, :title_in_en, :background)
 		end
 end

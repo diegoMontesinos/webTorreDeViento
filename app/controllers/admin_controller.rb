@@ -527,6 +527,17 @@ class AdminController < ApplicationController
 		render partial: "admin_new_new"
 	end
 
+	def edit_new
+		@new_ = New.find(params[:id])
+
+		render partial: "admin_new_new"
+	end
+
+	def news
+		@news = New.all.order(created_at: :desc)
+		render partial: "admin_news"
+	end
+
 	### ADMIN PRENSA
 
 	# GET

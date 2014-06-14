@@ -11,9 +11,19 @@
 			<span style="font-size: 1.3em"><strong>TITULO</strong></span>
 
 			<div id="title-form-div" style="margin-left: 1%;">
-				<%= f.label :title, "Titulo: " %>
-				<%= f.cktext_area :title, :ckeditor => { :language => "es", :height => 100 }, :required => true %>
+				<% if press_note.title_in_es.present? %>
+					<%= f.label :title_in_es, "Español: " %>
+					<%= f.cktext_area :title_in_es, :ckeditor => { :language => "es", :height => 100 }, :required => true %>
+				<% else %>
+					<%= f.label :title, "Español: " %>
+					<%= f.cktext_area :title, :ckeditor => { :language => "es", :height => 100 }, :required => true %>
+				<% end %>
 			</div>
+
+			<div id="title-form-div" style="margin-left: 1%;">
+				<%= f.label :title_in_en, "Inglés: " %>
+				<%= f.cktext_area :title_in_en, :ckeditor => { :language => "es", :height => 100 }, :required => true %>
+			</div>			
 		</div>
 
 		<!-- FONDO -->

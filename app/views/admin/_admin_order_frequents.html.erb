@@ -1,11 +1,55 @@
 
-<div style="width: 95%; height: 400px; margin-left: 3%; margin-top: 10px; float: left; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff;">
-	
-	<div class="list-container" style="height: 350px;">
+<div class="admin-panel" style="width: 95%; height: 400px; margin-top: 10px; float: left;">
+
+	<div class="list-container" style="width: 95%; height: auto;">
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.1em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+			<strong>ARRASTRE PARA MODIFICAR EL ORDEN:</strong>
+		</div>
+
+		<ul id="admin-frequents-list" class="admin-list" style="height: 335px;">
+			<% @frequents_colaborators.each do |frequent| %>
+				<li class="ui-state-default" id-frequent="<%= frequent.id %>" >
+					<%= frequent.name %>
+				</li>
+			<% end %>
+		</ul>
 	</div>
 
 </div>
 
-<div style="width: 100%; height: 50px; float: left; background: #000;">
-
+<div style="width: 100%; height: 45px; margin-top: 5px; float: left;">
+	<%= button_tag(type: "button", id: "admin-frequents-store-order", style: "float: right;", class: "pure-button pure-button-active") do %>ATRÁS<% end %>
+	<%= button_tag(type: "button", id: "cancel_form_1", style: "float: right;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
 </div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#admin-frequents-list").sortable();
+		$("#admin-frequents-list").disableSelection();
+
+		// Guardar el orden
+		/*$("#admin-press-store-order").click(function() {
+			var press_li = $(".ui-state-default");
+			var order_str = "";
+
+			for(var i = 0; i < press_li.length; i++) {
+				var id_press = $(press_li[i]).attr("id-press");
+				if(id_press != undefined) {
+					order_str += id_press + "_";
+				}
+			}
+
+			var order_param = "/?order=" + order_str;
+
+			$.ajax({
+				type: "POST",
+				url: "<%= press_notes_store_order_path %>" + order_param,
+				dataType: "json",
+				success: function(data) {
+					alert("EL ORDEN FUE GUARDADO EXITOSAMENTE");
+				}
+			});
+
+		});*/
+	});
+</script>

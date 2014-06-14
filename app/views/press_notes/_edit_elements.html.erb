@@ -8,11 +8,20 @@
 			<span style="font-size: 1.3em"><strong><%= (index + 1) %></strong></span>
 
 			<div id="title-form-div" style="margin-left: 1%;">
-				<%= label_tag "Texto: " %>
-				<% if press_element.body.present? %>
-					<%= cktext_area "body" + press_element.id.to_s, :ckeditor, :value => press_element.body %>
+				<%= label_tag "Español: " %>
+				<% if press_element.body_in_es.present? %>
+					<%= cktext_area "body" + press_element.id.to_s, :ckeditor, :value => press_element.body_in_es %>
 				<% else %>
 					<%= cktext_area "body" + press_element.id.to_s, :ckeditor, :value => "" %>
+				<% end %>
+			</div>
+
+			<div id="title-form-div" style="margin-left: 1%;">
+				<%= label_tag "Inglés: " %>
+				<% if press_element.body_in_en.present? %>
+					<%= cktext_area "body" + press_element.id.to_s + "in_en", :ckeditor, :value => press_element.body_in_en %>
+				<% else %>
+					<%= cktext_area "body" + press_element.id.to_s + "in_en", :ckeditor, :value => "" %>
 				<% end %>
 			</div>
 		</div>

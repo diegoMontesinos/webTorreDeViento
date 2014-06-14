@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 
 	// Mapea los nombres de las tablas con sus indices
@@ -166,21 +167,18 @@
 			required = true;
 			msg = "Programa-Español está vacío!!";
 		}
-		
-		if(name.lastIndexOf("titles_text_in_en") != -1) {
-			required = true;
-			msg = "Titulos-Inglés está vacío!!";
+
+		// TITULO
+		if(name == "work_titles_text_in_en") {
 		} else if(name.lastIndexOf("titles_text") != -1) {
 			required = true;
 			msg = "Titulos-Español está vacío!!";
 		}
 
-		if(name.lastIndexOf("titles_grid_in_en") != -1) {
-			required = true;
-			msg = "TitulosRodillo-Inglés está vacío!!";
+		if(name == "work_titles_grid_in_en") {
 		} else if(name.lastIndexOf("titles_grid") != -1) {
 			required = true;
-			msg = "Titulos-Español está vacío!!";
+			msg = "TitulosRodillo-Español está vacío!!";
 		}
 
 		if(required) {

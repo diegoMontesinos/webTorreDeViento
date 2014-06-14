@@ -4,7 +4,14 @@
 		<div class="progress-label">SUBIENDO INFORMACIÓN... ESPERE </div>
 	</div>
 
-	<%= form_for new_, remote: true, html: { id: "form_news", :class => "pure-form pure-form-stacked" } do |f| %>
+	<% url = "" %>
+	<% if new_.id.present? %>
+		<% url = news_update_path(new_) %>
+	<% else %>
+		<% url = news_path %>
+	<% end %>
+
+		<%= form_for new_, remote: true, :url => url, html: { id: "form_news", :class => "pure-form pure-form-stacked" } do |f| %>
 
 		<!-- TITULO -->
 		<div style="width: 95%; height: 105px; margin-top: 2%; position: relative; outline: 1.5px solid #b4b4b4; border-top: 1px solid #fff; padding: 10px;">
@@ -22,8 +29,15 @@
 
 			<div id="image-new-form-div" style="margin-left: 1%;">
 				<%= f.label :image_new, "Archivo de noticia: " %>
-				<%= f.file_field :image_new, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+
+				<% if new_.image_new.present? %>
+					<%= f.file_field :image_new, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :image_new, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
 					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
+				
 			</div>
 		</div>
 
@@ -33,8 +47,15 @@
 
 			<div id="thumbnail-form-div" style="margin-left: 1%;">
 				<%= f.label :thumbnail, "Imágen representativa: " %>
-				<%= f.file_field :thumbnail, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+
+				<% if new_.image_new.present? %>
+					<%= f.file_field :thumbnail, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
+					accept: "image/png,image/gif,image/jpeg" %>
+				<% else %>
+					<%= f.file_field :thumbnail, :style => "width: 25.5%; font-family: latha, latha_ie; font-size: 0.9em;", :class => "pure-button",
 					accept: "image/png,image/gif,image/jpeg", :required => true %>
+				<% end %>
+				
 			</div>
 		</div>
 

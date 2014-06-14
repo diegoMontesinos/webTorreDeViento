@@ -80,6 +80,9 @@ WebTorreDeViento::Application.routes.draw do
   get "/downloads/edit_thumbnail" => "downloads#edit_thumbnail", as: "edit_thumbnail"
   post "/downloads/save_thumbnail/:id" => "downloads#save_thumbnail", as: "save_thumbnail"
   get "/admin/news/new" => "admin#new_new", as: "admin_new_news"
+  get "/admin/news/edit" => "admin#edit_new", as: "admin_edit_news"
+  get "/admin/news" => "admin#news", as: "admin_news"
+
   get "/news/edit_thumbnail_new" => "news#edit_thumbnail", as: "edit_thumbnail_new"
   post "/news/save_thumbnail_new/:id" => "news#save_thumbnail", as: "save_thumbnail_new"
 
@@ -165,6 +168,8 @@ WebTorreDeViento::Application.routes.draw do
 
   # Noticias
   post "/news/create" => "news#create", as: "news"
+  patch "/news/update/:id" => "news#update", as: "news_update"
+  delete "/news/:id" => "news#destroy", as: "news_delete"
   get "/news" => "news#index", as: "news_index"
   get "/news/new" => "news#new", as: "new_news"
   get "/news/show/:id" => "news#show_new", as: "news_show"

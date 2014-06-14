@@ -386,22 +386,22 @@
 	position: relative;
 
 	width: 100%;
-	min-height: 550px;
+	min-height: 440px;
 	margin-top: -5px;
 
-	background: #000000;
+	background: #000;
 }
 
 #work-display-full {
 	width: 60%;
-	height: 400px;
+	height: 320px;
 
 	float: left;
 }
 
 #work-info-full {
 	width: 40%;
-	min-height: 400px;
+	height: 320px;
 
 	float: left;
 
@@ -410,10 +410,10 @@
 
 #work-info-title-full {
 	width: 100%;
-	height: 74px;
+	height: 60px;
 
 	float: right;
-	margin-top: 2.5%;
+	margin-top: 10px;
 
 	background: #000000;
 	color: #FFFFFF;
@@ -464,10 +464,8 @@
 
 #work-info-menu-navigator {
 	width: 100%;
-	height: 50px;
-
-	display: block;
-	background-color: #000000;
+	float: left;
+	background: #000000;
 }
 
 #work-info-menu {
@@ -476,12 +474,13 @@
 	position: relative;
 
 	margin: 0;
-	padding-top: 21px;
-	padding-left: 20px;
+	padding-top: 14px;
+	padding-left: 17px;
+	list-style: none;
+	float: left;
 
 	color: #FFFFFF;
-	list-style: none;
-	display: inline-table;
+	background: none;
 }
 
 #work-info-menu:after {
@@ -492,7 +491,7 @@
 
 #work-info-menu > li {
 	width: 60px;
-	height: 20px;
+	height: 12px;
 
 	position: relative;
 	float: left;
@@ -502,12 +501,13 @@
 	text-align: center;
 
 	cursor: pointer;
+
+	margin-top: 4px;
 }
 
 #work-info-menu > li div {
 	position: relative;
-
-	top: 3px;
+	top: -1px;
 }
 
 #work-info-menu > li:hover {
@@ -574,8 +574,8 @@
 }
 
 .work-gallery-img {
-	width: 600px;
-	height: 400px;
+	width: 480px;
+	height: 320px;
 
 	position: relative;
 }
@@ -599,18 +599,18 @@ div.prev, div.next {
 
 div.prev {
 	top: 152px;
-	width: 25px;
-	height: 60px;
+	width: 20px;
+	height: 48px;
 
 	left: 8px;
 }
 
 div.next {
 	top: 153px;
-	width: 25px;
-	height: 60px;
+	width: 20px;
+	height: 48px;
 
-	right: 407px;
+	right: 327px;
 }
 
 .clearfix {
@@ -624,10 +624,10 @@ div.next {
 	position: relative;
 
 	width: 100%;
-	height: 150px;
+	height: 120px;
 	float: left;
 
-	background: #FFFFFF;
+	background: #000;
 }
 
 .work-full-sections-item-left {
@@ -645,8 +645,8 @@ div.next {
 .work-full-sections-link {
 	position: relative;
 	float: right;
-	right: 11px;
-	bottom: 34px;
+	right: 10px;
+	bottom: 29px;
 
 	background: #000000;
 	color: #FFFFFF;
@@ -684,21 +684,21 @@ div.next {
 
 #work-info-mediana {
 	width: 40%;
-	min-height: 320px;
+	height: 320px;
 
 	float: right;
 	padding: 0;
 	margin-top: -439px;
 
-	background: #000000;
+	background: #000;
 }
 
 #work-info-title-mediana {
 	width: 100%;
-	height: 59px;
+	height: 60px;
 
 	float: right;
-	margin-top: 2.5%;
+	margin-top: 10px;
 
 	background: #000000;
 	color: #FFFFFF;
@@ -768,7 +768,6 @@ div.next {
 	height: 120px;
 
 	float: left;
-	margin-left: 1px;
 }
 
 .work-mediana-sections-link {
@@ -776,7 +775,7 @@ div.next {
 	float: right;
 	
 	right: 20px;
-	bottom: 27px;
+	bottom: 29px;
 
 	margin: 0;
 

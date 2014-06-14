@@ -4,12 +4,12 @@ class NewsController < ApplicationController
 	before_filter :authenticate_user!, :only => [ :new, :create ]
 
 	def index
-		@news = New.all
+		@news = New.all.order(created_at: :desc)
 		@show_new = -1
 	end
 
 	def show_new
-		@news = New.all
+		@news = New.all.order(created_at: :desc)
 		@show_new = params[:id]
 		render 'news/index.html.erb'
 	end
@@ -32,6 +32,32 @@ class NewsController < ApplicationController
 	    render json: (@new.id.to_s).to_json
 	  }
 	  end
+	end
+
+	def destroy
+		@new = New.find(params[:id])
+		id_new = @new.id
+		@new.destroy
+
+		respond_to do |format|
+			format.json {
+				render json: id_new.to_json
+			}
+		end
+	end
+
+	def update
+		permitted_params = new_params # Parametros filtrados (permitidos)
+		
+		@new = New.find(params[:id])
+
+		if @new.update(permitted_params)
+			respond_to do |format|
+				format.json {
+		  			render json: (@new.id.to_s).to_json
+				}
+			end
+		end
 	end
 
 	# GET

@@ -2,6 +2,9 @@ class PressNote < ActiveRecord::Base
 
 	has_many :press_elements, dependent: :destroy
 
+	# Ingles
+	has_translations :title
+
 	# Carrierwave
 	mount_uploader :background, BackgroundPressUploader
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611044046) do
+ActiveRecord::Schema.define(version: 20140613063923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,16 @@ ActiveRecord::Schema.define(version: 20140611044046) do
 
   add_index "photos", ["file_folder_id"], name: "index_photos_on_file_folder_id", using: :btree
 
+  create_table "press_element_translations", force: true do |t|
+    t.integer  "press_element_id"
+    t.string   "language_code"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "press_element_translations", ["press_element_id", "language_code"], name: "press_element_translations_index", unique: true, using: :btree
+
   create_table "press_elements", force: true do |t|
     t.text     "body"
     t.datetime "created_at"
@@ -161,6 +171,16 @@ ActiveRecord::Schema.define(version: 20140611044046) do
   end
 
   add_index "press_elements", ["press_note_id"], name: "index_press_elements_on_press_note_id", using: :btree
+
+  create_table "press_note_translations", force: true do |t|
+    t.integer  "press_note_id"
+    t.string   "language_code"
+    t.text     "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "press_note_translations", ["press_note_id", "language_code"], name: "press_note_translations_index", unique: true, using: :btree
 
   create_table "press_notes", force: true do |t|
     t.text     "title"
