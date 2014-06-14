@@ -1,0 +1,104 @@
+
+<div class="admin-panel">
+
+	<div class="list-container">
+
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+			<strong>SELECCIONE PARA EDITAR:</strong>
+		</div>
+
+		<ul id="admin-news-list" class="admin-list">
+			<% @news.each do |new_| %>
+				<li class="ui-state-default" onclick="selectNew(this);" id-new="<%= new_.id %>" title-new="<%= new_.title %>" display-url="<%= new_.image_new.url(:display) %>" >
+					<%= new_.title.html_safe %>
+
+					<div id="destroy-new-<%= new_.id.to_s %>" style="display: none;" >
+						<%= link_to news_delete_path(new_), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %>
+					</div>
+					<script type="text/javascript">
+						$("#destroy-new-<%= new_.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
+							// Se hace lo mismo como si dieramos click al admin menu
+							$("#admin-news-menu-item").click();
+						});
+					</script>
+				</li>
+			<% end %>
+		</ul>
+
+	</div>
+
+	<div id="admin-news-selection" align="center">
+			<div id="admin-news-selection-display"></div>
+			<div id="admin-news-selection-title"></div>
+			<div id="admin-news-selection-buttons">
+				<div style="width: 100%; margin-top: -25px;" align="center">
+					<%= button_tag(type: "button", id: "admin-edit-news-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; font-size: 0.9em;") do %>
+						<strong>EDITAR NOTICIA</strong> <i class="fa fa-pencil-square-o"></i>
+					<% end %>
+
+					<%= button_tag(type: "button", id: "admin-delete-news-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20); font-size: 0.9em;") do %>
+						<strong>ELIMINAR NOTICIA</strong> <i class="fa fa-times"></i>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	function selectNew(li_elem) {
+
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+
+		// Informacion
+		$("#admin-news-selection-display").empty();
+		$("#admin-news-selection-display").append("<img src='" + $(li_elem).attr("display-url") + "' style='width: 100%; height: 100%;' >");
+
+		$("#admin-news-selection-title").empty();
+		$("#admin-news-selection-title").append("<center><strong>" + $(li_elem).attr("title-new") + "</strong></center>");
+	}
+
+	$(function() {
+
+		// Se asocian acciones a los botones
+		$("#admin-edit-news-button").click(function() {
+			var news_param = "/?id=" + $(".ui-state-default-selec").attr("id-new");
+
+			$.ajax({
+				type: "GET",
+				url: "<%= admin_edit_news_path %>" + news_param,
+				dataType: "html",
+				success: function(data) {
+					$("#content-admin").empty();
+					$("#content-admin").append(data);
+				}
+			});
+		});
+
+		// Eliminar
+		$("#admin-delete-news-button").click(function() {
+			var id_destroy_link = "destroy-new-" + $(".ui-state-default-selec").attr("id-new");
+			$("#" + id_destroy_link).find("a").click();
+		});
+
+		// Si no hay notas de prensa desabilitamos todo
+		if(parseInt("<%= New.count %>") == 0) {
+			 $("#admin-edit-news-button").attr("disabled", "disabled");
+			 $("#admin-delete-news-button").attr("disabled", "disabled");
+			 $("#admin-news-store-order").attr("disabled", "disabled");
+		} else {
+			// Se selecciona el primero
+			$(".ui-state-default").first().click();
+		}
+		
+	});
+
+</script>
