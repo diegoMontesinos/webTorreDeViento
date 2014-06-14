@@ -44,6 +44,28 @@ class Colaborator < ActiveRecord::Base
 		return colaborators
 	end
 
+	def self.frequents_inorder
+
+		if Colaborator.frequents_colaborators == 0
+			return Colaborator.frequents_colaborators
+		else
+			frequents_inorder = Array.new
+			
+			frequent = Colaborator.where("previous_frequent = -1").first
+			frequents_inorder.push(frequent)
+			
+			last_id = frequent.next_frequent
+
+			while last_id != -1 do
+				frequent = Colaborator.find(last_id)
+				frequents_inorder.push(frequent)
+				last_id = frequent.next_frequent
+			end
+
+			return frequents_inorder
+		end
+	end
+
 	def remove_uploads
 		grid_element = ColaboratorGridElement.find_by_colaborator_id(self.id)
 		if !grid_element.nil?

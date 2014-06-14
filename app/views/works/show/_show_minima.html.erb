@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 
 	function putTextInfo(id_elem) {
@@ -36,7 +37,7 @@
 		$("#work-display-minima").empty();
 
 		// Genera la cadena html de la imagen
-		var html_image = "<img src='" + url_image + "' style='width: 100%; max-height: 400px; padding-top: 75px;'>";
+		var html_image = "<img src='" + url_image + "' style='width: 100%; max-height: 320px; padding-top: 60px;'>";
 
 		// Se le pega al display
 		$("#work-display-minima").html(html_image);		
@@ -73,10 +74,10 @@
 </script>
 
 <div id="work-container-minima">
-
+	
 	<!-- DISPLAY DE LA OBRA -->
 	<div id="work-display-minima">
-		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; max-height: 400px; padding-top: 75px;" %>
+		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; max-height: 320px; padding-top: 60px;" %>
 	</div>
 
 	<!-- INFORMACION GENERAL DE LA OBRA -->
@@ -90,11 +91,11 @@
 		</div>
 
 		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-minima" style="width: 100%; height: 330px; float: right; margin-top: -4px;">
-			<div id="work-info-text-content-minima" style="width: 89.05%; height: auto; margin-top: 1px;"></div>
+		<div class="work-info-text-minima" style="width: 100%; height: 260px; float: right;">
+			<div id="work-info-text-content-minima" style="width: 89.05%; height: auto;"></div>
 		</div>
 
-		<div id="work-info-menu-navigator">
+		<div id="work-info-menu-navigator" style="height: 50px;">
 			<ul id="work-info-menu">
 				<% if !work.credits.nil? %>
 					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
@@ -125,16 +126,17 @@
 
 	<!-- GALERIA -->
 	<div id="work-minima-galeria-container">
-		<div style="width: 60%; height: 72px; position: relative; float: left; margin-top: 3px; background: #000000;"></div>
+		<div style="width: 60%; height: 58px; position: relative; float: left; margin-top: 2px; background: #000000;"></div>
 
 		<div id="work-minima-galeria">
+
 			<% folder_galeria = work.filefolder("GALERIA") %>
 			<% photos_galeria = folder_galeria.photos %>
 			<% photos_galeria.each do |photo| %>
 
 				<div class="work-minima-galeria-item"
 				     onclick="showMe('<%= photo.image.url(:display) %>');" >
-					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 72px;" %>
+					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 58px;" %>
 				</div>
 			<% end %>
 		</div>
@@ -143,4 +145,5 @@
 		<div class="prev" id="minima-gallery-prev"><%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %></div>
 		<div class="next" id="minima-gallery-next"><%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %></div>
 	</div>
+
 </div>

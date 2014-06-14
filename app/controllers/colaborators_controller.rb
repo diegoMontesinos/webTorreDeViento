@@ -21,8 +21,34 @@ class ColaboratorsController < ApplicationController
     permitted_params = colaborator_params # Parametros filtrados (permitidos)
 
     @colaborator = Colaborator.new(permitted_params)
-    @colaborator.save
+
+    #if @colaborator.save
+      
+      #if params[:colaborator][:frequent] == "0"
+      #  @colaborator.next_frequent = -1
+      #  @colaborator.previous_frequent = -1
+      #else
+
+      #  if Colaborator.frequents_colaborators == 1
+      #    @colaborator.next_frequent = -1
+      #    @colaborator.previous_frequent = -1
+      #  else
+      #    works_inorder = Work.works_inorder
+
+          # Editando el ultimo
+          #works_inorder.last.next = @work.id
+          #@work.previous = works_inorder.last.id
+          #works_inorder.last.save
+
+          # Editando el primero
+          #works_inorder.first.previous = @work.id
+          #@work.next = works_inorder.first.id
+          #works_inorder.first.save
+        #end
+      #end
+    #end
     
+    @colaborator.save
     redirect_to @colaborator
   end
 

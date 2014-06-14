@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613063923) do
+ActiveRecord::Schema.define(version: 20140614154942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 20140613063923) do
     t.string   "sproket_1"
     t.string   "sproket_2"
     t.string   "portrait"
+    t.integer  "next_frequent"
+    t.integer  "previous_frequent"
   end
 
   create_table "downloads", force: true do |t|
