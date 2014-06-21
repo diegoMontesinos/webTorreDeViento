@@ -22,34 +22,29 @@ class ColaboratorsController < ApplicationController
 
     @colaborator = Colaborator.new(permitted_params)
 
-    #if @colaborator.save
-      
-      #if params[:colaborator][:frequent] == "0"
-      #  @colaborator.next_frequent = -1
-      #  @colaborator.previous_frequent = -1
-      #else
+    if @colaborator.save
 
-      #  if Colaborator.frequents_colaborators == 1
-      #    @colaborator.next_frequent = -1
-      #    @colaborator.previous_frequent = -1
-      #  else
-      #    works_inorder = Work.works_inorder
+      @colaborator.next_frequent = -1
+      @colaborator.previous_frequent = -1
 
-          # Editando el ultimo
-          #works_inorder.last.next = @work.id
-          #@work.previous = works_inorder.last.id
-          #works_inorder.last.save
+      if params[:colaborator][:frequent].to_i == 1
+        
+        # Si soy el unico
+        if Colaborator.frequents_colaborators.length > 1
+          frequents_inorder = Colaborator.frequents_inorder
 
-          # Editando el primero
-          #works_inorder.first.previous = @work.id
-          #@work.next = works_inorder.first.id
-          #works_inorder.first.save
-        #end
-      #end
-    #end
-    
-    @colaborator.save
-    redirect_to @colaborator
+          # Se inserta al final
+          frequents_inorder.last.next_frequent = @colaborator.id
+          @colaborator.previous_frequent = frequents_inorder.last.id
+          frequents_inorder.last.save
+
+        end
+      end
+
+      @colaborator.save
+      redirect_to @colaborator
+    end
+
   end
 
   # GET
@@ -127,6 +122,71 @@ class ColaboratorsController < ApplicationController
     permitted_params = colaborator_params # Parametros filtrados (permitidos)
 
     @colaborator = Colaborator.find(params[:id])
+
+    if @colaborator.frequent
+
+      # si es colaborador frecuente y deja de serlo hay q sacarlo de la lista
+      if params[:colaborator][:frequent].to_i == 0
+
+        id_prev = @colaborator.previous_frequent
+        id_next = @colaborator.next_frequent
+
+        # Obtenemos los vecinos
+        p = -1
+        if id_prev != -1
+          p = Colaborator.find_by_id(id_prev)
+          id_prev = p.id
+        end
+        
+        n = -1
+        if id_next != -1
+          n = Colaborator.find_by_id(id_next)
+          id_next = n.id
+        end
+
+        # Los alteramos
+        if p != -1
+          p.next_frequent = id_next
+          p.save
+        end
+
+        if n != -1
+          n.previous_frequent = id_prev
+          n.save
+        end
+
+        # Borramos las referencias
+        @colaborator.next_frequent = -1
+        @colaborator.previous_frequent = -1
+        @colaborator.save
+      end
+
+    else
+      
+      # o no lo es y ya es frecuente hay que meterlo
+      if params[:colaborator][:frequent].to_i == 1
+        
+        # Si soy el unico
+        if Colaborator.frequents_colaborators.length > 1
+          frequents_inorder = Colaborator.frequents_inorder
+
+          # Se inserta al final
+          frequents_inorder.last.next_frequent = @colaborator.id
+          @colaborator.previous_frequent = frequents_inorder.last.id
+          frequents_inorder.last.save
+
+          @colaborator.save
+        else
+          # Borramos las referencias
+          @colaborator.next_frequent = -1
+          @colaborator.previous_frequent = -1
+          @colaborator.save
+        end
+
+      end
+
+    end
+    
     @colaborator.update(permitted_params)
     
     redirect_to @colaborator
@@ -146,7 +206,7 @@ class ColaboratorsController < ApplicationController
   end
 
   def frequents
-    @frequents_colaborators = Colaborator.frequents_colaborators
+    @frequents_colaborators = Colaborator.frequents_inorder
     colaborators = Colaborator.colaborators_inorder
 
     colaborators.each.with_index { |colab, index|
@@ -167,6 +227,52 @@ class ColaboratorsController < ApplicationController
         break
       end
     }
+  end
+
+  # POST
+  def store_order_frequents
+
+    ordered_ids = params[:order].split('_')
+    index = 0
+
+    while (index < ordered_ids.length) do
+      curr_frequent = Colaborator.find(ordered_ids[index].to_i)
+
+      # Es el primero
+      if index == 0
+        curr_frequent.previous_frequent = -1
+
+        if (index + 1) < ordered_ids.length
+          curr_frequent.next_frequent = ordered_ids[index + 1].to_i
+        else
+          curr_frequent.next_frequent = -1
+        end
+
+      # Es el ultimo
+      elsif index == (ordered_ids.length - 1)
+        curr_frequent.next_frequent = -1
+
+        if (index - 1) >= 0
+          curr_frequent.previous_frequent = ordered_ids[index - 1].to_i
+        else
+          curr_frequent.previous_frequent = -1
+        end
+
+      # Esta en medio
+      else
+        curr_frequent.next_frequent = ordered_ids[index + 1].to_i
+        curr_frequent.previous_frequent = ordered_ids[index - 1].to_i
+      end
+
+      curr_frequent.save
+      index += 1
+    end
+
+    respond_to do |format|
+      format.json {
+        render json: params[:order].to_json
+      }
+    end
   end
 
   private

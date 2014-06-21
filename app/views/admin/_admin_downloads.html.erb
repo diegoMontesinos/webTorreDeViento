@@ -1,0 +1,80 @@
+
+<div class="admin-panel">
+
+	<div class="list-container">
+		
+		<div style="width: 100%; font-family: latha, latha_ie; font-size: 0.85em; line-height: 0.89em; margin-left: 13%; margin-top: 14px;">
+			<strong>SELECCIONE UNA DESCARGA:</strong>
+		</div>
+
+		<ul class="admin-list">
+			<% @downloads.each do |download| %>
+				<li class="ui-state-default" onclick="selectDownload(this);" id-download="<%= download.id %>" title-download="<%= download.title %>" display-url="<%= download.thumbnail.url(:display) %>"  >
+					<%= download.title %>
+				</li>
+
+				<div id="destroy-download-<%= download.id.to_s %>" style="display: none;" >
+					<%= link_to downloads_destroy_path(download), remote: true, method: :delete, data: { confirm: "¿Estás seguro?" } do %><% end %>
+				</div>
+				<script type="text/javascript">
+					$("#destroy-download-<%= download.id.to_s %>").bind("ajax:success", function(evt, data, status, xhr) {
+						// Se hace lo mismo como si dieramos click al downloads-menu
+						$("#admin-downloads-menu-item").click();
+					});
+				</script>
+			<% end %>
+		</ul>
+	</div>
+
+	<div id="admin-download-selection">
+		<div id="admin-download-selection-display"></div>
+		<div id="admin-download-selection-title"></div>
+		<div id="admin-download-selection-buttons">
+			<div style="width: 100%; margin-top: -25px;" align="center">
+				<%= button_tag(type: "button", id: "admin-delete-download-button", class: "pure-button pure-button-active", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20); font-size: 0.9em; font-family: latha, latha_ie; color: #FFF;") do %>
+					<strong>ELIMINAR DESCARGA</strong> <i class="fa fa-times"></i>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function selectDownload(li_elem) {
+
+		// Estilo
+		if($(".ui-state-default-selec").length > 0) {
+			$(".ui-state-default-selec").removeClass("ui-state-default-selec");
+		}
+
+		$(li_elem).addClass("ui-state-default-selec");
+
+		// Informacion
+		$("#admin-download-selection-display").empty();
+		$("#admin-download-selection-display").append("<img src='" + $(li_elem).attr("display-url") + "' style='width: 100%; height: 100%;' >");
+
+		$("#admin-download-selection-title").empty();
+		$("#admin-download-selection-title").append("<center><strong>" + $(li_elem).attr("title-download") + "</strong></center>");
+	}
+
+	$(function() {
+		
+		// Eliminar
+		$("#admin-delete-download-button").click(function() {
+			var id_destroy_link = "destroy-download-" + $(".ui-state-default-selec").attr("id-download");
+			$("#" + id_destroy_link).find("a").click();
+		});
+
+		// Si no hay notas de prensa desabilitamos todo
+		if(parseInt("<%= Download.count %>") == 0) {
+			 $("#admin-delete-download-button").attr("disabled", "disabled");
+		} else {
+			// Se selecciona el primero
+			$(".ui-state-default").first().click();
+		}
+	});
+
+</script>

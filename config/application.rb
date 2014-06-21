@@ -22,5 +22,7 @@ module WebTorreDeViento
     config.secret_key_base = 'project_monitor'
 
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+
+    config.assets.paths << Rails.root.join("app", "assets", "swf")
   end
 end

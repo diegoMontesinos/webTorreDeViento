@@ -162,7 +162,7 @@ class AdminController < ApplicationController
 
 	# GET
 	def order_frequents
-		@frequents_colaborators = Colaborator.frequents_colaborators
+		@frequents_colaborators = Colaborator.frequents_inorder
 
 		render partial: "admin_order_frequents"
 	end
@@ -518,6 +518,12 @@ class AdminController < ApplicationController
 		@download = Download.new
 
 		render partial: "admin_new_download"
+	end
+
+	def downloads
+		@downloads = Download.all
+		
+		render partial: "admin_downloads"
 	end
 
 	# Noticias

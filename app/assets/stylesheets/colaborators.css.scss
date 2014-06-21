@@ -18,7 +18,7 @@
 
 #colaborator-container {
 	width: 100%;
-	height: 550px;
+	height: 440px;
 	margin-top: -5px;
 
 	position: relative;
@@ -37,7 +37,7 @@
 	height: 30px;
 
 	float: right;
-	margin-top: 23px;
+	margin-top: 20px;
 
 	background: #000000;
 	color: #FFFFFF;
@@ -85,22 +85,13 @@
 	padding: 0;
 }
 
-#colaborator-info-menu-navigator {
-	width: 100%;
-	height: 45px;
-
-	display: block;
-	background-color: #000000;
-}
-
 #colaborator-info-menu {
 	width: 100%;
-	height: 45px;
+	height: 50px;
 	position: relative;
 
 	margin: 0;
-	padding-top: 21px;
-	padding-left: 5.556%;
+	margin-left: -5.556%;
 
 	color: #FFFFFF;
 	list-style: none;
@@ -115,7 +106,7 @@
 
 #colaborator-info-menu > li {
 	width: 95px;
-	height: 20px;
+	height: 12px;
 
 	position: relative;
 	float: left;
@@ -124,13 +115,16 @@
 	font-size: 11px;
 	text-align: center;
 
+	margin-top: 19px;
+
 	cursor: pointer;
 }
 
 #colaborator-info-menu > li div {
 	position: relative;
 
-	top: 17%;
+	top: -2.5px;
+	height: 100%;
 }
 
 #colaborator-info-menu > li:hover {

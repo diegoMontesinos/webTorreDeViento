@@ -32,14 +32,14 @@
 		});
 
 		// Guardar el orden
-		/*$("#admin-press-store-order").click(function() {
-			var press_li = $(".ui-state-default");
+		$("#admin-frequents-store-order").click(function() {
+			var frequent_li = $(".ui-state-default");
 			var order_str = "";
 
-			for(var i = 0; i < press_li.length; i++) {
-				var id_press = $(press_li[i]).attr("id-press");
-				if(id_press != undefined) {
-					order_str += id_press + "_";
+			for(var i = 0; i < frequent_li.length; i++) {
+				var id_colab = $(frequent_li[i]).attr("id-frequent");
+				if(id_colab != undefined) {
+					order_str += id_colab + "_";
 				}
 			}
 
@@ -47,13 +47,14 @@
 
 			$.ajax({
 				type: "POST",
-				url: "<%= press_notes_store_order_path %>" + order_param,
+				url: "<%= store_order_frequents_path %>" + order_param,
 				dataType: "json",
 				success: function(data) {
 					alert("EL ORDEN FUE GUARDADO EXITOSAMENTE");
+					$("#order-frequents-dialog").dialog("close");
 				}
 			});
 
-		});*/
+		});
 	});
 </script>

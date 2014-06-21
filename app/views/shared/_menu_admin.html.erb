@@ -37,6 +37,7 @@
 			<ul class="dropdown-menu-admin" style="left: 14%; top: 220px;">
 				<li id="links-menu-item" class="dropdown-item-admin"><div><i class="fa fa-link"></i> Links</div></li>
 				<li id="new-download-menu-item" class="dropdown-item-admin"><div><i class="fa fa-download"></i> Nueva Descarga</div></li>
+				<li id="admin-downloads-menu-item" class="dropdown-item-admin"><div><i class="fa fa-external-link"></i> Descargas</div></li>
 				<li id="new-new-menu-item" class="dropdown-item-admin"><div><i class="fa fa-bullhorn"></i> Nueva Noticia</div></li>
 				<li id="admin-news-menu-item" class="dropdown-item-admin"><div><i class="fa fa-comments-o"></i> Noticias</div></li>
 			</ul>
@@ -163,10 +164,16 @@
 		load_admin_module("<%= links_edit_path %>");
 	});
 
-	// DOWNLOADS
+	// NUEVA DOWNLOAD
 	$("#new-download-menu-item").click(function() {
 		$("input").remove();
 		load_admin_module("<%= admin_new_downloads_path %>");
+	});
+
+	// DOWNLOADS
+	$("#admin-downloads-menu-item").click(function() {
+		$("input").remove();
+		load_admin_module("<%= admin_downloads_path %>");
 	});
 
 	// NUEVA NOTICIAS

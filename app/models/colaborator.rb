@@ -11,7 +11,7 @@ class Colaborator < ActiveRecord::Base
 	mount_uploader :portrait, PortraitUploader
 
 	attr_accessor :next, :previous
-	before_destroy :remove_uploads
+	before_destroy :fix_destroy
 
 	def self.colaborators_inorder
 		colaborators = Colaborator.all.order(:name)
@@ -45,15 +45,19 @@ class Colaborator < ActiveRecord::Base
 	end
 
 	def self.frequents_inorder
+		frequents = Colaborator.frequents_colaborators
 
-		if Colaborator.frequents_colaborators == 0
-			return Colaborator.frequents_colaborators
+		if frequents.length == 0
+			return frequents
 		else
+			# Obtenemos la cabeza de la lista
+			frequents = frequents.reject { |colab| colab.previous_frequent != -1 }
+
 			frequents_inorder = Array.new
-			
-			frequent = Colaborator.where("previous_frequent = -1").first
+
+			frequent = frequents.first
 			frequents_inorder.push(frequent)
-			
+
 			last_id = frequent.next_frequent
 
 			while last_id != -1 do
@@ -66,7 +70,9 @@ class Colaborator < ActiveRecord::Base
 		end
 	end
 
-	def remove_uploads
+	def fix_destroy
+
+		# remove uploads
 		grid_element = ColaboratorGridElement.find_by_colaborator_id(self.id)
 		if !grid_element.nil?
 			grid_element.colaborator = nil
@@ -84,5 +90,33 @@ class Colaborator < ActiveRecord::Base
 		self.remove_portrait!
 
 		self.save
+
+		# fix inorder
+		id_prev = self.previous_frequent
+		id_next = self.next_frequent
+
+		# Obtenemos los vecinos
+		p = -1
+		if id_prev != -1
+			p = Colaborator.find_by_id(id_prev)
+			id_prev = p.id
+		end
+		
+		n = -1
+		if id_next != -1
+			n = Colaborator.find_by_id(id_next)
+			id_next = n.id
+		end
+
+		# Los alteramos
+		if p != -1
+			p.next_frequent = id_next
+			p.save
+		end
+
+		if n != -1
+			n.previous_frequent = id_prev
+			n.save
+		end
 	end
 end

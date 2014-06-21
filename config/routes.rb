@@ -77,6 +77,7 @@ WebTorreDeViento::Application.routes.draw do
   # Administrador (Extras)
   get "/admin/links" => "admin#links_edit", as: "links_edit"
   get "/admin/downloads/new" => "admin#new_download", as: "admin_new_downloads"
+  get "/admin/downloads" => "admin#downloads", as: "admin_downloads"
   get "/downloads/edit_thumbnail" => "downloads#edit_thumbnail", as: "edit_thumbnail"
   post "/downloads/save_thumbnail/:id" => "downloads#save_thumbnail", as: "save_thumbnail"
   get "/admin/news/new" => "admin#new_new", as: "admin_new_news"
@@ -134,10 +135,13 @@ WebTorreDeViento::Application.routes.draw do
   # Obras (Works)
   resources :works
 
+  get "/video" => "home#video", as: "home_video"
+
   # Colaboradores (Colaborators)
   
   # Colaboradores Frecuentes
   get "/colaborators/frequents" => "colaborators#frequents", as: "frequents"
+  post "/colaborators/store_order_frequents" => "colaborators#store_order_frequents", as: "store_order_frequents"
 
   resources :colaborators
 
@@ -164,6 +168,7 @@ WebTorreDeViento::Application.routes.draw do
   # Descargas
   post "/downloads/create" => "downloads#create", as: "downloads"
   get "/downloads" => "downloads#index", as: "downoads_index"
+  delete "/downloads/destroy/:id" => "downloads#destroy", as: "downloads_destroy"
   get "/downloads/new" => "downloads#new", as: "new_download"
 
   # Noticias

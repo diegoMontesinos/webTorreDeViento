@@ -40,14 +40,8 @@
 			success: function(data) {
 
 				$("#work-display-full").children().each(function() {
-					if($(this).attr("class") != "jp-video") {
-						$(this).remove();
-					}
+					$(this).remove();
 				});
-
-				// Se pone el video
-				$("#jp_video_full").jPlayer("clearMedia");
-				$("#jp_video_full").hide();
 
 				// Se crea el que sera el contenedor de la galeria
 				$("#work-display-full").append("<div id='work-display-full-gallery'></div>");
@@ -91,31 +85,41 @@
 		});
 	}
 
-	function putVideo(video_url) {
-		// Elimina el contenido que haya en obra-display
-		$("#work-display-full").children().each(function() {
-			if($(this).attr("id") != "jp_video_full") {
-				$(this).remove();
+	function putVideo(video_url, video_thumb) {
+
+		// Pedimos el div del video
+		$.ajax({
+			type: "GET",
+			url: "<%= home_video_path %>",
+			dataType: "html",
+			success: function(response) {
+				// Borramos el contenido del display
+				$("#work-display-full").children().each(function() {
+					$(this).remove();
+				});
+
+				// Agregamos el codigo html del video
+				$("#work-display-full").html(response);
+
+				// Cargamos el jqueryPlayer
+				$("#jquery_jplayer_1").jPlayer({
+					ready: function () {
+						$(this).jPlayer("setMedia", {
+							m4v: video_url,
+							poster: video_thumb
+						});
+					},
+
+					swfPath: "<%= asset_path 'Jplayer.swf' %>",
+					supplied: "m4v"
+				});
 			}
 		});
 
-		// Se pone el video
-		$("#jp_video_full").show();
-		$("#jp_video_full").jPlayer("setMedia", { m4v: video_url });
 	}
 
 	$(function() {
 		correctLineHeight("work-info-title-full");
-
-		if($("#jp_video_full").length > 0) {
-			$("#jp_video_full").jPlayer({
-				swfPath: "/javascripts/",
-				supplied: "m4v"
-			});
-
-			$("#jp_video_full").hide();
-		}
-
 		putTextInfo("credits");
 	});
 
@@ -127,60 +131,6 @@
 	<!-- DISPLAY DE LA OBRA -->
 	<div id="work-display-full">
 		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: 100%; " %>
-
-		<!-- VIDEO -->
-		<% if @work.video.present? %>
-			<div id="jp_video_full" class="jp-video" style="width: 100%; height: 100%;">
-				<div class="jp-type-single">
-					<div id="jquery_jplayer_1" class="jp-jplayer"></div>
-					
-					<div class="jp-gui">
-						<div class="jp-video-play">
-							<a href="javascript:;" class="jp-video-play-icon" tabindex="1">play</a>
-						</div>
-
-						<div class="jp-interface">
-							<div class="jp-progress">
-								<div class="jp-seek-bar">
-									<div class="jp-play-bar"></div>
-								</div>
-							</div>
-
-							<div class="jp-current-time"></div>
-							<div class="jp-duration"></div>
-
-							<div class="jp-controls-holder">
-								<ul class="jp-controls">
-									<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
-									<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
-									<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
-									<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
-									<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
-									<li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
-								</ul>
-												
-								<div class="jp-volume-bar">
-									<div class="jp-volume-bar-value"></div>
-								</div>
-												
-								<ul class="jp-toggles">
-									<li><a href="javascript:;" class="jp-full-screen" tabindex="1" title="full screen">full screen</a></li>
-									<li><a href="javascript:;" class="jp-restore-screen" tabindex="1" title="restore screen">restore screen</a></li>
-													
-								</ul>
-							</div>
-											
-						</div>
-					</div>
-
-					<div class="jp-no-solution">
-						<span>Update Required</span>
-						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-					</div>
-				</div>
-
-			</div>
-		<% end %>
 	</div>
 
 	<!-- INFORMACION GENERAL DE LA OBRA -->
@@ -242,7 +192,7 @@
 
 		<!-- VIDEO O SUSTITUTO -->
 		<% if @work.video.present? %>
-			<div class="work-full-sections-item" style="width: 24.8%; height: 120px;" onclick="putVideo('<%= @work.video.url %>');" >
+			<div class="work-full-sections-item" style="width: 24.8%; height: 120px;" onclick="putVideo('<%= @work.video.url %>', '<%= @work.videothumb.url(:display) %>');" >
 				<%= image_tag @work.videothumb.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
 				<div class="work-full-sections-link"><div style="padding: 0px 3px 2px 3px;">VIDEO</div></div>

@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -35,12 +36,18 @@
 
 		// Sprockets requeridos si es frecuente
 		$("#colaborator_frequent").change(function() {
+			console.log("<%= colaborator.sproket_1.present? %>" == "true");
 			if(this.checked) {
 				$("#colaborator_sproket_1").removeAttr("required");
 				$("#colaborator_sproket_2").removeAttr("required");
 			} else {
-				$("#colaborator_sproket_1").attr("required", "required");
-				$("#colaborator_sproket_2").attr("required", "required");
+				if("<%= colaborator.sproket_1.present? %>" == "false") {
+					$("#colaborator_sproket_1").attr("required", "required");
+				}
+
+				if("<%= colaborator.sproket_2.present? %>" == "false") {
+					$("#colaborator_sproket_2").attr("required", "required");
+				}
 			}
 		});
 
@@ -208,7 +215,7 @@
 		</div>
 
 		<div style="margin-top: 15px; margin-right: 3.2%; float: right; font-size: 0.85em;">
-			<%= f.submit "GUARDAR COLABORADOR", id: "submit-colaborator-form", :class => "pure-button pure-button-primary" %>
+			<%= f.submit "GUARDAR COLABORADOR", id: "submit-colaborator-form", :class => "pure-button pure-button-active", :style => "background: rgb(0, 120, 231); color: #FFF;" %>
 		</div>
 		<br>
 		<br>

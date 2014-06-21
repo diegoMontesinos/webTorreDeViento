@@ -12,6 +12,18 @@
 	margin-top: 2%;
 }
 
+a {
+	outline : none;
+}
+
+a img {
+	outline : none;
+}
+
+img {
+	border : 0;
+}
+
 // EMPIEZA CSS BANNER TVP
 #banner-tvp {
 	width: 100%;
@@ -237,7 +249,8 @@
 	color: #FFFFFF;
 	
 	font-family: euphemia, euphemia_ie;
-	font-size: 12px;
+	font-size: 9px;
+	line-height: 10px;
 	
 	text-align: justify;
 	cursor: pointer;

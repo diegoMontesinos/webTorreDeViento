@@ -27,6 +27,19 @@ class DownloadsController < ApplicationController
     @downloads = Download.all
   end
 
+  # DELETE
+  def destroy
+    @download = Download.find(params[:id])
+    id_download = @download.id
+    @download.destroy
+
+    respond_to do |format|
+      format.json {
+        render json: id_download.to_json
+      }
+    end
+  end
+
   # GET
   def edit_thumbnail
     @download = Download.find(params[:id])

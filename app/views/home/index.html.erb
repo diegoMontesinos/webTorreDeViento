@@ -1,7 +1,7 @@
 <style type="text/css">
 	html {
 		width: 100%;
-		height: auto;
+		min-height: 100%;
 
 		position: absolute;
 		top: 0;
@@ -14,7 +14,7 @@
 
 	body {
 		width: 100%;
-		height: auto;
+		min-height: 100%;
 
 		position: absolute;
 		top: 0;
@@ -25,12 +25,13 @@
 		background: linear-gradient(top , #FFFFFF, #a3a3a3) repeat-x;	
 		background: -moz-linear-gradient(top , #FFFFFF , #a3a3a3) repeat-x;
 		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
-		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
+		background: -ms-linear-gradient(top, #FFFFFF 0%, #a3a3a3 300%) repeat-x;
+		background: -o-linear-gradient(#FFFFFF , #a3a3a3);
 		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
 	}
 
 	#menu-tvp {
-		margin-top: -4px;
+		margin-top: -5px;
 	}
 </style>
 
@@ -76,7 +77,9 @@
 		</div>
 
 		<!-- MENU TVP -->
-		<%= render partial: "shared/menu_tvp" %>
+		<div style="background: #000;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
 
 		<!-- NOTICIAS -->
 		<div id="news-home-container">
@@ -220,7 +223,8 @@
 			scroll: {
 				items: 1,
 				fx: "scroll",
-				easing: "linear"
+				easing: "linear",
+				duration: 600
 			},
 
 			auto: true,
@@ -241,7 +245,8 @@
 
 			scroll: {
 				fx: "scroll",
-				easing: "linear"
+				easing: "linear",
+				duration: 600
 			},
 
 			auto: true,

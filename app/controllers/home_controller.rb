@@ -133,4 +133,9 @@ class HomeController < ApplicationController
     end
   end
 
+  # GET
+  def video
+    render partial: "video"
+  end
+
 end

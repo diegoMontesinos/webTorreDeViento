@@ -29,7 +29,7 @@
 			</ul>
 
 			<div style="margin-left: 25%; margin-top: -8px; font-family: latha, latha_ie; font-size: 0.89em;" >
-				<%= button_tag(type: "button", id: "admin-frecuents-order", class: "pure-button pure-button-primary") do %>
+				<%= button_tag(type: "button", id: "admin-frecuents-order", class: "pure-button pure-button-active", style: "background: rgb(0, 120, 231); color: #FFF;") do %>
 					<strong>ORDEN COLAB. FRECUENTES</strong> <i class="fa fa-list"></i>
 				<% end %>
 			</div>
@@ -39,11 +39,11 @@
 			<div id="admin-colaborators-selection-display"></div>
 			<div id="admin-colaborators-selection-title"></div>
 			<div id="admin-colaborators-selection-buttons">
-				<%= button_tag(type: "button", id: "admin-edit-colab-button", class: "pure-button pure-button-primary", style: "margin-top: 40px;") do %>
+				<%= button_tag(type: "button", id: "admin-edit-colab-button", class: "pure-button pure-button-active", style: "margin-top: 40px; background: rgb(0, 120, 231); color: #FFF;") do %>
 					<strong>EDITAR COLABORADOR</strong> <i class="fa fa-pencil-square-o"></i>
 				<% end %>
 
-				<%= button_tag(type: "button", id: "admin-delete-colab-button", class: "pure-button pure-button-primary", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20);") do %>
+				<%= button_tag(type: "button", id: "admin-delete-colab-button", class: "pure-button pure-button-active", style: "margin-top: 40px; margin-left: 4%; background: rgb(223, 117, 20); color: #FFF;") do %>
 					<strong>ELIMINAR COLABORADOR</strong> <i class="fa fa-times"></i>
 				<% end %>
 			</div>

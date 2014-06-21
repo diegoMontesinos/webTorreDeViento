@@ -602,6 +602,38 @@
 	font-size: 0.89em;
 }
 
+#admin-download-selection {
+	float: left;
+}
+
+#admin-download-selection-display {
+	width: 600px;
+	height: 400px;
+
+	margin-left: 9%;
+	margin-top: 13px;
+
+	background: #000000;
+}
+
+#admin-download-selection-title {
+	margin-top: 10px;
+	margin-left: 28%;
+
+	color: #000000;
+	font-family: felixti, felixti_ie;
+	font-size: 1.1em;
+}
+
+#admin-download-selection-buttons {
+	width: 100%;
+
+	margin-left: 9%;
+
+	font-family: latha, latha_ie;
+	font-size: 0.89em;
+}
+
 // TERMINA CSS DOWNLOADS
 
 // EMPIEZA CSS NEWS
