@@ -3,13 +3,9 @@ div.jp-audio,
 div.jp-audio-stream,
 div.jp-video {
 
-	/*font-size:1.25em; 
-	font-family:Verdana, Arial, sans-serif;*/
-	line-height:20px;
-	color: #666; /*Color de los numeros*/
-	border:1px solid #000;
-	background-color:#eee;/*Color de la barra*/
 	
+	line-height:20px;
+	border:1px solid #191818;
 }
 div.jp-audio {
 	width:420px;
@@ -56,12 +52,11 @@ div.jp-video-full div.jp-interface {
 	position: absolute !important; position: relative; /* Rules for IE6 (full-screen) */
 	bottom: 0;
 	left: 0;
-
 }
 
 div.jp-interface {
 	position: relative;
-	background-color:#000;/*Mas color de la barra*/
+	background-color:#000;
 	width:100%;
 	height: 20px;
 }
@@ -85,17 +80,25 @@ div.jp-video div.jp-interface {
 
 div.jp-controls-holder {
 	clear: both;
-	width:100%;
-	margin:0 auto;
+	width:15px;
 	position: relative;
 	overflow:hidden;
-	top:-19px; /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
-	left: -8px;
+	bottom:46px; /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
+	left: 15px;
+}
+
+div.jp-controls-holder2 {
+	clear: both;
+	width:22%;
+	position: relative;
+	overflow:hidden;
+	bottom:73px; /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
+	left: 78%
 }
 
 div.jp-interface ul.jp-controls {
 	list-style-type:none;
-	margin-top:11px;
+	margin:0;
 	padding: 0;
 	overflow:hidden;
 }
@@ -111,8 +114,8 @@ div.jp-audio-stream ul.jp-controls {
 }
 
 div.jp-video div.jp-type-single ul.jp-controls {
-	width: 357px;
-	margin-left: 23px;
+	width: 100%;
+	/*margin-left: 200px;*/
 }
 
 div.jp-video div.jp-type-playlist ul.jp-controls {
@@ -150,13 +153,14 @@ a.jp-pause {
 
 
 
-
-
 /* @end */
 
 /* @group progress bar */
 
-
+div.jp-progress {
+	overflow:hidden;
+	background-color: #ddd;
+}
 div.jp-audio div.jp-progress {
 	position: absolute;
 	top:32px;
@@ -172,16 +176,16 @@ div.jp-audio div.jp-type-playlist div.jp-progress {
 }
 div.jp-video div.jp-progress {
 	margin-top:9px;
-	
+	margin-left:34px;
 	width:69.5%;
-	height:4px;
-	margin-left: 34px;
+	height:2px;
 }
 div.jp-seek-bar {
 	background: url("barra_blanca.png") repeat-x;
 	width:0px;
 	height:100%;
 	cursor: pointer;
+	z-index: 50;
 }
 div.jp-play-bar {
 	background: url("barra_roja.png") repeat-x ;
@@ -203,8 +207,6 @@ a.jp-volume-max {
 	height:11.6px;
 	margin-top:12px;
 }
-
-
 
 div.jp-audio div.jp-type-single a.jp-mute,
 div.jp-audio div.jp-type-single a.jp-unmute {
@@ -229,30 +231,28 @@ div.jp-video a.jp-mute,
 div.jp-video a.jp-unmute,
 div.jp-video a.jp-volume-max {
 	position: absolute;
-	top:10px;
+	top:12px;
 	margin-top:0;
 }
 
 div.jp-video a.jp-mute,
 div.jp-video a.jp-unmute {
-	left: 381px;
+
 }
 
 div.jp-video a.jp-volume-max {
-	left: 444px;
+	left: 67px;
 }
 
 a.jp-mute {
 	background: url("unmute-less.png") no-repeat;
 	background-size:14.2px 11.6px;
 }
-
 a.jp-unmute {
 	background: url("mute.png") no-repeat;
 	display: none;
 	background-size:14.2px 11.6px;
 }
-
 a.jp-volume-max {
 	background: url("unmute.png") no-repeat;
 	background-size:14.2px 11.6px;
@@ -277,12 +277,11 @@ div.jp-audio-stream div.jp-volume-bar {
 	left:92px;
 }
 div.jp-video div.jp-volume-bar {
-	top:15px;
-	left:396px;
+	top:17px;
+	left:16px;
 }
 div.jp-volume-bar-value {
-	background: url("barra_roja.png") no-repeat
-	;
+	background: url("barra_roja.png") no-repeat;
 	width:0px;
 	height:2px;
 }
@@ -304,13 +303,13 @@ div.jp-audio div.jp-type-playlist div.jp-time-holder {
 	width:130px;
 }
 
-
-div.jp-current-time {
-	display:none;
-}
+div.jp-current-time,
 div.jp-duration {
-	display:none;
+	width:0px;
+	font-size:0em;
+	font-style:oblique;
 }
+
 
 
 
@@ -483,8 +482,8 @@ div.jp-audio .jp-type-playlist ul.jp-toggles {
 }
 
 div.jp-video ul.jp-toggles {
-	margin-top:10px;
-	width:100px;
+	margin-top:12px;
+	width:100%;
 }
 
 ul.jp-toggles li {
@@ -503,17 +502,22 @@ ul.jp-toggles li a {
 
 a.jp-full-screen {
 	background: url("full-screen.png") no-repeat;
-	/*margin-left: 20px;*/
-	background-size: 11px 11px;
+		margin-left: 20px;
+		background-size: 11px 11px;
 }
-
 
 
 a.jp-restore-screen {
 	background: url("full-screen.png") no-repeat;
-	/*margin-left: 20px;*/
+	margin-left: 20px;
 	background-size: 11px 11px;
+
 }
+
+
+
+
+
 
 
 /* @end */
