@@ -120,6 +120,15 @@
 					$(divImageOption).css("margin-top", "5px");
 
 					$(divImageOption).append("<img src='" + data[i].image.display.url + "' style='width: 100%; height: 100%;'>");
+
+					// Configuramos el nombre
+					var spanTitle = document.createElement("span");
+					$(spanTitle).attr("align", "center");
+					$(spanTitle).addClass("title-img");
+					$(spanTitle).css({ "width" : "100%", "float" : "left" });
+					$(spanTitle).html(file_name(data[i].image.url));
+					$(divImageOption).append(spanTitle);
+
 					$(divImageOption).appendTo("#admin-grid-image-options");
 
 					// Agregando evento al div de la opcion

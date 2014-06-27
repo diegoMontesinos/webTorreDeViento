@@ -42,3 +42,8 @@ function add_fields(link, association, content) {
 	var regexp = new RegExp("new_" + association, "g")
 	$("#form-work-multimedia").append(content.replace(regexp, new_id));
 }
+
+function file_name(file_path) {
+	var lastIndex = file_path.lastIndexOf("/") + 1;
+	return file_path.slice(lastIndex);
+}

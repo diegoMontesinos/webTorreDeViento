@@ -83,9 +83,11 @@
 				$("#admin-folders-options").empty();
 
 				for(var i = 0; i < data.length; i++) {
+					console.log(data[i].image);
 
 					var img = new Image();
 					$(img).attr("id-photo", data[i].id);
+					$(img).attr("title-photo", file_name(data[i].image.url));
 
 					img.onload = function() {
 
@@ -97,6 +99,14 @@
 						// Configuramos la imagen y la agregamos al conenedor
 						$(this).css({ "width" : "100%", "height" : "100%"});
 						$(divOption).append(this);
+
+						// Configuramos el nombre
+						var spanTitle = document.createElement("span");
+						$(spanTitle).attr("align", "center");
+						$(spanTitle).addClass("title-img");
+						$(spanTitle).css({ "width" : "100%", "float" : "left" });
+						$(spanTitle).html($(this).attr("title-photo"));
+						$(divOption).append(spanTitle);
 
 						// Creamos y configuramos el delete
 						var divDelete = document.createElement("div");

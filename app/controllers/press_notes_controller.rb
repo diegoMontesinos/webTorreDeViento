@@ -92,20 +92,22 @@ class PressNotesController < ApplicationController
 	def press_element
 		@press_element = PressElement.find(params[:id])
 
+		body_press_element = ""
 		if(params[:locale] == "en")
-			respond_to do |format|
-				format.json {
-					render json: @press_element.body_in_en.html_safe
-				}
+			if @press_element.body_in_en.nil?
+				body_press_element = @press_element.body_in_es.html_safe
+			else
+				body_press_element = @press_element.body_in_en.html_safe
 			end
 		else
-			respond_to do |format|
-				format.json {
-					render json: @press_element.body_in_es.html_safe
-				}
-			end
+			body_press_element = @press_element.body_in_es.html_safe
 		end
-		
+
+		respond_to do |format|
+			format.json {
+				render json: body_press_element
+			}
+		end
 	end
 
 	# POST
