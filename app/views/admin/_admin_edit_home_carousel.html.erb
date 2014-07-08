@@ -11,7 +11,7 @@
 				<% if carousel_elem.photo.present? %>
 					<div style="color: #1C1C1C; font-size: 1.2em; position: absolute; right: 4%; top: 5px; cursor: pointer;"
 				     onclick="quit_element('<%= clean_carousel_element_path(carousel_elem)%>', this, event);">
-					<i class="fa fa-times-circle"></i>
+					<i class="fa fa-times-circle" style='color: #EDFF00;'></i>
 					</div>
 					<%= image_tag Photo.find(carousel_elem.photo).image.url(:display) %>
 
