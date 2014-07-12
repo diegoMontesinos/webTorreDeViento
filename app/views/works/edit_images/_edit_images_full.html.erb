@@ -22,7 +22,7 @@
 			</div>
 		<% end %>
 
-		<div id="work-full-edit-images-detrasde" url-dialog="<%= edit_folder_path(work.filefolder('DETRAS DE')) %>?id_div=work-full-edit-images-detrasde">
+		<div id="work-full-edit-images-detrasde" url-dialog="<%= edit_folder_path(work.filefolder('DETRÁS DE')) %>?id_div=work-full-edit-images-detrasde">
 			<%= image_tag "elegir-portada-detrasde.png", :style => "width: 100%; height: 100%;" %>
 		</div>
 		<div id="work-full-edit-images-otros" url-dialog="<%= edit_folder_path(work.filefolder('OTROS')) %>?id_div=work-full-edit-images-otros">
@@ -109,7 +109,7 @@
 
 		// Click en detras de
 		$("#work-full-edit-images-detrasde").click(function() {
-			loadDialog("DETRAS DE", this);
+			loadDialog("DETRÁS DE", this);
 		});
 
 		// Click en detras de

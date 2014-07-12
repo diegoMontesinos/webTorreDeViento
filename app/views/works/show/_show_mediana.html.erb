@@ -18,22 +18,32 @@
 
 		if(($(".work-info-text-mediana").data("jsp"))) {
 			$(".work-info-text-mediana").data("jsp").destroy();
-  		}
+		}
 
-  		$(".work-info-text-mediana").bind("jsp-initialised", function(event, isScrollable) {
-  			// Se redimensiona el area scrollable
+		// Obteniendo la altura del cuadro de texto en base al titulo
+		var heigtTotal = 390;
+		var heightTitle = $("#work-info-title-content-mediana").height() + 20;
+		console.log($("#work-info-title-content-mediana").height());
+		var heightText = heigtTotal - heightTitle;
+
+		$(".work-info-text-mediana").css({
+			"height" : heightText + "px"
+		});
+
+		$(".work-info-text-mediana").bind("jsp-initialised", function(event, isScrollable) {
+			// Se redimensiona el area scrollable
 			$(".jspContainer").css("width", "91%");
 			$(".jspContainer").css("margin-right", "2.75%");
 			$(".jspContainer").css("margin-left", "6.25%");
 		}).jScrollPane({hideFocus: true });
 
 		correctLineHeight("work-info-text-content-mediana");
-  	}
+	}
 
-  	function showFolder(folder) {
-  		var folder_param = "/?folder=" + folder;
+	function showFolder(folder) {
+		var folder_param = "/?folder=" + folder;
 
-  		$.ajax({
+		$.ajax({
 			type: "GET",
 			url: "<%= image_folder_path(work.id) %>" + folder_param,
 			dataType: "json",
@@ -54,8 +64,8 @@
 
 				// Se agregan las flechitas
 				$("#work-display-mediana").append("<div class='clearfix'></div>" +
-									    "<div class='prev' id='gallery-prev'>" + prev_gallery_html + "</div>" +
-									    "<div class='next' id='gallery-next'>" + next_gallery_html + "</div>");
+									   "<div class='prev' id='gallery-prev'>" + prev_gallery_html + "</div>" +
+									   "<div class='next' id='gallery-next'>" + next_gallery_html + "</div>");
 
 				// Inicia el carousel de la galeria
 				$("#work-display-mediana-gallery").carouFredSel({
@@ -82,7 +92,7 @@
 
 			}
 		});
-  	}
+	}
 
 	$(function() {
 		correctLineHeight("work-info-title-mediana");
@@ -106,7 +116,7 @@
 			<% folder_galeria = @work.filefolder("GALERIA") %>
 			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-			<div class="work-mediana-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_galeria.name_folder %></div></div>
+			<div class="work-mediana-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_galeria.name_folder %></div></div>
 		</div>
 
 		<div style="width: 0.3%; height: 120px; float: left; background: #000;"></div>
@@ -116,7 +126,7 @@
 			<% folder_otros = @work.filefolder("OTROS") %>
 			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-			<div class="work-mediana-sections-link"><div style="padding: 0px 3px 2px 3px;"><%= folder_otros.name_folder %></div></div>
+			<div class="work-mediana-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_otros.name_folder %></div></div>
 		</div>
 
 	</div>
@@ -125,40 +135,42 @@
 	<div id="work-info-mediana">
 
 		<!-- TITULOS DE LA OBRA -->
-		<div id="work-info-title-mediana" >
+		<div id="work-info-title-mediana" style="position: relative;">
 			<div id="work-info-title-content-mediana">
 				<span style="width: 100%"><%= work.titles_text.html_safe %></span>
 			</div>
 		</div>
 
 		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-mediana" style="width: 100%; height: 335px; float: right; margin-top: 0px;">
+		<div class="work-info-text-mediana" style="width: 100%; position: relative; float: right; margin-top: 10px;">
 			<div id="work-info-text-content-mediana" style="width: 87.5%; height: auto; margin-top: 1px;"></div>
 		</div>
 
 		<!-- MENU PARA LA INFORMACION DE LA OBRA -->
 		<div id="work-info-menu-navigator">
-			<ul id="work-info-menu" style="height: 30px; padding-top: 0px;">
+			<ul id="work-info-menu" style="padding-top: 0px;">
 				<% if !work.credits.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 10px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 24px;" onclick="putTextInfo('credits');" >
+						<div><%= t(:credits_menu) %></div>
+					</li>
 				<% end  %>
 				<% if !work.synopsis.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 10px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 24px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
 				<% end  %>
 				<% if !work.notes.nil? %>
-					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 10px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 24px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
 				<% end  %>
 				<% if !work.program.nil? %>
-					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px; margin-top: 10px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px; margin-top: 24px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
 				<% end  %>
 
 				<%= link_to work_path(@work.next) do %>
-					<div style="width: 10px; height: 20px; float: right; margin-right: 30px; margin-top: 10px;">
+					<div style="width: 10px; height: 20px; float: right; margin-right: 30px; margin-top: 24px;">
 						<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
 					</div>
 				<% end %>
 				<%= link_to work_path(@work.previous) do %>
-					<div style="width: 10px; height: 20px; float: right; margin-right: 12px; margin-top: 10px;">
+					<div style="width: 10px; height: 20px; float: right; margin-right: 12px; margin-top: 24px;">
 						<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 					</div>
 				<% end %>

@@ -26,7 +26,7 @@ class Work < ActiveRecord::Base
 		if self.type_work == "full"
 			
 			substitute_folder = file_folders.reject{ |folder|
-				(folder.name_folder_in_es == "GALERIA" or folder.name_folder_in_es == "DETRAS DE" or folder.name_folder_in_es == "OTROS" or folder.name_folder_in_es == "DEFAULT")
+				(folder.name_folder_in_es == "GALERIA" or folder.name_folder_in_es == "DETRÁS DE" or folder.name_folder_in_es == "OTROS" or folder.name_folder_in_es == "DEFAULT")
 			}
 
 			return substitute_folder.first

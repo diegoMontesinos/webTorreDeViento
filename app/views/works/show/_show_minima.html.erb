@@ -21,6 +21,16 @@
 			$(".work-info-text-minima").data("jsp").destroy();
   		}
 
+  		// Obteniendo la altura del cuadro de texto en base al titulo
+		var heigtTotal = 330;
+		var heightTitle = $("#work-info-title-content-minima").height() + 20;
+		var heightText = heigtTotal - heightTitle;
+		console.log($("#work-info-title-content-minima").height());
+
+		$(".work-info-text-minima").css({
+			"height" : heightText + "px"
+		});
+
   		$(".work-info-text-minima").bind("jsp-initialised", function(event, isScrollable) {
   			// Se redimensiona el area scrollable
 			$(".jspContainer").css("width", "91%");
@@ -60,6 +70,7 @@
 			auto: false,
 			prev: "#minima-gallery-prev",
 			next: "#minima-gallery-next"
+
 		});
 
 		// Poniendole efecto al prev y al next
@@ -84,14 +95,14 @@
 	<div id="work-info-minima">
 
 		<!-- TITULOS DE LA OBRA -->
-		<div id="work-info-title-minima" >
+		<div id="work-info-title-minima" style="position: relative;">
 			<div id="work-info-title-content-minima">
 				<%= work.titles_text.html_safe %>
 			</div>
 		</div>
 
 		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-minima" style="width: 100%; height: 260px; float: right;">
+		<div class="work-info-text-minima" style="width: 100%; position: relative; float: right; margin-top: 10px;">
 			<div id="work-info-text-content-minima" style="width: 89.05%; height: auto;"></div>
 		</div>
 
@@ -125,10 +136,10 @@
 	</div>
 
 	<!-- GALERIA -->
-	<div id="work-minima-galeria-container">
-		<div style="width: 60%; height: 58px; position: relative; float: left; margin-top: 2px; background: #000000;"></div>
+	<div id="work-minima-galeria-container" style="background: #B9B9B9;">
+		<div style="width: 60%; height: 59px; position: relative; float: left; margin-top: 1px; background: #000000;"></div>
 
-		<div id="work-minima-galeria">
+		<div id="work-minima-galeria" style="background: #000000; margin-top: 1px;">
 
 			<% folder_galeria = work.filefolder("GALERIA") %>
 			<% photos_galeria = folder_galeria.photos %>
@@ -136,7 +147,7 @@
 
 				<div class="work-minima-galeria-item"
 				     onclick="showMe('<%= photo.image.url(:display) %>');" >
-					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 58px;" %>
+					<%= image_tag photo.image.url(:display_folder), :style => "width: 100%; height: 59px;" %>
 				</div>
 			<% end %>
 		</div>
