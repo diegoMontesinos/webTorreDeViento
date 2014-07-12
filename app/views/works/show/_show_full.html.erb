@@ -199,7 +199,7 @@
 			<% folder_galeria = @work.filefolder("GALERIA") %>
 			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "max-width: 199px; max-height: 120px;" %>
 
-			<div class="work-full-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_galeria.name_folder %></div></div>
+			<div class="work-full-sections-link"><div style="margin-top: -1px; padding: 1px 4px 1px 4px;"><%= folder_galeria.name_folder %></div></div>
 		</div>
 		<div style="width: 0.1%; height: 120px; float: left; background: #000;"></div>
 
@@ -208,14 +208,14 @@
 			<div class="work-full-sections-item" style="width: 24.8%; height: 120px;" onclick="putVideo('<%= @work.video.url %>', '<%= @work.videothumb.url(:display) %>');" >
 				<%= image_tag @work.videothumb.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-				<div class="work-full-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;">VIDEO</div></div>
+				<div class="work-full-sections-link"><div style="margin-top: -1px; padding: 1px 4px 1px 4px;">VIDEO</div></div>
 			</div>
 		<% else %>
 			<% folder_subtitute = @work.substitute_video_folder %>
 			<div class="work-full-sections-item" style="width: 24.8%; height: 120px;" onclick="showFolder('<%= folder_subtitute.name_folder_in_es %>');">
 				<%= image_tag Photo.find(folder_subtitute.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-				<div class="work-full-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_subtitute.name_folder %></div></div>
+				<div class="work-full-sections-link"><div style="margin-top: -1px; padding: 1px 4px 1px 4px;"><%= folder_subtitute.name_folder %></div></div>
 			</div>
 		<% end %>
 		<div style="width: 0.2%; height: 120px; float: left; background: #000;"></div>
@@ -225,7 +225,7 @@
 			<% folder_detrasde = @work.filefolder("DETRÁS DE") %>
 			<%= image_tag Photo.find(folder_detrasde.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-			<div class="work-full-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_detrasde.name_folder %></div></div>
+			<div class="work-full-sections-link"><div style="margin-top: -1px; padding: 1px 4px 1px 4px;"><%= folder_detrasde.name_folder %></div></div>
 		</div>
 		<div style="width: 0.2%; height: 120px; float: left; background: #000;"></div>
 
@@ -234,7 +234,7 @@
 			<% folder_otros = @work.filefolder("OTROS") %>
 			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-			<div class="work-full-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_otros.name_folder %></div></div>
+			<div class="work-full-sections-link"><div style="margin-top: -1px; padding: 1px 4px 1px 4px;"><%= folder_otros.name_folder %></div></div>
 		</div>
 
 	</div>
