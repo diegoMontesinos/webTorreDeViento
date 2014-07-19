@@ -229,12 +229,25 @@
 			setupComplete: function() {
 				// Se redimensiona el area scrollable
 				$(".scrollableArea").first().width("100%");
+
 				var grids = $(".work-grid");
 				for (var i = 2; i < (grids.length + 2); i++) {
 					$(grids[i - 2]).css({
 						"z-index" : "" + i
 					});
 				};
+
+				$("#work-spot-left").css({
+					"z-index" : "" + (grids.length + 3)
+				});
+				
+				$("#work-spot-right").css({
+					"z-index" : "" + (grids.length + 3)
+				});
+
+				$("#menu-tvp").css({
+					"z-index" : "" + (grids.length + 3)
+				});
 			}
 		});
 
