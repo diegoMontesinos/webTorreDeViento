@@ -108,8 +108,8 @@
 				$("#we-do-body2").append(elems[i]);
 			};
 			$("#we-do-body2").bind("jsp-initialised", function(event, isScrollable) {
-				$("#we-do-body2 .jspPane").css({
-					"width" : "96%"
+				$("#we-do-body2 .jspPane").find("p")first().css({
+					"top" : "-4px"
 				})
 			}).jScrollPane({
 				hideFocus: true
