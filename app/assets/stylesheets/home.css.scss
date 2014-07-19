@@ -155,6 +155,7 @@ img {
 #carousel-wrapper {
 	width: 100%;
 	height: 320px;
+	position: relative;
 
 	margin-top: 20px;
 
@@ -202,13 +203,13 @@ img {
 }
 
 .prev-home {
-	top: 238px;
-	margin-left: 7px;
+	top: 157px;
+	margin-left: 1.25%;
 }
 
 .next-home {
-	top: 238px;
-	right: 21%;
+	top: 157px;
+	margin-left: 96.25%;
 }
 
 // TERMINA CSS CARUSEL
