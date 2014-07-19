@@ -57,6 +57,10 @@
 					"background" : "#000"
 				});
 			});
+
+			$(".dropdown-tvp ul.dropdown-menu-tvp a").bind("touchstart", function(e) {
+				$(location).attr("href", $(this).attr("href"));
+			});
 		}
 	});
 </script>
