@@ -83,6 +83,9 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#we-are-body").bind("jsp-initialised", function(event, isScrollable) {
+			$("#we-are-body .jspPane").css({
+				"margin-top" : "-6px"
+			})
 		}).jScrollPane({
 			hideFocus: true
 		});

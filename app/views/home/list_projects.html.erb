@@ -74,8 +74,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#list-projects-body").bind("jsp-initialised", function(event, isScrollable) {
-			$(".jspPane").css({
-				"width" : "98%"
+			$("#list-projects-body .jspPane").css({
+				"margin-top" : "-6px"
 			})
 		}).jScrollPane({
 			hideFocus: true
