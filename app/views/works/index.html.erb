@@ -28,6 +28,10 @@
 		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
 		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
 	}
+
+	#menu_tvp {
+		z-index: <%= @work_grids.length + 3 %>;
+	}
 </style>
 
 <div id="wrapper-tvp" align="center">
@@ -39,7 +43,7 @@
 		</div>
 
 		<!-- MENU TVP -->
-		<div style="margin-top: 25px; z-index: <%= @work_grids.length + 3 %>;">
+		<div style="margin-top: 25px;">
 			<%= render partial: "shared/menu_tvp" %>
 		</div>
 
