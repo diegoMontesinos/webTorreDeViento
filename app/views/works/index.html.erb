@@ -28,10 +28,6 @@
 		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
 		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
 	}
-
-	#menu-tvp {
-		z-index: <%= @work_grids.length + 3 %>;
-	}
 </style>
 
 <div id="wrapper-tvp" align="center">
@@ -139,6 +135,10 @@
 	}
 
 	$(document).ready(function() {
+
+		$("#menu-tvp").css({
+			"z-index" : "<%= @work_grids.length + 3 %>"
+		});
 
 		// Se reacomoda cada grid-element del grid por clase
 		for (var i = 0; i <= 14; i++) {
