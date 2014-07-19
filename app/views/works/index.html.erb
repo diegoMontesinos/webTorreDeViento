@@ -61,12 +61,12 @@
 					<% i = 0 %>
 
 					<% @work_grids.each do |work_grid| %>
-						<div id="grid-<%= i %>" class="work-grid" style="z-index: 10; width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%;">
+						<div id="grid-<%= i %>" class="work-grid" style="z-index: 5; width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%;">
 							<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
 
 							<% j = 0 %>
 							<% grid_elements.each do |grid_element| %>
-								<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="">
+								<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="" style="z-index: 10;">
 									<% if grid_element.work.present? %>
 										<script type="text/javascript">
 											var container = $("#element-<%= i %>-<%= j %>");
