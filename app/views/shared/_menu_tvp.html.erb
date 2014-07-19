@@ -21,3 +21,49 @@
 	</li>
 
 </ul>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		if (!$('html').hasClass('no-touch')) {
+
+			$(".dropdown-tvp").each(function() {
+				$(this).bind("touchstart", function(e) {
+					$(".dropdown-tvp").css({
+						"background" : "#000"
+					});
+
+					$(this).css({
+						"background" : "#242529"
+					});
+
+					// Obtenemos al hijo dropdown-menu-tvp
+					var drop_menu = $(this).find(".dropdown-menu-tvp")[0];
+
+					$(".dropdown-menu-tvp").each(function() {
+						if(this == drop_menu) {
+							$(this).toggle();
+						} else {
+							$(this).css('display','none');
+						}
+					});
+
+					e.stopPropagation();
+				});
+			});
+
+			$(document).bind("touchstart", function(e) {
+				$(".dropdown-tvp ul.dropdown-menu-tvp").fadeOut(300);
+				$(".dropdown-tvp").css({
+					"background" : "#000"
+				});
+			});
+
+			$(".dropdown-tvp ul.dropdown-menu-tvp a").click(function () {
+				$(".dropdown-tvp ul.dropdown-menu-tvp").fadeOut(300);
+				$(".dropdown-tvp").css({
+					"background" : "#000"
+				});
+			});
+		}
+	});
+</script>

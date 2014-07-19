@@ -75,9 +75,12 @@
 									<% next_ = @next %>
 								<% end %>
 
-								<%= link_to colaborator_path(colab.id) + "?previous=" + previous_.to_s + "&next=" + next_.to_s, :class => "colaborator-link" do %>
-									<span style="width: 100%; font-family: felixti, felixti_ie; font-size: 0.875em;">- <%= colab.name.upcase %></span>
-								<% end %>
+								<span style="width: 100%; font-family: felixti, felixti_ie; font-size: 0.875em;">
+									<div style="float: left; font-size: 7px; margin-top: 4px;"><i class="fa fa-circle"></i></div>
+									<%= link_to colaborator_path(colab.id) + "?previous=" + previous_.to_s + "&next=" + next_.to_s, :class => "colaborator-link" do %>
+										 <%= colab.name.upcase %>
+									<% end %>
+								</span><br>
 							<% end %>
 						</ul>
 					</div>
@@ -127,7 +130,6 @@
 			// Se redimensiona el area scrollable
 			$(".jspContainer").css("width", "91%");
 			$(".jspContainer").css("margin-right", "2.75%");
-			$(".jspContainer").css("margin-left", "5.556%");
 		}).jScrollPane({hideFocus: true });
 
 	});

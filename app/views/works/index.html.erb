@@ -141,6 +141,7 @@
 			var container = $(".grid-element-" + i);
 
 			container.each(function() {
+				$(this).attr("contracted", "0");
 				correctLineHeight($(this));
 
 				// Se colocan bien las imagenes
@@ -183,43 +184,108 @@
 							marginLeft: '-' + mLeft + 'px',
 							marginTop: '-' + mRight + 'px'
 						});
-						
-						// Se le da el efecto hover
-						$(that).hover(function(event) {
-							event.preventDefault();
-							event.stopPropagation();
 
-							$(this).find('img').animate({
-								width: $(img).width() * scaleFactor,
-								height: $(img).height() * scaleFactor,
-								marginTop: 5,
-								marginLeft: 5
-							}, 500)
-						}, function(event) {
-							event.preventDefault();
-							event.stopPropagation();
+						// Guardamos la informacion para ocuparla despues
+						$(that).attr("scaleFactor", "" + scaleFactor);
+						$(that).attr("nW", "" + newW);
+						$(that).attr("nH", "" + newH);
+						$(that).attr("nML", "" + mLeft);
+						$(that).attr("nMR", "" + mRight);
 
-							$(this).find('img').animate({
-								width: newW + 'px',
-								height: newH + 'px',
-								marginLeft: '-' + mLeft + 'px',
-								marginTop: '-' + mRight + 'px'
-							}, 300);
-						});
+						if (!$("html").hasClass("no-touch")) {
 
-						// Se le pone cursor de manita
-						$(that).css("cursor", "pointer");
+							// Se le da el efecto en touch
+							$(that).bind("touchstart", function(event) {
+								event.preventDefault();
+								event.stopPropagation();
 
-						// Se le da accion de click
-						$(that).click(function() {
-							$(location).attr("href", $(this).attr("work-url"));
-						});
+								// Regresamos todos a su posicion normal
+								for (var j = 0; j <= 14; j++) {
+									$(".grid-element-" + j).each(function() {
+										if(this != that) {
+											$(this).find('img').animate({
+												width: parseFloat($(this).attr("nW")) + 'px',
+												height: parseFloat($(this).attr("nH")) + 'px',
+												marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
+												marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
+											}, 300);
+
+											$(this).attr("contracted", "0");
+										}
+									});
+								}
+
+								if($(this).attr("contracted") == "0") {
+									var thisImg = $(this).find('img');
+									thisImg.animate({
+										width: thisImg.width() * parseFloat($(that).attr("scaleFactor")),
+										height: thisImg.height() * parseFloat($(that).attr("scaleFactor")),
+										marginTop: 5,
+										marginLeft: 5
+									}, 500);
+
+									$(this).attr("contracted", "1");
+								} else {
+									$(location).attr("href", $(this).attr("work-url"));
+								}
+							});
+
+						} else {
+							// Se le da el efecto hover
+							$(that).hover(function(event) {
+								event.preventDefault();
+								event.stopPropagation();
+
+								$(this).find('img').animate({
+									width: $(img).width() * scaleFactor,
+									height: $(img).height() * scaleFactor,
+									marginTop: 5,
+									marginLeft: 5
+								}, 500);
+							}, function(event) {
+								event.preventDefault();
+								event.stopPropagation();
+
+								$(this).find('img').animate({
+									width: newW + 'px',
+									height: newH + 'px',
+									marginLeft: '-' + mLeft + 'px',
+									marginTop: '-' + mRight + 'px'
+								}, 300);
+							});
+
+							// Se le pone cursor de manita
+							$(that).css("cursor", "pointer");
+
+							// Se le da accion de click
+							$(that).click(function() {
+								$(location).attr("href", $(this).attr("work-url"));
+							});
+						}
 					}
 
 					img.src = img_url;
 				}
 			});
 		}
+
+		$(document).bind("touchstart", function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			// Regresamos todos a su posicion normal
+			for (var j = 0; j <= 14; j++) {
+				$(".grid-element-" + j).each(function() {
+					$(this).find('img').animate({
+						width: parseFloat($(this).attr("nW")) + 'px',
+						height: parseFloat($(this).attr("nH")) + 'px',
+						marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
+						marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
+					}, 300);
+					$(this).attr("contracted", "0");
+				});
+			}
+		});
 
 		// RODILLO
 		$("#work-grids-container").smoothDivScroll({

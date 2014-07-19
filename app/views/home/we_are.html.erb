@@ -28,6 +28,15 @@
 		background: -ms-linear-gradient(top, #FFFFFF , #a3a3a3)repeat-x;
 		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
 	}
+
+	.jspTrack {
+		background: #D3D3D3;
+	}
+
+	.jspDrag {
+		background: #2F2E30;
+	}
+
 </style>
 
 <div id="wrapper-tvp" align="center">
@@ -73,7 +82,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#we-are-body").jScrollPane({
+		$("#we-are-body").bind("jsp-initialised", function(event, isScrollable) {
+			$(".jspPane").css({
+				"width" : "98%"
+			})
+		}).jScrollPane({
 			hideFocus: true
 		});
 	});

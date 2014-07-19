@@ -279,9 +279,24 @@ img {
 	float: left;
 }
 
+#we-are-body p, #list-projects-body p {
+	margin: 0;
+	padding: 0;
+}
+
+#we-are-body span,  #list-projects-body span {
+	margin: 0;
+	padding: 0;
+}
+
+#we-are-body span span, #list-projects-body span span {
+	margin: 0;
+	padding: 0;
+}
+
 #we-are-body, #list-projects-body {
 	width: 90%;
-	height: 160px;
+	height: 184px;
 
 	float: left;
 	position: absolute;
@@ -331,6 +346,21 @@ img {
 	position: absolute;
 	top: 40px;
 	left: 75%;
+}
+
+#we-do-body1 p, #we-do-body2 p {
+	margin: 0;
+	padding: 0;
+}
+
+#we-do-body1 span,  #we-do-body2 span {
+	margin: 0;
+	padding: 0;
+}
+
+#we-do-body1 span span, #we-do-body2 span span {
+	margin: 0;
+	padding: 0;
 }
 
 #list-projects-container {
