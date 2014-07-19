@@ -61,7 +61,7 @@
 					<% i = 0 %>
 
 					<% @work_grids.each do |work_grid| %>
-						<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%;">
+						<div id="grid-<%= i %>" class="work-grid" style="z-index: 10; width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%;">
 							<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
 
 							<% j = 0 %>
