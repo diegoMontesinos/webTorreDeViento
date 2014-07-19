@@ -229,17 +229,14 @@
 			setupComplete: function() {
 				// Se redimensiona el area scrollable
 				$(".scrollableArea").first().width("100%");
-
-				$(".work-grid").css({
-					"z-index" : "5"
-				});
-
-				// Se reacomoda cada grid-element del grid por clase
-				for (var i = 0; i <= 14; i++) {
-					$(".grid-element-" + i).css({
-						"z-index" : "10"
-					});
-				}
+				setInterval(function() {
+					var grids = $(".work-grid");
+					for (var i = 2; i < (grids.length + 2); i++) {
+						$(grids[i - 2]).css({
+							"z-index" : "" + i
+						});
+					};
+				}, 60);
 			}
 		});
 
