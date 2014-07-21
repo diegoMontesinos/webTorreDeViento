@@ -452,21 +452,30 @@
 }
 
 .work-info-text-full {
+	width: 90.5%;
+
+	overflow: hidden;
+
+	float: left;
+	margin-top: 10px;
+	margin-left: 6.25%;
+
 	background: #000000;
 	color: #FFFFFF;
+
 }
 
-#work-info-text-content-full p {
+.work-info-text-full p {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-full span {
+.work-info-text-full span {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-full span span {
+.work-info-text-full span span {
 	margin: 0;
 	padding: 0;
 }
@@ -483,7 +492,7 @@
 	position: relative;
 
 	margin: 0;
-	padding-top: 14px;
+	padding-top: 13px;
 	padding-left: 17px;
 	list-style: none;
 	float: left;
@@ -510,7 +519,7 @@
 	text-align: center;
 
 	cursor: pointer;
-	margin-top: 5px;
+	margin-top: 3px;
 }
 
 #work-info-menu > li div {

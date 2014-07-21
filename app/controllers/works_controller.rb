@@ -99,6 +99,9 @@ class WorksController < ApplicationController
 							end
 						else
 							if name_filefolder == "GALERIA" and @work.display.nil?
+								currFolder.name_folder_in_es = "GALERÍA"
+								currFolder.save
+								
 								@work.display = id_photo
 								@work.save
 							end
@@ -185,6 +188,9 @@ class WorksController < ApplicationController
 							end
 						else
 							if name_filefolder == "GALERIA" and @work.display.nil?
+								currFolder.name_folder_in_es = "GALERÍA"
+								currFolder.save
+
 								@work.display = id_photo
 								@work.save
 							end

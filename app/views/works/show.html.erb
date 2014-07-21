@@ -29,8 +29,8 @@
 </style>
 
 <script type="text/javascript">
-	function correctLineHeight(id_elem) {
-		$("#" + id_elem).find("p").each(function() {
+	function correctLineHeight(elem) {
+		$(elem).find("p").each(function() {
 			var maxFontSize = 0;
 
 			$(this).find("span").each(function() {

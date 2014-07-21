@@ -2,7 +2,7 @@
 
 /* Invisible left hotspot */
 div.scrollingHotSpotLeft {
-	top: 169px;
+	top: 170px;
 	width: 20px;
 	height: 60px;
 
@@ -20,7 +20,7 @@ div.scrollingHotSpotLeftVisible {
 
 /* Invisible right hotspot */
 div.scrollingHotSpotRight {
-	top: 169px;
+	top: 170px;
 	width: 20px;
 	height: 60px;
 	
