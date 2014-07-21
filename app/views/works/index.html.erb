@@ -129,7 +129,7 @@
 			if(maxFontSize == 0) {
 				$(this).css("line-height", "9px");
 			} else {
-				$(this).css("line-height", maxFontSize + "px");
+				$(this).css("line-height", (maxFontSize - 2) + "px");
 			}
 		});
 	}
@@ -172,15 +172,24 @@
 						var mLeft = Math.round((newW * data.x) / $(img).width());
 						var mRight = Math.round((newH * data.y) / $(img).height());
 
-						var scaleFactor = 0.1;
+						var scaleW = 0.1;
+						var scaleH = 0.1;
 						var box = parseInt($(that).attr("class").replace("grid-element-", ""));
-						if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
+						if(box == 0 || box == 1 || box == 3 || box == 4 || box == 7 || box == 9 || box == 11 || box == 12 || box == 13 || box == 14) {
+							scaleH = ($(that).height() * 0.5 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						} else {
+							scaleH = ($(that).height() * 0.45 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						}
+						
+						/*if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
 							scaleFactor = 50.0 / $(img).height();
 						} else if(box == 2 || box == 6 || box == 8 || box == 10) {
 							scaleFactor = 125.0 / $(img).height();
 						} else if(box == 5) {
 							scaleFactor = 100.0 / $(img).width();
-						}
+						}*/
 
 						$(img).css({
 							width: newW + 'px',
@@ -190,7 +199,8 @@
 						});
 
 						// Guardamos la informacion para ocuparla despues
-						$(that).attr("scaleFactor", "" + scaleFactor);
+						$(that).attr("scaleW", "" + scaleW);
+						$(that).attr("scaleH", "" + scaleH);
 						$(that).attr("nW", "" + newW);
 						$(that).attr("nH", "" + newH);
 						$(that).attr("nML", "" + mLeft);
@@ -222,8 +232,8 @@
 								if($(this).attr("contracted") == "0") {
 									var thisImg = $(this).find('img');
 									thisImg.animate({
-										width: thisImg.width() * parseFloat($(that).attr("scaleFactor")),
-										height: thisImg.height() * parseFloat($(that).attr("scaleFactor")),
+										width: parseFloat($(that).attr("scaleW")),
+										height: parseFloat($(that).attr("scaleH")),
 										marginTop: 5,
 										marginLeft: 5
 									}, 500);
@@ -241,8 +251,8 @@
 								event.stopPropagation();
 
 								$(this).find('img').animate({
-									width: $(img).width() * scaleFactor,
-									height: $(img).height() * scaleFactor,
+									width: parseFloat($(that).attr("scaleW")),
+									height: parseFloat($(that).attr("scaleH")),
 									marginTop: 5,
 									marginLeft: 5
 								}, 500);

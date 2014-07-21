@@ -111,12 +111,17 @@ img {
 	display: block;
 }
 
+.dropdown-tvp-title {
+	height: 31px;
+	position: relative;
+	float: left;
+}
+
 #menu-tvp li > ul.dropdown-menu-tvp {
-	position: absolute;
+	position: relative;
+	float: left;
 
 	padding: 0;
-	margin-top: -6px;
-	border-radius: 0px;
 
 	background: rgb(41, 43, 47);
 	opacity: 0.85;
@@ -129,13 +134,12 @@ img {
 
 .dropdown-item-tvp {
 	max-width: 100%;
-	height: 20px;
+	height: 18px;
 
 	position: relative;
-	overflow: hidden;
 
 	padding-left: 7%;
-	padding-top: 3px;
+	padding-top: 5px;
 
 	cursor: pointer;
 }
@@ -163,11 +167,17 @@ img {
 }
 
 /* HORIZONTAL */
-#carousel-horizontal {
+#carousel-horizontal-wrapper {
 	width: 40%;
 	height: 320px;
 
-	margin-top: 20px;
+	position: relative;
+	float: left;
+}
+
+#carousel-horizontal {
+	width: 100%;
+	height: 320px;
 }
 
 #carousel-horizontal div {
@@ -176,13 +186,17 @@ img {
 }
 
 /* VERTICAL */
-#carousel-vertical {
+#carousel-vertial-wrapper {
 	width: 60%;
 	height: 320px;
 
-	margin-top: -40%;
-	float: right;
+	position: relative;
+	float: left;
+}
 
+#carousel-vertical {
+	width: 100%;
+	height: 320px;
 }
 
 #carousel-vertical div {
@@ -230,11 +244,11 @@ img {
 
 .home-news {
 	height: 100%;
-	
-	float: left;
+
 	position: relative;
+	float: left;
 	
-	background: #000;
+	background: #FFF;
 }
 
 .news-link {
@@ -296,7 +310,7 @@ img {
 }
 
 #we-are-body, #list-projects-body {
-	width: 90%;
+	width: 90.5%;
 	height: 182px;
 
 	float: left;
@@ -308,7 +322,7 @@ img {
 }
 
 #list-projects-body {
-	height: 362px;
+	height: 380px;
 }
 
 #we-do-container {
@@ -346,7 +360,7 @@ img {
 
 	position: absolute;
 	top: 40px;
-	left: 75%;
+	left: 75.5%;
 }
 
 #we-do-body1 p, #we-do-body2 p {

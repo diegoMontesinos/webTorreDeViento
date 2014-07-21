@@ -1249,7 +1249,21 @@ div.next {
 	width: 100%;
 	position: relative;
 	color: #FFFFFF;
-	margin-top: -11px;
+}
+
+.grid-element-info p {
+	margin: 0;
+	padding: 0;
+}
+
+.grid-element-info span {
+	margin: 0;
+	padding: 0;
+}
+
+.grid-element-info span span {
+	margin: 0;
+	padding: 0;
 }
 
 // TERMINA CSS RODILLO

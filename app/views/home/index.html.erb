@@ -27,16 +27,13 @@
 		background: -webkit-linear-gradient(top , #FFFFFF , #a3a3a3)repeat-x;
 		background: -ms-linear-gradient(top, #FFFFFF 0%, #a3a3a3 300%) repeat-x;
 		background: -o-linear-gradient(#FFFFFF , #a3a3a3);
+		background-image: -ms-linear-gradient(top, #FFFFFF, #a3a3a3);
 		filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFFFFF', endColorstr='#a3a3a3');
-	}
-
-	#menu-tvp {
-		margin-top: -5px;
 	}
 </style>
 
 <div id="wrapper-tvp" align="center">
-	<div id="container-tvp" align="left" >
+	<div id="container-tvp" align="left">
 
 		<!-- BANNER TVP -->
 		<div id="banner-tvp" >
@@ -46,6 +43,7 @@
 		<!-- CAROUSEL -->
 		<div id="carousel-wrapper">
 
+			<!-- CARRUSEL HORIZONTAL -->
 			<div id="carousel-horizontal-wrapper">
 				<div id="carousel-horizontal">
 					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
@@ -58,6 +56,7 @@
 				</div>
 			</div>
 
+			<!--CARRUSEL VERTICAL -->
 			<div id="carousel-vertial-wrapper">
 				<div id="carousel-vertical">
 					<% @carousel.elements_inorder.reverse.each do |carousel_elem| %>
@@ -70,8 +69,8 @@
 				</div>
 			</div>
 
+			<!-- FLECHAS -->
 			<div class="clearfix"></div>
-
 			<div class="prev-home" id="galeria-prev"><%= image_tag 'prev_gallery.png', :style => 'width: 100%; height: 100%' %></div>
 			<div class="next-home" id="galeria-next"><%= image_tag 'next_gallery.png', :style => 'width: 100%; height: 100%' %></div>
 		</div>
@@ -81,9 +80,9 @@
 
 		<!-- NOTICIAS -->
 		<div id="news-home-container">
-
-			<!-- 1 -->
-			<div id="home-news-1" class="home-news" style="width: 24.9%;">
+			
+			<!-- NOTICIA 1 -->
+			<div id="home-news-1" class="home-news" style="width: 24.875%;">
 				<% if !@home_news[0].nil? %>
 					<%= image_tag @home_news[0].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 
@@ -98,10 +97,10 @@
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
 
-			<!-- 2 -->
-			<div id="home-news-2" class="home-news" style="width: 24.8%;">
+			<!-- NOTICIA 2 -->
+			<div id="home-news-2" class="home-news" style="width: 24.75%;">
 				<% if !@home_news[1].nil? %>
 					<%= image_tag @home_news[1].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 
@@ -116,10 +115,10 @@
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
 
-			<!-- 3 -->
-			<div id="home-news-3" class="home-news" style="width: 24.8%;">
+			<!-- NOTICIA 3 -->
+			<div id="home-news-3" class="home-news" style="width: 24.75%;">
 				<% if !@home_news[2].nil? %>
 					<%= image_tag @home_news[2].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 
@@ -134,10 +133,10 @@
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="float:left; width: 0.2%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
 
-			<!-- 4 -->
-			<div id="home-news-4" class="home-news" style="width: 24.9%;">
+			<!-- NOTICIA 4 -->
+			<div id="home-news-4" class="home-news" style="width: 24.875%;">
 				<% if !@home_news[3].nil? %>
 					<%= image_tag @home_news[3].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
 
@@ -150,7 +149,6 @@
 					<% end %>
 				<% end %>
 			</div>
-
 		</div>
 
 		<!-- LEGALES -->
@@ -162,28 +160,8 @@
 	</div>
 </div>
 
+<!-- SCRIPT PARA EL CAROUSEL -->
 <script type="text/javascript">
-
-	function correctLineHeight(elem) {
-		$(elem).find("p").each(function() {
-			var maxFontSize = 0;
-
-			$(this).find("span").each(function() {
-				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-				if(maxFontSize < currFontSize) {
-					maxFontSize = currFontSize;
-				}
-			});
-
-			if(maxFontSize == 0) {
-				maxFontSize = 12;
-			}
-			
-			$(this).css("line-height", maxFontSize + "px");
-			$(elem).find("div").css("margin-top", "-" + maxFontSize + "px");
-		});
-	}
-
 	$(document).ready(function() {
 
 		// Se corrigen las imagenes
@@ -225,9 +203,7 @@
 				duration: 600
 			},
 
-			auto: true,
-			next: '#galeria-prev',
-			prev: '#galeria-next'
+			auto: true
 		});
 
 		// Comportamiento del carousel vertical
@@ -242,6 +218,7 @@
 			},
 
 			scroll: {
+				items: 1,
 				fx: "scroll",
 				easing: "linear",
 				duration: 600
@@ -252,6 +229,7 @@
 			prev: '#galeria-next'
 		});
 
+		// Pausa en el hover
 		$('#carousel-wrapper').hover(function() {
 			$("#carousel-horizontal").trigger("pause");
 			$("#carousel-vertical").trigger("pause");
@@ -279,12 +257,6 @@
 				}
 			});
 		};
-
-		if(navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1) {
-			$("#news-home-container").last().css({
-				"margin-top" : "-11px"
-			});
-		}
 
 	});
 </script>

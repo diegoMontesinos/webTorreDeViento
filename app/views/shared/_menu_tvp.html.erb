@@ -1,65 +1,125 @@
+
+<!-- MENU TORRE DE VIENTO -->
 <ul id="menu-tvp" style="z-index: 2;">
 
-	<li style="width: 17%; padding-top: 9.5px;"><%= link_to "/", :style => "padding-left: 29.41%;" do %><%= t(:home) %><% end %></li>
-	<li class="dropdown-tvp" style="width: 12.5%; height: 40px;"><div style="padding-left: 8.3%; padding-top: 9.5px; padding-bottom: 15px;"><%= t(:about_us) %></div>
-		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%; margin-top: -12.5px;">
+	<!-- INICIO -->
+	<li style="width: 17%; padding-top: 9px;">
+		<%= link_to "/", :style => "padding-left: 29.41%;" do %><%= t(:home) %><% end %>
+	</li>
+
+	<!-- ACERCA DE -->
+	<li class="dropdown-tvp" style="width: 12.5%; height: 40px;">
+		<div class="dropdown-tvp-title" style="padding-left: 8.3%; padding-top: 9px;"><%= t(:about_us) %></div>
+
+		<!-- SUBMENU ACERCA DE-->
+		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%;">
+
+			<!-- QUIENES SOMOS -->
 			<li><%= link_to we_are_path do %><div class="dropdown-item-tvp"><%= t(:who_we_are) %></div><% end %></li>
+
+			<!-- QUE HACEMOS -->
 			<li><%= link_to we_do_path do %><div class="dropdown-item-tvp"><%= t(:what_we_do) %></div><% end %></li>
+
+			<!-- LISTA DE PROYECTOS -->
 			<li><%= link_to list_projects_path do %><div class="dropdown-item-tvp"><%= t(:list_projects) %></div><% end %></li>
 		</ul>
 	</li>
-	<li style="width: 22%; padding-top: 9.5px;"><%= link_to works_path, :style => "padding-left: 32.727%;" do %><%= t(:projects) %><% end %></li>
-	<li style="width: 17.8%; padding-top: 9.5px;"><%= link_to colaborators_path, :style => "padding-left: 23.595%;" do %><%= t(:tvp_crew) %><% end %></li>
-	<li style="width: 18.1%; padding-top: 9.5px;"><%= link_to press_notes_path, :style => "padding-left: 23.204%;" do %><%= t(:press) %><% end %></li>
-	<li class="dropdown-tvp" style="width: 8.8%; height: 40px;"><div style="padding-left: 13.636%; padding-top: 9.5px; padding-bottom: 15px;"><%= t(:extras) %></div>
-		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%; margin-top: -12.5px;">
+
+	<!-- PROYECTOS -->
+	<li style="width: 22%; padding-top: 9px;">
+		<%= link_to works_path, :style => "padding-left: 32.727%;" do %><%= t(:projects) %><% end %>
+	</li>
+
+	<!-- COLABORADORES -->
+	<li style="width: 17.8%; padding-top: 9px;">
+		<%= link_to colaborators_path, :style => "padding-left: 23.595%;" do %><%= t(:tvp_crew) %><% end %>
+	</li>
+
+	<!-- PRENSA -->
+	<li style="width: 18.1%; padding-top: 9px;">
+		<%= link_to press_notes_path, :style => "padding-left: 23.204%;" do %><%= t(:press) %><% end %>
+	</li>
+
+	<!-- EXTRAS -->
+	<li class="dropdown-tvp" style="width: 8.8%; height: 40px;">
+		<div class="dropdown-tvp-title" style="padding-left: 13.636%; padding-top: 9px;"><%= t(:extras) %></div>
+
+		<!-- SUBMENU EXTRAS -->
+		<ul class="dropdown-menu-tvp" style="max-width: 100%; min-width: 100%;">
+
+			<!-- LINKS -->
 			<li><%= link_to links_path do %><div class="dropdown-item-tvp"><%= t(:links) %></div><% end %></li>
+
+			<!-- DESCARGAS -->
 			<li><%= link_to downoads_index_path do %><div class="dropdown-item-tvp"><%= t(:downloads) %></div><% end %></li>
+
+			<!-- NOTICIAS -->
 			<li><%= link_to news_index_path do %><div class="dropdown-item-tvp"><%= t(:news) %></div><% end %></li>
+
+			<!-- CONTACTO -->
 			<li><%= link_to contact_path do %><div class="dropdown-item-tvp"><%= t(:contact_us) %></div><% end %></li>
 		</ul>
 	</li>
-
 </ul>
 
+<!-- SCRIPT PARA EL TOUCH -->
 <script type="text/javascript">
 	$(document).ready(function() {
-		if (!$('html').hasClass('no-touch')) {
 
+		// Si el html es touch
+		if (!$("html").hasClass("no-touch")) {
+
+			// Por cada submenu
 			$(".dropdown-tvp").each(function() {
-				$(this).bind("touchstart", function(e) {
-					$(".dropdown-tvp").css({
-						"background" : "#000"
-					});
 
-					$(this).css({
-						"background" : "#242529"
-					});
+				// Habilitamos el evento touchstart
+				$(this).bind("touchstart", function(event) {
+					event.preventDefault();
+					event.stopPropagation();
 
 					// Obtenemos al hijo dropdown-menu-tvp
-					var drop_menu = $(this).find(".dropdown-menu-tvp")[0];
-
+					var sub_menu = $(this).find(".dropdown-menu-tvp")[0];
 					$(".dropdown-menu-tvp").each(function() {
-						if(this == drop_menu) {
+						if(this == sub_menu) {
 							$(this).toggle();
 						} else {
-							$(this).css('display','none');
+							$(this).css("display", "none");
 						}
 					});
-
-					e.stopPropagation();
 				});
 			});
 
-			$(document).bind("touchstart", function(e) {
-				$(".dropdown-tvp ul.dropdown-menu-tvp").fadeOut(300);
-				$(".dropdown-tvp").css({
-					"background" : "#000"
+			// Por cada link de submenu
+			$(".dropdown-item-tvp").each(function() {
+				// Habilitamos el evento touchstart
+				$(this).bind("touchstart", function(event) {
+					event.preventDefault();
+					event.stopPropagation();
+
+					$(location).attr("href", $(this).parent().attr("href"));
 				});
 			});
 
-			$(".dropdown-tvp ul.dropdown-menu-tvp a").bind("touchstart", function(e) {
-				$(location).attr("href", $(this).attr("href"));
+			// Para cada link sobre el menu
+			$("#menu-tvp > li > a").each(function() {
+
+				// Habilitamos el evento touchstart
+				$(this).bind("touchstart", function(event) {
+					event.preventDefault();
+					event.stopPropagation();
+
+					$(location).attr("href", $(this).attr("href"));
+				});
+			});
+
+			// Ocultamos todos los submenus cuando se de click en cualquier otra parte
+			$(document).bind("touchstart", function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				$(".dropdown-menu-tvp").each(function() {
+					$(this).css("display", "none");
+				});
 			});
 		}
 	});
