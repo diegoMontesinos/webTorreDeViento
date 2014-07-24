@@ -16,15 +16,6 @@
 			$(".work-info-text-full").html(program_htmlstr);
 		}
 
-		// Obteniendo la altura del cuadro de texto en base al titulo
-		var heigtTotal = 270;
-		var heightTitle = $("#work-info-title-content-full").height() + 18;
-		var heightText = heigtTotal - heightTitle;
-		
-		$(".work-info-text-full").css({
-			"height" : heightText + "px"
-		});
-
 		if(($(".work-info-text-full").data("jsp"))) {
 			$(".work-info-text-full").data("jsp").destroy();
   		}
@@ -135,8 +126,26 @@
 
 	}
 
-	$(function() {
-		correctLineHeight("work-info-title-full");
+	$(document).ready(function() {
+		correctLineHeight($("work-info-title-full")[0]);
+
+		// Obteniendo la altura del cuadro de texto en base al titulo
+		var heigtTotal = 270;
+		var htmlTitle = $("#work-info-title-content-full").html();
+		var heightTitle = 0;
+		if(htmlTitle.lastIndexOf("nbsp") != -1) {
+ 			var lastChild = $("#work-info-title-content-full").children().last();
+			heightTitle = lastChild.position().top + 20;
+		} else {
+			heightTitle = $("#work-info-title-content-full").height() + 18;
+		}
+		
+		var heightText = heigtTotal - heightTitle;
+		
+		$(".work-info-text-full").css({
+			"height" : heightText + "px"
+		});
+
 		putTextInfo("credits");
 	});
 

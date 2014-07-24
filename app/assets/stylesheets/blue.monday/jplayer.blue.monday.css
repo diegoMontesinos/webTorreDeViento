@@ -187,6 +187,7 @@ div.jp-seek-bar {
 	cursor: pointer;
 	z-index: 50;
 }
+
 div.jp-play-bar {
 	background: url("barra_roja.png") repeat-x ;
 	width:0px;
@@ -434,16 +435,9 @@ a.jp-video-play-icon {
 	left:50%;
 	top:50%;
 
-	background: url("bailarina2.png") 0 0 no-repeat;
+	background: none;
 	text-indent:-9999px;
 }
-div.jp-video-play:hover a.jp-video-play-icon {
-	background: url("bailarina.png") 0 0 no-repeat;
-}
-
-
-
-
 
 div.jp-jplayer audio,
 div.jp-jplayer {
@@ -454,10 +448,6 @@ div.jp-jplayer {
 div.jp-jplayer {
 	background-color: #000000;
 }
-
-
-
-
 
 /* @group TOGGLES */
 

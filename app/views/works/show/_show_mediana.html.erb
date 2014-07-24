@@ -7,37 +7,32 @@
 		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
 
 		if(id_elem == "credits") {
-			$("#work-info-text-content-mediana").html(credits_htmlstr);
+			$(".work-info-text-mediana").html(credits_htmlstr);
 		} else if(id_elem == "synopsis") {
-			$("#work-info-text-content-mediana").html(synopsis_htmlstr);
+			$(".work-info-text-mediana").html(synopsis_htmlstr);
 		} else if(id_elem == "notes") {
-			$("#work-info-text-content-mediana").html(notes_htmlstr);
+			$(".work-info-text-mediana").html(notes_htmlstr);
 		} else if(id_elem == "program") {
-			$("#work-info-text-content-mediana").html(program_htmlstr);
+			$(".work-info-text-mediana").html(program_htmlstr);
 		}
 
 		if(($(".work-info-text-mediana").data("jsp"))) {
 			$(".work-info-text-mediana").data("jsp").destroy();
 		}
 
-		// Obteniendo la altura del cuadro de texto en base al titulo
-		var heigtTotal = 390;
-		var heightTitle = $("#work-info-title-content-mediana").height() + 20;
-		console.log($("#work-info-title-content-mediana").height());
-		var heightText = heigtTotal - heightTitle;
-
-		$(".work-info-text-mediana").css({
-			"height" : heightText + "px"
-		});
-
 		$(".work-info-text-mediana").bind("jsp-initialised", function(event, isScrollable) {
-			// Se redimensiona el area scrollable
-			$(".jspContainer").css("width", "91%");
-			$(".jspContainer").css("margin-right", "2.75%");
-			$(".jspContainer").css("margin-left", "6.25%");
-		}).jScrollPane({hideFocus: true });
 
-		correctLineHeight("work-info-text-content-mediana");
+			// Se redimensiona el area scrollable
+			$(".work-info-text-mediana .jspPane").css({
+				"width" : "91%",
+				"margin-left" : "6.5%"
+			});
+
+			correctLineHeight($(".work-info-text-mediana")[0]);
+		}).jScrollPane({
+			autoReinitialise: true,
+			hideFocus: true
+		});
 	}
 
 	function showFolder(folder) {
@@ -64,8 +59,8 @@
 
 				// Se agregan las flechitas
 				$("#work-display-mediana").append("<div class='clearfix'></div>" +
-									   "<div class='prev' id='gallery-prev'>" + prev_gallery_html + "</div>" +
-									   "<div class='next' id='gallery-next'>" + next_gallery_html + "</div>");
+									   "<div class='prev' id='gallery-prev' style='top: 137px; left: 7px;'>" + prev_gallery_html + "</div>" +
+									   "<div class='next' id='gallery-next' style='top: 137px; left: calc(96% - 8px);'>" + next_gallery_html + "</div>");
 
 				// Inicia el carousel de la galeria
 				$("#work-display-mediana-gallery").carouFredSel({
@@ -94,8 +89,25 @@
 		});
 	}
 
-	$(function() {
-		correctLineHeight("work-info-title-mediana");
+	$(document).ready(function() {
+		correctLineHeight($("#work-info-title-mediana")[0]);
+
+		// Obteniendo la altura del cuadro de texto en base al titulo
+		var heigtTotal = 405;
+		var htmlTitle = $("#work-info-title-content-mediana").html();
+		var heightTitle = 0;
+		if(htmlTitle.lastIndexOf("nbsp") != -1) {
+ 			var lastChild = $("#work-info-title-content-mediana").children().last();
+			heightTitle = lastChild.position().top + 22;
+		} else {
+			heightTitle = $("#work-info-title-content-mediana").height() + 20;
+		}
+		
+		var heightText = heigtTotal - heightTitle;
+		
+		$(".work-info-text-mediana").css({
+			"height" : heightText + "px"
+		});
 
 		putTextInfo("credits");
 	});
@@ -103,77 +115,101 @@
 
 <div id="work-container-mediana">
 
-	<!-- DISPLAY DE LA OBRA -->
-	<div id="work-display-mediana">
-		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: 100%; " %>
-	</div>
+	<!-- DISPLAY Y SECCIONES -->
+	<div id="display-sections-mediana">
 
-	<!-- SECCIONES DE LA OBRA -->
-	<div id="work-mediana-sections">
-		
-		<!-- GALERIA -->
-		<div class="work-mediana-sections-item-left" onclick="showFolder('GALERÍA')" >
-			<% folder_galeria = @work.filefolder("GALERÍA") %>
-			<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
-
-			<div class="work-mediana-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_galeria.name_folder %></div></div>
+		<!-- DISPLAY DE LA OBRA -->
+		<div id="work-display-mediana">
+			<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: 100%; " %>
 		</div>
 
-		<div style="width: 0.3%; height: 120px; float: left; background: #000;"></div>
+		<!-- SECCIONES DE LA OBRA -->
+		<div id="work-mediana-sections">
 
-		<!-- OTROS -->
-		<div class="work-mediana-sections-item-right" onclick="showFolder('OTROS');">
-			<% folder_otros = @work.filefolder("OTROS") %>
-			<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
+			<!-- GALERIA -->
+			<div class="work-mediana-sections-item-left" onclick="showFolder('GALERÍA')" >
+				<% folder_galeria = @work.filefolder("GALERÍA") %>
+				<%= image_tag Photo.find(folder_galeria.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
 
-			<div class="work-mediana-sections-link"><div style="margin-top: -2px; padding: 1px 4px 1px 4px;"><%= folder_otros.name_folder %></div></div>
-		</div>
+				<div class="work-mediana-sections-link">
+					<div><%= folder_galeria.name_folder %></div>
+				</div>
+			</div>
 
-	</div>
-	
-	<!-- INFORMACION GENERAL DE LA OBRA -->
-	<div id="work-info-mediana">
+			<!-- LINEA BLANCA -->
+			<div style="width: 0.416666667%; height: 120px; float: left; background: #000;"></div>
 
-		<!-- TITULOS DE LA OBRA -->
-		<div id="work-info-title-mediana" style="position: relative;">
-			<div id="work-info-title-content-mediana">
-				<span style="width: 100%"><%= work.titles_text.html_safe %></span>
+			<!-- OTROS -->
+			<div class="work-mediana-sections-item-right" onclick="showFolder('OTROS');">
+				<% folder_otros = @work.filefolder("OTROS") %>
+				<%= image_tag Photo.find(folder_otros.display).image.url(:display_folder), :style => "width: 100%; height: 120px;" %>
+
+				<div class="work-mediana-sections-link">
+					<div><%= folder_otros.name_folder %></div>
+				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-mediana" style="width: 100%; position: relative; float: right; margin-top: 10px;">
-			<div id="work-info-text-content-mediana" style="width: 87.5%; height: auto; margin-top: 1px;"></div>
+	<!-- INFO Y MENU -->
+	<div id="info-menu-mediana">
+		
+		<!-- INFORMACION GENERAL DE LA OBRA -->
+		<div id="work-info-mediana">
+			
+			<!-- TITULOS DE LA OBRA -->
+			<div id="work-info-title-mediana" style="position: relative;">
+				<div id="work-info-title-content-mediana">
+					<%= work.titles_text.html_safe %>
+				</div>
+			</div>
+
+			<!-- INFORMACION-TEXTO DE LA OBRA -->
+			<div class="work-info-text-mediana"></div>
 		</div>
 
 		<!-- MENU PARA LA INFORMACION DE LA OBRA -->
 		<div id="work-info-menu-navigator">
 			<ul id="work-info-menu" style="padding-top: 0px;">
+
+				<!-- CREDITOS -->
 				<% if !work.credits.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 24px;" onclick="putTextInfo('credits');" >
-						<div><%= t(:credits_menu) %></div>
+					<li class="work-info-menu-item" style="margin-top: 10px; font-size: 10px;" onclick="putTextInfo('credits');" >
+						<div style="margin-top: 0px; padding: 1px 4px 1px 4px;"><%= t(:credits_menu) %></div>
 					</li>
 				<% end  %>
+
+				<!-- SINOPSIS -->
 				<% if !work.synopsis.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 24px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 10px; font-size: 10px;" onclick="putTextInfo('synopsis');" >
+						<div style="margin-top: 0px; padding: 1px 4px 1px 4px;"><%= t(:synopsis_menu) %></div>
+					</li>
 				<% end  %>
+
+				<!-- NOTAS -->
 				<% if !work.notes.nil? %>
-					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 24px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 10px; font-size: 10px;" onclick="putTextInfo('notes');" >
+						<div style="margin-top: 0px; padding: 1px 4px 1px 4px;"><%= t(:notes_menu) %></div>
+					</li>
 				<% end  %>
+
+				<!-- PROGRAMA -->
 				<% if !work.program.nil? %>
-					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px; margin-top: 24px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px; margin-top: 10px; font-size: 10px;" onclick="putTextInfo('program');" >
+						<div style="margin-top: 0px; padding: 1px 4px 1px 4px;"><%= t(:program_menu) %></div>
+					</li>
 				<% end  %>
 
 				<%= link_to work_path(@work.next) do %>
-					<div style="width: 10px; height: 20px; float: right; margin-right: 30px; margin-top: 24px;">
+					<div style="width: 10px; height: 20px; float: right; margin-right: 28px; margin-top: 8px;">
 						<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
 					</div>
 				<% end %>
 				<%= link_to work_path(@work.previous) do %>
-					<div style="width: 10px; height: 20px; float: right; margin-right: 12px; margin-top: 24px;">
+					<div style="width: 10px; height: 20px; float: right; margin-right: 12px; margin-top: 8px;">
 						<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 					</div>
-				<% end %>
+				<% end %>	
 			</ul>
 		</div>
 
