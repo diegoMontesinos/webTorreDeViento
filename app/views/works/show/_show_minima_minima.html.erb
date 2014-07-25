@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
 	function putTextInfo(id_elem) {
 		var credits_htmlstr = "<%= j work.credits.html_safe if !work.credits.nil? %>";
 		var synopsis_htmlstr = "<%= j work.synopsis.html_safe if !work.synopsis.nil? %>";
@@ -7,40 +6,53 @@
 		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
 
 		if(id_elem == "credits") {
-			$("#work-info-text-content-minima-minima").html(credits_htmlstr);
+			$(".work-info-text-minima-minima").html(credits_htmlstr);
 		} else if(id_elem == "synopsis") {
-			$("#work-info-text-content-minima-minima").html(synopsis_htmlstr);
+			$(".work-info-text-minima-minima").html(synopsis_htmlstr);
 		} else if(id_elem == "notes") {
-			$("#work-info-text-content-minima-minima").html(notes_htmlstr);
+			$(".work-info-text-minima-minima").html(notes_htmlstr);
 		} else if(id_elem == "program") {
-			$("#work-info-text-content-minima-minima").html(program_htmlstr);
+			$(".work-info-text-minima-minima").html(program_htmlstr);
 		}
 
 		if(($(".work-info-text-minima-minima").data("jsp"))) {
 			$(".work-info-text-minima-minima").data("jsp").destroy();
-  		}
+		}
 
-  		// Obteniendo la altura del cuadro de texto en base al titulo
+		$(".work-info-text-minima-minima").bind("jsp-initialised", function(event, isScrollable) {
+
+			// Se redimensiona el area scrollable
+			$(".work-info-text-minima-minima .jspPane").css({
+				"width" : "91%",
+				"margin-left" : "6.5%"
+			});
+
+			correctLineHeight($(".work-info-text-minima-minima")[0]);
+		}).jScrollPane({
+			autoReinitialise: true,
+			hideFocus: true
+		});
+	}
+
+	$(document).ready(function() {
+		correctLineHeight($("#work-info-title-content-minima-minima")[0]);
+
+		// Obteniendo la altura del cuadro de texto en base al titulo
 		var heigtTotal = 389;
-		var heightTitle = $("#work-info-title-minima-minima").height() + 20;
+		var htmlTitle = $("#work-info-title-content-minima-minima").html();
+		var heightTitle = 0;
+		if(htmlTitle.lastIndexOf("nbsp") != -1) {
+ 			var lastChild = $("#work-info-title-content-minima-minima").children().last();
+			heightTitle = lastChild.position().top + 22;
+		} else {
+			heightTitle = $("#work-info-title-content-minima-minima").height() + 20;
+		}
+		
 		var heightText = heigtTotal - heightTitle;
-
+		
 		$(".work-info-text-minima-minima").css({
 			"height" : heightText + "px"
 		});
-
-  		$(".work-info-text-minima-minima").bind("jsp-initialised", function(event, isScrollable) {
-  			// Se redimensiona el area scrollable
-			$(".jspContainer").css("width", "91%");
-			$(".jspContainer").css("margin-right", "2.75%");
-			$(".jspContainer").css("margin-left", "6.25%");
-		}).jScrollPane({hideFocus: true });
-
-		correctLineHeight("work-info-text-content-minima-minima");
-  	}
-
-	$(function() {
-		correctLineHeight("work-info-title-minima-minima");
 
 		putTextInfo("credits");
 	});
@@ -53,47 +65,52 @@
 		<%= image_tag Photo.find(@work.display).image.url(:display), :style => "width: 100%; height: 440px;" %>
 	</div>
 
-	<!-- INFORMACION GENERAL DE LA OBRA -->
-	<div id="work-info-minima-minima">
+	<!-- INFO Y MENU -->
+	<div id="info-menu-minima-minima">
 
-		<!-- TITULOS DE LA OBRA -->
-		<div id="work-info-title-minima-minima" style="position: relative;">
-			<div id="work-info-title-content-minima-minima">
-				<%= work.titles_text.html_safe %>
+		<!-- INFORMACION GENERAL DE LA OBRA -->
+		<div id="work-info-minima-minima">
+
+			<!-- TITULOS DE LA OBRA -->
+			<div id="work-info-title-minima-minima" style="position: relative;">
+				<div id="work-info-title-content-minima-minima">
+					<%= work.titles_text.html_safe %>
+				</div>
 			</div>
+
+			<!-- INFORMACION-TEXTO DE LA OBRA -->
+			<div class="work-info-text-minima-minima"></div>
+
 		</div>
 
-		<!-- INFORMACION-TEXTO DE LA OBRA -->
-		<div class="work-info-text-minima-minima" style="position: relative; width: 100%; float: right; margin-top: 10px;">
-			<div id="work-info-text-content-minima-minima" style="width: 87.5%; height: auto;"></div>
-		</div>
-
+		<!-- MENU PARA LA INFORMACION DE LA OBRA -->
 		<div id="work-info-menu-navigator" style="height: 50px;">
-			<ul id="work-info-menu">
+			<ul id="work-info-menu" style="padding-top: 0px; padding-left: 16px; height: 50px;">
 				<% if !work.credits.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" onclick="putTextInfo('credits');" ><div><%= t(:credits_menu) %></div></li>
 				<% end  %>
 				<% if !work.synopsis.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" onclick="putTextInfo('synopsis');" ><div><%= t(:synopsis_menu) %></div></li>
 				<% end  %>
 				<% if !work.notes.nil? %>
-					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 17px;" onclick="putTextInfo('notes');" ><div><%= t(:notes_menu) %></div></li>
 				<% end  %>
 				<% if !work.program.nil? %>
-					<li class="work-info-menu-item" style="width: 60px; margin-left: 3px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
+					<li class="work-info-menu-item" style="width: 69px; margin-left: 3px; margin-top: 17px;" onclick="putTextInfo('program');" ><div><%= t(:program_menu) %></div></li>
 				<% end  %>
 
 				<%= link_to work_path(@work.next) do %>
-					<div style="width: 10px; height: 16px; float: right; margin-right: 30px;">
+					<div style="width: 10px; height: 20px; float: right; margin-right: 28px; margin-top: 15px;">
 						<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
 					</div>
 				<% end %>
 				<%= link_to work_path(@work.previous) do %>
-					<div style="width: 10px; height: 16px; float: right; margin-right: 12px;	">
-						<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 16px;" %>
+					<div style="width: 10px; height: 20px; float: right; margin-right: 12px; margin-top: 15px;">
+						<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 					</div>
 				<% end %>
 			</ul>
 		</div>
+
 	</div>
 </div>

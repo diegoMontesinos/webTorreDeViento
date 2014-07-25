@@ -776,7 +776,6 @@ div.next {
 
 	background: #000000;
 	color: #FFFFFF;
-
 }
 
 .work-info-text-mediana p {
@@ -836,7 +835,7 @@ div.next {
 	overflow: hidden;
 
 	font-family: latha, latha_ie;
-	font-size: 10px;
+	font-size: 11px;
 	text-align: center;
 
 	cursor: pointer;
@@ -845,7 +844,7 @@ div.next {
 
 .work-mediana-sections-link div {
 	margin-top: 0px;
-	padding: 1px 4px 1px 4px;
+	padding: 0px 4px 1px 4px;
 }
 
 /* ----------------------------------------------- */
@@ -856,6 +855,7 @@ div.next {
 
 #work-container-minima {
 	position: relative;
+	float: left;
 
 	width: 100%;
 	min-height: 440px;
@@ -864,15 +864,32 @@ div.next {
 	background: #000000;
 }
 
+#work-display-info-minima {
+	width: 100%;
+	height: 379px;
+
+	position: relative;
+	float: left;
+}
+
 #work-display-minima {
 	width: 60%;
-	max-height: 380px;
-	min-height: 380px;
+	height: 379px;
 
 	position: relative;
 	float: left;
 
-	background: #000000;
+	background: #000;
+}
+
+#work-display-minima img {
+	width: 100%;
+	max-height: 320px;
+
+	margin-top: 59px;
+
+	position: relative;
+	float: left;
 }
 
 #work-info-minima {
@@ -885,13 +902,14 @@ div.next {
 	position: relative;
 	float: left;
 
-	background: #000000;
+	background: #000;
 }
 
 #work-info-title-minima {
 	width: 100%;
 
-	float: right;
+	position: relative;
+	float: left;
 	margin-top: 10px;
 
 	background: #000000;
@@ -919,32 +937,41 @@ div.next {
 }
 
 .work-info-text-minima {
+	width: 90.5%;
+
+	overflow: hidden;
+
+	float: left;
+	margin-top: 10px;
+	margin-left: 6.25%;
+
 	background: #000000;
 	color: #FFFFFF;
 }
 
-#work-info-text-content-minima p {
+.work-info-text-minima p {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-minima span {
+.work-info-text-minima span {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-minima span span {
+.work-info-text-minima span span {
 	margin: 0;
 	padding: 0;
 }
 
 #work-minima-galeria-container {
 	width: 100%;
-	height: 59px;
+	height: 60px;
 
+	position: relative;
 	float: left;
 
-	background: #FFFFFF;
+	background: #000;
 }
 
 #work-minima-galeria {
@@ -965,16 +992,20 @@ div.next {
 }
 
 #minima-gallery-prev {
-	top: 403px;
-	left: 60.4%;
+	position: absolute;
+
+	top: 20px;
+	left: 60.5%;
 
 	width: 10px;
 	height: 20px;
 }
 
 #minima-gallery-next {
-	top: 403px;
-	right: 3px;
+	position: absolute;
+
+	top: 20px;
+	left: 98.3%;
 
 	width: 10px;
 	height: 20px;
@@ -986,6 +1017,7 @@ div.next {
 
 #work-container-minima-minima {
 	position: relative;
+	float: left;
 
 	width: 100%;
 	height: 440px;
@@ -997,19 +1029,31 @@ div.next {
 #work-display-minima-minima {
 	width: 60%;
 	height: 440px;
+
+	position: relative;
 	float: left;
 
 	background: #FFFFFF;
 }
 
-#work-info-minima-minima {
+#info-menu-minima-minima {
 	width: 40%;
 	height: 440px;
 
-	padding: 0;
+	position: relative;
 	float: left;
+}
 
-	background: #000000;
+#work-info-minima-minima {
+	width: 100%;
+	height: 390px;
+
+	padding: 0;
+	position: relative;
+	float: left;
+	overflow: hidden;
+
+	background: #000;
 }
 
 #work-info-title-minima-minima {
@@ -1043,21 +1087,28 @@ div.next {
 }
 
 .work-info-text-minima-minima {
+	width: 96.3%;
+
+	overflow: hidden;
+
+	float: left;
+	margin-top: 10px;
+
 	background: #000000;
 	color: #FFFFFF;
 }
 
-#work-info-text-content-minima-minima p {
+.work-info-text-minima-minima p {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-minima-minima span {
+.work-info-text-minima-minima span {
 	margin: 0;
 	padding: 0;
 }
 
-#work-info-text-content-minima-minima span span {
+.work-info-text-minima-minima span span {
 	margin: 0;
 	padding: 0;
 }
