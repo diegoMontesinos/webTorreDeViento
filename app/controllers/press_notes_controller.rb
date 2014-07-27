@@ -80,7 +80,7 @@ class PressNotesController < ApplicationController
 	def update
 		@press_note = PressNote.find(params[:id])
 
-		if @press_note.save(press_params)
+		if @press_note.update(press_params)
 			respond_to do |format|
 				format.json {
 					render json: (@press_note.id.to_s).to_json

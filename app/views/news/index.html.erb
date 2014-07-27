@@ -56,10 +56,10 @@
 					<% end %>
 				</div>
 
-				<div id="prev" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 374px;">
+				<div id="prev-carousel-news" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 374px;">
 					<%= image_tag "prev_gallery_up.png", :style => "width: 100%; height: 100%;" %>
 				</div>
-				<div id="next" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 10px;">
+				<div id="next-carousel-news" style="position: absolute; width: 12%; height: 16px; left: 46%; bottom: 10px;">
 					<%= image_tag "next_gallery_down.png", :style => "width: 100%; height: 100%;" %>
 				</div>
 			</div>
@@ -78,25 +78,6 @@
 </div>
 
 <script type="text/javascript">
-
-	function correctLineHeight(id_elem) {
-		$("#" + id_elem).find("p").each(function() {
-			var maxFontSize = 0;
-
-			$(this).find("span").each(function() {
-				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-				if(maxFontSize < currFontSize) {
-					maxFontSize = currFontSize;
-				}
-			});
-
-			if(maxFontSize == 0) {
-				$(this).css("line-height", "9px");
-			} else {
-				$(this).css("line-height", maxFontSize + "px");
-			}
-		});
-	}
 
 	function putNew (div_elem) {
 		var img = new Image();
@@ -146,8 +127,8 @@
 				items: 1,
 			},
 			auto: false,
-			prev: '#prev',
-			next: '#next'
+			prev: '#prev-carousel-news',
+			next: '#next-carousel-news'
 		});
 	});
 </script>

@@ -1,78 +1,29 @@
-
 <style type="text/css">
 	html {
 		background : #000;
 	}
 </style>
 
-<div id="fondo_press" style="width: 100%; height: 10px; position: absolute; top: 0; left: 0; z-index: -1;">
-	<%= image_tag "FONDOPRENSA.jpg", :style => "width: 100%; height: 100%;" %>
-</div>
-
-<div id="wrapper-tvp" align="center">
-	<div id="container-tvp" align="left">
-
-		<!-- BANNER TVP -->
-		<div id="banner-tvp" >
-			<%= render partial: "shared/banner_tvp", locals: { :bco => false } %>
-		</div>
-
-		<!-- MENU TVP -->
-		<div style="margin-top: 25px;">
-			<%= render partial: "shared/menu_tvp" %>
-		</div>
-
-		<!-- PRENSA -->
-		<div id="press-wapper">
-			<div id="press-notes-container">
-				<div style="font-family: felixti, felixti_ie; margin-top: 25px; margin-left: 10%; font-size: 1em;"><%= t(:press_notes) %></div>
-
-				<div id="press-notes-wapper">
-					<div id="press-notes">
-						<% index = 0 %>
-						<% if @press_notes.length > 0 %>
-							<% while (index < @press_notes.length) do %>
-								<% press_note = @press_notes[index] %>
-
-								<% id_elems = "" %>
-								<% press_note.press_elements.each do |press_element| %>
-									<% if(press_element.body.present?) %>
-										<% id_elems = id_elems + press_element.id.to_s + "," %>
-									<% end %>
-								<% end %>
-
-								<div class="press-note-option" url-background="<%= press_note.background.url(:display) %>" ids-elems="<%= id_elems %>"
-									id-press="<%= press_note.id %>" onclick="select_press_note(this);">
-									<%= press_note.title.html_safe %>
-								</div>
-
-								<% index = index + 1 %>
-							<% end %>
-						<% end %>
-					</div>
-				</div>
-			</div>
-
-			<div id="press-notes-display">
-				<div id="press-notes-body"></div>
-			</div>
-
-			<!-- FRANJA NEGRA -->
-			<div id="press-elements-bar" style="width: 100%; height: 40px; position: relative; float: left; background: #000000;"></div>
-
-		</div>
-
-		<!-- LEGALES -->
-		<div id="legals-tvp">
-			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
-		</div>
-
-	</div>
-</div>
-
-
 <script type="text/javascript">
-	
+	function correctLineHeight(elem, minus, minHeight) {
+		$(elem).find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", minHeight + "px");
+			} else {
+				$(this).css("line-height", (maxFontSize - minus) + "px");
+			}
+		});
+	}
+
 	function select_press_note(div_elem) {
 
 		// Colocamos el fondo
@@ -91,7 +42,7 @@
 		img.src = $(div_elem).attr("url-background");
 
 		// Agregamos los numeros
-		$("#press-elements-bar").empty();
+		$("#press-element-option-container").empty();
 
 		var elems_ids = $(div_elem).attr("ids-elems").split(",");
 		for (var i = 0; i < elems_ids.length; i++) {
@@ -99,12 +50,14 @@
 			if(elems_ids[i] != "") {
 				var div = document.createElement("div");
 				$( div ).attr("elem_id", elems_ids[i]);
+				$( div ).attr("align", "right");
 				$( div ).addClass("press_element_option");
-				$( div ).html("" + (i + 1));
-				$( div ).css({
-					"left" : (27.5 + (i * 7)) + "%",
-					"top"  : "9px"
-				});
+				$( div ).html("<div>" + (i + 1) + "</div>");
+				if(i == 0) {
+					$( div ).css({
+						"margin-left" : "0%"
+					});
+				}
 
 				$( div ).click(function() {
 					if("<%= @locale %>" == "en") {
@@ -115,6 +68,7 @@
 							dataType: "html",
 							success: function(data) {
 								$("#press-notes-body").html( data );
+								correctLineHeight($("#press-notes-body")[0], 0, 14);
 							}
 						});
 					} else {
@@ -125,23 +79,130 @@
 							dataType: "html",
 							success: function(data) {
 								$("#press-notes-body").html( data );
+								correctLineHeight($("#press-notes-body")[0], 0, 14);
 							}
 						});
 					}
 					
 				});
 
-				$("#press-elements-bar").append(div);
+				$("#press-element-option-container").append(div);
 			}
 		}
 
 		$( ".press_element_option" ).first().click();
+
+		// Subrayamos la que esta ahora
+		$(".press-note-select-option").removeClass("press-note-select-option");
+		$(div_elem).addClass("press-note-select-option");
 	}
 
-	$( document ).ready(function() {
-		$("#fondo_press").css({ "height" : (window.innerHeight - 5) + "px"});
+	$(document).ready(function() {
 
+		$("#fondo_press").css({
+			"height" : (window.innerHeight - 4) + "px"
+		});
+
+		$("#press-notes").bind("jsp-initialised", function(event, isScrollable) {
+
+			// Se redimensiona el area scrollable
+			$("#press-notes .jspContainer").css({
+				"width" : "86%",
+				"margin-left" : "10%"
+			});
+
+			$("#press-notes .jspPane").css({
+				"width" : "93%"
+			});
+
+			$(".press-note-option").each(function() {
+				correctLineHeight(this, 2, 9);
+			});
+		}).jScrollPane({
+			autoReinitialise: true,
+			hideFocus: true
+		});
+		
 		$( ".press-note-option" ).first().click();
-	});
 
+		window.addEventListener("resize", function() {
+			$("#fondo_press").css({
+				"height" : (window.innerHeight - 5) + "px"
+			});
+		}, false);
+	});
 </script>
+
+<div id="fondo_press">
+	<%= image_tag "FONDOPRENSA.jpg", :style => "width: 100%; height: 100%;" %>
+</div>
+
+<div id="wrapper-tvp" align="center">
+	<div id="container-tvp" align="left">
+		
+		<!-- BANNER TVP -->
+		<div id="banner-tvp" >
+			<%= render partial: "shared/banner_tvp", locals: { :bco => true } %>
+		</div>
+
+		<!-- MENU TVP -->
+		<div style="margin-top: 25px;">
+			<%= render partial: "shared/menu_tvp" %>
+		</div>
+
+		<!-- PRENSA -->
+		<div id="press-wapper">
+
+			<div id="press-notes-container">
+				<div id="press-notes-title">
+					<%= t(:press_notes) %>
+				</div>
+
+				<div id="press-notes">
+					<% index = 0 %>
+					<% if @press_notes.length > 0 %>
+						<% while (index < @press_notes.length) do %>
+							<% press_note = @press_notes[index] %>
+
+							<% margin_top = 2 %>
+							<% if(index > 0) %>
+								<% margin_top = 20 %>
+							<% end %>
+
+							<% id_elems = "" %>
+							<% press_note.press_elements.each do |press_element| %>
+								<% if(press_element.body.present?) %>
+									<% id_elems = id_elems + press_element.id.to_s + "," %>
+								<% end %>
+							<% end %>
+
+							<div class="press-note-option" style="margin-top: <%= margin_top %>px;" url-background="<%= press_note.background.url(:display) %>"
+								ids-elems="<%= id_elems %>"	id-press="<%= press_note.id %>" onclick="select_press_note(this);">
+								<%= press_note.title.html_safe %>
+							</div>
+
+							<% index = index + 1 %>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+
+			<div id="press-notes-display">
+				<div id="press-notes-body"></div>
+			</div>
+
+			<!-- FRANJA NEGRA -->
+			<div id="press-elements-bar" style="width: 100%; height: 40px; position: relative; float: left; background: #000000;">
+				<div id="press-element-option-container">
+				</div>
+			</div>
+		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => true } %>
+		</div>
+		<br><br>
+
+	</div>
+</div>

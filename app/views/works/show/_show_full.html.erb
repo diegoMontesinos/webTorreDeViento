@@ -18,24 +18,24 @@
 
 		if(($(".work-info-text-full").data("jsp"))) {
 			$(".work-info-text-full").data("jsp").destroy();
-  		}
+		}
 
-  		$(".work-info-text-full").bind("jsp-initialised", function(event, isScrollable) {
+		$(".work-info-text-full").bind("jsp-initialised", function(event, isScrollable) {
 
-  			// Se redimensiona el area scrollable
-  			$(".work-info-text-full .jspPane").css({
-  				"width" : "96.8%"
-  			});
+			// Se redimensiona el area scrollable
+			$(".work-info-text-full .jspPane").css({
+				"width" : "96.8%"
+			});
 
-  			correctLineHeight($(".work-info-text-full")[0]);
+			correctLineHeight($(".work-info-text-full")[0]);
 		}).jScrollPane({
 			autoReinitialise: true,
 			hideFocus: true
 		});
-  	}
+	}
 
-  	function showFolder(folder) {
-  		var folder_param = "/?folder=" + folder;
+	function showFolder(folder) {
+		var folder_param = "/?folder=" + folder;
 
 		$.ajax({
 			type: "GET",
@@ -134,7 +134,7 @@
 		var htmlTitle = $("#work-info-title-content-full").html();
 		var heightTitle = 0;
 		if(htmlTitle.lastIndexOf("nbsp") != -1) {
- 			var lastChild = $("#work-info-title-content-full").children().last();
+			var lastChild = $("#work-info-title-content-full").children().last();
 			heightTitle = lastChild.position().top + 20;
 		} else {
 			heightTitle = $("#work-info-title-content-full").height() + 18;

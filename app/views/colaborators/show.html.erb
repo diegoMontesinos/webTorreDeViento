@@ -180,7 +180,13 @@
 			<div id="colaborator-portrait-container">
 				<%= image_tag @colaborator.portrait.url(:display), :style => "width: 100%; height: 100%;" %>
 			</div>
-
 		</div>
+
+		<!-- LEGALES -->
+		<div id="legals-tvp">
+			<%= render partial: "shared/legals_tvp", locals: { :bco => false } %>
+		</div>
+		<br><br>
+
 	</diV>
 </div>

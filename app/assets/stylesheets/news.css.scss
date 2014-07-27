@@ -23,6 +23,10 @@
 	height: 100%;
 }
 
+#prev-carousel-news, #next-carousel-news {
+	cursor: pointer;
+}
+
 .carousel-news-elem {
 	width: 100%;
 	height: 98px;
@@ -31,8 +35,6 @@
 
 	margin-bottom: 1px;
 	margin-top: 1px;
-
-	cursor: pointer;
 }
 
 #news-text-container {
