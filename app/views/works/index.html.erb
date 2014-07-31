@@ -208,7 +208,38 @@
 						$(that).attr("nML", "" + mLeft);
 						$(that).attr("nMR", "" + mRight);
 
-						if (!$("html").hasClass("no-touch")) {
+						// Se le da el efecto hover
+						$(that).hover(function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							$(this).find('img').animate({
+								width: parseFloat($(that).attr("scaleW")),
+								height: parseFloat($(that).attr("scaleH")),
+								marginTop: 5,
+								marginLeft: 5
+							}, 500);
+						}, function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							$(this).find('img').animate({
+								width: newW + 'px',
+								height: newH + 'px',
+								marginLeft: '-' + mLeft + 'px',
+								marginTop: '-' + mRight + 'px'
+							}, 300);
+						});
+
+						// Se le pone cursor de manita
+						$(that).css("cursor", "pointer");
+
+						// Se le da accion de click
+						$(that).click(function() {
+							$(location).attr("href", $(this).attr("work-url"));
+						});
+
+						/*if (!$("html").hasClass("no-touch")) {
 
 							// Se le da el efecto en touch
 							$(that).bind("touchstart", function(event) {
@@ -247,37 +278,8 @@
 							});
 
 						} else {
-							// Se le da el efecto hover
-							$(that).hover(function(event) {
-								event.preventDefault();
-								event.stopPropagation();
-
-								$(this).find('img').animate({
-									width: parseFloat($(that).attr("scaleW")),
-									height: parseFloat($(that).attr("scaleH")),
-									marginTop: 5,
-									marginLeft: 5
-								}, 500);
-							}, function(event) {
-								event.preventDefault();
-								event.stopPropagation();
-
-								$(this).find('img').animate({
-									width: newW + 'px',
-									height: newH + 'px',
-									marginLeft: '-' + mLeft + 'px',
-									marginTop: '-' + mRight + 'px'
-								}, 300);
-							});
-
-							// Se le pone cursor de manita
-							$(that).css("cursor", "pointer");
-
-							// Se le da accion de click
-							$(that).click(function() {
-								$(location).attr("href", $(this).attr("work-url"));
-							});
-						}
+							
+						}*/
 					}
 
 					img.src = img_url;
@@ -285,7 +287,7 @@
 			});
 		}
 
-		$(document).bind("touchstart", function(event) {
+		/*$(document).bind("touchstart", function(event) {
 			event.preventDefault();
 			event.stopPropagation();
 
@@ -301,7 +303,7 @@
 					$(this).attr("contracted", "0");
 				});
 			}
-		});
+		});*/
 
 		// RODILLO
 		$("#work-grids-container").smoothDivScroll({
