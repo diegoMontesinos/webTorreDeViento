@@ -30,7 +30,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$(function() {
+		$(document).ready(function() {
 			$("#logo-banner-tvp").hover(function() {
 				$("#logo-01").hide();
 				$("#logo-02").show();
@@ -38,6 +38,12 @@
 				$("#logo-02").hide();
 				$("#logo-01").show();
 			});
+
+			if($("html").hasClass("ui-mobile")) {
+				$("#languages a").on("click", function() {
+					$(location).attr("href", $(this).attr("href"));
+				});
+			}
 		});
 	</script>
 <% end %>

@@ -49,6 +49,10 @@
 			$(".nav-works").on("click", function() {
 				$(location).attr("href", $(this).attr("url-work"));
 			});
+
+			$(".work-info-menu-item").on("click", function() {
+				putTextInfo($(this).attr("section-info"));
+			});
 		}
 
 		correctLineHeight($("#work-info-title-content-minima-minima")[0]);
@@ -103,22 +107,22 @@
 		<div id="work-info-menu-navigator" style="height: 50px;">
 			<ul id="work-info-menu" style="padding-top: 0px; padding-left: 16px; height: 50px;">
 				<% if !work.credits.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" onclick="putTextInfo('credits');" section-info="credits" >
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" section-info="credits" >
 						<div><%= t(:credits_menu) %></div>
 					</li>
 				<% end  %>
 				<% if !work.synopsis.nil? %>
-					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" onclick="putTextInfo('synopsis');" section-info="synopsis" >
+					<li class="work-info-menu-item" style="margin-right: 2px; margin-top: 17px;" section-info="synopsis" >
 						<div><%= t(:synopsis_menu) %></div>
 					</li>
 				<% end  %>
 				<% if !work.notes.nil? %>
-					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 17px;" onclick="putTextInfo('notes');" section-info="notes" >
+					<li class="work-info-menu-item" style="width: 45px; margin-right: 3px; margin-top: 17px;" section-info="notes" >
 						<div><%= t(:notes_menu) %></div>
 					</li>
 				<% end  %>
 				<% if !work.program.nil? %>
-					<li class="work-info-menu-item" style="width: 69px; margin-left: 3px; margin-top: 17px;" onclick="putTextInfo('program');" section-info="program" >
+					<li class="work-info-menu-item" style="width: 69px; margin-left: 3px; margin-top: 17px;" section-info="program" >
 						<div><%= t(:program_menu) %></div>
 					</li>
 				<% end  %>
