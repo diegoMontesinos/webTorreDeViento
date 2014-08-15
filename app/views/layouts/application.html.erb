@@ -9,10 +9,26 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				
 				if(detectMob()) {
 					var jqueryMobilePath = "<%= asset_path 'javascripts/jquery.mobile-1.4.3.js' %>";
 					$("head").append("<script type='text/javascript' src='" + jqueryMobilePath + "'><\/script>");
 				}
+
+				if($("#wrapper-tvp").length > 1) {
+					var wrappers = $("#wrapper-tvp");
+					for (var i = 0; i < ($("#wrapper-tvp").length - 1); i++) {
+						$(wrappers[i]).remove();
+					}
+
+					if($("style").length > 1) {
+						var styles = $("style");
+						for (var i = 0; i < $("style").length; i++) {
+							$(styles[i]).remove();
+						}
+					}
+				}
+				
 			});
 		</script>
 	</head>
