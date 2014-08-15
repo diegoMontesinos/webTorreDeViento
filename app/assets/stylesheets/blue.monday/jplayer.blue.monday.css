@@ -2,10 +2,6 @@
 div.jp-audio,
 div.jp-audio-stream,
 div.jp-video {
-
-	
-	line-height:20px;
-	border:1px solid #191818;
 }
 div.jp-audio {
 	width:420px;
@@ -73,27 +69,32 @@ div.jp-audio-stream div.jp-type-single div.jp-interface {
 }
 
 div.jp-video div.jp-interface {
-	border-top:1px solid #191818;
+	border-top:1px solid #000;
 }
 
 /* @group CONTROLS */
 
-div.jp-controls-holder {
-	clear: both;
-	width:15px;
-	position: relative;
-	overflow:hidden;
-	bottom:46px; /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
-	left: 15px;
-}
+
 
 div.jp-controls-holder2 {
 	clear: both;
 	width:22%;
-	position: relative;
+	position: absolute;
 	overflow:hidden;
-	bottom:73px; /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
-	left: 78%
+	left: 78%;
+	/*bottom:73px;*/ /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
+	top: -8px;
+}
+
+div.jp-controls-holder{
+	clear: both;
+	width:22%;
+	position: absolute;
+	overflow:hidden;
+	
+	/*bottom:73px;*/ /* This negative value depends on the size of the text in jp-currentTime and jp-duration */
+	top: 5px;
+	left: 12px;
 }
 
 div.jp-interface ul.jp-controls {
@@ -187,9 +188,8 @@ div.jp-seek-bar {
 	cursor: pointer;
 	z-index: 50;
 }
-
 div.jp-play-bar {
-	background: url("barra_roja.png") repeat-x ;
+	background: url("barra_azul.png") repeat-x ;
 	width:0px;
 	height:100%;
 }
@@ -282,7 +282,7 @@ div.jp-video div.jp-volume-bar {
 	left:16px;
 }
 div.jp-volume-bar-value {
-	background: url("barra_roja.png") no-repeat;
+	background: url("barra_azul.png") no-repeat;
 	width:0px;
 	height:2px;
 }
@@ -327,7 +327,7 @@ div.jp-title,
 div.jp-playlist {
 	width:100%;
 	background-color:#ccc;
-	border-top:1px solid #191818;
+	border-top:1px solid #000;
 }
 div.jp-type-single div.jp-title,
 div.jp-type-playlist div.jp-title,
@@ -348,7 +348,7 @@ div.jp-title li {
 }
 div.jp-playlist li {
 	padding:5px 0 4px 20px;
-	border-bottom:1px solid #eee;
+	border-bottom:1px solid #000;
 }
 
 div.jp-playlist li div {
@@ -438,6 +438,13 @@ a.jp-video-play-icon {
 	background: none;
 	text-indent:-9999px;
 }
+div.jp-video-play:hover a.jp-video-play-icon {
+	background: none;
+}
+
+
+
+
 
 div.jp-jplayer audio,
 div.jp-jplayer {
@@ -448,6 +455,10 @@ div.jp-jplayer {
 div.jp-jplayer {
 	background-color: #000000;
 }
+
+
+
+
 
 /* @group TOGGLES */
 
@@ -518,7 +529,7 @@ a.jp-restore-screen {
 	padding:5px;
 	font-size:.8em;
 	background-color:#eee;
-	border:2px solid #191818;
+	border:2px solid #000;
 	color:#000;
 	display:none;
 }

@@ -6,13 +6,17 @@
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<%= favicon_link_tag "favicon.ico" %>
 		<%= csrf_meta_tags %>
-		<style type="text/css">
-			html, body { background: "#FFFFFF"; }
-		</style>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if(detectMob()) {
+					var jqueryMobilePath = "<%= asset_path 'javascripts/jquery.mobile-1.4.3.js' %>";
+					$("head").append("<script type='text/javascript' src='" + jqueryMobilePath + "'><\/script>");
+				}
+			});
+		</script>
 	</head>
 	<body>
-
 		<%= yield %>
-
 	</body>
 </html>

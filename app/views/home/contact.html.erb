@@ -99,19 +99,19 @@
 								<!-- NOMBRE -->
 								<div style="width: 100%; position: relative; float: left; margin-top: 0px; overflow: hidden;">
 									<%= label_tag t(:name_contact) %>
-									<%= text_field_tag 'name', nil, :required => true, id: "name-contact" %>
+									<%= text_field_tag 'name', nil, :required => true, id: "name-contact", data: { role: "none" }  %>
 								</div>
 
 								<!-- EMAIL -->
 								<div style="width: 100%; position: relative; float: left; margin-top: -2px; overflow: hidden;">
 									<%= label_tag t(:mail_contact) %>
-									<%= email_field_tag 'mail', nil, :required => true, id: "email-contact" %>
+									<%= email_field_tag 'mail', nil, :required => true, id: "email-contact", data: { role: "none" }  %>
 								</div>
 
 								<!-- MENSAJE -->
 								<div style="width: 100%; height: 150px; overflow: none; position: relative; float: left;">
-									<%= label_tag t(:msg_contact)%>
-									<%= text_area_tag 'mssg', nil, size: "1x1", :required => true, id: "mmsg-contact" %>
+									<%= label_tag t(:msg_contact) %>
+									<%= text_area_tag 'mssg', nil, size: "1x1", :required => true, id: "mmsg-contact", data: { role: "none" }  %>
 								</div>
 
 								<!-- ENVIAR -->
@@ -122,7 +122,9 @@
 										Su mensaje ha sido enviado.<br>Muchas gracias.
 									</div>
 
-									<%= submit_tag t(:send_contact) %>
+									<div id="submit-contact">
+										<%= submit_tag t(:send_contact), data: { role: "none" } %>
+									</div>
 								</div>
 
 							<% end %>
@@ -180,7 +182,8 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	$(document).ready(function() {
+
 		// Formulario
 		$("#form-contact").bind("ajax:success", function(evt, data, status, xhr) {
 			$("#name-contact").val("");
@@ -190,6 +193,6 @@
 			// Mostramos la retroalimentacion
 			$("#retro-contact").show();
 		});
-
+		console.log($('input[type="submit"]').parent());
 	});
 </script>

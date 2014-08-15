@@ -46,64 +46,10 @@
 		</div>
 
 		<!-- GRIDS -->
-		<div id="work-grids-container">
-
-			<!-- FLECHA IZQUIERDA -->
-			<div id="work-spot-left" class="scrollingHotSpotLeft" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20); z-index: <%= @work_grids.length + 2 %>">
-				<%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %>
-			</div>
-			<!-- FLECHA DERECHA -->
-			<div id="work-spot-right" class="scrollingHotSpotRight" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20); z-index: <%= @work_grids.length + 2 %>">
-				<%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %>
-			</div>
-
-			<!-- SCROLL -->
-			<div class="scrollWrapper">
-				<div class="scrollableArea">
-					<% i = 0 %>
-
-					<% @work_grids.each do |work_grid| %>
-						<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%; z-index: <%= i + 2%>">
-							<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
-
-							<% j = 0 %>
-							<% grid_elements.each do |grid_element| %>
-								<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="">
-									<% if grid_element.work.present? %>
-										<script type="text/javascript">
-											var container = $("#element-<%= i %>-<%= j %>");
-											container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
-											container.attr("img-url", "<%= Photo.find(grid_element.display).image.url(:display) %>");
-											container.attr("work-url", "<%= work_path(grid_element.work_id) %>");
-										</script>
-
-										<div class="grid-element-info">
-											<%= grid_element.work.titles_grid.html_safe %>
-										</div>
-									<% end %>
-								</div>
-
-								<% j = j + 1 %>
-							<% end %>
-
-							<% if i == 0 %>
-								<div class="grid-element-extra-0" data="" img-url="" work-url=""></div>
-							<% end %>
-							<% if i == (@work_grids.length - 1) %>
-								<div class="grid-element-extra-1" data="" img-url="" work-url=""></div>
-							<% end %>
-
-						</div>
-
-						<% i = i + 1 %>
-					<% end %>
-				</div>
-			</div>
-
-		</div>
+		<div id="work-grids-container"></div>
 
 		<!-- BARRA BAJA -->
-		<div id="lower-bar" style="width: 100%; height: 40px; background: #000000; margin-top: 0px;"></div>
+		<div id="lower-bar" style="width: 100%; height: 40px; position:relative; float: left; background: #000000; margin-top: 0px;"></div>
 
 		<!-- LEGALES -->
 		<div id="legals-tvp">
@@ -115,216 +61,63 @@
 	</div>
 </div>
 
-			
 <script type="text/javascript">
-	function correctLineHeight(elem) {
-		elem.find("p").each(function() {
-			var maxFontSize = 0;
+	$(document).ready(function() {
+		// Hacemos la peticion ajax de los caruseles mobil y de escritorio
+		if($("html").hasClass("ui-mobile")) {
+			$.ajax({
+				type: "GET",
+				url: "<%= works_index_mobile_path %>",
+				dataType: "html",
+				async: false,
+				success: function(response) {
 
-			$(this).find("span").each(function() {
-				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
-				if(maxFontSize < currFontSize) {
-					maxFontSize = currFontSize;
+					// Agregamos las flechas a la barra
+					// Prev
+					var divPrev = document.createElement("div");
+					$(divPrev).attr("id", "prev_works");
+
+					var imgPrev = new Image();
+					imgPrev.onload = function() {
+						$(divPrev).append(imgPrev);
+					};
+					imgPrev.src = "/assets/prev_gallery.png";
+
+					// Next
+					var divNext = document.createElement("div");
+					$(divNext).attr("id", "next_works");
+
+					var imgNext = new Image();
+					imgNext.onload = function() {
+						$(divNext).append(imgNext);
+					};
+					imgNext.src = "/assets/next_gallery.png";
+
+					$("#lower-bar").append(divPrev);
+					$("#lower-bar").append(divNext);
+
+					// Vaciamos el contenedor
+					$("#work-grids-container").empty();
+
+					// Agregamos el codigo html
+					$("#work-grids-container").html(response);					
 				}
 			});
+		} else {
+			$.ajax({
+				type: "GET",
+				url: "<%= works_index_desktop_path %>",
+				dataType: "html",
+				async: false,
+				success: function(response) {
 
-			if(maxFontSize == 0) {
-				$(this).css("line-height", "9px");
-			} else {
-				$(this).css("line-height", (maxFontSize - 2) + "px");
-			}
-		});
-	}
+					// Vaciamos el contenedor
+					$("#work-grids-container").empty();
 
-	$(document).ready(function() {
-
-		$("#menu-tvp").css({
-			"z-index" : "<%= @work_grids.length + 3 %>"
-		});
-
-		// Se reacomoda cada grid-element del grid por clase
-		for (var i = 0; i <= 14; i++) {
-			var container = $(".grid-element-" + i);
-
-			container.each(function() {
-				$(this).attr("contracted", "0");
-				correctLineHeight($(this));
-
-				// Se colocan bien las imagenes
-				var img_url = $(this).attr("img-url");
-
-				if(img_url != "") {
-
-					// Se agrega la imagen
-					var dataAttr = $(this).attr("data").split(";");
-					var data = {
-						x: parseFloat(dataAttr[0]),
-						y: parseFloat(dataAttr[1]),
-						w: parseFloat(dataAttr[2]),
-						h: parseFloat(dataAttr[3]),
-					}
-
-					var that = this;
-					var img = new Image();
-					img.onload = function() {
-						$(img).prependTo($(that));
-
-						var newW = Math.round(($(that).width() * $(img).width()) / data.w);
-						var newH = Math.round(($(that).height() * $(img).height()) / data.h);
-						var mLeft = Math.round((newW * data.x) / $(img).width());
-						var mRight = Math.round((newH * data.y) / $(img).height());
-
-						var scaleW = 0.1;
-						var scaleH = 0.1;
-						var box = parseInt($(that).attr("class").replace("grid-element-", ""));
-						if(box == 0 || box == 1 || box == 3 || box == 4 || box == 7 || box == 9 || box == 11 || box == 12 || box == 13 || box == 14) {
-							scaleH = ($(that).height() * 0.5 - 5);
-							scaleW = ($(img).width() * scaleH) / $(img).height();
-						} else {
-							scaleH = ($(that).height() * 0.45 - 5);
-							scaleW = ($(img).width() * scaleH) / $(img).height();
-						}
-						
-						/*if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
-							scaleFactor = 50.0 / $(img).height();
-						} else if(box == 2 || box == 6 || box == 8 || box == 10) {
-							scaleFactor = 125.0 / $(img).height();
-						} else if(box == 5) {
-							scaleFactor = 100.0 / $(img).width();
-						}*/
-
-						$(img).css({
-							width: newW + 'px',
-							height: newH + 'px',
-							marginLeft: '-' + mLeft + 'px',
-							marginTop: '-' + mRight + 'px'
-						});
-
-						// Guardamos la informacion para ocuparla despues
-						$(that).attr("scaleW", "" + scaleW);
-						$(that).attr("scaleH", "" + scaleH);
-						$(that).attr("nW", "" + newW);
-						$(that).attr("nH", "" + newH);
-						$(that).attr("nML", "" + mLeft);
-						$(that).attr("nMR", "" + mRight);
-
-						// Se le da el efecto hover
-						$(that).hover(function(event) {
-							event.preventDefault();
-							event.stopPropagation();
-
-							$(this).find('img').animate({
-								width: parseFloat($(that).attr("scaleW")),
-								height: parseFloat($(that).attr("scaleH")),
-								marginTop: 5,
-								marginLeft: 5
-							}, 500);
-						}, function(event) {
-							event.preventDefault();
-							event.stopPropagation();
-
-							$(this).find('img').animate({
-								width: newW + 'px',
-								height: newH + 'px',
-								marginLeft: '-' + mLeft + 'px',
-								marginTop: '-' + mRight + 'px'
-							}, 300);
-						});
-
-						// Se le pone cursor de manita
-						$(that).css("cursor", "pointer");
-
-						// Se le da accion de click
-						$(that).click(function() {
-							$(location).attr("href", $(this).attr("work-url"));
-						});
-
-						/*if (!$("html").hasClass("no-touch")) {
-
-							// Se le da el efecto en touch
-							$(that).bind("touchstart", function(event) {
-								event.preventDefault();
-								event.stopPropagation();
-
-								// Regresamos todos a su posicion normal
-								for (var j = 0; j <= 14; j++) {
-									$(".grid-element-" + j).each(function() {
-										if(this != that) {
-											$(this).find('img').animate({
-												width: parseFloat($(this).attr("nW")) + 'px',
-												height: parseFloat($(this).attr("nH")) + 'px',
-												marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
-												marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
-											}, 300);
-
-											$(this).attr("contracted", "0");
-										}
-									});
-								}
-
-								if($(this).attr("contracted") == "0") {
-									var thisImg = $(this).find('img');
-									thisImg.animate({
-										width: parseFloat($(that).attr("scaleW")),
-										height: parseFloat($(that).attr("scaleH")),
-										marginTop: 5,
-										marginLeft: 5
-									}, 500);
-
-									$(this).attr("contracted", "1");
-								} else {
-									$(location).attr("href", $(this).attr("work-url"));
-								}
-							});
-
-						} else {
-							
-						}*/
-					}
-
-					img.src = img_url;
+					// Agregamos el codigo html
+					$("#work-grids-container").html(response);
 				}
 			});
 		}
-
-		/*$(document).bind("touchstart", function(event) {
-			event.preventDefault();
-			event.stopPropagation();
-
-			// Regresamos todos a su posicion normal
-			for (var j = 0; j <= 14; j++) {
-				$(".grid-element-" + j).each(function() {
-					$(this).find('img').animate({
-						width: parseFloat($(this).attr("nW")) + 'px',
-						height: parseFloat($(this).attr("nH")) + 'px',
-						marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
-						marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
-					}, 300);
-					$(this).attr("contracted", "0");
-				});
-			}
-		});*/
-
-		// RODILLO
-		$("#work-grids-container").smoothDivScroll({
-			manualContinuousScrolling: true,
-			easingAfterHotSpotScrolling: false,
-			hotSpotScrollingStep: 4,
-			setupComplete: function() {
-				$(".scrollableArea").first().width("100%");
-			}
-		});
-
-		// Dandole eventos a los hotspots
-		$("#work-spot-left").hover(function() {}, function() {
-			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
-		});
-
-		$("#work-spot-right").hover(function() {}, function() {
-			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
-			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
-		});
-
 	});
 </script>

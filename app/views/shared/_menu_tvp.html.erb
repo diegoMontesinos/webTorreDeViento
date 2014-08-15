@@ -62,20 +62,20 @@
 	</li>
 </ul>
 
+
 <!-- SCRIPT PARA EL TOUCH -->
 <script type="text/javascript">
-	$(document).ready(function() {
 
-		// Si el html es touch
-		if (!$("html").hasClass("no-touch")) {
+	$(document).ready(function() {
+		// Es un dispositivo movil
+		if($("html").hasClass("ui-mobile")) {
 
 			// Por cada submenu
 			$(".dropdown-tvp").each(function() {
 
-				// Habilitamos el evento touchstart
-				$(this).bind("touchstart", function(event) {
+				// Habilitamos el evento touch (tap)
+				$( this ).on("tap", function( event ) {
 					event.preventDefault();
-					event.stopPropagation();
 
 					// Obtenemos al hijo dropdown-menu-tvp
 					var sub_menu = $(this).find(".dropdown-menu-tvp")[0];
@@ -91,10 +91,10 @@
 
 			// Por cada link de submenu
 			$(".dropdown-item-tvp").each(function() {
-				// Habilitamos el evento touchstart
-				$(this).bind("touchstart", function(event) {
+
+				// Habilitamos el evento touch (tap)
+				$( this ).on("tap", function( event ) {
 					event.preventDefault();
-					event.stopPropagation();
 
 					$(location).attr("href", $(this).parent().attr("href"));
 				});
@@ -103,24 +103,14 @@
 			// Para cada link sobre el menu
 			$("#menu-tvp > li > a").each(function() {
 
-				// Habilitamos el evento touchstart
-				$(this).bind("touchstart", function(event) {
+				// Habilitamos el evento touch (tap)
+				$( this ).on("tap", function( event ) {
 					event.preventDefault();
-					event.stopPropagation();
 
 					$(location).attr("href", $(this).attr("href"));
 				});
 			});
-
-			// Ocultamos todos los submenus cuando se de click en cualquier otra parte
-			$(document).bind("touchstart", function(event) {
-				event.preventDefault();
-				event.stopPropagation();
-
-				$(".dropdown-menu-tvp").each(function() {
-					$(this).css("display", "none");
-				});
-			});
 		}
 	});
+
 </script>

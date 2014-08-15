@@ -135,6 +135,8 @@ WebTorreDeViento::Application.routes.draw do
   # Obras (Works)
   resources :works
 
+  get "/index_desktop" => "works#index_desktop", as: "works_index_desktop"
+  get "/index_mobile" => "works#index_mobile", as: "works_index_mobile"
   get "/video" => "home#video", as: "home_video"
 
   # Colaboradores (Colaborators)

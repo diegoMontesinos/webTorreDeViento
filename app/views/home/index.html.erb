@@ -162,9 +162,110 @@
 
 <!-- SCRIPT PARA EL CAROUSEL -->
 <script type="text/javascript">
+
+	function initCarousels() {
+
+		// Comportamiento del carousel horizontal
+		$('#carousel-horizontal').carouFredSel({
+			circular: true,
+			direction: "right",
+
+			items: {
+				visible: 4,
+				start: -4
+			},
+						
+			scroll: {
+				items: 1,
+				fx: "scroll",
+				easing: "linear",
+				duration: 600
+			},
+
+			auto: true
+		});
+
+		// Comportamiento del carousel vertical
+		$('#carousel-vertical').carouFredSel({
+			circular: true,
+			direction: "right",
+
+			items: {
+				visible: 1,
+				start: 0
+			},
+
+			scroll: {
+				items: 1,
+				fx: "scroll",
+				easing: "linear",
+				duration: 600
+			},
+
+			auto: true
+		});
+
+		if(detectMob()) {
+			alert("estas en movil");
+		} else {
+			alert("estas en escritorio");
+		}
+
+		// Es un dispositivo movil
+		if($("html").hasClass("ui-mobile")) {	
+
+			// Quitamos las flechas
+			$("#galeria-prev").remove();
+			$("#galeria-next").remove();
+
+			// Slide a la izquierda
+			$("#carousel-wrapper").on("swipeleft", function(event) {
+				event.preventDefault();
+				$("#carousel-vertical").trigger("next", null, 1, null, true);
+				$("#carousel-horizontal").trigger("next", null, 1, null, true);
+			});
+
+			// Slide a la derecha
+			$("#carousel-wrapper").on("swiperight", function(event) {
+				event.preventDefault();
+				$("#carousel-vertical").trigger("prev", null, 1, null, true);
+				$("#carousel-horizontal").trigger("prev", null, 1, null, true);
+			});
+
+		} else {
+			// Pausa en el hover
+			$('#carousel-wrapper').hover(function() {
+				$("#carousel-horizontal").trigger("pause", [true, false]);
+				$("#carousel-vertical").trigger("pause", [true, false]);
+			}, function() {
+				$("#carousel-horizontal").trigger("play");
+				$("#carousel-vertical").trigger("play");
+			});
+
+			// Click sobre los botones
+			// Click a la izquierda
+			$("#galeria-prev").on("click", function(event) {
+				event.preventDefault();
+
+				$("#carousel-vertical").trigger("next", null, 1, null, true);
+				$("#carousel-horizontal").trigger("next", null, 1, null, true);
+			});
+
+			// Click a la derecha
+			$("#galeria-next").on("click", function(event) {
+				event.preventDefault();
+
+				$("#carousel-vertical").trigger("prev", null, 1, null, true);
+				$("#carousel-horizontal").trigger("prev", null, 1, null, true);
+			});
+		}
+	}
+
 	$(document).ready(function() {
 
 		// Se corrigen las imagenes
+		var totalImgs = $(".carousel-elem").length;
+		var counter = 0;
 		$(".carousel-elem").each(function() {
 			if($(this).attr("data") != "") {
 				// Se colocan bien las imagenes
@@ -182,60 +283,17 @@
 					img.css({
 						marginLeft: '-' +  data.x + 'px'
 					});
+
+					// Esperamos a que se cargen todos las imagenes para
+					// iniciar caruseles
+					$(img).on("load", function() {
+						counter++;
+						if(counter >= totalImgs) {
+							initCarousels();
+						}
+					});
 				}
 			}
-		});
-
-		// Comportamiento del carousel horizontal
-		$('#carousel-horizontal').carouFredSel({
-			circular: true,
-			direction: "right",
-
-			items: {
-				visible: 4,
-				start: -3
-			},
-						
-			scroll: {
-				items: 1,
-				fx: "scroll",
-				easing: "linear",
-				duration: 600
-			},
-
-			auto: true
-		});
-
-		// Comportamiento del carousel vertical
-		$('#carousel-vertical').carouFredSel({
-			circular: true,
-			direction: "right",
-			synchronise: "#carousel-horizontal",
-
-			items: {
-				visible: 1,
-				start: 0
-			},
-
-			scroll: {
-				items: 1,
-				fx: "scroll",
-				easing: "linear",
-				duration: 600
-			},
-
-			auto: true,
-			next: '#galeria-prev',
-			prev: '#galeria-next'
-		});
-
-		// Pausa en el hover
-		$('#carousel-wrapper').hover(function() {
-			$("#carousel-horizontal").trigger("pause");
-			$("#carousel-vertical").trigger("pause");
-		}, function() {
-			$("#carousel-horizontal").trigger("play", [500, true]);
-			$("#carousel-vertical").trigger("play");
 		});
 
 		// Efectos de las noticias

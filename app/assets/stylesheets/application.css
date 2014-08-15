@@ -35,4 +35,8 @@
 	font-size: 0.8em;
 }
 
+.ui-loader {
+	display: none;
+}
+
 /* TERMINA CSS DEVISE */

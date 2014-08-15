@@ -1,0 +1,219 @@
+<!-- FLECHA IZQUIERDA -->
+<div id="work-spot-left" class="scrollingHotSpotLeft" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20); z-index: <%= @work_grids.length + 2 %>">
+	<%= image_tag "prev_gallery.png", :style => "width: 100%; height: 100%" %>
+</div>
+			
+<!-- FLECHA DERECHA -->
+<div id="work-spot-right" class="scrollingHotSpotRight" style="opacity: 0.2; -moz-opacity: 0.2; filter: alpha(opacity = 20); z-index: <%= @work_grids.length + 2 %>">
+	<%= image_tag "next_gallery.png", :style => "width: 100%; height: 100%" %>
+</div>
+
+<!-- SCROLL -->
+<div class="scrollWrapper">
+	<div class="scrollableArea">
+		<% i = 0 %>
+
+		<!-- ITERAMOS SOBRE TODOS LOS GRIDS -->
+		<% @work_grids.each do |work_grid| %>
+
+			<div id="grid-<%= i %>" class="work-grid" style="width: 112.5%; height: 400px; position: absolute; left: <%= i * 100 %>%; z-index: <%= i + 2%>">
+			<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
+
+			<% j = 0 %>
+
+			<!-- ITERAMOS SOBRE LOS ELEMENTOS DE ESE GRID -->
+			<% grid_elements.each do |grid_element| %>
+				<div id="element-<%= i %>-<%= j %>" class="grid-element-<%= grid_element.box %>" data="" img-url="" work-url="">
+				
+				<!-- SI TIENE OBRA ASOCIADA -->
+				<% if grid_element.work.present? %>
+					<script type="text/javascript">
+						var container = $("#element-<%= i %>-<%= j %>");
+						container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
+						container.attr("img-url", "<%= Photo.find(grid_element.display).image.url(:display) %>");
+						container.attr("work-url", "<%= work_path(grid_element.work_id) %>");
+					</script>
+
+					<div class="grid-element-info">
+						<%= grid_element.work.titles_grid.html_safe %>
+					</div>
+				<% end %>
+				
+				</div>
+
+				<% j = j + 1 %>
+			<% end %>
+
+			<!-- EXTRAS - RELLENO -->
+			<% if i == 0 %>
+				<div class="grid-element-extra-0" data="" img-url="" work-url=""></div>
+			<% end %>
+			<% if i == (@work_grids.length - 1) %>
+				<div class="grid-element-extra-1" data="" img-url="" work-url=""></div>
+			<% end %>
+
+			</div>
+
+			<% i = i + 1 %>
+		<% end %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	function correctLineHeight(elem) {
+		elem.find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", (maxFontSize - 2) + "px");
+			}
+		});
+	}
+
+	function recalculateGridElements() {
+		// Se reacomoda cada grid-element del grid por clase
+		for (var i = 0; i <= 14; i++) {
+			var container = $(".grid-element-" + i);
+
+			container.each(function() {
+				correctLineHeight($(this));
+
+				// Se colocan bien las imagenes
+				var img_url = $(this).attr("img-url");
+
+				if(img_url != "") {
+					// Se agrega la imagen
+					var dataAttr = $(this).attr("data").split(";");
+					var data = {
+						x: parseFloat(dataAttr[0]),
+						y: parseFloat(dataAttr[1]),
+						w: parseFloat(dataAttr[2]),
+						h: parseFloat(dataAttr[3]),
+					}
+
+					// Guarda una referencia al contenedor
+					var that = this;
+					var img = new Image();
+					img.onload = function() {
+						// Se agrega al contenedor
+						$(img).prependTo($(that));
+
+						// Se calcula el nuevo ancho, alto derecha e izquierda
+						var newW = Math.round(($(that).width() * $(img).width()) / data.w);
+						var newH = Math.round(($(that).height() * $(img).height()) / data.h);
+						var mLeft = Math.round((newW * data.x) / $(img).width());
+						var mRight = Math.round((newH * data.y) / $(img).height());
+
+						// Se aplica a la imagen
+						$(img).css({
+							width: newW + 'px',
+							height: newH + 'px',
+							marginLeft: '-' + mLeft + 'px',
+							marginTop: '-' + mRight + 'px'
+						});
+
+						/** EFECTO **/
+
+						// Preparamos el efecto determinando el ancho y alto escalado
+						var scaleW = 0.1;
+						var scaleH = 0.1;
+						// Depende del elemento q sea
+						var box = parseInt($(that).attr("class").replace("grid-element-", ""));
+						if(box == 0 || box == 1 || box == 3 || box == 4 || box == 7 || box == 9 || box == 11 || box == 12 || box == 13 || box == 14) {
+							scaleH = ($(that).height() * 0.5 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						} else {
+							scaleH = ($(that).height() * 0.45 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						}
+
+						/*if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
+							scaleFactor = 50.0 / $(img).height();
+						} else if(box == 2 || box == 6 || box == 8 || box == 10) {
+							scaleFactor = 125.0 / $(img).height();
+						} else if(box == 5) {
+							scaleFactor = 100.0 / $(img).width();
+						}*/
+
+						// Programamos el efecto hover
+						$(that).hover(function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							$(this).find('img').animate({
+								width: scaleW,
+								height: scaleH,
+								marginTop: 3,
+								marginLeft: 3
+							}, 500);
+						}, function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							$(this).find('img').animate({
+								width: newW + 'px',
+								height: newH + 'px',
+								marginLeft: '-' + mLeft + 'px',
+								marginTop: '-' + mRight + 'px'
+							}, 300);
+						});
+
+						// Se le pone cursor de manita
+						$(that).css("cursor", "pointer");
+
+						// Se le da accion de click
+						$(that).click(function() {
+							$(location).attr("href", $(this).attr("work-url"));
+						});
+					};
+
+					img.src = img_url;
+				}
+			});
+		}
+	}
+
+	$(document).ready(function() {
+
+		// Subimos al menu
+		$("#menu-tvp").css({
+			"z-index" : "<%= @work_grids.length + 3 %>"
+		});
+
+		// Reacomodamos todo como debe de ir
+		recalculateGridElements();
+
+		// Se activa el Rodillo
+		$("#work-grids-container").smoothDivScroll({
+			manualContinuousScrolling: true,
+			easingAfterHotSpotScrolling: false,
+			hotSpotScrollingStep: 4,
+			setupComplete: function() {
+				$(".scrollableArea").first().width("100%");
+			}
+		});
+
+		// Dandole eventos a los hotspots
+		$("#work-spot-left").hover(function() {}, function() {
+			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
+		});
+
+		$("#work-spot-right").hover(function() {}, function() {
+			var scrollerOffset = Math.floor($("div#work-grids-container").smoothDivScroll("getScrollerOffset"));
+			$("div#work-grids-container").smoothDivScroll("move", -1 * (scrollerOffset % 100) + 1);
+		});
+
+	});
+
+</script>

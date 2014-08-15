@@ -248,7 +248,18 @@ class WorksController < ApplicationController
 
 	# GET
 	def index
+	end
+
+	def index_desktop
 		@work_grids = WorkGrid.all
+
+		render partial: "index_desktop"
+	end
+
+	def index_mobile
+		@work_grids = WorkGrid.all
+
+		render partial: "index_mobile"
 	end
 
 	def image_folder

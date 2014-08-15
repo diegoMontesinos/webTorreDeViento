@@ -1,0 +1,280 @@
+
+<div id="work-grids-scroll">
+	<% i = 0 %>
+	<% column = @work_grids.length * 8 %>
+
+	<% @work_grids.each do |work_grid| %>
+		<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 0) %>">
+			<div id="element-<%= i %>-0" class="grid-element-mob-0" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-5" class="grid-element-mob-5" data="" img-url="" work-url=""></div>
+
+			<div class="grid-element-extra-mob-0"></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 1) %>">
+			<div id="element-<%= i %>-6" class="grid-element-mob-6" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-11" class="grid-element-mob-11" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 2) %>">
+			<div id="element-<%= i %>-1" class="grid-element-mob-1" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-12" class="grid-element-mob-12" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 3) %>">
+			<div id="element-<%= i %>-2" class="grid-element-mob-2" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-7" class="grid-element-mob-7" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 4) %>">
+			<div id="element-<%= i %>-8" class="grid-element-mob-8" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 5) %>">
+			<div id="element-<%= i %>-3" class="grid-element-mob-3" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-9" class="grid-element-mob-9" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 6) %>">
+			<div id="element-<%= i %>-10" class="grid-element-mob-10" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-13" class="grid-element-mob-13" data="" img-url="" work-url=""></div>
+		</div>
+
+		<div class="work-grid-column" style="z-index: <%= (column - 7) %>">
+			<div id="element-<%= i %>-4" class="grid-element-mob-4" data="" img-url="" work-url=""></div>
+			<div id="element-<%= i %>-14" class="grid-element-mob-14" data="" img-url="" work-url=""></div>
+
+			<% if i == (@work_grids.length - 1) %>
+				<div class="grid-element-extra-mob-0"></div>
+			<% end %>
+		</div>
+
+		<% i = i + 1 %>
+		<% column = column - 8 %>
+	<% end %>
+</div>
+
+<% i = 0 %>
+
+	<% @work_grids.each do |work_grid| %>
+		<% grid_elements = work_grid.grid_elements.to_a.sort_by { |e| e.box } %>
+
+		<% j = 0 %>
+		<% grid_elements.each do |grid_element| %>
+		
+			<% if grid_element.work.present? %>
+				<script type="text/javascript">
+					var container = $("#element-<%= i %>-<%= j %>");
+					container.attr("data", "<%= grid_element.x %>;<%= grid_element.y %>;<%= grid_element.w %>;<%= grid_element.h %>")
+					container.attr("img-url", "<%= Photo.find(grid_element.display).image.url(:display) %>");
+					container.attr("work-url", "<%= work_path(grid_element.work_id) %>");
+
+					var divInfo = document.createElement("div");
+					$(divInfo).addClass("grid-element-info");
+					$(divInfo).html("<%= j grid_element.work.titles_grid.html_safe %>");
+
+					$(container).append(divInfo);
+				</script>
+			<% end %>
+
+		<% j = j + 1 %>
+	<% end %>
+
+	<% i = i + 1 %>
+<% end %>
+
+<script type="text/javascript">
+	function correctLineHeight(elem) {
+		elem.find("p").each(function() {
+			var maxFontSize = 0;
+
+			$(this).find("span").each(function() {
+				var currFontSize = parseInt($(this).css('font-size').replace("px", ""));
+				if(maxFontSize < currFontSize) {
+					maxFontSize = currFontSize;
+				}
+			});
+
+			if(maxFontSize == 0) {
+				$(this).css("line-height", "9px");
+			} else {
+				$(this).css("line-height", (maxFontSize - 2) + "px");
+			}
+		});
+	}
+
+	function recalculateGridElements() {
+		// Se reacomoda cada grid-element del grid por clase
+		for (var i = 0; i <= 14; i++) {
+			var container = $(".grid-element-mob-" + i);
+
+			container.each(function() {
+				correctLineHeight($(this));
+				$(this).attr("contracted", "0");
+
+				// Se colocan bien las imagenes
+				var img_url = $(this).attr("img-url");
+				if(img_url != "") {
+
+					// Se agrega la imagen
+					var dataAttr = $(this).attr("data").split(";");
+					var data = {
+						x: parseFloat(dataAttr[0]),
+						y: parseFloat(dataAttr[1]),
+						w: parseFloat(dataAttr[2]),
+						h: parseFloat(dataAttr[3]),
+					}
+
+					// Guarda una referencia al contenedor
+					var that = this;
+					var img = new Image();
+					img.onload = function() {
+
+						// Se agrega al contenedor
+						$(img).prependTo($(that));
+
+						// Se calcula el nuevo ancho, alto derecha e izquierda
+						var newW = Math.round(($(that).width() * $(img).width()) / data.w);
+						var newH = Math.round(($(that).height() * $(img).height()) / data.h);
+						var mLeft = Math.round((newW * data.x) / $(img).width());
+						var mRight = Math.round((newH * data.y) / $(img).height());
+
+						// Se aplica a la imagen
+						$(img).css({
+							width: newW + 'px',
+							height: newH + 'px',
+							marginLeft: '-' + mLeft + 'px',
+							marginTop: '-' + mRight + 'px'
+						});
+
+						/** EFECTO **/
+
+						// Preparamos el efecto determinando el ancho y alto escalado
+						var scaleW = 0.1;
+						var scaleH = 0.1;
+						// Depende del elemento q sea
+						var box = parseInt($(that).attr("class").replace("grid-element-", ""));
+						if(box == 0 || box == 1 || box == 3 || box == 4 || box == 7 || box == 9 || box == 11 || box == 12 || box == 13 || box == 14) {
+							scaleH = ($(that).height() * 0.5 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						} else {
+							scaleH = ($(that).height() * 0.45 - 5);
+							scaleW = ($(img).width() * scaleH) / $(img).height();
+						}
+
+						/*if(box == 0 || box == 3 || box == 12 || box == 14 || box == 1 || box == 4 || box == 7 || box == 9 || box == 11 || box == 13) {
+							scaleFactor = 50.0 / $(img).height();
+						} else if(box == 2 || box == 6 || box == 8 || box == 10) {
+							scaleFactor = 125.0 / $(img).height();
+						} else if(box == 5) {
+							scaleFactor = 100.0 / $(img).width();
+						}*/
+
+
+						// Guardamos la informacion para ocuparla despues
+						$(that).attr("scaleW", "" + scaleW);
+						$(that).attr("scaleH", "" + scaleH);
+						$(that).attr("nW", "" + newW);
+						$(that).attr("nH", "" + newH);
+						$(that).attr("nML", "" + mLeft);
+						$(that).attr("nMR", "" + mRight);
+
+						// Se le da el efecto en touch
+						$(that).on("tap", function(event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							// Regresamos todos a su posicion normal
+							for (var j = 0; j <= 14; j++) {
+								$(".grid-element-mob-" + j).each(function() {
+									if(this != that) {
+										$(this).find('img').animate({
+											width: parseFloat($(this).attr("nW")) + 'px',
+											height: parseFloat($(this).attr("nH")) + 'px',
+											marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
+											marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
+										}, 300);
+
+										$(this).attr("contracted", "0");
+									}
+								});
+							}
+
+							if($(this).attr("contracted") == "0") {
+								var thisImg = $(this).find('img');
+								thisImg.animate({
+									width: parseFloat($(that).attr("scaleW")),
+									height: parseFloat($(that).attr("scaleH")),
+									marginTop: 5,
+									marginLeft: 5
+								}, 500);
+
+								$(this).attr("contracted", "1");
+							} else {
+								$(location).attr("href", $(this).attr("work-url"));
+							}
+						});
+					};
+
+					img.src = img_url;
+				}
+
+			});
+		}
+	}
+
+	$(document).ready(function() {
+
+		// Subimos al menu
+		$("#menu-tvp").css({
+			"z-index" : "<%= (@work_grids.length * 8) + 3 %>"
+		});
+
+		// Reacomodamos todo como debe de ir
+		recalculateGridElements();
+
+		// Tap en el doc
+		$(document).on("tap", function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			// Regresamos todos a su posicion normal
+			for (var j = 0; j <= 14; j++) {
+				$(".grid-element-mob-" + j).each(function() {
+					$(this).find('img').animate({
+						width: parseFloat($(this).attr("nW")) + 'px',
+						height: parseFloat($(this).attr("nH")) + 'px',
+						marginLeft: '-' + parseFloat($(this).attr("nML")) + 'px',
+						marginTop: '-' + parseFloat($(this).attr("nMR")) + 'px'
+					}, 300);
+					$(this).attr("contracted", "0");
+				});
+			}
+		});
+		
+		$("#work-grids-scroll").css({
+			"width" : "<%= (@work_grids.length * 800) + 100 %>px"
+		});
+
+		$("#work-grids-container").css({
+			"overflow" : "hidden"
+		});
+
+		$("#prev_works").on("tap", function (event) {
+			var left = $("#work-grids-scroll").css("left");
+			if(left != "0px") {
+				$("#work-grids-scroll").css("left", "+=100");
+			}
+		});
+
+		$("#next_works").on("tap", function (event) {
+			var left = $("#work-grids-scroll").css("left");
+			if(left != "-<%= ((@work_grids.length - 1) * 800) + 100 %>px") {
+				$("#work-grids-scroll").css("left", "-=100");
+			}
+		});
+
+	});
+</script>
