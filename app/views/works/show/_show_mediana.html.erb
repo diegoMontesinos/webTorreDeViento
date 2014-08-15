@@ -1,6 +1,8 @@
 <script type="text/javascript">
 
 	function putTextInfo(id_elem) {
+		alert("cargando " + id_elem);
+
 		var credits_htmlstr = "<%= j work.credits.html_safe if !work.credits.nil? %>";
 		var synopsis_htmlstr = "<%= j work.synopsis.html_safe if !work.synopsis.nil? %>";
 		var notes_htmlstr = "<%= j work.notes.html_safe if !work.notes.nil? %>";
