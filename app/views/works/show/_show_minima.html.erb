@@ -6,6 +6,10 @@
 		var notes_htmlstr = "<%= j work.notes.html_safe if !work.notes.nil? %>";
 		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
 
+		if(($(".work-info-text-minima").data("jsp"))) {
+			$(".work-info-text-minima").data("jsp").destroy();
+		}
+
 		if(id_elem == "credits") {
 			$(".work-info-text-minima").html(credits_htmlstr);
 		} else if(id_elem == "synopsis") {
@@ -14,10 +18,6 @@
 			$(".work-info-text-minima").html(notes_htmlstr);
 		} else if(id_elem == "program") {
 			$(".work-info-text-minima").html(program_htmlstr);
-		}
-
-		if(($(".work-info-text-minima").data("jsp"))) {
-			$(".work-info-text-minima").data("jsp").destroy();
 		}
 
 		$(".work-info-text-minima").bind("jsp-initialised", function(event, isScrollable) {
@@ -60,7 +60,7 @@
 			$(".nav-works").on("click", function() {
 				$(location).attr("href", $(this).attr("url-work"));
 			});
-
+			
 			$(".work-info-menu-item").on("click", function() {
 				putTextInfo($(this).attr("section-info"));
 			});

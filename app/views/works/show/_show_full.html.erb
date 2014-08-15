@@ -6,6 +6,10 @@
 		var notes_htmlstr = "<%= j work.notes.html_safe if !work.notes.nil? %>";
 		var program_htmlstr = "<%= j work.program.html_safe if !work.program.nil? %>";
 
+		if(($(".work-info-text-full").data("jsp"))) {
+			$(".work-info-text-full").data("jsp").destroy();
+		}
+
 		if(id_elem == "credits") {
 			$(".work-info-text-full").html(credits_htmlstr);
 		} else if(id_elem == "synopsis") {
@@ -14,10 +18,6 @@
 			$(".work-info-text-full").html(notes_htmlstr);
 		} else if(id_elem == "program") {
 			$(".work-info-text-full").html(program_htmlstr);
-		}
-
-		if(($(".work-info-text-full").data("jsp"))) {
-			$(".work-info-text-full").data("jsp").destroy();
 		}
 
 		$(".work-info-text-full").bind("jsp-initialised", function(event, isScrollable) {
