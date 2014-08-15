@@ -45,9 +45,13 @@
 		<div class="work-grid-column" style="z-index: <%= (column - 7) %>">
 			<div id="element-<%= i %>-4" class="grid-element-mob-4" data="" img-url="" work-url=""></div>
 			<div id="element-<%= i %>-14" class="grid-element-mob-14" data="" img-url="" work-url=""></div>
-			
-			<div class="grid-element-extra-mob-0"></div>
 		</div>
+
+		<% if @work_grids.last.id == work_grid.id %>
+			<div class="work-grid-column" style="z-index: <%= (column - 7) %>">
+				<div class="grid-element-extra-mob-1"></div>
+			</div>
+		<% end %>
 
 		<% i = i + 1 %>
 		<% column = column - 8 %>

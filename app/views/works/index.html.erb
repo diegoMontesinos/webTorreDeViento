@@ -64,7 +64,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// Hacemos la peticion ajax de los caruseles mobil y de escritorio
-		if($("html").hasClass("ui-mobile")) {
+		//if($("html").hasClass("ui-mobile")) {
+			if(true) {
 			$.ajax({
 				type: "GET",
 				url: "<%= works_index_mobile_path %>",
