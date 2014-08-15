@@ -127,7 +127,7 @@
 	}
 
 	$(document).ready(function() {
-		
+
 		// Click sobre la navegacion
 		if($("html").hasClass("ui-mobile")) {
 			$(".nav-works").on("tap", function() {
@@ -206,7 +206,6 @@
 				<div class="nav-works" style="width: 10px; height: 20px; float: right; margin-right: 12px;" url-work="<%= work_path(@work.previous) %>">
 					<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 				</div>
-				<% end %>
 			</ul>
 		</div>
 	</div>
