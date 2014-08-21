@@ -249,44 +249,72 @@ class AdminController < ApplicationController
 	# HOME
 	# Noticias
 	def home_news
-		@home_news = New.where.not(home: -1)
+		count = HomeNew.count
+		@home_news = HomeNew.all.order('home_news.created_at DESC')
+		if count != 4
+			# Corrigiendo el numero
+			if(count > 4)
+				dif = count - 4
+				i = 0
+				dif.times do
+					@home_news[i].destroy
+				end
+			end
 
+			if(count < 4)
+				dif = 4 - count
+				dif.times do
+					home_new = HomeNew.new
+					home_new.save
+				end
+			end
+
+			@home_news = HomeNew.all.order('home_news.created_at DESC')
+		end
+		
 		render partial: "admin_home_news"
 	end
 
 	def home_news_edit
 		@news = New.all
 		@place = params[:place]
-		@new_in_place = New.where(home: params[:place])
+		@home_new = HomeNew.all.order('home_news.created_at DESC')[@place.to_i]
 
 		render partial: "admin_home_news_edit"
 	end
 
 	def home_news_save
-		@new = New.find(params[:newselect])
-		@new.crop_x2 = params[:crop_x]
-		@new.crop_y2 = params[:crop_y]
-		@new.crop_w2 = params[:crop_w]
-		@new.crop_h2 = params[:crop_h]
 
-		# Quitamos el anterior del lugar
-		news_place = New.where(home: params[:place])
-		if !news_place.empty?
-			@bef_new = news_place.first
-			@bef_new.home = -1
-			@bef_new.link = nil
-			@bef_new.save
-		end
-
-		@new.home = params[:place].to_i
-		@new.link = params[:link]
+		# salvamos el crop
+		@new = New.find(params[:home_new][:new_id])
+		@new.crop_x2 = params[:crop_x].to_f
+		@new.crop_y2 = params[:crop_y].to_f
+		@new.crop_w2 = params[:crop_w].to_f
+		@new.crop_h2 = params[:crop_h].to_f
 		@new.save
+
+		@home_new = HomeNew.find(params[:id])
+		permitted_params = params.require(:home_new).permit(:new_id, :img_link)
+		@home_new.update(permitted_params)
 
 		image_str = @new.thumbnail.url(:display2)
 
 		respond_to do |format|
 		  format.json {
-		    render json: { "image" => image_str, "place" => params[:place] }.to_json
+		    render json: ("image:" + image_str + ",place:" + params[:place]).to_json
+		  }
+		end
+	end
+
+	def home_news_clean
+		@home_new = HomeNew.find(params[:id])
+		@home_new.new = nil
+		@home_new.remove_img_link!
+		@home_new.save
+
+		respond_to do |format|
+		  format.json {
+		    render json: ("ok").to_json
 		  }
 		end
 	end

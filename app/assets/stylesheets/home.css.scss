@@ -47,14 +47,23 @@ img {
 	font-size: 0.8125em;
 }
 
-#languages a {
+#languages div {
+	position: relative;
+	float: left;
+	
 	color: #438bc5;
 	text-decoration: none;
 }
 
-#languages a:hover {
+#languages div a {
+	display: none;
+}
+
+#languages div:hover {
 	color: #438bc5;
 	text-decoration: underline;
+
+	cursor: pointer;
 }
 
 // TEMINA CSS BANNER TVP
@@ -250,7 +259,7 @@ img {
 	position: relative;
 	float: left;
 	
-	background: #FFF;
+	background: #000;
 }
 
 .news-link {

@@ -1,65 +1,74 @@
 
-<div style="width: 100%; height: 540px; overflow-y: scroll; overflow-x: hidden;">
-
-	<%= form_tag(admin_home_news_save_path, remote: true, method: "post", id: "home-news-crop-form") do %>
+<div style="width: 100%; height: 540px;">
 	
-	<div id="admin-news-list-container" class="list-container" style="height: 500px; margin-left: -2.5%; position: fixed; width: 25%;">
+	<%= form_for @home_new, remote: true, html: { id: "home-news-crop-form", :class => "pure-form pure-form-stacked" } do |f| %>
+	
+		<!-- EDICION -->
+		<div id="admin-home-new-edit-container">
 
-		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.2em; margin-left: 13%; margin-top: 14px;">
-			<strong>SELECCIONE NOTICIA:</strong>
+			<!-- SELECCION -->
+			<div id="admin-home-new-list">
+				
+				<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.2em; margin-left: 8%; margin-top: 14px;">
+					<strong>1. SELECCIONE NOTICIA:</strong>
+				</div>
+
+				<div class="list-container">
+					<ul id="admin-news-list" class="admin-list" style="height: 400px;">
+						<% @news.each do |new_| %>
+							<li class="ui-state-default" id-new="<%= new_.id %>" url-display="<%= new_.thumbnail.url(:normalize) %>" style="font-family: latha, latha_ie; font-size: 0.89em;" >
+								<%= new_.title %>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+
+			<%= f.hidden_field :new_id %>
+			<%= hidden_field_tag "id", @home_new.id %>
+			<%= hidden_field_tag "place", @place %>
+
+			<!-- CROP Y TEXTO -->
+			<div id="admin-home-new-edit-content">
+				<div id="admin-home-new-edit">
+
+					<!-- THUMBNAIL -->
+					<div id="admin-news-thumb" align="center">
+
+						<!-- CROP THUMBNAIL -->
+						<div style="font-family: latha, latha_ie; font-size: 1.2em; margin-left: 3.2%;" align="left"><strong>2. SELECCIONA UN RECORTE:</strong></div>
+						<div id="admin-home-news-crop"></div>
+
+						<!-- PREVIEW -->
+						<div style="font-family: latha, latha_ie; font-size: 1em; margin-top: 5px;">PREVIEW</div>
+						<div id="admin-home-news-preview" style="width: 249px; height: 150px; overflow: hidden; margin-top: -6px;"></div>
+					</div>
+					<% %w[x y w h].each do |attribute| %>
+						<%= hidden_field_tag "crop_#{attribute}" %>
+					<% end %>
+
+					<!-- IMAGEN LINK -->
+					<div id="admin-news-img-link" align="center">
+						<div style="font-family: latha, latha_ie; font-size: 1.2em; margin-left: 3.2%;" align="left"><strong>3. SELECCIONA UNA IMAGEN PNG DE TEXTO (LINK):</strong></div>
+						<%= f.file_field "img_link", :style => "font-family: latha, latha_ie; font-size: 1.2em;", :class => "pure-button", accept: "image/png", required: true %>
+
+						<br>
+						<br>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-		<ul id="admin-news-list" class="admin-list">
-			<% @news.each do |new_| %>
-				<li class="ui-state-default" onclick="selectNew(this);" id-new="<%= new_.id %>" url-display="<%= new_.thumbnail.url(:normalize) %>" style="font-family: latha, latha_ie; font-size: 0.89em;" >
-					<%= new_.title %>
-				</li>
-			<% end %>
-		</ul>
-	</div>
-
-	<div id="admin-news-thumb">
-		<div id="admin-news-display"></div>
-
-		<div id="admin-news-preview-container">
-			<span style="margin-left: 22%; font-family: latha, latha_ie; font-size: 1.2em;"><strong>PREVIEW</strong></span>
-
-			<div id="admin-news-preview" style="width: 249px; height: 150px; margin-left: 6%; overflow: hidden;"></div>
+		<!-- GUARDAR - CANCELAR -->
+		<div id="admin-home-new-ctrls">
+			<%= f.submit "GUARDAR", id: "submit-home-new-form", :class => "pure-button pure-button-primary", :style => "float: right; margin-right: 15px;" %>
+			<%= button_tag(type: "button", id: "cancel-home-new-form", style: "float: right;", class: "pure-button pure-button-active") do %>CANCELAR<% end %>
 		</div>
-
-		<%= hidden_field_tag "place", @place %>
-		<%= hidden_field_tag "newselect" %>
-		
-		<% %w[x y w h].each do |attribute| %>
-			<%= hidden_field_tag "crop_#{attribute}" %>
-		<% end %>
-
-	</div>
-
-	<div style="width: 66%; height: 200px; float: left; margin-left: 32%; position: relative;">
-		<div style="width: 100%; font-family: latha, latha_ie; font-size: 1.5em; margin-left: 1%; margin-top: 14px;">
-			<strong>TEXTO LINK</strong>
-		</div>
-		
-		<div style="width: 100%;">
-			<%= text_area_tag "link", nil, cols: 25 %>
-		</div>
-
-		<div style="width: 100%;">
-			<%= submit_tag "GUARDAR", id: "submit_form", :class => "pure-button pure-button-primary", :style => "height: 38px; float: right; margin-right: 3%; margin-top: 27px;" %>
-		</div>
-
-	</div>
 
 	<% end %>
-</div>
 
-<% id_in_place = -1 %>
-<% txt_in_place = "" %>
-<% if !@new_in_place.empty? %>
-	<% id_in_place = @new_in_place.first.id %>
-	<% txt_in_place = j(@new_in_place.first.link.html_safe) %>
-<% end %>
+</div>
 
 <script type="text/javascript">
 
@@ -73,18 +82,19 @@
 	}
 
 	function updatePreview(coords) {
-		var newWidth = Math.round((249 * $("#news-cropbox").width()) / coords.w);
-		var newHeight = Math.round((150 * $("#news-cropbox").height()) / coords.h);
+		var newWidth = Math.round((249 * $("#home-new-cropbox").width()) / coords.w);
+		var newHeight = Math.round((150 * $("#home-new-cropbox").height()) / coords.h);
 
-		$('#news-preview').css({
+		$('#home-new-preview').css({
 			width: newWidth + 'px',
 			height: newHeight + 'px',
-			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#news-cropbox").width()) + 'px',
-			marginTop: '-' + Math.round((newHeight * coords.y) / $("#news-cropbox").height()) + 'px',
+			marginLeft: '-' + Math.round((newWidth * coords.x) / $("#home-new-cropbox").width()) + 'px',
+			marginTop: '-' + Math.round((newHeight * coords.y) / $("#home-new-cropbox").height()) + 'px',
 		});
 	}
-	
+
 	function selectNew(li_elem) {
+
 		// Estilo
 		if($(".ui-state-default-selec").length > 0) {
 			$(".ui-state-default-selec").addClass("ui-state-default");
@@ -94,62 +104,91 @@
 		$(li_elem).addClass("ui-state-default-selec");
 		$(li_elem).removeClass("ui-state-default");
 
-		// Vaciamos
-		$("#admin-news-display").empty();
-		$("#admin-news-preview").empty();
-
 		// Noticia al formulario
-		$("#newselect").val($(li_elem).attr("id-new"));
+		$("#home_new_new_id").val($(li_elem).attr("id-new"));
+
+		// Vaciamos
+		$("#admin-home-news-crop").empty();
+		$("#admin-home-news-preview").empty();
 
 		// Imagen
 		var img = new Image();
-		img.id = "news-cropbox";
+		img.id = "home-new-cropbox";
+
 		var imgPreview = new Image();
-		imgPreview.id = "news-preview";
+		imgPreview.id = "home-new-preview";
 
 		img.onload = function() {
-			$(img).appendTo("#admin-news-display");
+			$(img).appendTo("#admin-home-news-crop");
 
 			// Se inicia JCrop
-			$("#news-cropbox").Jcrop({
+			$("#home-new-cropbox").Jcrop({
 				aspectRatio: 1.66,
 				setSelect: [0, 0, 249, 150 ],
 				bgOpacity: 0.2,
 				onSelect: update,
 				onChange: update
 			});
-		}
+		};
 		img.src = $(li_elem).attr("url-display");
 
 		imgPreview.onload = function() {
-			$(imgPreview).appendTo("#admin-news-preview");
+			$(imgPreview).appendTo("#admin-home-news-preview");
 		}
 		imgPreview.src = $(li_elem).attr("url-display");
 	}
 
-	$(function() {
+	$(document).ready(function() {
+
+		// Cancel
+		$("#cancel-home-new-form").click(function() {
+			$("#home-edit-news-dialog").dialog("close");
+		});
+
+		// Le damos evento click a todas
+		$(".ui-state-default").click(function() {
+			selectNew(this);
+		});
+
+		// Ajax Success
 		$("#home-news-crop-form").bind("ajax:success", function(evt, data, status, xhr) {
 			$("#home-edit-news-dialog").empty();
 			$("#home-edit-news-dialog").dialog("close");
 
+			var data_ = data.replace('"', '').replace('"', '');
+			var img_str = data_.split(",")[0].replace("image:", "").trim();
+			var place = data_.split(",")[1].replace("place:", "").trim();
+
 			var img = new Image();
 			$(img).css({ "width" : "100%", "height" : "100%" });
 			img.onload = function() {
-				$("#home-news-" + data.place).empty();
-				$(img).appendTo("#home-news-" + data.place);
+				$("#home-news-" + (parseInt(place) + 1)).empty();
+				$(img).appendTo("#home-news-" + (parseInt(place) + 1));
+
+				// Agregamos el boton de limpiar espacio
+				var div_remove = document.createElement("div");
+				$(div_remove).addClass("clean-home-option");
+				$(div_remove).html("<i class='fa fa-times-circle' style='color: rgb(237, 255, 0);'></i>");
+
+				$(div_remove).click(function(event) {
+					event.stopPropagation();
+					event.preventDefault();
+
+					$.ajax({
+						type: "POST",
+						url: "<%= home_news_clean_path %>" + "/?id=" + $("#home-news-" + (parseInt(place) + 1)).attr("id-home-new"),
+						dataType: "json",
+						success: function(data) {
+							$("#home-news-" + (parseInt(place) + 1)).empty();
+						}
+					});
+				});
+
+				$("#home-news-" + (parseInt(place) + 1)).append(div_remove);
 			}
-			img.src = data.image;
+			img.src = img_str;
 		});
 
-		// Click en el elemento
-		if("<%= @new_in_place.empty? %>" == "false") {
-			var id = "<%= id_in_place %>";
-			$(".ui-state-default").each(function() {
-				if($(this).attr("id-new") == id) {
-					$(this).click();
-					$("#link_ckeditor").val("<%= txt_in_place %>");
-				}
-			});
-		}
 	});
+
 </script>

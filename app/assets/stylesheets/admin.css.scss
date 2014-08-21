@@ -677,37 +677,9 @@
 	font-size: 0.89em;
 }
 
-#admin-news-thumb {
-	width: 66%;
-	height: 600px;
-
-	float: left;
-	margin-left: 32%;
-	position: relative;
-}
-
-#admin-news-display {
-	width: 468px;
-	height: 231px;
-	margin-top: 12px;
-	margin-left: 8%;
-
-	float: left;
-}
-
-#admin-news-preview-container {
-	width: 75%;
-	float: left;
-	margin-top: 95px;
-	font-family: latha, latha_ie;
-	font-size: 0.89em;
-	margin-left: 28%;
-}
-
 #home-news-crop-form {
 	font-family: latha, latha_ie;
 }
-
 
 #admin-news-selection {
 	width: 60%;
@@ -743,6 +715,98 @@
 }
 
 // TERMINA CSS NEWS
+
+// EMPIEZA CSS HOME NEWS
+
+.home-new-option {
+	height: 100%;
+
+	position: relative;
+	float: left;
+}
+
+.clean-home-option {
+	font-size: 1.2em;
+	position: absolute;
+	right: 4%;
+	top: 5px;
+	cursor: pointer;
+}
+
+#admin-home-new-edit-container {
+	width: calc(100% - 10px);
+	height: 490px;
+	
+	position: relative;
+	float: left;
+
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+#admin-home-new-list {
+	width: 25%;
+	height: 490px;
+
+	position: relative;
+	float: left;
+
+	border: solid 1px #AAAAAA;
+}
+
+#admin-home-new-list .list-container {
+	width: 100%;
+	height: 400px;
+
+	margin-left: -8.5%;
+}
+
+#admin-home-new-edit-content {
+	width: calc(73% - 10px);
+	height: 490px;
+	position: relative;
+	float: left;
+	margin-left: 10px;
+	overflow-y: scroll;
+	border: solid 1px #AAAAAA;
+}
+
+#admin-home-new-edit {
+	width: 100%;
+	height: auto;
+}
+
+#admin-news-thumb {
+	width: 100%;
+	height: auto;
+
+	position: relative;
+	float: left;
+
+	margin-top: 10px;
+}
+
+#admin-news-img-link {
+	width: 100%;
+	height: auto;
+
+	position: relative;
+	float: left;
+
+	margin-top: 10px;
+}
+
+#admin-home-new-ctrls {
+	width: 100%;
+	height: 35px;
+
+	position: relative;
+	float: left;
+
+	margin-top: 10px;
+}
+
+// TERMINA CSS HOME NEWS
 
 // EMPIEZA CSS PRESS
 #form-press-wrapper {

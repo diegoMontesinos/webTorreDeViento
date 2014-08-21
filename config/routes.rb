@@ -60,7 +60,8 @@ WebTorreDeViento::Application.routes.draw do
   # Admin News
   get "/admin/home/news" => "admin#home_news", as: "admin_home_news"
   get "/admin/home/news_edit" => "admin#home_news_edit", as: "admin_home_news_edit"
-  post "/admin/home/news_save" => "admin#home_news_save", as: "admin_home_news_save"
+  patch "/admin/home/news_save" => "admin#home_news_save", as: "home_news"
+  post "/admin/home/news_clean" => "admin#home_news_clean", as: "home_news_clean"
 
   # Admin Home carousel element
   get "/admin/home/carousel_element/:id" => "admin#carousel_elem_edit", as: "admin_carousel_element"

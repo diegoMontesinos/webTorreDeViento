@@ -144,13 +144,13 @@
 
 						<!-- NEXT -->
 						<% if @colaborator.next.to_i != -1 %>
-							<%= link_to colaborator_path(@colaborator.next), :class => "link-next-page" do %>
+							<%= link_to colaborator_path(@colaborator.next), :class => "link-next-page", :data => { :ajax => 'false' } do %>
 								<div class="link-next-colab">
 									<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
 								</div>
 							<% end %>
 						<% else %>
-							<%= link_to frequents_path, :class => "link-next-page" do %>
+							<%= link_to frequents_path, :class => "link-next-page", :data => { :ajax => 'false' } do %>
 								<div class="link-next-colab">
 									<%= image_tag "next.png", :alt => "Siguiente", :style => "width: 100%; height: 100%;" %>
 								</div>
@@ -159,13 +159,13 @@
 
 						<!-- PREVIOUS -->
 						<% if @colaborator.previous.to_i != -1 %>
-							<%= link_to colaborator_path(@colaborastor.previous), :class => "link-next-page" do %>
+							<%= link_to colaborator_path(@colaborator.previous), :class => "link-next-page", :data => { :ajax => 'false' } do %>
 								<div class="link-prev-colab">
 									<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 								</div>
 							<% end %>
 						<% else %>
-							<%= link_to frequents_path, :class => "link-next-page" do %>
+							<%= link_to frequents_path, :class => "link-next-page", :data => { :ajax => 'false' } do %>
 								<div class="link-prev-colab">
 									<%= image_tag "previous.png", :alt => "Anterior", :style => "width: 10px; height: 20px;" %>
 								</div>

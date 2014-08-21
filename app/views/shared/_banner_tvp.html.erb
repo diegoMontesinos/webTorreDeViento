@@ -5,28 +5,9 @@
 	</div>
 
 	<div id="languages">
-		<%= link_to "Español", :locale=>"es" %> / <%= link_to "English", :locale=>"en" %>
-	</div>
-
-	<script type="text/javascript">
-		$(function() {
-			$("#logo-banner-tvp").hover(function() {
-				$("#logo-01").hide();
-				$("#logo-02").show();
-			}, function() {
-				$("#logo-02").hide();
-				$("#logo-01").show();
-			});
-		});
-	</script>
-<% else %>
-	<div id="logo-banner-tvp">
-		<%= image_tag "01-LOGO.png", :id => "logo-01", :style => "width: 100%; height: auto;" %>
-		<%= image_tag "02-LOGO.png", :id => "logo-02", :style => "width: 100%; height: auto; display: none;" %>
-	</div>
-
-	<div id="languages">
-		<%= link_to "Español", :locale=>"es" %> / <%= link_to "English", :locale=>"en" %>
+		<div class="language-link"><%= link_to "", :locale=> "es" %> Español</div>
+		<div style="margin-left: 4px; margin-right: 4px;">/</div>
+		<div class="language-link"><%= link_to "English", :locale=> "en" %> English</div>
 	</div>
 
 	<script type="text/javascript">
@@ -40,8 +21,49 @@
 			});
 
 			if($("html").hasClass("ui-mobile")) {
-				$("#languages a").on("click", function() {
-					$(location).attr("href", $(this).attr("href"));
+				$(".language-link").on("tap", function() {
+					var a = $(this).find("a");
+					$(location).attr("href", $(a).attr("href"));
+				});
+			} else {
+				$(".language-link").on("click", function() {
+					var a = $(this).find("a");
+					$(location).attr("href", $(a).attr("href"));
+				});
+			}
+		});
+	</script>
+<% else %>
+	<div id="logo-banner-tvp">
+		<%= image_tag "01-LOGO.png", :id => "logo-01", :style => "width: 100%; height: auto;" %>
+		<%= image_tag "02-LOGO.png", :id => "logo-02", :style => "width: 100%; height: auto; display: none;" %>
+	</div>
+
+	<div id="languages">
+		<div class="language-link"><%= link_to "", :locale=> "es" %> Español</div>
+		<div style="margin-left: 4px; margin-right: 4px;">/</div>
+		<div class="language-link"><%= link_to "English", :locale=> "en" %> English</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#logo-banner-tvp").hover(function() {
+				$("#logo-01").hide();
+				$("#logo-02").show();
+			}, function() {
+				$("#logo-02").hide();
+				$("#logo-01").show();
+			});
+
+			if($("html").hasClass("ui-mobile")) {
+				$(".language-link").on("tap", function() {
+					var a = $(this).find("a");
+					$(location).attr("href", $(a).attr("href"));
+				});
+			} else {
+				$(".language-link").on("click", function() {
+					var a = $(this).find("a");
+					$(location).attr("href", $(a).attr("href"));
 				});
 			}
 		});

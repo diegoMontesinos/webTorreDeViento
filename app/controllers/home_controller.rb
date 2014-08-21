@@ -4,37 +4,77 @@ class HomeController < ApplicationController
 
   # GET
   def index
+    # Carousel aleatorio
   	carousels = HomeCarousel.all
   	@carousel = carousels[Random.rand(carousels.length)]
 
-    @home_news = [nil, nil, nil, nil]
+    # Home news
+    home_news = HomeNew.all.order('home_news.created_at DESC')
+    count = HomeNew.count
+    if count != 4
 
-    # Noticia1
-    news_place = New.where(home: 1)
-    if !news_place.empty?
-      @home_news[0] = news_place.first
-    end
-    # Noticia2
-    news_place = New.where(home: 2)
-    if !news_place.empty?
-      @home_news[1] = news_place.first
-    end
-    # Noticia3
-    news_place = New.where(home: 3)
-    if !news_place.empty?
-      @home_news[2] = news_place.first
-    end
-    # Noticia1
-    news_place = New.where(home: 4)
-    if !news_place.empty?
-      @home_news[3] = news_place.first
+      # Corrigiendo el numero
+      if(count > 4)
+        dif = count - 4
+        i = 0
+        dif.times do
+          @home_news[i].destroy
+        end
+      end
+
+      if(count < 4)
+        dif = 4 - count
+        dif.times do
+          home_new = HomeNew.new
+          home_new.save
+        end
+      end
+
+      home_news = HomeNew.all.order('home_news.created_at DESC')
     end
 
+    # Tomamos las noticias en orden
+    @home_new_1 = home_news[0]
+    @home_new_2 = home_news[1]
+    @home_new_3 = home_news[2]
+    @home_new_4 = home_news[3]
   end
 
   # GET
   def show_carousel
+    # Carousel
     @carousel = HomeCarousel.find(params[:id])
+
+    # Home news
+    home_news = HomeNew.all.order('home_news.created_at DESC')
+    count = HomeNew.count
+    if count != 4
+
+      # Corrigiendo el numero
+      if(count > 4)
+        dif = count - 4
+        i = 0
+        dif.times do
+          @home_news[i].destroy
+        end
+      end
+
+      if(count < 4)
+        dif = 4 - count
+        dif.times do
+          home_new = HomeNew.new
+          home_new.save
+        end
+      end
+
+      home_news = HomeNew.all.order('home_news.created_at DESC')
+    end
+
+    # Tomamos las noticias en orden
+    @home_new_1 = home_news[0]
+    @home_new_2 = home_news[1]
+    @home_new_3 = home_news[2]
+    @home_new_4 = home_news[3]
 
     render template: "home/index"
   end

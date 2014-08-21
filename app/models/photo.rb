@@ -25,6 +25,13 @@ class Photo < ActiveRecord::Base
 
 			file_folder.display = photos[random_index].id
 			file_folder.save
+
+			# si es display de obra
+			work = file_folder.holdable
+			if work.display == self.id
+				work.display = photos[random_index].id
+				work.save
+			end
 		end
 
 		carousel_elements = CarouselElement.where(photo: self.id)

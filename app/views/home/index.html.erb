@@ -81,67 +81,67 @@
 		<!-- NOTICIAS -->
 		<div id="news-home-container">
 			
-			<!-- NOTICIA 1 -->
-			<div id="home-news-1" class="home-news" style="width: 24.875%;">
-				<% if !@home_news[0].nil? %>
-					<%= image_tag @home_news[0].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
+			<!-- 1 -->
+			<div id="home-news-1" class="home-news" style="width: 24.875%; min-width: 199px;">
+				<% if @home_new_1.new.present? %>
+					<%= image_tag @home_new_1.new.thumbnail.url(:display2), :class => "home-news-img", :style => "width: 100%; height: 100%;" %>
 
-					<div class="news-link" url-new="<%= news_show_path(@home_news[0].id) %>">
-						<div style="">
-							<%= @home_news[0].link.html_safe %>
+					<%= link_to news_show_path(@home_new_1.new.id), :data => { :ajax => 'false' } do %>
+						<div class="news-link">
+							<%= image_tag @home_new_1.img_link.url(:display), :style => "width: 100%; height: 100%;" %>
 						</div>
-					</div>
-
+					<% end %>
 				<% end %>
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; min-width: 2px; height: 100%; background: #FFF;"></div>
 
-			<!-- NOTICIA 2 -->
-			<div id="home-news-2" class="home-news" style="width: 24.75%;">
-				<% if !@home_news[1].nil? %>
-					<%= image_tag @home_news[1].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
+			<!-- 2 -->
+			<div id="home-news-2" class="home-news" style="width: 24.75%; min-width: 198px;">
+				<% if @home_new_2.new.present? %>
+					<%= image_tag @home_new_2.new.thumbnail.url(:display2), :class => "home-news-img", :style => "width: 100%; height: 100%;" %>
 
-					<div class="news-link" url-new="<%= news_show_path(@home_news[1].id) %>">
-						<div style="">
-							<%= @home_news[1].link.html_safe %>
+					<%= link_to news_show_path(@home_new_2.new.id), :data => { :ajax => 'false' } do %>
+						<div class="news-link">
+							<%= image_tag @home_new_2.img_link.url(:display), :style => "width: 100%; height: 100%;" %>
 						</div>
-					</div>
+					<% end %>
 				<% end %>
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; min-width: 2px; height: 100%; background: #FFF;"></div>
 
-			<!-- NOTICIA 3 -->
-			<div id="home-news-3" class="home-news" style="width: 24.75%;">
-				<% if !@home_news[2].nil? %>
-					<%= image_tag @home_news[2].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
+			<!-- 3 -->
+			<div id="home-news-3" class="home-news" style="width: 24.75%; min-width: 198px;">
+				<% if @home_new_3.new.present? %>
+					<%= image_tag @home_new_3.new.thumbnail.url(:display2), :class => "home-news-img", :style => "width: 100%; height: 100%;" %>
 
-					<div class="news-link" url-new="<%= news_show_path(@home_news[2].id) %>">
-						<div style=""> 
-							<%= @home_news[2].link.html_safe %>
+					<%= link_to news_show_path(@home_new_3.new.id), :data => { :ajax => 'false' } do %>
+						<div class="news-link">
+							<%= image_tag @home_new_3.img_link.url(:display), :style => "width: 100%; height: 100%;" %>
 						</div>
-					</div>
+					<% end %>
 				<% end %>
 			</div>
 
 			<!-- SEPARATOR -->
-			<div style="position: relative; float: left; width: 0.25%; height: 100%; background: #FFF;"></div>
+			<div style="position: relative; float: left; width: 0.25%; min-width: 2px; height: 100%; background: #FFF;"></div>
 
-			<!-- NOTICIA 4 -->
-			<div id="home-news-4" class="home-news" style="width: 24.875%;">
-				<% if !@home_news[3].nil? %>
-					<%= image_tag @home_news[3].thumbnail.url(:display2), :style => "width: 100%; height: 100%;" %>
+			<!-- 4 -->
+			<div id="home-news-4" class="home-news" style="width: 24.875%; min-width: 199px;">
+				<% if @home_new_4.new.present? %>
+					<%= image_tag @home_new_4.new.thumbnail.url(:display2), :class => "home-news-img", :style => "width: 100%; height: 100%;" %>
 
-					<div class="news-link" url-new="<%= news_show_path(@home_news[3].id) %>">
-						<div>
-							<%= @home_news[3].link.html_safe %>
+					<%= link_to news_show_path(@home_new_4.new.id), :data => { :ajax => 'false' } do %>
+						<div class="news-link">
+							<%= image_tag @home_new_4.img_link.url(:display), :style => "width: 100%; height: 100%;" %>
 						</div>
-					</div>
+					<% end %>
 				<% end %>
 			</div>
+
 		</div>
 
 		<!-- LEGALES -->
@@ -199,7 +199,11 @@
 		});
 
 		// Es un dispositivo movil
-		if($("html").hasClass("ui-mobile")) {
+		if($("html").hasClass("ui-mobile") || detectMob()) {
+			if(!$("html").hasClass("ui-mobile")) {
+				var jqueryMobilePath = "<%= asset_path 'javascripts/jquery.mobile-1.4.3.js' %>";
+				$("head").append("<script type='text/javascript' src='" + jqueryMobilePath + "'><\/script>");
+			}
 
 			// Quitamos las flechas
 			$("#galeria-prev").remove();
@@ -295,7 +299,7 @@
 		}
 
 		// Efectos de las noticias
-		var newsitems = $('.home-news').find("img");
+		var newsitems = $('.home-news').find(".home-news-img");
 		for (var i = 0; i < newsitems.length; i++) {
 			$(newsitems[i]).hover(function() {
 				for (var j = 0; j < newsitems.length; j++) {

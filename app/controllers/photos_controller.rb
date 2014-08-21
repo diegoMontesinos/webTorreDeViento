@@ -13,11 +13,15 @@ class PhotosController < ApplicationController
 	# POST
 	def destroy
 		photo = Photo.find(params[:id])
+		file_folder = photo.file_folder
 		idPhoto = photo.id
-		Photo.destroy(params[:id])
 
-		respond_to do |format|
-			format.json { render json: idPhoto }
+		if file_folder.photos.count > 1
+			Photo.destroy(params[:id])
+
+			respond_to do |format|
+				format.json { render json: idPhoto }
+			end
 		end
 	end
 
