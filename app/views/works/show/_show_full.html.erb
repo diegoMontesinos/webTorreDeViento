@@ -27,10 +27,17 @@
 				"width" : "96.8%"
 			});
 
+			var h_ = $(".work-info-text-full .jspPane").height();
 			correctLineHeight($(".work-info-text-full")[0]);
-			
+			var h = $(".work-info-text-full .jspPane").height();
+
+			var diff = 0;
+			if((h_ - h) > 0) {
+				diff = (h_ - h) / 20.0;
+			}
+
 			$(".work-info-text-full .jspPane").css({
-				"height" : ($(".work-info-text-full .jspPane").height()) + 'px'
+				"height" : (h + diff) + 'px'
 			});
 		}).jScrollPane({
 			autoReinitialise: true,

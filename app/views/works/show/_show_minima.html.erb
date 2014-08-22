@@ -27,10 +27,17 @@
 				"width" : "96.8%"
 			});
 
+			var h_ = $(".work-info-text-minima .jspPane").height();
 			correctLineHeight($(".work-info-text-minima")[0]);
+			var h = $(".work-info-text-minima .jspPane").height();
 
-			$(".work-info-text-mediana .jspPane").css({
-				"height" : ($(".work-info-text-mediana .jspPane").height()) + 'px'
+			var diff = 0;
+			if((h_ - h) > 0) {
+				diff = (h_ - h) / 20.0;
+			}
+
+			$(".work-info-text-minima .jspPane").css({
+				"height" : (h + diff) + 'px'
 			});
 		}).jScrollPane({
 			autoReinitialise: true,

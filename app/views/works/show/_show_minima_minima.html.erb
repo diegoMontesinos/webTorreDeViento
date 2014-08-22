@@ -28,9 +28,15 @@
 			});
 
 			correctLineHeight($(".work-info-text-minima-minima")[0]);
+			var h = $(".work-info-text-minima-minima .jspPane").height();
+
+			var diff = 0;
+			if((h_ - h) > 0) {
+				diff = (h_ - h) / 20.0;
+			}
 
 			$(".work-info-text-minima-minima .jspPane").css({
-				"height" : ($(".work-info-text-minima-minima .jspPane").height()) + 'px'
+				"height" : (h + diff) + 'px'
 			});
 		}).jScrollPane({
 			autoReinitialise: true,
