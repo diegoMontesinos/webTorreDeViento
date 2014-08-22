@@ -31,7 +31,11 @@
 			var h_ = $(".work-info-text-mediana .jspPane").height();
 			correctLineHeight($(".work-info-text-mediana")[0]);
 			var h = $(".work-info-text-mediana .jspPane").height();
-			var diff = (h_ - h) / 16.0;
+
+			var diff = 0;
+			if((h_ - h) > 0) {
+				diff = (h_ - h) / 20.0;
+			}
 
 			$(".work-info-text-mediana .jspPane").css({
 				"height" : (h + diff) + 'px'
