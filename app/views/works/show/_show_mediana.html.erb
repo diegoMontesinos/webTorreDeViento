@@ -28,10 +28,13 @@
 				"margin-left" : "6.5%"
 			});
 
+			var h_ = $(".work-info-text-mediana .jspPane").height();
 			correctLineHeight($(".work-info-text-mediana")[0]);
 
+			console.log(h_);
+
 			$(".work-info-text-mediana .jspPane").css({
-				"height" : ($(".work-info-text-mediana").height()) + 'px'
+				"height" : h_ + 'px'
 			});
 		}).jScrollPane({
 			autoReinitialise: true,
