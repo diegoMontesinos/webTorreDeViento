@@ -28,6 +28,10 @@
 			});
 
 			correctLineHeight($(".work-info-text-full")[0]);
+			
+			$(".work-info-text-full .jspPane").css({
+				"height" : ($(".work-info-text-full .jspPane").height()) + 'px'
+			});
 		}).jScrollPane({
 			autoReinitialise: true,
 			hideFocus: true

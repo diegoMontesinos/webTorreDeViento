@@ -28,6 +28,10 @@
 			});
 
 			correctLineHeight($(".work-info-text-minima-minima")[0]);
+
+			$(".work-info-text-minima-minima .jspPane").css({
+				"height" : ($(".work-info-text-minima-minima .jspPane").height()) + 'px'
+			});
 		}).jScrollPane({
 			autoReinitialise: true,
 			hideFocus: true

@@ -156,7 +156,7 @@
 <!-- SCRIPT PARA EL CAROUSEL -->
 <script type="text/javascript">
 	
-	var mobile = false;
+	var mobile = detectMob();
 
 	function initCarousels() {
 
@@ -252,8 +252,6 @@
 
 	$(document).ready(function() {
 
-		mobile = detectMob();
-
 		// Se corrigen las imagenes
 		var totalImgs = $(".carousel-elem").length;
 		var counter = 0;
@@ -278,15 +276,6 @@
 					img.css({
 						marginLeft: '-' + x_ + 'px',
 						height: '100%'
-					});
-
-					// Esperamos a que se cargen todos las imagenes para
-					// iniciar caruseles
-					$(img).on("load", function() {
-						counter++;
-						if(counter >= totalImgs) {
-							initCarousels();
-						}
 					});
 				}
 			}
@@ -322,6 +311,8 @@
 				}
 			});
 		};
+
+		initCarousels();
 
 	});
 </script>
