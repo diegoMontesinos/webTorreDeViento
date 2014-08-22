@@ -30,14 +30,13 @@
 
 			var h_ = $(".work-info-text-mediana .jspPane").height();
 			correctLineHeight($(".work-info-text-mediana")[0]);
-
-			/*$(".work-info-text-mediana .jspPane").css({
-				"height" : h_ + 'px'
-			});*/
+			var h = $(".work-info-text-mediana .jspPane").height();
+			var diff = (h_ - h) / 4.0;
 
 			$(".work-info-text-mediana .jspPane").css({
-				"height" : ($(".work-info-text-mediana .jspPane").height()) + 'px'
+				"height" : (h + diff) + 'px'
 			});
+			
 		}).jScrollPane({
 			autoReinitialise: true,
 			hideFocus: true
