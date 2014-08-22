@@ -31,8 +31,12 @@
 			var h_ = $(".work-info-text-mediana .jspPane").height();
 			correctLineHeight($(".work-info-text-mediana")[0]);
 
-			$(".work-info-text-mediana .jspPane").css({
+			/*$(".work-info-text-mediana .jspPane").css({
 				"height" : h_ + 'px'
+			});*/
+
+			$(".work-info-text-mediana .jspPane").css({
+				"height" : ($(".work-info-text-mediana .jspPane").height()) + 'px'
 			});
 		}).jScrollPane({
 			autoReinitialise: true,
