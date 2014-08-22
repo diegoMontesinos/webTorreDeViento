@@ -155,6 +155,8 @@
 
 <!-- SCRIPT PARA EL CAROUSEL -->
 <script type="text/javascript">
+	
+	var mobile = false;
 
 	function initCarousels() {
 
@@ -199,11 +201,7 @@
 		});
 
 		// Es un dispositivo movil
-		if($("html").hasClass("ui-mobile") || detectMob()) {
-			if(!$("html").hasClass("ui-mobile")) {
-				var jqueryMobilePath = "<%= asset_path 'javascripts/jquery.mobile-1.4.3.js' %>";
-				$("head").append("<script type='text/javascript' src='" + jqueryMobilePath + "'><\/script>");
-			}
+		if(mobile) {
 
 			// Quitamos las flechas
 			$("#galeria-prev").remove();
@@ -254,6 +252,8 @@
 
 	$(document).ready(function() {
 
+		mobile = detectMob();
+
 		// Se corrigen las imagenes
 		var totalImgs = $(".carousel-elem").length;
 		var counter = 0;
@@ -270,9 +270,14 @@
 						w: parseFloat(dataAttr[2]),
 						h: parseFloat(dataAttr[3]),
 					}
+					
+					var h_ = (data.h * 320) / 400;
+					var w_ = (h_ * data.w) / data.h;
+					var x_ = (w_ * data.x) / data.w;
 
 					img.css({
-						marginLeft: '-' +  data.x + 'px'
+						marginLeft: '-' + x_ + 'px',
+						height: '100%'
 					});
 
 					// Esperamos a que se cargen todos las imagenes para
@@ -280,7 +285,7 @@
 					$(img).on("load", function() {
 						counter++;
 						if(counter >= totalImgs) {
-							initCarousels();
+							//initCarousels();
 						}
 					});
 				}

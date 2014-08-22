@@ -74,7 +74,11 @@
 		var heightTitle = 0;
 		if(htmlTitle.lastIndexOf("nbsp") != -1) {
 			var lastChild = $("#work-info-title-content-minima").children().last();
-			heightTitle = lastChild.position().top + 13 + 20;
+			if(lastChild.position().top == 0) {
+				heightTitle = $("#work-info-title-content-minima").height() + 20;
+			} else {
+				heightTitle = lastChild.position().top + 13 + 20;
+			}
 		} else {
 			heightTitle = $("#work-info-title-content-minima").height() + 20;
 		}

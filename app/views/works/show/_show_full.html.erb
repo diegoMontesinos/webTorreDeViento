@@ -154,7 +154,11 @@
 		var heightTitle = 0;
 		if(htmlTitle.lastIndexOf("nbsp") != -1) {
 			var lastChild = $("#work-info-title-content-full").children().last();
-			heightTitle = lastChild.position().top + 20;
+			if(lastChild.position().top == 0) {
+				heightTitle = $("#work-info-title-content-full").height() + 18;
+			} else {
+				heightTitle = lastChild.position().top + 20;
+			}
 		} else {
 			heightTitle = $("#work-info-title-content-full").height() + 18;
 		}

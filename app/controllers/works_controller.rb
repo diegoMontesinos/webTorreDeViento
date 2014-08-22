@@ -74,8 +74,11 @@ class WorksController < ApplicationController
 				filefolder_params = params[:work][:file_folders_attributes]
 
 				filefolder_params.each do |key, value|
+
 					name_filefolder = filefolder_params[key.to_s][:name_folder]
+					puts "name_FOLDER::::: " + name_filefolder.to_s
 					saved_folders = FileFolder.where(holdable_id: @work.id)
+
 					saved_folders.reject { |folder| folder.name_folder_in_es == name_filefolder }
 					currFolder = saved_folders.first
 
@@ -446,6 +449,6 @@ class WorksController < ApplicationController
 		def work_params
 			params.require(:work).permit(:type_work, :title, :titles_text, :titles_text_in_es, :titles_text_in_en, :titles_grid, :titles_grid_in_es, :titles_grid_in_en,
 										 :credits, :credits_in_es, :credits_in_en, :synopsis, :synopsis_in_es, :synopsis_in_en, :notes, :notes_in_es, :notes_in_en, :program,
-										 :program_in_es, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder, :name_folder_in_en])
+										 :program_in_es, :program_in_en, :video, :videothumb, file_folders_attributes: [:name_folder, :name_folder_in_en, :name_folder_in_es])
 		end
 end
