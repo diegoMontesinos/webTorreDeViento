@@ -5,6 +5,7 @@ class AdminController < ApplicationController
 
 	# GET
 	def show
+		redirect_to comming_soon_path
 	end
 
 	### ADMIN OBRAS
